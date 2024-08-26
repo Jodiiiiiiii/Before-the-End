@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains data to describe the position and dimensions of a panel.
+/// Referenced by other scripts that need position data of other panels.
+/// </summary>
 public class PanelStats : MonoBehaviour
 {
     [SerializeField, Tooltip("Whether this panel is the immovable main panel")] private bool _isMainPanel = false;

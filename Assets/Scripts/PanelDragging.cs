@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Handles inputs related to clicking and dragging panels to move them.
+/// Accounts for constraints including clamping wihtin parent panel and rounding to grid units
+/// </summary>
 public class PanelDragging : MonoBehaviour
 {
     // constants
