@@ -65,6 +65,7 @@ public class PanelDragging : MonoBehaviour
         }
         else
         {
+            // lock in place until nav bar is clicked again
             _isDragging = false;
         }
     }
