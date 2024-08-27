@@ -8,8 +8,10 @@ using UnityEngine;
 /// </summary>
 public class PanelStats : MonoBehaviour
 {
+    [Header("Descriptors")]
     [SerializeField, Tooltip("Whether this panel is the immovable main panel")] private bool _isMainPanel = false;
 
+    [Header("Dimensions")]
     [SerializeField, Tooltip("# of tiles of width of the panel")] public float Width;
     [SerializeField, Tooltip("# of tiles of height of the panel (not including 1 unit dragging bar")] public float Height;
 
