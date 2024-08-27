@@ -5,24 +5,31 @@ using UnityEngine.Tilemaps;
 
 /// <summary>
 /// Handles inputs related to clicking and dragging panels to move them.
-/// Accounts for constraints including clamping wihtin parent panel and rounding to grid units
+/// Accounts for constraints including clamping wihtin parent panel and rounding to grid units.
+/// Also handles inputs when relevant for sibling re-ordering buttons.
 /// </summary>
 public class PanelDragging : MonoBehaviour
 {
     // constants
     private const int MOUSE_LEFT = 0; // input constant
 
+    // Panel data
     private PanelStats _parentPanel;
     private PanelStats _currPanel;
-
+    // dragging state
     private bool _isDragging = false;
     private Vector2 _dragOffset = Vector2.zero;
+    // sibling ordering
+    private SiblingOrderHandler _orderHandler = null; // stays null unless present
 
     // Start is called before the first frame update
     void Start()
     {
         _parentPanel = transform.parent.gameObject.GetComponent<PanelStats>();
         _currPanel = GetComponent<PanelStats>();
+
+        if (TryGetComponent(out SiblingOrderHandler orderHandler))
+            _orderHandler = orderHandler;
     }
 
     // Update is called once per frame
@@ -35,13 +42,33 @@ public class PanelDragging : MonoBehaviour
             Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             mousePos = Camera.main.ScreenToWorldPoint(mousePos); // convert to world space pos
 
-            // determine if click was in bounds of nav bar
+            // vars for determining mouse in bounds
             float xDiff = transform.position.x - mousePos.x;
             float yDiff = transform.position.y - mousePos.y;
-            if (xDiff <= 0f && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 1f)
+
+            if(_orderHandler is null) // no siblings - no ordering button
             {
-                _dragOffset = new Vector2(xDiff, yDiff);
-                _isDragging = true;
+                // dragging
+                if (xDiff <= 0f && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 1f)
+                {
+                    _dragOffset = new Vector2(xDiff, yDiff);
+                    _isDragging = true;
+                }
+            }
+            else // has siblings - and ordering button
+            {
+                // dragging
+                if (xDiff <= 0f && xDiff >= -_currPanel.Width + 1 && yDiff >= 0f && yDiff <= 1f)
+                {
+                    _dragOffset = new Vector2(xDiff, yDiff);
+                    _isDragging = true;
+                }
+                // order up relative to siblings
+                else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f)
+                    _orderHandler.Lower();
+                // order down relative to siblings
+                else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 0.5f)
+                    _orderHandler.Raise();
             }
         }
 

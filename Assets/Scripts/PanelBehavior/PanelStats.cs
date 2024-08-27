@@ -12,8 +12,8 @@ public class PanelStats : MonoBehaviour
     [SerializeField, Tooltip("Whether this panel is the immovable main panel")] private bool _isMainPanel = false;
 
     [Header("Dimensions")]
-    [SerializeField, Tooltip("# of tiles of width of the panel")] public float Width;
-    [SerializeField, Tooltip("# of tiles of height of the panel (not including 1 unit dragging bar")] public float Height;
+    [SerializeField, Tooltip("# of tiles of width of the panel")] public int Width;
+    [SerializeField, Tooltip("# of tiles of height of the panel (not including 1 unit dragging bar")] public int Height;
 
     public int OriginX { get; private set; }
     public int OriginY { get; private set; }
