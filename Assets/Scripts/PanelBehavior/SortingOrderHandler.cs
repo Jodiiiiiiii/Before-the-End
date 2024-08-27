@@ -19,6 +19,8 @@ public class SortingOrderHandler : MonoBehaviour
 
     private List<SortingOrderHandler> _subPanels = new List<SortingOrderHandler>();
 
+    private bool _instantiated = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,15 +68,19 @@ public class SortingOrderHandler : MonoBehaviour
         // Missing PanelObjects container
         if (_objectsSortingGroup is null)
             throw new Exception("Panel must contain PanelObjects container object. Are you maybe missing the PanelObjects tag");
-
-        // ensure initialization of panel orders
-        if (transform.parent is null) // main panel (root) only
-            SetPanelOrder(0); // starts recursive setPanelOrder call through subpanel hierarchy
     }
-
     // Update is called once per frame
     void Update()
     {
+        // Only called during first frame of Update
+        // Required to ensure that panel tree hierarchy is only traversed once all panels have gone through the Start method
+        if(!_instantiated)
+        {
+            if (transform.parent is null) // main panel (root) only
+                SetPanelOrder(0); // starts recursive setPanelOrder call through subpanel hierarchy
+            _instantiated = true;
+        }
+       
         // update actual sorting orders based on calculated PanelOrders
         // also ensures proper ground->border->objects layering within each panel
         _groundTilemap.sortingOrder = 3 * PanelOrder;
