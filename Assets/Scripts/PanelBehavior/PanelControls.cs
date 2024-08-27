@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 /// Accounts for constraints including clamping wihtin parent panel and rounding to grid units.
 /// Also handles inputs when relevant for sibling re-ordering buttons.
 /// </summary>
-public class PanelDragging : MonoBehaviour
+public class PanelControls : MonoBehaviour
 {
     // constants
     private const int MOUSE_LEFT = 0; // input constant
