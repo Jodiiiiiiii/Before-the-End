@@ -133,20 +133,23 @@ public class SortingOrderHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts a recursive call upwards to the root in order to start a depth-first traversal to update panel orders.
+    /// Starts a depth-first traversal to update panel orders.
     /// Can be called from any node in the panel tree.
     /// </summary>
     public void UpdatePanelOrders()
     {
-        if (transform.parent is null)
-            SetPanelOrder(0);
+        // Retrieve MainPanel to start recursive panel order update
+        GameObject[] mainPanel = GameObject.FindGameObjectsWithTag("MainPanel");
+        if (mainPanel.Length == 0)
+            throw new Exception("No MainPanel found in scene. Either add one or do not use VisibilityCheck");
+        if (mainPanel.Length > 1)
+            throw new Exception("Only one instance of MainPanel is permitted in a level scene");
+
+        // Start recursive panel order update
+        if (mainPanel[0].TryGetComponent(out SortingOrderHandler sortHandler))
+            sortHandler.SetPanelOrder(0);
         else
-        {
-            if (transform.parent.TryGetComponent(out SortingOrderHandler sortHandler))
-                sortHandler.UpdatePanelOrders();
-            else
-                throw new Exception("ALL panels MUST have a SortingOrderHandler");
-        }
+            throw new Exception("Main panels MUST have a SortingOrderHandler");
     }
 
     /// <summary>
