@@ -40,7 +40,7 @@ public class PanelControls : MonoBehaviour
             // Mouse position calculations
             Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             mousePos = Camera.main.ScreenToWorldPoint(mousePos); // convert to world space pos
-
+            
             // vars for determining mouse in bounds
             float xDiff = transform.position.x - mousePos.x;
             float yDiff = transform.position.y - mousePos.y;
@@ -48,7 +48,8 @@ public class PanelControls : MonoBehaviour
             if(_orderHandler is null) // no siblings - no ordering button
             {
                 // dragging
-                if (xDiff <= 0f && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 1f)
+                if (xDiff <= 0f && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 1f 
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
                 {
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
@@ -56,17 +57,20 @@ public class PanelControls : MonoBehaviour
             }
             else // has siblings - and ordering button
             {
-                // dragging
-                if (xDiff <= 0f && xDiff >= -_currPanel.Width + 1 && yDiff >= 0f && yDiff <= 1f)
+                // start dragging
+                if (xDiff <= 0f && xDiff >= -_currPanel.Width + 1 && yDiff >= 0f && yDiff <= 1f
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
                 {
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
                 }
                 // order up relative to siblings
-                else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f)
+                else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
                     _orderHandler.Lower();
                 // order down relative to siblings
-                else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 0.5f)
+                else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 0.5f
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
                     _orderHandler.Raise();
             }
         }
@@ -97,6 +101,8 @@ public class PanelControls : MonoBehaviour
         {
             // lock in place until nav bar is clicked again
             _isDragging = false;
+
+            // call to update stack frames can be called here
         }
     }
 }

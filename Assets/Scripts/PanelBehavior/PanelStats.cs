@@ -28,4 +28,21 @@ public class PanelStats : MonoBehaviour
         // shift origin down one if it has a dragging bar
         if (!_isMainPanel) OriginY--;
     }
+
+    /// <summary>
+    /// Returns whether position (x,y) is contained within the current panel (including the controls bar).
+    /// Useful in visibility detection algorithm.
+    /// </summary>
+    public bool IsPosInBounds(int x, int y)
+    {
+        // left/right of panel bounds
+        if (x < OriginX || x >= OriginX + Width)
+            return false;
+        // above/below panel bounds
+        if (y < OriginY || (_isMainPanel ? (y >= OriginY + Height) : (y >= OriginY + Height + 1)))
+            return false;
+        
+        // therefore, must be within bounds
+        return true;
+    }
 }

@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 /// <summary>
 /// Includes function for recursive depth-first traversal of panel hierarchy, which determines ordering of panels.
 /// Sorting orders of tilemaps and panel objects are updated accordingly based on determined panel order.
+/// Also handles recursive checks for visibility, based on grid position and panel order.
 /// </summary>
 public class SortingOrderHandler : MonoBehaviour
 {
@@ -145,6 +146,69 @@ public class SortingOrderHandler : MonoBehaviour
                 sortHandler.UpdatePanelOrders();
             else
                 throw new Exception("ALL panels MUST have a SortingOrderHandler");
+        }
+    }
+
+    /// <summary>
+    /// Given a grid position, and an index corresponding to a particular panel's PanelOrder, 
+    /// recursively determines whether that panel is visible (not obstructed by another panel) at that grid position.
+    /// </summary>
+    public bool IsGoalVisible(int goalPanelOrder, int x, int y)
+    {
+        // all remaining cases involve a panel with an order layered in FRONT of the goal panel (must check positions)
+        if (_subPanels.Count == 0) // leaf node (no sub panels) - only place where true can be returned
+        {
+            // panel behind goal panel (or the goal is this leaf node panel)
+            if (goalPanelOrder >= PanelOrder)
+                return true;
+            else // panel layered in front of goal panel
+            {
+                if (TryGetComponent(out PanelStats panelStats))
+                    return !panelStats.IsPosInBounds(x, y); // goal not visible if this subpanel includes the pos
+                else
+                    throw new Exception("All panels MUST have a PanelStats component");
+            }
+        }
+        if (_subPanels.Count == 1) // one sub-panel
+        {
+            // goal panel is layered behind current panel
+            if(goalPanelOrder < PanelOrder)
+            {
+                if (TryGetComponent(out PanelStats panelStats))
+                {
+                    if (panelStats.IsPosInBounds(x, y)) 
+                        return false; // goal is obstructed so return
+                } 
+                else
+                    throw new Exception("All panels MUST have a PanelStats component");
+            }
+
+            // Visit sub-panel
+            return _subPanels[0].IsGoalVisible(goalPanelOrder, x, y);
+        }
+        else // multiple sub-panels
+        {
+            // goal panel is layered behind current panel
+            if (goalPanelOrder < PanelOrder)
+            {
+                if (TryGetComponent(out PanelStats panelStats))
+                {
+                    if (panelStats.IsPosInBounds(x, y)) 
+                        return false; // goal is obstructed so return
+                }
+                else
+                    throw new Exception("All panels MUST have a PanelStats component");
+            }
+
+            // visit all sub-panels
+            for (int i = 0; i < _subPanels.Count; i++)
+            {
+                if (!_subPanels[i].IsGoalVisible(goalPanelOrder, x, y))
+                    return false;
+            }
+
+            // If this was reached, then every subpanel already returned true from a leaf node
+            return true;
         }
     }
 }
