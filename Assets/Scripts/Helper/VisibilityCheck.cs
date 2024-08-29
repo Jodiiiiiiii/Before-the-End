@@ -9,7 +9,7 @@ using UnityEngine;
 public static class VisibilityCheck
 {
     /// <summary>
-    /// Indicates if input panel is visible at input (x, y) position
+    /// Indicates if input panel is visible at input (x, y) position.
     /// </summary>
     public static bool IsVisible(PanelControls panel, int x, int y)
     {
@@ -21,7 +21,7 @@ public static class VisibilityCheck
             throw new Exception("All panels MUST have a SortingOrderHandler component");
 
         // Start recursion
-        return StartRecursiveCheck(panelOrder, x, y);
+        return StartRecursiveCheck(panelOrder, x, y, false); // MUST include controls bar when doing PanelControls checks
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public static class VisibilityCheck
             throw new Exception("Player object MUST be a child of the 'Objects' object within a panel");
 
         // Start recursion
-        return StartRecursiveCheck(panelOrder, x, y);
+        return StartRecursiveCheck(panelOrder, x, y, true); // Player MUST exclude controls bar since player must treat that bar as an obstruction
     }
 
     //  Another function can be established here that takes a GameObject as input instead?,
@@ -49,7 +49,7 @@ public static class VisibilityCheck
     /// <summary>
     /// Handles retrieving MainPanel object and starting Recursive visibility check.
     /// </summary>
-    private static bool StartRecursiveCheck(int panelOrder, int x, int y)
+    private static bool StartRecursiveCheck(int panelOrder, int x, int y, bool excludeControlsPanel)
     {
         // Retrieve MainPanel to start recursive visibility check
         GameObject[] mainPanelObjects = GameObject.FindGameObjectsWithTag("MainPanel");
@@ -60,7 +60,7 @@ public static class VisibilityCheck
 
         // Start recursive visibility check from main panel
         if (mainPanelObjects[0].TryGetComponent(out SortingOrderHandler mainSortHandler))
-            return mainSortHandler.IsGoalVisibleAndContained(panelOrder, x, y);
+            return mainSortHandler.IsGoalVisibleAndContained(panelOrder, x, y, excludeControlsPanel);
         else
             throw new Exception("MainPanel object must have SortingOrderHandler component");
     }
