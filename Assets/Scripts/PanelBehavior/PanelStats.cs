@@ -23,10 +23,11 @@ public class PanelStats : MonoBehaviour
     {
         // update position variable in case it just changed
         OriginX = (int)transform.position.x;
-        OriginY = (int)(transform.position.y - Height); // shift stored origin to bottom left
+        // shift stored origin to bottom left grid unit
+        OriginY = (int)(transform.position.y - Height);
         
         // shift origin down one if it has a dragging bar
-        if (!_isMainPanel) OriginY--;
+        if (_isMainPanel) OriginY++;
     }
 
     /// <summary>

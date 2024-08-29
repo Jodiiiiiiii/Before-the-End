@@ -88,7 +88,7 @@ public class PanelControls : MonoBehaviour
             // Clamp to bounds of parent panel
             gridPos.x = Mathf.Clamp(gridPos.x, _parentPanel.OriginX, _parentPanel.OriginX + _parentPanel.Width - _currPanel.Width);
             // +1 to account for drag bar
-            gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height + 1, _parentPanel.OriginY + _parentPanel.Height); 
+            gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height, _parentPanel.OriginY + _parentPanel.Height - 1); 
 
             // Round to nearest int (nearest grid index)
             gridPos.x = Mathf.Round(gridPos.x);
