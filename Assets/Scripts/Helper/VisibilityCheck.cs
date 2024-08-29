@@ -60,7 +60,7 @@ public static class VisibilityCheck
 
         // Start recursive visibility check from main panel
         if (mainPanelObjects[0].TryGetComponent(out SortingOrderHandler mainSortHandler))
-            return mainSortHandler.IsGoalVisible(panelOrder, x, y);
+            return mainSortHandler.IsGoalVisibleAndContained(panelOrder, x, y);
         else
             throw new Exception("MainPanel object must have SortingOrderHandler component");
     }

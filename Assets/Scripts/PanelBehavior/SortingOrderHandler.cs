@@ -155,9 +155,21 @@ public class SortingOrderHandler : MonoBehaviour
     /// <summary>
     /// Given a grid position, and an index corresponding to a particular panel's PanelOrder, 
     /// recursively determines whether that panel is visible (not obstructed by another panel) at that grid position.
+    /// Also ensures that goal is actually contained in bounds of goal panel.
     /// </summary>
-    public bool IsGoalVisible(int goalPanelOrder, int x, int y)
+    public bool IsGoalVisibleAndContained(int goalPanelOrder, int x, int y)
     {
+        // Current panel IS goal panel
+        if(goalPanelOrder == PanelOrder)
+        {
+            // Ensure that the goal panel actually contains the grid position (x, y)
+            if (TryGetComponent(out PanelStats panelStats))
+            {
+                if (!panelStats.IsPosInBounds(x, y))
+                    return false;
+            }
+        }
+
         // all remaining cases involve a panel with an order layered in FRONT of the goal panel (must check positions)
         if (_subPanels.Count == 0) // leaf node (no sub panels) - only place where true can be returned
         {
@@ -187,7 +199,7 @@ public class SortingOrderHandler : MonoBehaviour
             }
 
             // Visit sub-panel
-            return _subPanels[0].IsGoalVisible(goalPanelOrder, x, y);
+            return _subPanels[0].IsGoalVisibleAndContained(goalPanelOrder, x, y);
         }
         else // multiple sub-panels
         {
@@ -206,7 +218,7 @@ public class SortingOrderHandler : MonoBehaviour
             // visit all sub-panels
             for (int i = 0; i < _subPanels.Count; i++)
             {
-                if (!_subPanels[i].IsGoalVisible(goalPanelOrder, x, y))
+                if (!_subPanels[i].IsGoalVisibleAndContained(goalPanelOrder, x, y))
                     return false;
             }
 
