@@ -157,6 +157,10 @@ public class SortingOrderHandler : MonoBehaviour
     /// recursively determines whether that panel is visible (not obstructed by another panel) at that grid position.
     /// Also ensures that goal is actually contained in bounds of goal panel.
     /// </summary>
+    /// <param name="excludeControlsBar">
+    /// If true, makes CONTAINMENT checks ignore controls bar. 
+    /// Obstruction checks will still ALWAYS include controls bar
+    /// </param>
     public bool IsGoalVisibleAndContained(int goalPanelOrder, int x, int y, bool excludeControlsBar)
     {
         // Current panel IS goal panel

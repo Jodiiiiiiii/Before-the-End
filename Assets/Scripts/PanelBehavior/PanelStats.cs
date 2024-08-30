@@ -27,7 +27,7 @@ public class PanelStats : MonoBehaviour
         OriginY = (int)(transform.position.y - Height);
         
         // shift origin down one if it has a dragging bar
-        if (_isMainPanel) OriginY++;
+        if (!_isMainPanel) OriginY--;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class PanelStats : MonoBehaviour
         if (x < OriginX || x >= OriginX + Width)
             return false;
         // above/below panel bounds
-        if (y < OriginY || ((_isMainPanel || excludeControlsBar) ? (y >= OriginY + Height) : (y >= OriginY + Height + 1)))
+        if (y < OriginY + 1 || ((_isMainPanel || excludeControlsBar) ? (y >= OriginY + Height + 1) : (y >= OriginY + Height + 2)))
             return false;
         
         // therefore, must be within bounds

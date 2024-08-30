@@ -49,7 +49,7 @@ public class PanelControls : MonoBehaviour
             {
                 // dragging
                 if (xDiff <= 0f && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 1f 
-                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.CeilToInt(mousePos.y))) // upper-left corner
                 {
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
@@ -59,18 +59,18 @@ public class PanelControls : MonoBehaviour
             {
                 // start dragging
                 if (xDiff <= 0f && xDiff >= -_currPanel.Width + 1 && yDiff >= 0f && yDiff <= 1f
-                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.CeilToInt(mousePos.y))) // upper-left corner
                 {
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
                 }
                 // order up relative to siblings
                 else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f
-                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.CeilToInt(mousePos.y))) // upper-left corner
                     _orderHandler.Lower();
                 // order down relative to siblings
                 else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 0.5f
-                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.FloorToInt(mousePos.y)))
+                    && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.CeilToInt(mousePos.y))) // upper-left corner
                     _orderHandler.Raise();
             }
         }
@@ -88,7 +88,7 @@ public class PanelControls : MonoBehaviour
             // Clamp to bounds of parent panel
             gridPos.x = Mathf.Clamp(gridPos.x, _parentPanel.OriginX, _parentPanel.OriginX + _parentPanel.Width - _currPanel.Width);
             // +1 to account for drag bar
-            gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height, _parentPanel.OriginY + _parentPanel.Height - 1); 
+            gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height + 1, _parentPanel.OriginY + _parentPanel.Height); 
 
             // Round to nearest int (nearest grid index)
             gridPos.x = Mathf.Round(gridPos.x);
