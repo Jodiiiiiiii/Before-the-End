@@ -61,29 +61,29 @@ public class PlayerController : MonoBehaviour
     private void TryMoveRight()
     {
         // Check right one unit for validity
-        if(CanMove(new Vector2Int(1, 0)))
-            _objMover.GridPos.x++;
+        if (CanMove(Vector2Int.right))
+            _objMover.Increment(Vector2Int.right);
     }
 
     private void TryMoveLeft()
     {
         // Check left one unit for validity
-        if(CanMove(new Vector2Int(-1, 0)))
-            _objMover.GridPos.x--;
+        if (CanMove(Vector2Int.left))
+            _objMover.Increment(Vector2Int.left);
     }
 
     private void TryMoveUp()
     {
         // Check up one unit for validity
-        if(CanMove(new Vector2Int(0, 1)))
-            _objMover.GridPos.y++;
+        if(CanMove(Vector2Int.up))
+            _objMover.Increment(Vector2Int.up);
     }
 
     private void TryMoveDown()
     {
         // Check down one unit for validity
-        if(CanMove(new Vector2Int(0, -1)))
-            _objMover.GridPos.y--;
+        if(CanMove(Vector2Int.down))
+            _objMover.Increment(Vector2Int.down);
     }
 
     /// <summary>
@@ -96,10 +96,11 @@ public class PlayerController : MonoBehaviour
         if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
             throw new Exception("Input of CanMove function MUST have only one non-zero value and it must be eiether -1 or 1.");
 
-        Vector2Int targetPos = _objMover.GridPos + moveDir;
+        Vector2Int currPos = _objMover.GetGlobalGridPos(); 
+        Vector2Int targetPos = currPos + moveDir;
 
         // Check for visibility of player at current position
-        if (!VisibilityCheck.IsVisible(this, _objMover.GridPos.x, _objMover.GridPos.y))
+        if (!VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
             return false;
 
         // Check for obstruction by higher-ordered panel
