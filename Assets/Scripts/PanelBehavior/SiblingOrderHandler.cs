@@ -56,10 +56,13 @@ public class SiblingOrderHandler : MonoBehaviour
 
     /// <summary>
     /// Increase order of current panel; decreasing order of siblings as necessary
-    /// Called within PanelDragging.cs which handles clicks
+    /// Called within PanelDragging.cs which handles clicks.
+    /// Also returns bool whether a raise change actually occurred.
     /// </summary>
-    public void Raise()
+    public bool Raise()
     {
+        bool wasRaised = false;
+
         // Ensure not already at topmost position
         if(SiblingOrder!=siblings.Count)
         {
@@ -68,6 +71,7 @@ public class SiblingOrderHandler : MonoBehaviour
             {
                 if (siblings[i].SiblingOrder==SiblingOrder+1)
                 {
+                    wasRaised = true;
                     siblings[i].SiblingOrder--;
                     SiblingOrder++;
                     break;
@@ -80,14 +84,19 @@ public class SiblingOrderHandler : MonoBehaviour
             sortHandler.UpdatePanelOrders();
         else
             throw new Exception("ALL panels MUST have a SortingOrderHandler");
+
+        return wasRaised;
     }
 
     /// <summary>
     /// Decrease order of current panel; increasing order of siblings as necessary
-    /// Called within PanelDragging.cs which handles clicks
+    /// Called within PanelDragging.cs which handles clicks.
+    /// Also returns bool whether a lower change actually occurred.
     /// </summary>
-    public void Lower()
+    public bool Lower()
     {
+        bool wasLowered = false;
+
         // Ensure not already at bottommost position
         if(SiblingOrder!=1)
         {
@@ -96,6 +105,7 @@ public class SiblingOrderHandler : MonoBehaviour
             {
                 if (siblings[i].SiblingOrder == SiblingOrder - 1)
                 {
+                    wasLowered = true;
                     siblings[i].SiblingOrder++;
                     SiblingOrder--;
                     break;
@@ -108,5 +118,7 @@ public class SiblingOrderHandler : MonoBehaviour
             sortHandler.UpdatePanelOrders();
         else
             throw new Exception("ALL panels MUST have a SortingOrderHandler");
+
+        return wasLowered;
     }
 }

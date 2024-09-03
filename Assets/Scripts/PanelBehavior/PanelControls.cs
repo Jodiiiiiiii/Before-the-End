@@ -70,11 +70,17 @@ public class PanelControls : MonoBehaviour
                 // order up relative to siblings
                 else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f
                     && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.CeilToInt(mousePos.y))) // upper-left corner
-                    _orderHandler.Lower();
+                {
+                    if(_orderHandler.Lower()) // re-ordering algorithm
+                        UndoHandler.SaveFrame(); // update UndoStack (if a change happened)
+                }
                 // order down relative to siblings
                 else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0f && yDiff <= 0.5f
                     && VisibilityCheck.IsVisible(this, Mathf.FloorToInt(mousePos.x), Mathf.CeilToInt(mousePos.y))) // upper-left corner
-                    _orderHandler.Raise();
+                {
+                    if(_orderHandler.Raise()) // re-ordering algorithm
+                        UndoHandler.SaveFrame(); // update UndoStack (if a change happened)
+                }
             }
         }
 
