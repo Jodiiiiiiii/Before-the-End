@@ -136,6 +136,8 @@ GameObject:
   - component: {fileID: 67779915}
   - component: {fileID: 67779914}
   - component: {fileID: 67779913}
+  - component: {fileID: 67779918}
+  - component: {fileID: 67779917}
   m_Layer: 0
   m_Name: Subpanel (Sibling)
   m_TagString: Untagged
@@ -185,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 67779917}
 --- !u!114 &67779915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +216,35 @@ MonoBehaviour:
   _isMainPanel: 0
   Width: 3
   Height: 2
+--- !u!114 &67779917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67779911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
+--- !u!114 &67779918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67779911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 67779917}
 --- !u!1 &101766799
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +594,8 @@ GameObject:
   - component: {fileID: 349429213}
   - component: {fileID: 349429211}
   - component: {fileID: 349429210}
+  - component: {fileID: 349429215}
+  - component: {fileID: 349429214}
   m_Layer: 0
   m_Name: Subpanel (Sibling)
   m_TagString: Untagged
@@ -598,6 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 349429214}
 --- !u!114 &349429211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +674,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SiblingOrder: 1
+--- !u!114 &349429214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349429208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
+--- !u!114 &349429215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349429208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 349429214}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +888,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objMover: {fileID: 952585894}
+  _firstUndoDelay: 0.5
+  _undoDelay: 0.2
 --- !u!114 &952585894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,6 +904,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _snappingThreshold: 0.01
   _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
 --- !u!1 &1063996267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,6 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 9063781521301221299}
 --- !u!156049354 &574914495750308498
 Grid:
   m_ObjectHideFlags: 0
@@ -4111,6 +4180,8 @@ GameObject:
   - component: {fileID: 2629891023370561996}
   - component: {fileID: 9065748743341206299}
   - component: {fileID: 6371267632356480300}
+  - component: {fileID: 9065748743341206301}
+  - component: {fileID: 9065748743341206300}
   m_Layer: 0
   m_Name: Subpanel (Lone)
   m_TagString: Untagged
@@ -4569,6 +4640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 8838866379236114414}
 --- !u!4 &3404370603469339131
 Transform:
   m_ObjectHideFlags: 0
@@ -4648,6 +4720,8 @@ GameObject:
   - component: {fileID: 4223291483569259857}
   - component: {fileID: 3317559113187056102}
   - component: {fileID: 5236219472001154646}
+  - component: {fileID: 8838866379236114415}
+  - component: {fileID: 8838866379236114414}
   m_Layer: 0
   m_Name: Subpanel (Sibling)
   m_TagString: Untagged
@@ -5202,6 +5276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 9151287995760097956}
 --- !u!156049354 &4825840536672693269
 Grid:
   m_ObjectHideFlags: 0
@@ -5663,6 +5738,8 @@ GameObject:
   - component: {fileID: 8108277385578216544}
   - component: {fileID: 4825432602103794763}
   - component: {fileID: 9151287995760097955}
+  - component: {fileID: 9151287995760097957}
+  - component: {fileID: 9151287995760097956}
   m_Layer: 0
   m_Name: Subpanel (Sibling)
   m_TagString: Untagged
@@ -6353,6 +6430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 9065748743341206300}
 --- !u!483693784 &6531306694920284502
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -7038,6 +7116,35 @@ Transform:
   - {fileID: 4936813716488418297}
   m_Father: {fileID: 3947344371830625104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8838866379236114414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3573474179253325712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
+--- !u!114 &8838866379236114415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3573474179253325712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 8838866379236114414}
 --- !u!1839735485 &8857842547391309854
 Tilemap:
   m_ObjectHideFlags: 0
@@ -7771,6 +7878,8 @@ GameObject:
   - component: {fileID: 9063781521301221298}
   - component: {fileID: 6047843670465130867}
   - component: {fileID: 519850301992610165}
+  - component: {fileID: 9063781521301221300}
+  - component: {fileID: 9063781521301221299}
   m_Layer: 0
   m_Name: Subpanel (Sibling)
   m_TagString: Untagged
@@ -7791,6 +7900,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SiblingOrder: 2
+--- !u!114 &9063781521301221299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063781521301221297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
+--- !u!114 &9063781521301221300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063781521301221297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 9063781521301221299}
 --- !u!114 &9065748743341206299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7804,6 +7942,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelOrder: 0
+--- !u!114 &9065748743341206300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2512250291888982506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
+--- !u!114 &9065748743341206301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2512250291888982506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 9065748743341206300}
 --- !u!114 &9151287995760097955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7817,6 +7984,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SiblingOrder: 2
+--- !u!114 &9151287995760097956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5394680319930490422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
+--- !u!114 &9151287995760097957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5394680319930490422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 9151287995760097956}
 --- !u!1 &9159358961453914359
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleMovementInputs();
+        HandleUndoInputs();
     }
 
     #region MOVEMENT
@@ -109,6 +110,44 @@ public class PlayerController : MonoBehaviour
 
         // Passed all failure checks, so the player can move here
         return true;
+    }
+    #endregion
+
+    #region UNDO
+    // Controls constants
+    private const KeyCode UNDO = KeyCode.R;
+
+    [SerializeField, Tooltip("delay between first and second undo steps. Longer to prevent accidental double undo")]
+    private float _firstUndoDelay = 0.5f;
+    [SerializeField, Tooltip("delay between undo steps when undo key is being held")] 
+    private float _undoDelay = 0.2f;
+
+    private float _undoTimer = 0f;
+
+    private void HandleUndoInputs()
+    {
+        // Process undo press
+        if(Input.GetKeyDown(UNDO))
+        {
+            // start/restart delay timer
+            _undoTimer = _firstUndoDelay;
+            // Undo action
+            UndoHandler.UndoFrame();
+        }
+
+        // Process holding input
+        if(Input.GetKey(UNDO))
+        {
+            if(_undoTimer < 0) // ready to undo another frame
+            {
+                // start/restart delay timer
+                _undoTimer = _undoDelay;
+                // Undo action
+                UndoHandler.UndoFrame();
+            }
+
+            _undoTimer -= Time.deltaTime;
+        }
     }
     #endregion
 }

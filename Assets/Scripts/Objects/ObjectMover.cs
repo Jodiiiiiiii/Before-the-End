@@ -70,9 +70,17 @@ public class ObjectMover : MonoBehaviour
     }
 
     /// <summary>
+    /// returns local grid position
+    /// </summary>
+    public Vector2Int GetLocalGridPos()
+    {
+        return _localGridPos;
+    }
+
+    /// <summary>
     /// Input global goal coordinates and the script will handle converting it to local coordinates.
     /// </summary>
-    public void SetGoal(int x, int y)
+    public void SetGlobalGoal(int x, int y)
     {
         // set global pos
         _globalGridPos = new Vector2Int(x, y);
@@ -81,8 +89,21 @@ public class ObjectMover : MonoBehaviour
         Vector3 globalPos = new Vector3(x, y, transform.position.z);
         Vector3 localPos = transform.parent.InverseTransformPoint(globalPos);
 
-        // must round because it should already be near an int from the inputs, but InverseTransformPoint can make flooating-point variability
+        // must round because it should already be near an int from the inputs, but InverseTransformPoint can make floating-point variability
         _localGridPos = new Vector2Int(Mathf.RoundToInt(localPos.x), Mathf.RoundToInt(localPos.y));
+    }
+
+    public void SetLocalGoal(int x, int y)
+    {
+        // set local pos
+        _localGridPos = new Vector2Int(x, y);
+
+        // set global pos
+        Vector3 localPos = new Vector3(x, y, transform.localPosition.z);
+        Vector3 globalPos = transform.TransformPoint(localPos);
+
+        // must round to ensure no floating point results from TransformPoint
+        _globalGridPos = new Vector2Int(Mathf.RoundToInt(globalPos.x), Mathf.RoundToInt(globalPos.y));
     }
 
     /// <summary>

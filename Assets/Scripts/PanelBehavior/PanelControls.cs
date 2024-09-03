@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class PanelControls : MonoBehaviour
 {
+    [SerializeField, Tooltip("Used for calling position updates")] private ObjectMover _objMover;
+
     // constants
     private const int MOUSE_LEFT = 0; // input constant
 
@@ -88,21 +91,18 @@ public class PanelControls : MonoBehaviour
             // Clamp to bounds of parent panel
             gridPos.x = Mathf.Clamp(gridPos.x, _parentPanel.OriginX, _parentPanel.OriginX + _parentPanel.Width - _currPanel.Width);
             // +1 to account for drag bar
-            gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height + 1, _parentPanel.OriginY + _parentPanel.Height); 
+            gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height + 1, _parentPanel.OriginY + _parentPanel.Height);
 
-            // Round to nearest int (nearest grid index)
-            gridPos.x = Mathf.Round(gridPos.x);
-            gridPos.y = Mathf.Round(gridPos.y);
-
-            // update current panel position
-            transform.position = gridPos;
+            // Round to nearest int AND update current panel position (through ObjectMover)
+            _objMover.SetGlobalGoal(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
         }
-        else
+        else if (_isDragging) // Mouse Button no longer pressed
         {
             // lock in place until nav bar is clicked again
             _isDragging = false;
 
-            // call to update stack frames can be called here
+            // frame dragging has completed, call the update to the Undo Stack
+            UndoHandler.SaveFrame();
         }
     }
 }
