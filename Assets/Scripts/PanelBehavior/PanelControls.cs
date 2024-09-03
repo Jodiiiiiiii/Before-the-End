@@ -21,6 +21,7 @@ public class PanelControls : MonoBehaviour
     // dragging state
     private bool _isDragging = false;
     private Vector2 _dragOffset = Vector2.zero;
+    private bool _hasPosChanged = false;
     // sibling ordering
     private SiblingOrderHandler _orderHandler = null; // stays null unless present
 
@@ -56,6 +57,7 @@ public class PanelControls : MonoBehaviour
                 {
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
+                    _hasPosChanged = false;
                 }
             }
             else // has siblings - and ordering button
@@ -66,6 +68,7 @@ public class PanelControls : MonoBehaviour
                 {
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
+                    _hasPosChanged = false;
                 }
                 // order up relative to siblings
                 else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f
@@ -99,16 +102,24 @@ public class PanelControls : MonoBehaviour
             // +1 to account for drag bar
             gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height + 1, _parentPanel.OriginY + _parentPanel.Height);
 
-            // Round to nearest int AND update current panel position (through ObjectMover)
-            _objMover.SetGlobalGoal(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+            // update global position IF a change has occurred
+            Vector2Int gridPosInt = new Vector2Int(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+            if(!gridPosInt.Equals(_objMover.GetGlobalGridPos()))
+            {
+                // Round to nearest int AND update current panel position (through ObjectMover)
+                _objMover.SetGlobalGoal(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+
+                _hasPosChanged = true;
+            }
         }
         else if (_isDragging) // Mouse Button no longer pressed
         {
             // lock in place until nav bar is clicked again
             _isDragging = false;
 
-            // frame dragging has completed, call the update to the Undo Stack
-            UndoHandler.SaveFrame();
+            // frame dragging has completed, call the update to the Undo Stack (if pos changed)
+            if(_hasPosChanged)
+                UndoHandler.SaveFrame();
         }
     }
 }
