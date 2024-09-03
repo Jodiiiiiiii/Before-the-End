@@ -21,10 +21,10 @@ public class PanelStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // update position variable in case it just changed
-        OriginX = (int)transform.position.x;
+        // update position variable in case it just changed (rounding ensures approximate alignment with visuals)
+        OriginX = Mathf.RoundToInt(transform.position.x);
         // shift stored origin to bottom left grid unit
-        OriginY = (int)(transform.position.y - Height);
+        OriginY = Mathf.RoundToInt(transform.position.y - Height);
         
         // shift origin down one if it has a dragging bar
         if (!_isMainPanel) OriginY--;

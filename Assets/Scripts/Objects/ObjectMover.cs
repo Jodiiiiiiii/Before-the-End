@@ -9,8 +9,8 @@ public class ObjectMover : MonoBehaviour
     [SerializeField, Tooltip("'Snappiness' of object seeking goal position")] private float _movingSharpness = 30f;
 
     //  local/world-space grid positions of object (always exact integers)
-    private Vector2Int _localGridPos;
-    private Vector2Int _globalGridPos;
+    [SerializeField, Tooltip("DO NOT CHANGE. Local position of current object. Useful to see in Inspector")] private Vector2Int _localGridPos;
+    [SerializeField, Tooltip("DO NOT CHANGE. Global position of current object. Useful to see in Inspector")] private Vector2Int _globalGridPos;
 
     // Start is called before the first frame update
     void Start()
@@ -79,8 +79,10 @@ public class ObjectMover : MonoBehaviour
 
         // set local pos
         Vector3 globalPos = new Vector3(x, y, transform.position.z);
-        Vector3 localPos = transform.InverseTransformPoint(globalPos);
-        _localGridPos = new Vector2Int(Mathf.FloorToInt(localPos.x), Mathf.FloorToInt(localPos.y));
+        Vector3 localPos = transform.parent.InverseTransformPoint(globalPos);
+
+        // must round because it should already be near an int from the inputs, but InverseTransformPoint can make flooating-point variability
+        _localGridPos = new Vector2Int(Mathf.RoundToInt(localPos.x), Mathf.RoundToInt(localPos.y));
     }
 
     /// <summary>
