@@ -27,7 +27,7 @@ public static class VisibilityCheck
     /// <summary>
     /// Indicates if the given player object would be visible if located at the (x, y) position on its current panel
     /// </summary>
-    public static bool IsVisible(PlayerController player, int x, int y)
+    public static bool IsVisible(PlayerControls player, int x, int y)
     {
         // Retrieve player's parent panel's PanelOrder
         int panelOrder;
