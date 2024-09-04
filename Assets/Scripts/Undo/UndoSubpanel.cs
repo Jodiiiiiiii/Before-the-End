@@ -61,6 +61,5 @@ public class UndoSubpanel : UndoHandler
             }
             // no updates due to sibling order if it is not a panel with siblings
         }
-            
     }
 }

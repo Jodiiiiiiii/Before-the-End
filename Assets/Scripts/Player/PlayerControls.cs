@@ -21,7 +21,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField, Tooltip("used to apply visual sprite swapping changes to the player")] 
     private ObjectFlipper _objFlipper;
     [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player")]
-    private float _rightScaleX = -1;
+    private int _rightScaleX = -1;
 
     // Controls constants
     private const KeyCode MOVE_UP = KeyCode.W;
@@ -64,38 +64,86 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles flipping the sprite, checking for a valid right move, and moving the player.
+    /// </summary>
     private void TryMoveRight()
     {
-        // flip even if no movement occurs (indicates attempt)
-        _objFlipper.SetScaleX(_rightScaleX);
+        bool hasChanged = false;
+
+        // flip even if no movement occurs (indicates attempt) -> still requires player visibility
+        Vector2Int currPos = _objMover.GetGlobalGridPos();
+        if (_objFlipper.GetScaleX() == -_rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y)) // if previouslt facing left
+        {
+            _objFlipper.SetScaleX(_rightScaleX);
+            hasChanged = true;
+        }
 
         // Check right one unit for validity
         if (CanMove(Vector2Int.right))
+        {
             _objMover.Increment(Vector2Int.right);
+            hasChanged = true;
+        }
+
+        // save frame as long as visible change occurred
+        if(hasChanged)
+            UndoHandler.SaveFrame();
     }
 
+    /// <summary>
+    /// handles flipping the sprite, checking for a valid left move, and moving the player.
+    /// </summary>
     private void TryMoveLeft()
     {
-        // flip even if no movement occurs (indicates attempt)
-        _objFlipper.SetScaleX(-_rightScaleX); // faces opposite to right dir
+        bool hasChanged = false;
+
+        // flip even if no movement occurs (indicates attempt) -> still requires player visbility
+        Vector2Int currPos = _objMover.GetGlobalGridPos();
+        if (_objFlipper.GetScaleX() == _rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y)) // if previously facing right
+        {
+            _objFlipper.SetScaleX(-_rightScaleX); // faces opposite to right dir
+            hasChanged = true;
+        }
 
         // Check left one unit for validity
         if (CanMove(Vector2Int.left))
+        {
             _objMover.Increment(Vector2Int.left);
+            hasChanged = true;
+        }
+
+        // save frame as long as scale was flipped (visible change)
+        if(hasChanged)
+            UndoHandler.SaveFrame();
+        
     }
 
+    /// <summary>
+    /// handles checking for a valid upwards move, and moving the player.
+    /// </summary>
     private void TryMoveUp()
     {
         // Check up one unit for validity
         if(CanMove(Vector2Int.up))
+        {
             _objMover.Increment(Vector2Int.up);
+            UndoHandler.SaveFrame();
+        }
+            
     }
 
+    /// <summary>
+    /// handles checking for a valid downwards move, and moving the player.
+    /// </summary>
     private void TryMoveDown()
     {
         // Check down one unit for validity
-        if(CanMove(Vector2Int.down))
+        if (CanMove(Vector2Int.down))
+        {
             _objMover.Increment(Vector2Int.down);
+            UndoHandler.SaveFrame();
+        }
     }
 
     /// <summary>
@@ -121,6 +169,32 @@ public class PlayerControls : MonoBehaviour
 
         // Passed all failure checks, so the player can move here
         return true;
+    }
+
+    /// <summary>
+    /// returns a boolean of whether the player is currently facing right or left
+    /// </summary>
+    public bool IsFacingRight()
+    {
+        if (_objFlipper.GetScaleX() == _rightScaleX)
+            return true;
+
+        if (_objFlipper.GetScaleX() == -_rightScaleX)
+            return false;
+
+        throw new Exception("Player has invalid facing direction, must be an xScale of 1 or -1. How did this happen?");
+    }
+
+    /// <summary>
+    /// updates visual facing direction of player. 
+    /// true = right; false = left
+    /// </summary>
+    public void SetFacingRight(bool facing)
+    {
+        if (facing) // right
+            _objFlipper.SetScaleX(_rightScaleX);
+        else
+            _objFlipper.SetScaleX(-_rightScaleX);
     }
     #endregion
 

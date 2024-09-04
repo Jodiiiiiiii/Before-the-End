@@ -44,4 +44,14 @@ public class ObjectFlipper : MonoBehaviour
     {
         _goalScaleX = scaleX;
     }
+
+    /// <summary>
+    /// Returns goal scaleX as an integer
+    /// </summary>
+    /// <returns></returns>
+    public int GetScaleX()
+    {
+        // Round operation should just guarantee it is an int. it should already be an integer (represented as a float)
+        return Mathf.RoundToInt(_goalScaleX);
+    }
 }
