@@ -737,6 +737,8 @@ GameObject:
   - component: {fileID: 5727626745728454642}
   - component: {fileID: 4685180180677822769}
   - component: {fileID: 8319301612330039578}
+  - component: {fileID: 8733159571518919141}
+  - component: {fileID: 767906668905008094}
   m_Layer: 0
   m_Name: Subpanel (Sibling)
   m_TagString: Untagged
@@ -814,3 +816,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13852ea42a1ea74fb0d31206c2bb672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 767906668905008094}
+--- !u!114 &8733159571518919141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889746075599448935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 767906668905008094}
+--- !u!114 &767906668905008094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889746075599448935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snappingThreshold: 0.01
+  _movingSharpness: 30
+  _localGridPos: {x: 0, y: 0}
+  _globalGridPos: {x: 0, y: 0}
