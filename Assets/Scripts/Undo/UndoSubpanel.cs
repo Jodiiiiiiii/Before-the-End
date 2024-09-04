@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Implements SaveStackFrame and UndoStackFrame functions for a subpanel object.
+/// </summary>
 public class UndoSubpanel : UndoHandler
 {
     // localFrame (total stack frame), local position, sibling order

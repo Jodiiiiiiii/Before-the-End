@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles static tracking of global and local stack frames.
+/// determines when to accordingly call SaveFrame and UndoFrame functions on objects.
+/// </summary>
 public abstract class UndoHandler : MonoBehaviour
 {
     protected static int _globalFrame = 0;
