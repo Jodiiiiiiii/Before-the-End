@@ -16,7 +16,12 @@ public class PlayerControls : MonoBehaviour
 
     #region MOVEMENT
     [Header("Movement")]
-    [SerializeField, Tooltip("used to actually cause the player to move")] private ObjectMover _objMover;
+    [SerializeField, Tooltip("used to actually cause the player to move")] 
+    private ObjectMover _objMover;
+    [SerializeField, Tooltip("used to apply visual sprite swapping changes to the player")] 
+    private ObjectFlipper _objFlipper;
+    [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player")]
+    private float _rightScaleX = -1;
 
     // Controls constants
     private const KeyCode MOVE_UP = KeyCode.W;
@@ -61,6 +66,9 @@ public class PlayerControls : MonoBehaviour
 
     private void TryMoveRight()
     {
+        // flip even if no movement occurs (indicates attempt)
+        _objFlipper.SetScaleX(_rightScaleX);
+
         // Check right one unit for validity
         if (CanMove(Vector2Int.right))
             _objMover.Increment(Vector2Int.right);
@@ -68,6 +76,9 @@ public class PlayerControls : MonoBehaviour
 
     private void TryMoveLeft()
     {
+        // flip even if no movement occurs (indicates attempt)
+        _objFlipper.SetScaleX(-_rightScaleX); // faces opposite to right dir
+
         // Check left one unit for validity
         if (CanMove(Vector2Int.left))
             _objMover.Increment(Vector2Int.left);
@@ -117,6 +128,7 @@ public class PlayerControls : MonoBehaviour
     // Controls constants
     private const KeyCode UNDO = KeyCode.R;
 
+    [Header("Undo")]
     [SerializeField, Tooltip("delay between first and second undo steps. Longer to prevent accidental double undo")]
     private float _firstUndoDelay = 0.5f;
     [SerializeField, Tooltip("delay between undo steps when undo key is being held")] 
