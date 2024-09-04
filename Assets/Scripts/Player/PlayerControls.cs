@@ -7,11 +7,17 @@ public class PlayerControls : MonoBehaviour
 {
     // TODO: enum storing Dino state
 
+    // statically set variable for locking player controls (i.e. during panel dragging or timed actions)
+    public static bool IsPlayerLocked = false;
+
     // Update is called once per frame
     void Update()
     {
-        HandleMovementInputs();
-        HandleUndoInputs();
+        if(!IsPlayerLocked)
+        {
+            HandleMovementInputs();
+            HandleUndoInputs();
+        }
     }
 
     #region MOVEMENT

@@ -58,6 +58,7 @@ public class PanelControls : MonoBehaviour
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
                     _hasPosChanged = false;
+                    PlayerControls.IsPlayerLocked = true; // player cannot move while panel dragging
                 }
             }
             else // has siblings - and ordering button
@@ -69,6 +70,7 @@ public class PanelControls : MonoBehaviour
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
                     _hasPosChanged = false;
+                    PlayerControls.IsPlayerLocked = true; // player cannot move while panel dragging
                 }
                 // order up relative to siblings
                 else if (xDiff <= -_currPanel.Width + 1 && xDiff >= -_currPanel.Width && yDiff >= 0.5f && yDiff <= 1f
@@ -120,6 +122,8 @@ public class PanelControls : MonoBehaviour
             // frame dragging has completed, call the update to the Undo Stack (if pos changed)
             if(_hasPosChanged)
                 UndoHandler.SaveFrame();
+
+            PlayerControls.IsPlayerLocked = false; // unlock player controls now that panel dragging is complete
         }
     }
 }
