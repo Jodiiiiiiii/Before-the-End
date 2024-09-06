@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanMove: 1
   _snappingThreshold: 0.01
   _movingSharpness: 30
   _localGridPos: {x: 0, y: 0}
@@ -68,7 +67,7 @@ MonoBehaviour:
   _objFlipper: {fileID: 544080690693282415}
   _rightScaleX: -1
   _firstUndoDelay: 0.5
-  _undoDelay: 0.2
+  _undoDelay: 0.1
 --- !u!114 &3141758538331536651
 MonoBehaviour:
   m_ObjectHideFlags: 0
