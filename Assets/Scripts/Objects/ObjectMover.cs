@@ -3,12 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles updating of local positions through functions for getting/setting/incrementing local/global grid (integer) positions.
+/// Supports functionality for objects that can NEVER move (used then just for storing exact grid positions).
+/// </summary>
 public class ObjectMover : MonoBehaviour
 {
+    [Header("Movement Behavior")]
+    [SerializeField, Tooltip("Whether the object will EVER be capable of movement")] public bool CanMove = true;
     [SerializeField, Tooltip("Distance from goal position when object will snap to exact goal position")] private float _snappingThreshold = 0.01f;
     [SerializeField, Tooltip("'Snappiness' of object seeking goal position")] private float _movingSharpness = 30f;
 
     //  local/world-space grid positions of object (always exact integers)
+    [Header("Positions (DO NOT CHANGE)")]
     [SerializeField, Tooltip("DO NOT CHANGE. Local position of current object. Useful to see in Inspector")] private Vector2Int _localGridPos;
     [SerializeField, Tooltip("DO NOT CHANGE. Global position of current object. Useful to see in Inspector")] private Vector2Int _globalGridPos;
 
@@ -39,6 +46,10 @@ public class ObjectMover : MonoBehaviour
         }
 
         // LOCAL POSITION LERPING (MOVEMENTS)
+
+        // must be able to move to actually update/change local positions
+        if (!CanMove)
+            return;
 
         // Determine current local position
         Vector2 currLocalPos = new Vector2(transform.localPosition.x, transform.localPosition.y);
@@ -82,6 +93,10 @@ public class ObjectMover : MonoBehaviour
     /// </summary>
     public void SetGlobalGoal(int x, int y)
     {
+        // must be able to move to update position
+        if (!CanMove)
+            return;
+
         // set global pos
         _globalGridPos = new Vector2Int(x, y);
 
@@ -95,6 +110,10 @@ public class ObjectMover : MonoBehaviour
 
     public void SetLocalGoal(int x, int y)
     {
+        // must be able to move to update position
+        if (!CanMove)
+            return;
+
         // set local pos
         _localGridPos = new Vector2Int(x, y);
 
@@ -111,6 +130,10 @@ public class ObjectMover : MonoBehaviour
     /// </summary>
     public void Increment(Vector2Int moveDir)
     {
+        // must be able to move to update position
+        if (!CanMove)
+            return;
+
         // Ensure target position is validly only one unit away
         if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
             throw new Exception("Input of CanMove function MUST have only one non-zero value and it must be eiether -1 or 1.");

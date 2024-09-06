@@ -43,9 +43,6 @@ public static class VisibilityCheck
         return StartRecursiveCheck(panelOrder, x, y, true); // Player MUST exclude controls bar since player must treat that bar as an obstruction
     }
 
-    //  Another function can be established here that takes a GameObject as input instead?,
-    //  automatically detecting its position and panel from its parent(s)
-    
     /// <summary>
     /// Handles retrieving MainPanel object and starting Recursive visibility check.
     /// </summary>

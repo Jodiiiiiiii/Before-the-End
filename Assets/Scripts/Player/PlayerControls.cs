@@ -79,14 +79,15 @@ public class PlayerControls : MonoBehaviour
 
         // flip even if no movement occurs (indicates attempt) -> still requires player visibility
         Vector2Int currPos = _objMover.GetGlobalGridPos();
-        if (_objFlipper.GetScaleX() == -_rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y)) // if previouslt facing left
+        // if previouslt facing left (AND visible)
+        if (_objFlipper.GetScaleX() == -_rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
         {
             _objFlipper.SetScaleX(_rightScaleX);
             hasChanged = true;
         }
 
         // Check right one unit for validity
-        if (CanMove(Vector2Int.right))
+        if (MovementCheck.CanPlayerMove(this, Vector2Int.right))
         {
             _objMover.Increment(Vector2Int.right);
             hasChanged = true;
@@ -106,14 +107,15 @@ public class PlayerControls : MonoBehaviour
 
         // flip even if no movement occurs (indicates attempt) -> still requires player visbility
         Vector2Int currPos = _objMover.GetGlobalGridPos();
-        if (_objFlipper.GetScaleX() == _rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y)) // if previously facing right
+        // if previously facing right (AND visible)
+        if (_objFlipper.GetScaleX() == _rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
         {
             _objFlipper.SetScaleX(-_rightScaleX); // faces opposite to right dir
             hasChanged = true;
         }
 
         // Check left one unit for validity
-        if (CanMove(Vector2Int.left))
+        if (MovementCheck.CanPlayerMove(this, Vector2Int.left))
         {
             _objMover.Increment(Vector2Int.left);
             hasChanged = true;
@@ -131,7 +133,7 @@ public class PlayerControls : MonoBehaviour
     private void TryMoveUp()
     {
         // Check up one unit for validity
-        if(CanMove(Vector2Int.up))
+        if(MovementCheck.CanPlayerMove(this, Vector2Int.up))
         {
             _objMover.Increment(Vector2Int.up);
             UndoHandler.SaveFrame();
@@ -145,36 +147,11 @@ public class PlayerControls : MonoBehaviour
     private void TryMoveDown()
     {
         // Check down one unit for validity
-        if (CanMove(Vector2Int.down))
+        if (MovementCheck.CanPlayerMove(this, Vector2Int.down))
         {
             _objMover.Increment(Vector2Int.down);
             UndoHandler.SaveFrame();
         }
-    }
-
-    /// <summary>
-    /// Determines if the player is able to move in the specified direction.
-    /// Input MUST have only one non-zero value and it must be either -1 or 1.
-    /// </summary>
-    private bool CanMove(Vector2Int moveDir)
-    {
-        // Ensure target position is validly only one unit away
-        if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
-            throw new Exception("Input of CanMove function MUST have only one non-zero value and it must be eiether -1 or 1.");
-
-        Vector2Int currPos = _objMover.GetGlobalGridPos(); 
-        Vector2Int targetPos = currPos + moveDir;
-
-        // Check for visibility of player at current position
-        if (!VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
-            return false;
-
-        // Check for obstruction by higher-ordered panel
-        if (!VisibilityCheck.IsVisible(this, targetPos.x, targetPos.y))
-            return false;
-
-        // Passed all failure checks, so the player can move here
-        return true;
     }
 
     /// <summary>
