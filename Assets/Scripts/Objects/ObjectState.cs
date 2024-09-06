@@ -6,7 +6,7 @@ using UnityEngine;
 /// Stores the type of object that this script is attached to.
 /// It is planned for this script to also handle making calls to visually swap objects accordingly.
 /// </summary>
-public class ObjectStats : MonoBehaviour
+public class ObjectState : MonoBehaviour
 {
     public enum ObjectType
     {

@@ -8,10 +8,10 @@ using UnityEngine;
 public class UndoObject : UndoHandler
 {
     [SerializeField, Tooltip("Contains object type, saved to undo stack")]
-    private ObjectStats _objStats;
+    private ObjectState _objStats;
 
     // OBJECT TYPE: local frame, ObjectType enum
-    private Stack<(int, ObjectStats.ObjectType)> _typeStack = new Stack<(int, ObjectStats.ObjectType)>();
+    private Stack<(int, ObjectState.ObjectType)> _typeStack = new Stack<(int, ObjectState.ObjectType)>();
 
     // LOGS: local frame, localPosition
     private Stack<(int, Vector2Int)> _logStack = new Stack<(int, Vector2Int)>();
@@ -19,7 +19,7 @@ public class UndoObject : UndoHandler
     protected override void SaveStackFrame()
     {
         // Retrieve new values
-        ObjectStats.ObjectType newType = _objStats.ObjType;
+        ObjectState.ObjectType newType = _objStats.ObjType;
 
         // add if empty, or a change occurred
         if (_typeStack.Count == 0 || newType != _typeStack.Peek().Item2)
@@ -28,7 +28,7 @@ public class UndoObject : UndoHandler
         // Update specific stack type
         switch(newType)
         {
-            case ObjectStats.ObjectType.Log:
+            case ObjectState.ObjectType.Log:
                 // Retrieve new values
                 Vector2Int newPos = _objectMover.GetLocalGridPos();
 
@@ -37,19 +37,19 @@ public class UndoObject : UndoHandler
                         _logStack.Push((_localFrame, newPos));
 
                 break;
-            case ObjectStats.ObjectType.Water:
+            case ObjectState.ObjectType.Water:
                 break;
-            case ObjectStats.ObjectType.Rock:
+            case ObjectState.ObjectType.Rock:
                 break;
-            case ObjectStats.ObjectType.TallRock:
+            case ObjectState.ObjectType.TallRock:
                 break;
-            case ObjectStats.ObjectType.Bush:
+            case ObjectState.ObjectType.Bush:
                 break;
-            case ObjectStats.ObjectType.TallBush:
+            case ObjectState.ObjectType.TallBush:
                 break;
-            case ObjectStats.ObjectType.Tunnel:
+            case ObjectState.ObjectType.Tunnel:
                 break;
-            case ObjectStats.ObjectType.Pickup:
+            case ObjectState.ObjectType.Pickup:
                 break;
         }
     }
@@ -57,7 +57,7 @@ public class UndoObject : UndoHandler
     protected override void UndoStackFrame()
     {
         // get type before we potentially remove it
-        ObjectStats.ObjectType oldType = _typeStack.Peek().Item2;
+        ObjectState.ObjectType oldType = _typeStack.Peek().Item2;
 
         // CANNOT undo past first move, therefore count of at least 2 is required to undo
         // Remove current data and revert type (if a change actually was registered the frame before)
@@ -66,7 +66,7 @@ public class UndoObject : UndoHandler
             _typeStack.Pop();
 
             // update actual object type
-            ObjectStats.ObjectType newType = _typeStack.Peek().Item2;
+            ObjectState.ObjectType newType = _typeStack.Peek().Item2;
             _objStats.ObjType = newType;
         }
 
@@ -76,29 +76,29 @@ public class UndoObject : UndoHandler
         {
             switch (oldType)
             {
-                case ObjectStats.ObjectType.Log:
+                case ObjectState.ObjectType.Log:
                     if(_logStack.Peek().Item1 > _localFrame) // still ensure only undo on proper frame
                         _logStack.Pop();
                     break;
-                case ObjectStats.ObjectType.Water:
+                case ObjectState.ObjectType.Water:
                     // pop water
                     break;
-                case ObjectStats.ObjectType.Rock:
+                case ObjectState.ObjectType.Rock:
                     // pop rock
                     break;
-                case ObjectStats.ObjectType.TallRock:
+                case ObjectState.ObjectType.TallRock:
                     // pop tall rock
                     break;
-                case ObjectStats.ObjectType.Bush:
+                case ObjectState.ObjectType.Bush:
                     // pop bush
                     break;
-                case ObjectStats.ObjectType.TallBush:
+                case ObjectState.ObjectType.TallBush:
                     // pop tall bush
                     break;
-                case ObjectStats.ObjectType.Tunnel:
+                case ObjectState.ObjectType.Tunnel:
                     // pop tunnel
                     break;
-                case ObjectStats.ObjectType.Pickup:
+                case ObjectState.ObjectType.Pickup:
                     // pop pickup
                     break;
             }
@@ -107,25 +107,25 @@ public class UndoObject : UndoHandler
         // Restore undo frame data from last stack frame
         switch (_typeStack.Peek().Item2)
         {
-            case ObjectStats.ObjectType.Log:
+            case ObjectState.ObjectType.Log:
                 // restore/undo position
                 Vector2Int newPos = _logStack.Peek().Item2;
                 _objectMover.SetLocalGoal(newPos.x, newPos.y);
 
                 break;
-            case ObjectStats.ObjectType.Water:
+            case ObjectState.ObjectType.Water:
                 break;
-            case ObjectStats.ObjectType.Rock:
+            case ObjectState.ObjectType.Rock:
                 break;
-            case ObjectStats.ObjectType.TallRock:
+            case ObjectState.ObjectType.TallRock:
                 break;
-            case ObjectStats.ObjectType.Bush:
+            case ObjectState.ObjectType.Bush:
                 break;
-            case ObjectStats.ObjectType.TallBush:
+            case ObjectState.ObjectType.TallBush:
                 break;
-            case ObjectStats.ObjectType.Tunnel:
+            case ObjectState.ObjectType.Tunnel:
                 break;
-            case ObjectStats.ObjectType.Pickup:
+            case ObjectState.ObjectType.Pickup:
                 break;
         }
     }

@@ -31,13 +31,13 @@ public static class MovementCheck
             return false;
 
         // Check for object in current panel at target position
-        ObjectStats obj = GetObjectAtPos(currObj, targetPos.x, targetPos.y);
+        ObjectState obj = GetObjectAtPos(currObj, targetPos.x, targetPos.y);
         if (obj is null)
             return true; // NO OBJECT = player CAN move
-        else if (obj.ObjType == ObjectStats.ObjectType.Log)
+        else if (obj.ObjType == ObjectState.ObjectType.Log)
         {
             // generate list of all logs to be pushed by the potential player move
-            List<ObjectStats> logs = new List<ObjectStats>();
+            List<ObjectState> logs = new List<ObjectState>();
             logs.Add(obj);
 
             // Check for more logs
@@ -54,14 +54,14 @@ public static class MovementCheck
                 obj = GetObjectAtPos(currObj, targetPos.x, targetPos.y);
                 if (obj is null) // no object blocking the log
                     currIsLog = false;
-                else if (obj.ObjType == ObjectStats.ObjectType.Log) // add another log and keep checking for more
+                else if (obj.ObjType == ObjectState.ObjectType.Log) // add another log and keep checking for more
                     logs.Add(obj);
                 else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup // TODO: account forother cases later
                     return false;
             }
 
             // if we got this far, then all logs in the chain CAN move
-            foreach (ObjectStats log in logs)
+            foreach (ObjectState log in logs)
             {
                 // increment each log
                 if (log.TryGetComponent(out ObjectMover logMover))
@@ -79,13 +79,13 @@ public static class MovementCheck
     /// <summary>
     /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the player)
     /// </summary>
-    private static ObjectStats GetObjectAtPos(PlayerControls player, int x, int y)
+    private static ObjectState GetObjectAtPos(PlayerControls player, int x, int y)
     {
         if (player.transform.parent is not null)
         {
             // iterate through sibling objects checking for position
-            ObjectStats[] siblingObjects = player.transform.parent.GetComponentsInChildren<ObjectStats>();
-            foreach (ObjectStats obj in siblingObjects)
+            ObjectState[] siblingObjects = player.transform.parent.GetComponentsInChildren<ObjectState>();
+            foreach (ObjectState obj in siblingObjects)
             {
                 if (obj.TryGetComponent(out ObjectMover objMover))
                 {
