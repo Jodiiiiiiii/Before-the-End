@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 6886825}
   - component: {fileID: 6886827}
   - component: {fileID: 6886826}
+  - component: {fileID: 6886828}
   m_Layer: 0
   m_Name: Log (1)
   m_TagString: Untagged
@@ -182,11 +183,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanMove: 1
   _snappingThreshold: 0.01
   _movingSharpness: 30
   _localGridPos: {x: 0, y: 0}
   _globalGridPos: {x: 0, y: 0}
+--- !u!114 &6886828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebf68c630e792047bdc1e67c5f73fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 6886827}
+  _objStats: {fileID: 6886826}
 --- !u!1001 &1037301611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,6 +297,7 @@ GameObject:
   - component: {fileID: 1081380391}
   - component: {fileID: 1081380393}
   - component: {fileID: 1081380392}
+  - component: {fileID: 1081380394}
   m_Layer: 0
   m_Name: Log (2)
   m_TagString: Untagged
@@ -331,11 +346,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanMove: 1
   _snappingThreshold: 0.01
   _movingSharpness: 30
   _localGridPos: {x: 0, y: 0}
   _globalGridPos: {x: 0, y: 0}
+--- !u!114 &1081380394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081380390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebf68c630e792047bdc1e67c5f73fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 1081380393}
+  _objStats: {fileID: 1081380392}
 --- !u!1 &1506792624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,6 +1991,7 @@ GameObject:
   - component: {fileID: 1923880159}
   - component: {fileID: 1923880161}
   - component: {fileID: 1923880160}
+  - component: {fileID: 1923880162}
   m_Layer: 0
   m_Name: Log
   m_TagString: Untagged
@@ -2011,11 +2040,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanMove: 1
   _snappingThreshold: 0.01
   _movingSharpness: 30
   _localGridPos: {x: 0, y: 0}
   _globalGridPos: {x: 0, y: 0}
+--- !u!114 &1923880162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923880158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebf68c630e792047bdc1e67c5f73fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 1923880161}
+  _objStats: {fileID: 1923880160}
 --- !u!1 &1961574420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,6 +2069,7 @@ GameObject:
   - component: {fileID: 1961574421}
   - component: {fileID: 1961574422}
   - component: {fileID: 1961574423}
+  - component: {fileID: 1961574424}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -2075,11 +2118,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanMove: 1
   _snappingThreshold: 0.01
   _movingSharpness: 30
   _localGridPos: {x: 0, y: 0}
   _globalGridPos: {x: 0, y: 0}
+--- !u!114 &1961574424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961574420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebf68c630e792047bdc1e67c5f73fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectMover: {fileID: 1961574423}
+  _objStats: {fileID: 1961574422}
 --- !u!1 &1965495927
 GameObject:
   m_ObjectHideFlags: 0
