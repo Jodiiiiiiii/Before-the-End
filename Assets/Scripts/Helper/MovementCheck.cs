@@ -77,9 +77,10 @@ public static class MovementCheck
     }
 
     /// <summary>
-    /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the player)
+    /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the player).
+    /// Returns null if no object found.
     /// </summary>
-    private static ObjectState GetObjectAtPos(PlayerControls player, int x, int y)
+    public static ObjectState GetObjectAtPos(PlayerControls player, int x, int y)
     {
         if (player.transform.parent is not null)
         {

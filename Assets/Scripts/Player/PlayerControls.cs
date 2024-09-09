@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-    // TODO: enum storing Dino state
 
     // statically set variable for locking player controls (i.e. during panel dragging or timed actions)
     public static bool IsPlayerLocked = false;
@@ -15,7 +14,12 @@ public class PlayerControls : MonoBehaviour
     {
         if(!IsPlayerLocked)
         {
-            HandleMovementInputs();
+            // Player grid movement
+            if(!_isPreparingAbility) // when preparing ability, movement inputs are ignored (treated as action inputs later)
+                HandleMovementInputs();
+            // Player ability inputs
+            HandleAbilityInputs();
+            // Undoing player actions
             HandleUndoInputs();
         }
     }
@@ -138,7 +142,6 @@ public class PlayerControls : MonoBehaviour
             _objMover.Increment(Vector2Int.up);
             UndoHandler.SaveFrame();
         }
-            
     }
 
     /// <summary>
@@ -178,6 +181,126 @@ public class PlayerControls : MonoBehaviour
             _objFlipper.SetScaleX(_rightScaleX);
         else
             _objFlipper.SetScaleX(-_rightScaleX);
+    }
+    #endregion
+
+    #region ACTIONS
+    // Inspector Variables
+    [Header("Actions")]
+    [SerializeField, Tooltip("Animated game object indicators for ability")]
+    private GameObject _abilityIndicator;
+
+    // Controls Constants
+    private const KeyCode INITIATE_ACTION = KeyCode.Space;
+
+    private bool _isPreparingAbility = false;
+
+    public enum DinoType
+    {
+        Stego,
+        Trike,
+        Anky,
+        Dilo,
+        Bary,
+        Ptero,
+        Compy,
+        Pachy
+    }
+    private DinoType _dinoType = DinoType.Stego;
+
+    // TODO: will need to make a list structure for storing charges of a particular dinoType ability remaining (if limited?)
+
+    private void HandleAbilityInputs()
+    {
+        // required so that cancelling with space doesn't start new ability prepare in the same frame
+        bool canceledPrepareThisFrame = false;
+
+        // Ready for directional inputs
+        if (_isPreparingAbility)
+        {
+            // Try ability in appropriate direction and cancel preparing ability state
+            if (Input.GetKeyDown(MOVE_UP))
+            {
+                TryAbility(Vector2Int.up);
+                _isPreparingAbility = false;
+            }
+            else if (Input.GetKeyDown(MOVE_DOWN))
+            {
+                TryAbility(Vector2Int.down);
+                _isPreparingAbility = false;
+            }
+            else if (Input.GetKeyDown(MOVE_RIGHT))
+            {
+                TryAbility(Vector2Int.right);
+                _isPreparingAbility = false;
+            }
+            else if (Input.GetKeyDown(MOVE_LEFT))
+            {
+                TryAbility(Vector2Int.left);
+                _isPreparingAbility = false;
+            }
+            else if (Input.GetKeyDown(INITIATE_ACTION)) // cancel ability if space pressed again
+            {
+                _isPreparingAbility = false;
+                canceledPrepareThisFrame = true;
+                // disable indicator
+                _abilityIndicator.SetActive(false);
+            }
+        }
+        else
+        {
+            // hide directional indicators that show preparing action state
+            _abilityIndicator.SetActive(false);
+        }
+
+        // start ability state (stationary && no movement queued up && pressing action key)
+        if (_objMover.IsStationary() && _moveInputStack.Count == 0 && Input.GetKeyDown(INITIATE_ACTION) 
+            && !_isPreparingAbility && !canceledPrepareThisFrame)
+        {
+            _isPreparingAbility = true;
+
+            // make directional indicators visible to visually show preparing action state
+            _abilityIndicator.SetActive(true);
+        }
+    }
+
+    private void TryAbility(Vector2Int dir)
+    {
+        // do ability check depending on current dinosaur type
+        switch (_dinoType)
+        {
+            case DinoType.Stego:
+                // Check for object at indicated direction of ability
+                Vector2Int abilityPos = _objMover.GetGlobalGridPos() + dir;
+                ObjectState adjacentObj = MovementCheck.GetObjectAtPos(this, abilityPos.x, abilityPos.y);
+                if(adjacentObj is not null)
+                {
+                    // mark object as quantum (or unmark)
+                    adjacentObj.ToggleQuantum();
+                    // action successful (save undo frame)
+                    UndoHandler.SaveFrame();
+                }
+                else
+                {
+                    // play ability failure sound effect
+                }
+
+                break;
+            case DinoType.Trike:
+                break;
+            case DinoType.Anky:
+                break;
+            case DinoType.Dilo:
+                break;
+            case DinoType.Bary:
+                break;
+            case DinoType.Ptero:
+                break;
+            case DinoType.Compy:
+                break;
+            case DinoType.Pachy:
+                break;
+        }
     }
     #endregion
 

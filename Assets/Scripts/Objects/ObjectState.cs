@@ -21,6 +21,8 @@ public class ObjectState : MonoBehaviour
     }
     public ObjectType ObjType;
 
+    private bool _isQuantum = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +33,18 @@ public class ObjectState : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool IsQuantum()
+    {
+        return _isQuantum;
+    }
+
+    /// <summary>
+    /// flip stored IsQuantum state
+    /// </summary>
+    public void ToggleQuantum()
+    {
+        _isQuantum = !_isQuantum;
     }
 }
