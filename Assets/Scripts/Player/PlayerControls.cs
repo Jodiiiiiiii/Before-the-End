@@ -275,6 +275,12 @@ public class PlayerControls : MonoBehaviour
                 ObjectState adjacentObj = MovementCheck.GetObjectAtPos(this, abilityPos.x, abilityPos.y);
                 if(adjacentObj is not null)
                 {
+                    // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
+                    if (dir == Vector2Int.right)
+                        _objFlipper.SetScaleX(_rightScaleX);
+                    else if (dir == Vector2Int.left)
+                        _objFlipper.SetScaleX(-_rightScaleX);
+
                     // mark object as quantum (or unmark)
                     adjacentObj.ToggleQuantum();
                     // action successful (save undo frame)
