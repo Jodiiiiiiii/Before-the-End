@@ -10,8 +10,8 @@ public class UndoObject : UndoHandler
     [SerializeField, Tooltip("Contains object type, saved to undo stack")]
     private ObjectState _objStats;
 
-    // OBJECT TYPE: local frame, ObjectType enum
-    private Stack<(int, ObjectState.ObjectType)> _typeStack = new Stack<(int, ObjectState.ObjectType)>();
+    // OBJECT TYPE: local frame, ObjectType enum, quantum state
+    private Stack<(int, ObjectState.ObjectType, bool)> _typeStack = new Stack<(int, ObjectState.ObjectType, bool)>();
 
     // LOGS: local frame, localPosition
     private Stack<(int, Vector2Int)> _logStack = new Stack<(int, Vector2Int)>();
@@ -20,10 +20,11 @@ public class UndoObject : UndoHandler
     {
         // Retrieve new values
         ObjectState.ObjectType newType = _objStats.ObjType;
+        bool newQuantumState = _objStats.IsQuantum();
 
         // add if empty, or a change occurred
-        if (_typeStack.Count == 0 || newType != _typeStack.Peek().Item2)
-            _typeStack.Push((_localFrame, newType));
+        if (_typeStack.Count == 0 || newType != _typeStack.Peek().Item2 || newQuantumState != _typeStack.Peek().Item3)
+            _typeStack.Push((_localFrame, newType, newQuantumState));
 
         // Update specific stack type
         switch(newType)
@@ -65,9 +66,12 @@ public class UndoObject : UndoHandler
         {
             _typeStack.Pop();
 
-            // update actual object type
+            // update actual object type & quantum state
             ObjectState.ObjectType newType = _typeStack.Peek().Item2;
             _objStats.ObjType = newType;
+            bool newQuantumState = _typeStack.Peek().Item3;
+            _objStats.SetQuantum(newQuantumState);
+
         }
 
         // CANNOT undo past first move, therefore count of at least 2 is required to undo

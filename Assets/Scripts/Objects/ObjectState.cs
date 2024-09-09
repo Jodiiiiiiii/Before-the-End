@@ -52,4 +52,13 @@ public class ObjectState : MonoBehaviour
     {
         _isQuantum = !_isQuantum;
     }
+
+    /// <summary>
+    /// For directly setting, instead of just toggling, quantum state.
+    /// Useful in UndoObject in particular
+    /// </summary>
+    public void SetQuantum(bool newState)
+    {
+        _isQuantum = newState;
+    }
 }
