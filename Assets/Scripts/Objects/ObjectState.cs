@@ -21,7 +21,10 @@ public class ObjectState : MonoBehaviour
     }
     public ObjectType ObjType;
 
+    // Quantum state variables
     private bool _isQuantum = false;
+    [SerializeField, Tooltip("game object containing animated particle sprite")]
+    private GameObject _quantumParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +35,9 @@ public class ObjectState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Update particles to match actual quantum state
+        if (_quantumParticles.activeInHierarchy != _isQuantum)
+            _quantumParticles.SetActive(_isQuantum);
     }
 
     public bool IsQuantum()
