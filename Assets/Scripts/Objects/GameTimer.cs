@@ -13,6 +13,7 @@ public class GameTimer : MonoBehaviour
     private float _quantumTimerPeriod = 0.5f;
 
     private float _quantumTimer;
+    private bool _prevPlayerLocked;
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +24,27 @@ public class GameTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Handle quantum timer
-        if (_quantumTimer < 0)
+        // Handle quantum timer ONLY if panel dragging is occurring (otherwise it would be hidden anyways!)
+        if (PlayerControls.IsPlayerLocked)
         {
-            // shuffle and reset timer
-            ObjectState.ShuffleHiddenQuantumObjects();
-            _quantumTimer = _quantumTimerPeriod;
+            // first swap will happen instantly
+            if (!_prevPlayerLocked)
+            {
+                _quantumTimer = 0;
+                _prevPlayerLocked = true;
+            }
+
+            // handle timer
+            if (_quantumTimer <= 0)
+            {
+                // shuffle and reset timer
+                ObjectState.ShuffleHiddenQuantumObjects();
+                _quantumTimer = _quantumTimerPeriod;
+            }
+            else
+                _quantumTimer -= Time.deltaTime;
         }
         else
-            _quantumTimer -= Time.deltaTime;
+            _prevPlayerLocked = false;
     }
 }
