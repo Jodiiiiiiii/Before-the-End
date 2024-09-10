@@ -14,44 +14,103 @@ public class ObjectFlipper : MonoBehaviour
     [SerializeField, Tooltip("'snappiness' of scale value changes towards goal value")]
     private float _changeSharpness = 1f;
 
-    private float _goalScaleX;
+    private int _goalScaleX;
+    private int _goalScaleY;
 
     // Start is called before the first frame update
     void Start()
     {
-        _goalScaleX = transform.localScale.x;
+        _goalScaleX = Mathf.RoundToInt(transform.localScale.x);
+        _goalScaleY = Mathf.RoundToInt(transform.localScale.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Snap to goal if close enough
+        // X SCALING
+        // Snap to goalScaleX if close enough
         if (Mathf.Abs(transform.localScale.x - _goalScaleX) < _snappingThreshold)
         {
             Vector3 snapScale = transform.localScale;
             snapScale.x = _goalScaleX;
-            transform.localScale = snapScale;        }
-        else // smoothly lerp towards goal
+            transform.localScale = snapScale;
+        }
+        else // smoothly lerp towards goalScaleX
         {
             float lerpScaleX = Mathf.Lerp(transform.localScale.x, _goalScaleX, 1f - Mathf.Exp(-_changeSharpness * Time.deltaTime));
             Vector3 lerpScale = transform.localScale;
             lerpScale.x = lerpScaleX;
             transform.localScale = lerpScale;
         }
-    }
 
-    public void SetScaleX(float scaleX)
-    {
-        _goalScaleX = scaleX;
+        // Y SCALING
+        // Snap to goalScaleY if close enough
+        if (Mathf.Abs(transform.localScale.y - _goalScaleY) < _snappingThreshold)
+        {
+            Vector3 snapScale = transform.localScale;
+            snapScale.y = _goalScaleY;
+            transform.localScale = snapScale;
+        }
+        else // smoothly lerp towards goalScaleY
+        {
+            float lerpScaleY = Mathf.Lerp(transform.localScale.y, _goalScaleY, 1f - Mathf.Exp(-_changeSharpness * Time.deltaTime));
+            Vector3 lerpScale = transform.localScale;
+            lerpScale.y = lerpScaleY;
+            transform.localScale = lerpScale;
+        }
     }
 
     /// <summary>
-    /// Returns goal scaleX as an integer
+    /// enforces scaleX of only -1, 1, or 0.
     /// </summary>
-    /// <returns></returns>
-    public int GetScaleX()
+    public void SetScaleX(int scaleX)
     {
-        // Round operation should just guarantee it is an int. it should already be an integer (represented as a float)
-        return Mathf.RoundToInt(_goalScaleX);
+        if (scaleX == -1 || scaleX == 1 || scaleX == 0)
+            _goalScaleX = scaleX;
+        else
+            throw new System.Exception("ObjectFlipper can ONLY be used to set scale values to -1, 1, or 0.");
+    }
+
+    /// <summary>
+    /// Returns goal scaleX as an integer.
+    /// </summary>
+    public int GetGoalScaleX()
+    {
+        return _goalScaleX;
+    }
+
+    /// <summary>
+    /// returns current scaleX as a float.
+    /// </summary>
+    public float GetCurrentScaleX()
+    {
+        return transform.localScale.x;
+    }
+
+    /// <summary>
+    /// enforces scaleX of only -1, 1, or 0.
+    /// </summary>
+    public void SetScaleY(int scaleY)
+    {
+        if (scaleY == -1 || scaleY == 1 || scaleY == 0)
+            _goalScaleY = scaleY;
+        else
+            throw new System.Exception("ObjectFlipper can ONLY be used to set scale values to -1, 1, or 0.");
+    }
+
+    /// <summary>
+    /// Returns goal scaleY as an integer.
+    /// </summary>
+    public int GetGoalScaleY()
+    {
+        return _goalScaleY;
+    }
+
+    /// <summary>
+    /// returns current scaleY value as a float.
+    /// </summary>
+    public float GetCurrentScaleY()
+    {
+        return transform.localScale.y;
     }
 }

@@ -2554,6 +2554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce8a78cca6f0c14eac62bc5f7c3f490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _quantumTimerPeriod: 0.75
 --- !u!114 &6054828548703351666
 MonoBehaviour:
   m_ObjectHideFlags: 0

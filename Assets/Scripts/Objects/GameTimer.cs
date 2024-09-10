@@ -10,9 +10,9 @@ public class GameTimer : MonoBehaviour
 {
     [Header("Quantum Timer")]
     [SerializeField, Tooltip("Period of timer for calling the function to shuffle quantum objects.")]
-    private static float _quantumTimerPeriod = 0.5f;
+    private float _quantumTimerPeriod = 0.5f;
 
-    private static float _quantumTimer;
+    private float _quantumTimer;
 
     // Start is called before the first frame update
     void Start()

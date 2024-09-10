@@ -84,7 +84,7 @@ public class PlayerControls : MonoBehaviour
         // flip even if no movement occurs (indicates attempt) -> still requires player visibility
         Vector2Int currPos = _objMover.GetGlobalGridPos();
         // if previouslt facing left (AND visible)
-        if (_objFlipper.GetScaleX() == -_rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
+        if (_objFlipper.GetGoalScaleX() == -_rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
         {
             _objFlipper.SetScaleX(_rightScaleX);
             hasChanged = true;
@@ -112,7 +112,7 @@ public class PlayerControls : MonoBehaviour
         // flip even if no movement occurs (indicates attempt) -> still requires player visbility
         Vector2Int currPos = _objMover.GetGlobalGridPos();
         // if previously facing right (AND visible)
-        if (_objFlipper.GetScaleX() == _rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
+        if (_objFlipper.GetGoalScaleX() == _rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
         {
             _objFlipper.SetScaleX(-_rightScaleX); // faces opposite to right dir
             hasChanged = true;
@@ -162,10 +162,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     public bool IsFacingRight()
     {
-        if (_objFlipper.GetScaleX() == _rightScaleX)
+        if (_objFlipper.GetGoalScaleX() == _rightScaleX)
             return true;
 
-        if (_objFlipper.GetScaleX() == -_rightScaleX)
+        if (_objFlipper.GetGoalScaleX() == -_rightScaleX)
             return false;
 
         throw new Exception("Player has invalid facing direction, must be an xScale of 1 or -1. How did this happen?");
