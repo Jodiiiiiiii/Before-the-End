@@ -254,6 +254,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5178b0f632b9e434f956f783dc4a1c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objMover: {fileID: 2308916615138608582}
+  _spriteRenderer: {fileID: 1373801338753148425}
+  _logSprites:
+  - {fileID: 21300000, guid: c834c366a92de0b4494dd3833c9ffbf4, type: 3}
+  _waterSprites:
+  - {fileID: 21300000, guid: 6360ff95a2360e14f81025061234c9af, type: 3}
   ObjType: 1
   _quantumParticles: {fileID: 1724126216844964374}
 --- !u!114 &6163167044267483910
@@ -269,4 +275,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectMover: {fileID: 2308916615138608582}
-  _objStats: {fileID: 5601957240956330351}
+  _objState: {fileID: 5601957240956330351}

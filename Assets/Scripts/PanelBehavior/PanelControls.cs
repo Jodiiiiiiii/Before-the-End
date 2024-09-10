@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// Handles inputs related to clicking and dragging panels to move them.
@@ -10,7 +11,16 @@ using UnityEngine;
 /// </summary>
 public class PanelControls : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField, Tooltip("Used for calling position updates")] private ObjectMover _objMover;
+
+    [Header("Alpha Reduction")]
+    [SerializeField, Tooltip("Alpha value (0 to 1) for object and all child objects when panel dragging is occurring")]
+    private float _draggingAlpha = 0.8f;
+    [SerializeField, Tooltip("ground tilemap so that alpha can be reduced")]
+    private Tilemap _groundTilemap;
+    [SerializeField, Tooltip("border tilemap so that alpha can be reduced")]
+    private Tilemap _borderTilemap;
 
     // constants
     private const int MOUSE_LEFT = 0; // input constant
@@ -104,26 +114,56 @@ public class PanelControls : MonoBehaviour
             // +1 to account for drag bar
             gridPos.y = Mathf.Clamp(gridPos.y, _parentPanel.OriginY + _currPanel.Height + 1, _parentPanel.OriginY + _parentPanel.Height);
 
-            // update global position IF a change has occurred
+            // Initiate panel movement IF a change has occurred (+ reduced alpha and locking)
             Vector2Int gridPosInt = new Vector2Int(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
-            if(!gridPosInt.Equals(_objMover.GetGlobalGridPos()))
+            if (!gridPosInt.Equals(_objMover.GetGlobalGridPos()))
             {
-                // Round to nearest int AND update current panel position (through ObjectMover)
-                _objMover.SetGlobalGoal(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+                // reduce alpha while dragging
+                SetAlphaOfChildren(_draggingAlpha);
+
+                // prevent changes from affecting visibility checks until released
+                _objMover.LockResults();
 
                 _hasPosChanged = true;
             }
+
+            // now that we know a change has occured, update position every frame
+            // we cannot get position from object mover anymore since it is locked
+            if(_hasPosChanged)
+            {
+                // Round to nearest int AND update current panel position (through ObjectMover)
+                _objMover.SetGlobalGoal(Mathf.RoundToInt(gridPos.x), Mathf.RoundToInt(gridPos.y));
+            }
         }
-        else if (_isDragging) // Mouse Button no longer pressed
+        else if (_isDragging) // END DRAGGING: Mouse Button no longer pressed
         {
             // lock in place until nav bar is clicked again
             _isDragging = false;
 
+            // restore alpha to full
+            SetAlphaOfChildren(1);
+
+            // unlock object mover so it not behaves as normal again
+            _objMover.UnlockResults();
+
             // frame dragging has completed, call the update to the Undo Stack (if pos changed)
-            if(_hasPosChanged)
+            if (_hasPosChanged)
                 UndoHandler.SaveFrame();
 
             PlayerControls.IsPlayerLocked = false; // unlock player controls now that panel dragging is complete
         }
+    }
+
+    /// <summary>
+    /// Update alpha values of ground and border tilemaps
+    /// </summary>
+    private void SetAlphaOfChildren(float alpha)
+    {
+        Color newCol = _groundTilemap.color;
+        newCol.a = alpha;
+        _groundTilemap.color = newCol;
+        newCol = _borderTilemap.color;
+        newCol.a = alpha;
+        _borderTilemap.color = newCol;
     }
 }

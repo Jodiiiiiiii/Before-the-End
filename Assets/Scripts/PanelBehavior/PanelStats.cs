@@ -21,13 +21,25 @@ public class PanelStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // update position variable in case it just changed (rounding ensures approximate alignment with visuals)
-        OriginX = Mathf.RoundToInt(transform.position.x);
-        // shift stored origin to bottom left grid unit
-        OriginY = Mathf.RoundToInt(transform.position.y - Height);
-        
-        // shift origin down one if it has a dragging bar
-        if (!_isMainPanel) OriginY--;
+        // it is safe to access transform for positioning of main panel because it CANNOT move
+        if(_isMainPanel)
+        {
+            // update position variable in case it just changed (rounding ensures approximate alignment with visuals)
+            OriginX = Mathf.RoundToInt(transform.position.x);
+            // shift stored origin to bottom left grid unit
+            OriginY = Mathf.RoundToInt(transform.position.y - Height);
+        }
+        else // subpanels
+        {
+            if (TryGetComponent(out ObjectMover objMover))
+            {
+                OriginX = objMover.GetGlobalGridPos().x;
+                // subtract to get to absolute bottom-left corner (since objectMover stores position as top left pos of grid)
+                OriginY = objMover.GetGlobalGridPos().y - Height - 1; 
+            }
+            else
+                throw new System.Exception("Subpanels MUST have an ObjectMover component.");
+        }
     }
 
     /// <summary>

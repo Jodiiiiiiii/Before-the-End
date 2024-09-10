@@ -8,7 +8,7 @@ using UnityEngine;
 public class UndoObject : UndoHandler
 {
     [SerializeField, Tooltip("Contains object type, saved to undo stack")]
-    private ObjectState _objStats;
+    private ObjectState _objState;
 
     // OBJECT TYPE: local frame, ObjectType enum, quantum state
     private Stack<(int, ObjectState.ObjectType, bool)> _typeStack = new Stack<(int, ObjectState.ObjectType, bool)>();
@@ -19,12 +19,15 @@ public class UndoObject : UndoHandler
     protected override void SaveStackFrame()
     {
         // Retrieve new values
-        ObjectState.ObjectType newType = _objStats.ObjType;
-        bool newQuantumState = _objStats.IsQuantum();
+        ObjectState.ObjectType newType = _objState.ObjType;
+        bool newQuantumState = _objState.IsQuantum();
 
         // add if empty, or a change occurred
-        if (_typeStack.Count == 0 || newType != _typeStack.Peek().Item2 || newQuantumState != _typeStack.Peek().Item3)
+        // always save state if quantum (to prevent object type re-jumbling while undoing)
+        if (_typeStack.Count == 0 || newType != _typeStack.Peek().Item2 || newQuantumState) 
+        {
             _typeStack.Push((_localFrame, newType, newQuantumState));
+        }
 
         // Update specific stack type
         switch(newType)
@@ -61,17 +64,16 @@ public class UndoObject : UndoHandler
         ObjectState.ObjectType oldType = _typeStack.Peek().Item2;
 
         // CANNOT undo past first move, therefore count of at least 2 is required to undo
-        // Remove current data and revert type (if a change actually was registered the frame before)
+        // Remove current data and revert type (type stack is saved every update frame)
         if (_typeStack.Count > 1 && _typeStack.Peek().Item1 > _localFrame)
         {
             _typeStack.Pop();
 
             // update actual object type & quantum state
             ObjectState.ObjectType newType = _typeStack.Peek().Item2;
-            _objStats.ObjType = newType;
+            _objState.ObjType = newType;
             bool newQuantumState = _typeStack.Peek().Item3;
-            _objStats.SetQuantum(newQuantumState);
-
+            _objState.SetQuantum(newQuantumState);
         }
 
         // CANNOT undo past first move, therefore count of at least 2 is required to undo

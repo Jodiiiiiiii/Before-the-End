@@ -9,7 +9,7 @@ using UnityEngine;
 public static class VisibilityCheck
 {
     /// <summary>
-    /// Indicates if input panel is visible at input (x, y) position.
+    /// Indicates if input panel is visible at input (x, y) GLOBAL position.
     /// </summary>
     public static bool IsVisible(PanelControls panel, int x, int y)
     {
@@ -25,7 +25,7 @@ public static class VisibilityCheck
     }
 
     /// <summary>
-    /// Indicates if the given player object would be visible if located at the (x, y) position on its current panel
+    /// Indicates if the given player object would be visible if located at the (x, y) GLOBAL position on its current panel
     /// </summary>
     public static bool IsVisible(PlayerControls player, int x, int y)
     {
@@ -38,6 +38,26 @@ public static class VisibilityCheck
         }
         else
             throw new Exception("Player object MUST be a child of the 'Objects' object within a panel");
+
+        // Start recursion
+        return StartRecursiveCheck(panelOrder, x, y, true); // Player MUST exclude controls bar since player must treat that bar as an obstruction
+    }
+
+    /// <summary>
+    /// Indicates if the given object would be visible if located at the (x, y) GLOBAL position on its current panel.
+    /// This is the generic object visibility function (not specifically player/panel).
+    /// </summary>
+    public static bool IsVisible(GameObject obj, int x, int y)
+    {
+        // Retrieve player's parent panel's PanelOrder
+        int panelOrder;
+        if (obj.transform.parent is not null && obj.transform.parent.parent is not null
+            && obj.transform.parent.parent.TryGetComponent(out SortingOrderHandler playerPanel))
+        {
+            panelOrder = playerPanel.PanelOrder;
+        }
+        else
+            throw new Exception("Object MUST be a child of the 'Objects' object within a panel. Did you possibly try to call IsVisible on a non-object?");
 
         // Start recursion
         return StartRecursiveCheck(panelOrder, x, y, true); // Player MUST exclude controls bar since player must treat that bar as an obstruction
