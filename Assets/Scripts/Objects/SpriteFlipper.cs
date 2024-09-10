@@ -7,7 +7,7 @@ using UnityEngine;
 /// Creates a flattening before swapping effect (useful especially for the player).
 /// Should be located ONLY on sprite child objects of game objects with movement functionality (to prevent impacting mechanics).
 /// </summary>
-public class ObjectFlipper : MonoBehaviour
+public class SpriteFlipper : MonoBehaviour
 {
     [SerializeField, Tooltip("Scale value threshold at which actual scale will snap to goal scale")]
     private float _snappingThreshold = 0.01f;

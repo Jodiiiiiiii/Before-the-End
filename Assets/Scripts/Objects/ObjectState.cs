@@ -13,7 +13,7 @@ public class ObjectState : MonoBehaviour
     [SerializeField, Tooltip("Used for accessing grid positions for visibility checks")]
     private ObjectMover _objMover;
     [SerializeField, Tooltip("Used for vertically flipping sprites during object type change")]
-    private ObjectFlipper _objFlipper;
+    private SpriteFlipper _objFlipper;
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer _spriteRenderer;

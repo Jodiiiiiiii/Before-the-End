@@ -29,7 +29,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField, Tooltip("used to actually cause the player to move")] 
     private ObjectMover _objMover;
     [SerializeField, Tooltip("used to apply visual sprite swapping changes to the player")] 
-    private ObjectFlipper _objFlipper;
+    private SpriteFlipper _objFlipper;
     [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player")]
     private int _rightScaleX = -1;
 
