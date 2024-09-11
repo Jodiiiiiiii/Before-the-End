@@ -273,7 +273,7 @@ public class PlayerControls : MonoBehaviour
                 // Check for object at indicated direction of ability
                 Vector2Int abilityPos = _objMover.GetGlobalGridPos() + dir;
                 ObjectState adjacentObj = MovementCheck.GetObjectAtPos(this, abilityPos.x, abilityPos.y);
-                if(adjacentObj is not null)
+                if (adjacentObj is not null && VisibilityCheck.IsVisible(this, abilityPos.x, abilityPos.y)) // object present and visible
                 {
                     // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
                     if (dir == Vector2Int.right)
