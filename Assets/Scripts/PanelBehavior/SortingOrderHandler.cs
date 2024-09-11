@@ -92,7 +92,7 @@ public class SortingOrderHandler : MonoBehaviour
     /// <summary>
     /// Visits the current panel, setting the appropriate PanelOrder.
     /// Returns the next appropriate panel order index based on depth-first tree traversal of panel hierarchy.
-    /// Called whenever panel ordering changes (i.e. sibling re-ordering button press)
+    /// Called whenever panel ordering changes (i.e. start, or sibling re-ordering)
     /// </summary>
     private int SetPanelOrder(int panelOrder)
     {
