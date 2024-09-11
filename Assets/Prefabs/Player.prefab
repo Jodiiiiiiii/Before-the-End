@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7237427636783226371}
   - component: {fileID: 497027150355698948}
+  - component: {fileID: 3435671876989254576}
   m_Layer: 0
   m_Name: Ability Indicator Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7237427636783226371
 Transform:
   m_ObjectHideFlags: 0
@@ -57,6 +58,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3435671876989254576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449128274242985847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b62c91f1e7e02e141bb7878701a6a7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftSprite: {fileID: 490195644653350346}
+  _rightSprite: {fileID: 2249504299296543350}
+  _upSprite: {fileID: 7281944989456088644}
+  _downSprite: {fileID: 2851085925684038613}
+  _anim: {fileID: 497027150355698948}
+  _flashAnimName: AbilityIndicatorFlash
+  _objMover: {fileID: 8153983557811043434}
 --- !u!1 &1955003545107701571
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +116,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955003545107701571}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -180,7 +200,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2214959144778461628}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -292,7 +312,7 @@ MonoBehaviour:
   _objMover: {fileID: 8153983557811043434}
   _objFlipper: {fileID: 544080690693282415}
   _rightScaleX: -1
-  _abilityIndicator: {fileID: 1449128274242985847}
+  _abilityIndicator: {fileID: 3435671876989254576}
   _firstUndoDelay: 0.5
   _undoDelay: 0.1
 --- !u!114 &3141758538331536651
@@ -348,7 +368,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4346976727207640817}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -531,7 +551,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614642553146230113}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

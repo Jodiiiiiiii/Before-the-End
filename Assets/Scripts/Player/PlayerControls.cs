@@ -187,8 +187,8 @@ public class PlayerControls : MonoBehaviour
     #region ACTIONS
     // Inspector Variables
     [Header("Actions")]
-    [SerializeField, Tooltip("Animated game object indicators for ability")]
-    private GameObject _abilityIndicator;
+    [SerializeField, Tooltip("Script handling indicators for ability")]
+    private AbilityIndicatorSprites _abilityIndicator;
 
     // Controls Constants
     private const KeyCode INITIATE_ACTION = KeyCode.Space;
@@ -244,13 +244,13 @@ public class PlayerControls : MonoBehaviour
                 _isPreparingAbility = false;
                 canceledPrepareThisFrame = true;
                 // disable indicator
-                _abilityIndicator.SetActive(false);
+                _abilityIndicator.SetAbilityActive(false);
             }
         }
         else
         {
             // hide directional indicators that show preparing action state
-            _abilityIndicator.SetActive(false);
+            _abilityIndicator.SetAbilityActive(false);
         }
 
         // start ability state (stationary && no movement queued up && pressing action key)
@@ -260,7 +260,7 @@ public class PlayerControls : MonoBehaviour
             _isPreparingAbility = true;
 
             // make directional indicators visible to visually show preparing action state
-            _abilityIndicator.SetActive(true);
+            _abilityIndicator.SetAbilityActive(true);
         }
     }
 
