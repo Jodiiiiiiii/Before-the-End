@@ -64,7 +64,7 @@ public class UndoObject : UndoHandler
         ObjectState.ObjectType oldType = _typeStack.Peek().Item2;
 
         // CANNOT undo past first move, therefore count of at least 2 is required to undo
-        // Remove current data and revert type (type stack is saved every update frame)
+        // Remove current data and revert type (and quantum state)
         if (_typeStack.Count > 1 && _typeStack.Peek().Item1 > _localFrame)
         {
             _typeStack.Pop();

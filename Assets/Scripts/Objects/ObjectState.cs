@@ -64,7 +64,7 @@ public class ObjectState : MonoBehaviour
             _quantumParticles.SetActive(_isQuantum);
 
         // Must handle moving sprite towards matching actual object
-        if (_requiresFlip)
+        if (_requiresFlip || _spriteType != ObjType)
         {
             // Ready to restore sprite to normal
             if(_objFlipper.GetCurrentScaleY() == SPRITE_SHRINK)
