@@ -12,6 +12,7 @@ public static class MovementCheck
     /// </summary>
     public static bool CanPlayerMove(PlayerControls currObj, Vector2Int moveDir)
     {
+        #region PRECONDITION VALIDATION
         // Ensure target position is validly only one unit away
         if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
             throw new Exception("Input of CanMove function MUST have only one non-zero value and it must be eiether -1 or 1.");
@@ -22,14 +23,79 @@ public static class MovementCheck
         Vector2Int currPos = objMover.GetGlobalGridPos();
         Vector2Int targetPos = currPos + moveDir;
 
-        // Check for visibility at current position
+        // Ensure player current visibility
         if (!VisibilityCheck.IsVisible(currObj, currPos.x, currPos.y))
             return false;
+        #endregion
 
-        // Check for immediate obstruction by higher-ordered panel
+        #region PANEL PUSHING
+        // Check for current panel visibility of target/adjacent pos
         if (!VisibilityCheck.IsVisible(currObj, targetPos.x, targetPos.y))
-            return false;
+        {
+            // try to find which panel is visible at target/adjacent pos
+            for (int i = 0; i <= SortingOrderHandler.MaxPanelOrder; i++)
+            {
+                // Topmost panel at pos found
+                if(VisibilityCheck.IsVisible(i, targetPos.x, targetPos.y))
+                {
+                    // retrieve current panel's panel order (through SortingOrderHandler)
+                    if (currObj.transform.parent is not null && currObj.transform.parent.parent is not null
+                        && currObj.transform.parent.parent.TryGetComponent(out SortingOrderHandler currSortHandler))
+                    {
+                        // Retrieve PanelStats of panel to be pushed AND its parent
+                        PanelStats pushedPanel;
+                        PanelStats parentPanel;
+                        // should always enter one of the if statements above otherwise we wouldn't have gotten this far in the logic.
+                        // this logic SHOULD prevent the pushed panel from ever being the main panel since the main panel CANNOT move.
+                        if (i > currSortHandler.PanelOrder) // pushing external edge of other panel
+                        {
+                            // retrieve PanelStats of panel to be pushed
+                            pushedPanel = SortingOrderHandler.GetPanelOfOrder(i);
+                            // retrieve parent panel's panel stats
+                            if (pushedPanel.transform.parent is null || !pushedPanel.transform.parent.TryGetComponent(out parentPanel))
+                                throw new Exception("ALL Subpanels MUST have a parent panel with a PanelStats component.");
+                        }
+                        else if (i < currSortHandler.PanelOrder) // pushing internal edge of current panel
+                        {
+                            // retrieve current panel's PanelStats
+                            if (!currSortHandler.TryGetComponent(out pushedPanel))
+                                throw new Exception("ALL panels MUST have a PanelStats component.");
+                            // retrieve parent panel's panel stats
+                            if (pushedPanel.transform.parent is null || !pushedPanel.transform.parent.TryGetComponent(out parentPanel))
+                                throw new Exception("ALL Subpanels MUST have a parent panel with a PanelStats component.");
+                        }
+                        else
+                            throw new Exception("It should be impossible to see this exception unless something is fundamentally wrong with VisibilityCheck");
+                        
+                        // check if the pushed panel can move in the moveDir within its parent panel
+                        if(pushedPanel.OriginX + moveDir.x >= parentPanel.OriginX
+                            && pushedPanel.OriginX + moveDir.x + pushedPanel.Width <= parentPanel.OriginX + parentPanel.Width
+                            && pushedPanel.OriginY + moveDir.y >= parentPanel.OriginY
+                            && pushedPanel.OriginY + moveDir.y + pushedPanel.Height <= parentPanel.OriginY + parentPanel.Height)
+                        {
+                            if (!pushedPanel.TryGetComponent(out ObjectMover panelMover))
+                                throw new Exception("ALL subpanels MUST have an ObjectMover component.");
 
+                            // Apply movement to pushed panel
+                            panelMover.Increment(moveDir);
+                            // Save undo stack frame since a change/action occurred
+                            UndoHandler.SaveFrame();
+                        }
+                    }
+                    else
+                        throw new Exception("Player object MUST be contained within Objects child object of a panel AND the panel must have a SortingOrderHandler component.");
+
+                    // no need to check more panels
+                    break;
+                }
+            }
+
+            // Player moved into a panel so, if any action occurs, it will not involve the player moving
+            return false;
+        }
+        #endregion
+
+        #region OBJECTS
         // Check for object in current panel at target position
         ObjectState obj = GetObjectAtPos(currObj, targetPos.x, targetPos.y);
         if (obj is null)
@@ -74,6 +140,7 @@ public static class MovementCheck
         }
         else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup // TODO: account forother cases later
             return false;
+        #endregion
     }
 
     /// <summary>

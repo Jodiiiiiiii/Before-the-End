@@ -5061,9 +5061,6 @@ PrefabInstance:
       addedObject: {fileID: 1511272588}
     - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1858106544}
-    - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 111412119}
     - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
@@ -5086,6 +5083,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 290919086}
+    - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858106544}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
 --- !u!4 &1037301612 stripped
@@ -6453,7 +6453,7 @@ PrefabInstance:
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[4].m_Data
       value: 
-      objectReference: {fileID: 298762930, guid: 75c3e718ac7edeb449e6dc0135549551, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[5].m_Data
       value: 
@@ -6469,7 +6469,7 @@ PrefabInstance:
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[8].m_Data
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 298762930, guid: 75c3e718ac7edeb449e6dc0135549551, type: 3}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[9].m_Data
       value: 
@@ -6660,7 +6660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[4].m_RefCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[5].m_RefCount
@@ -6676,7 +6676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[8].m_RefCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[9].m_RefCount
@@ -6740,7 +6740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_Tiles.Array.data[6].second.m_TileSpriteIndex
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_Tiles.Array.data[7].second.m_TileSpriteIndex
@@ -7090,11 +7090,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6306202609875901108, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6306202609875901108, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6306202609875901108, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: m_LocalPosition.z

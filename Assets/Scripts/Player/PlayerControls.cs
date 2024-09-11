@@ -32,6 +32,8 @@ public class PlayerControls : MonoBehaviour
     private SpriteFlipper _objFlipper;
     [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player")]
     private int _rightScaleX = -1;
+    [SerializeField, Tooltip("Time delay between player movements if holding down movement inputs")]
+    private float _moveDelay = 0.25f;
 
     // Controls constants
     private const KeyCode MOVE_UP = KeyCode.W;
@@ -40,6 +42,8 @@ public class PlayerControls : MonoBehaviour
     private const KeyCode MOVE_LEFT = KeyCode.A;
 
     private List<KeyCode> _moveInputStack = new();
+
+    private float _moveTimer;
 
     private void HandleMovementInputs()
     {
@@ -61,17 +65,28 @@ public class PlayerControls : MonoBehaviour
         }
 
         // Process most recent move input (if any)
-        if (_objMover.IsStationary() && _moveInputStack.Count > 0)
+        if (_moveInputStack.Count > 0)
         {
-            if (_moveInputStack[0] == MOVE_UP)
-                TryMoveUp();
-            else if (_moveInputStack[0] == MOVE_DOWN)
-                TryMoveDown();
-            else if (_moveInputStack[0] == MOVE_RIGHT)
-                TryMoveRight();
-            else if (_moveInputStack[0] == MOVE_LEFT)
-                TryMoveLeft();
+            if (_moveTimer <= 0)
+            {
+                if (_moveInputStack[0] == MOVE_UP)
+                    TryMoveUp();
+                else if (_moveInputStack[0] == MOVE_DOWN)
+                    TryMoveDown();
+                else if (_moveInputStack[0] == MOVE_RIGHT)
+                    TryMoveRight();
+                else if (_moveInputStack[0] == MOVE_LEFT)
+                    TryMoveLeft();
+
+                // reset moveTimer for next input.
+                // Resets even if move fails to have any impact - accounts for action such as panel pushing when player doesn't move.
+                _moveTimer = _moveDelay;
+            }
+            else
+                _moveTimer -= Time.deltaTime;
         }
+        else
+            _moveTimer = 0; // no delay on first input
     }
 
     /// <summary>

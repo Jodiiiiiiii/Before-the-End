@@ -48,6 +48,15 @@ public static class VisibilityCheck
     }
 
     /// <summary>
+    /// Indicates if the panel with the given order is visible at the (x, y) GLOBAL position.
+    /// Most generic IsVisible function, useful only when you already know the panel order of the panel you are trying to detect visibility for.
+    /// </summary>
+    public static bool IsVisible(int panelOrder, int x, int y)
+    {
+        return StartRecursiveCheck(panelOrder, x, y);
+    }
+
+    /// <summary>
     /// Handles retrieving MainPanel object and starting Recursive visibility check.
     /// </summary>
     private static bool StartRecursiveCheck(int panelOrder, int x, int y)

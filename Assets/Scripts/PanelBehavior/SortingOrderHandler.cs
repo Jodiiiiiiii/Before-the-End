@@ -12,6 +12,8 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class SortingOrderHandler : MonoBehaviour
 {
+    public static int MaxPanelOrder = 0; // default 0 if only main panel
+
     [HideInInspector] public int PanelOrder = 0;
 
     private TilemapRenderer _groundTilemap = null;
@@ -98,7 +100,11 @@ public class SortingOrderHandler : MonoBehaviour
     {
         PanelOrder = panelOrder;
 
-        if(_subPanels.Count == 0) // leaf node (no sub panels)
+        // update static max panel order if new highest leaf node is found
+        if (PanelOrder > MaxPanelOrder)
+            MaxPanelOrder = PanelOrder;
+
+        if (_subPanels.Count == 0) // leaf node (no sub panels)
             return PanelOrder + 1;
         if (_subPanels.Count == 1) // one sub-panel
             return _subPanels[0].SetPanelOrder(PanelOrder + 1);
@@ -229,6 +235,82 @@ public class SortingOrderHandler : MonoBehaviour
 
             // If this was reached, then every subpanel already returned true from a leaf node
             return true;
+        }
+    }
+
+    /// <summary>
+    /// Starts a depth-first traversal to find a panel of a specific panel order.
+    /// Returns null if goal panel is NOT found.
+    /// </summary>
+    public static PanelStats GetPanelOfOrder(int goalPanelOrder)
+    {
+        // Retrieve MainPanel to start recursive panel order update
+        GameObject[] mainPanel = GameObject.FindGameObjectsWithTag("MainPanel");
+        if (mainPanel.Length == 0)
+            throw new Exception("No MainPanel found in scene. Either add one or do not use VisibilityCheck");
+        if (mainPanel.Length > 1)
+            throw new Exception("Only one instance of MainPanel is permitted in a level scene");
+
+        // Start recursive panel order check
+        SortingOrderHandler foundHandler;
+        if (mainPanel[0].TryGetComponent(out SortingOrderHandler sortHandler))
+            foundHandler = sortHandler.CheckForPanelOrder(goalPanelOrder);
+        else
+            throw new Exception("Main panels MUST have a SortingOrderHandler");
+
+        // indicate if it wasn't found
+        if (foundHandler is null)
+            return null;
+
+        // Now get and return the PanelStats component
+        if (foundHandler.TryGetComponent(out PanelStats panel))
+            return panel;
+        else
+            throw new Exception("All panels MUST contain a PanelStats component");
+    }
+
+    /// <summary>
+    /// Visits the current panel, checking if it has the goalPanelOrder, otherwise check in children recursively.
+    /// </summary>
+    private SortingOrderHandler CheckForPanelOrder(int goalPanelOrder)
+    {
+        // FOUND
+        if (PanelOrder == goalPanelOrder)
+            return this;
+
+        if (_subPanels.Count == 0) // leaf node (no sub panels)
+        {
+            // not found
+            return null;
+        }
+        if (_subPanels.Count == 1) // one sub-panel
+        {
+            // check sub-panel
+            return _subPanels[0].CheckForPanelOrder(goalPanelOrder);
+        }
+        else // multiple sub-panels
+        {
+            // Retrieve all sibling handlers
+            List<SiblingOrderHandler> siblingHandlers = new List<SiblingOrderHandler>();
+            foreach (SortingOrderHandler subPanel in _subPanels)
+            {
+                if (subPanel.TryGetComponent(out SiblingOrderHandler siblingHandler))
+                    siblingHandlers.Add(siblingHandler);
+                else
+                    throw new Exception("Any panel with a sibling MUST have a sibling handler.");
+            }
+
+            // Recursive call to subpanels until panel is found
+            int nextPanelOrder = PanelOrder + 1;
+            for (int i = 1; i < siblingHandlers.Count + 1; i++) // iterates through goal siblingOrders
+            {
+                // Check each child panel
+                SortingOrderHandler childResult = _subPanels[i].CheckForPanelOrder(goalPanelOrder);
+                if (childResult is not null)
+                    return childResult;
+            }
+            // panel NOT found
+            return null;
         }
     }
 }
