@@ -161,7 +161,7 @@ public class SortingOrderHandler : MonoBehaviour
     /// If true, makes CONTAINMENT checks ignore controls bar. 
     /// Obstruction checks will still ALWAYS include controls bar
     /// </param>
-    public bool IsGoalVisibleAndContained(int goalPanelOrder, int x, int y, bool excludeControlsBar)
+    public bool IsGoalVisibleAndContained(int goalPanelOrder, int x, int y)
     {
         // Current panel IS goal panel
         if(goalPanelOrder == PanelOrder)
@@ -169,7 +169,7 @@ public class SortingOrderHandler : MonoBehaviour
             // Ensure that the goal panel actually contains the grid position (x, y)
             if (TryGetComponent(out PanelStats panelStats))
             {
-                if (!panelStats.IsPosInBounds(x, y, excludeControlsBar)) // exclusion of controls bar only applies here to CONTAINMENT checks
+                if (!panelStats.IsPosInBounds(x, y))
                     return false;
             }
         }
@@ -184,7 +184,7 @@ public class SortingOrderHandler : MonoBehaviour
             {
                 if (TryGetComponent(out PanelStats panelStats))
                     // goal not visible if this subpanel includes the pos
-                    return !panelStats.IsPosInBounds(x, y, false); // never exclude controls bar for obstruction checks
+                    return !panelStats.IsPosInBounds(x, y);
                 else
                     throw new Exception("All panels MUST have a PanelStats component");
             }
@@ -196,7 +196,7 @@ public class SortingOrderHandler : MonoBehaviour
             {
                 if (TryGetComponent(out PanelStats panelStats))
                 {
-                    if (panelStats.IsPosInBounds(x, y, false))  // never exclude controls bar for obstruction checks
+                    if (panelStats.IsPosInBounds(x, y))
                         return false; // goal is obstructed so return
                 } 
                 else
@@ -204,7 +204,7 @@ public class SortingOrderHandler : MonoBehaviour
             }
 
             // Visit sub-panel
-            return _subPanels[0].IsGoalVisibleAndContained(goalPanelOrder, x, y, excludeControlsBar);
+            return _subPanels[0].IsGoalVisibleAndContained(goalPanelOrder, x, y);
         }
         else // multiple sub-panels
         {
@@ -213,7 +213,7 @@ public class SortingOrderHandler : MonoBehaviour
             {
                 if (TryGetComponent(out PanelStats panelStats))
                 {
-                    if (panelStats.IsPosInBounds(x, y, false)) // never exclude controls bar for obstruction checks
+                    if (panelStats.IsPosInBounds(x, y))
                         return false; // goal is obstructed so return
                 }
                 else
@@ -223,7 +223,7 @@ public class SortingOrderHandler : MonoBehaviour
             // visit all sub-panels
             for (int i = 0; i < _subPanels.Count; i++)
             {
-                if (!_subPanels[i].IsGoalVisibleAndContained(goalPanelOrder, x, y, excludeControlsBar))
+                if (!_subPanels[i].IsGoalVisibleAndContained(goalPanelOrder, x, y))
                     return false;
             }
 

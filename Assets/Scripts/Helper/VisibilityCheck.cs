@@ -24,7 +24,7 @@ public static class VisibilityCheck
             throw new Exception("Player object MUST be a child of the 'Objects' object within a panel");
 
         // Start recursion
-        return StartRecursiveCheck(panelOrder, x, y, true); // Player MUST exclude controls bar since player must treat that bar as an obstruction
+        return StartRecursiveCheck(panelOrder, x, y); // Player MUST exclude controls bar since player must treat that bar as an obstruction
     }
 
     /// <summary>
@@ -44,13 +44,13 @@ public static class VisibilityCheck
             throw new Exception("Object MUST be a child of the 'Objects' object within a panel. Did you possibly try to call IsVisible on a non-object?");
 
         // Start recursion
-        return StartRecursiveCheck(panelOrder, x, y, true); // Player MUST exclude controls bar since player must treat that bar as an obstruction
+        return StartRecursiveCheck(panelOrder, x, y); // Player MUST exclude controls bar since player must treat that bar as an obstruction
     }
 
     /// <summary>
     /// Handles retrieving MainPanel object and starting Recursive visibility check.
     /// </summary>
-    private static bool StartRecursiveCheck(int panelOrder, int x, int y, bool excludeControlsPanel)
+    private static bool StartRecursiveCheck(int panelOrder, int x, int y)
     {
         // Retrieve MainPanel to start recursive visibility check
         GameObject[] mainPanelObjects = GameObject.FindGameObjectsWithTag("MainPanel");
@@ -61,7 +61,7 @@ public static class VisibilityCheck
 
         // Start recursive visibility check from main panel
         if (mainPanelObjects[0].TryGetComponent(out SortingOrderHandler mainSortHandler))
-            return mainSortHandler.IsGoalVisibleAndContained(panelOrder, x, y, excludeControlsPanel);
+            return mainSortHandler.IsGoalVisibleAndContained(panelOrder, x, y);
         else
             throw new Exception("MainPanel object must have SortingOrderHandler component");
     }

@@ -35,7 +35,7 @@ public class PanelStats : MonoBehaviour
             {
                 OriginX = objMover.GetGlobalGridPos().x;
                 // subtract to get to absolute bottom-left corner (since objectMover stores position as top left pos of grid)
-                OriginY = objMover.GetGlobalGridPos().y - Height - 1; 
+                OriginY = objMover.GetGlobalGridPos().y - Height; 
             }
             else
                 throw new System.Exception("Subpanels MUST have an ObjectMover component.");
@@ -46,13 +46,13 @@ public class PanelStats : MonoBehaviour
     /// Returns whether position (x,y) is contained within the current panel (including the controls bar).
     /// Useful in visibility detection algorithm.
     /// </summary>
-    public bool IsPosInBounds(int x, int y, bool excludeControlsBar)
+    public bool IsPosInBounds(int x, int y)
     {
         // left/right of panel bounds
         if (x < OriginX || x >= OriginX + Width)
             return false;
         // above/below panel bounds
-        if (y < OriginY + 1 || ((_isMainPanel || excludeControlsBar) ? (y >= OriginY + Height + 1) : (y >= OriginY + Height + 2)))
+        if (y < OriginY + 1 || y >= OriginY + Height + 1)
             return false;
         
         // therefore, must be within bounds
