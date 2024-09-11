@@ -68,7 +68,6 @@ public class PanelControls : MonoBehaviour
                     _dragOffset = new Vector2(xDiff, yDiff);
                     _isDragging = true;
                     _hasPosChanged = false;
-                    PlayerControls.IsPlayerLocked = true; // player cannot move while panel dragging
                 }
             }
             else // has siblings - and ordering button
@@ -123,6 +122,9 @@ public class PanelControls : MonoBehaviour
 
                 // prevent changes from affecting visibility checks until released
                 _objMover.LockResults();
+
+                // player cannot move once panel dragging has begun
+                PlayerControls.IsPlayerLocked = true;
 
                 _hasPosChanged = true;
             }
