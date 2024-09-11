@@ -290,19 +290,8 @@ public class SortingOrderHandler : MonoBehaviour
         }
         else // multiple sub-panels
         {
-            // Retrieve all sibling handlers
-            List<SiblingOrderHandler> siblingHandlers = new List<SiblingOrderHandler>();
-            foreach (SortingOrderHandler subPanel in _subPanels)
-            {
-                if (subPanel.TryGetComponent(out SiblingOrderHandler siblingHandler))
-                    siblingHandlers.Add(siblingHandler);
-                else
-                    throw new Exception("Any panel with a sibling MUST have a sibling handler.");
-            }
-
             // Recursive call to subpanels until panel is found
-            int nextPanelOrder = PanelOrder + 1;
-            for (int i = 1; i < siblingHandlers.Count + 1; i++) // iterates through goal siblingOrders
+            for (int i = 0; i < _subPanels.Count; i++) // iterates through goal siblingOrders
             {
                 // Check each child panel
                 SortingOrderHandler childResult = _subPanels[i].CheckForPanelOrder(goalPanelOrder);
