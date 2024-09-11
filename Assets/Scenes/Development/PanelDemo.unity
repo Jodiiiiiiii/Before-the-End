@@ -5596,6 +5596,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2311251137624515907, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3217406866906626938, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_Size.x
       value: 17
@@ -6084,9 +6088,17 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[12].second.m_TileSpriteIndex
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7738104318651338006, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8798609841060786964, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
       propertyPath: m_Name
       value: Subpanel (Lone)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961519667116325254, guid: 417f2d2aabb33e3468f2dd97b2c376c2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

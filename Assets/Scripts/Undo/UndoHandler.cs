@@ -55,5 +55,8 @@ public abstract class UndoHandler : MonoBehaviour
     /// </summary>
     protected abstract void UndoStackFrame();
 
-    
+    public static int GetGlobalFrame()
+    {
+        return _globalFrame;
+    }
 }

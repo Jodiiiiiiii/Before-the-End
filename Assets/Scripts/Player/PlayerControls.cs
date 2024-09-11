@@ -122,6 +122,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void TryMoveLeft()
     {
+        int prevGlobalFrame = UndoHandler.GetGlobalFrame();
         bool hasChanged = false;
 
         // flip even if no movement occurs (indicates attempt) -> still requires player visbility
@@ -141,7 +142,8 @@ public class PlayerControls : MonoBehaviour
         }
 
         // save frame as long as scale was flipped (visible change)
-        if(hasChanged)
+        // Also ensure that an frame was not saved during CanPlayerMove call (would cause an extra empty save frame)
+        if(hasChanged && prevGlobalFrame == UndoHandler.GetGlobalFrame())
             UndoHandler.SaveFrame();
         
     }
