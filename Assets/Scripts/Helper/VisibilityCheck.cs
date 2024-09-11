@@ -9,22 +9,6 @@ using UnityEngine;
 public static class VisibilityCheck
 {
     /// <summary>
-    /// Indicates if input panel is visible at input (x, y) GLOBAL position.
-    /// </summary>
-    public static bool IsVisible(PanelControls panel, int x, int y)
-    {
-        // Retrieve panel's PanelOrder
-        int panelOrder;
-        if (panel.TryGetComponent(out SortingOrderHandler panelSortHandler))
-            panelOrder = panelSortHandler.PanelOrder;
-        else
-            throw new Exception("All panels MUST have a SortingOrderHandler component");
-
-        // Start recursion
-        return StartRecursiveCheck(panelOrder, x, y, false); // MUST include controls bar when doing PanelControls checks
-    }
-
-    /// <summary>
     /// Indicates if the given player object would be visible if located at the (x, y) GLOBAL position on its current panel
     /// </summary>
     public static bool IsVisible(PlayerControls player, int x, int y)
