@@ -76,6 +76,8 @@ public static class MovementCheck
                             if (!pushedPanel.TryGetComponent(out ObjectMover panelMover))
                                 throw new Exception("ALL subpanels MUST have an ObjectMover component.");
 
+                            // shuffle quantum objects just before moving panel
+                            ObjectState.ShuffleHiddenQuantumObjects();
                             // Apply movement to pushed panel
                             panelMover.Increment(moveDir);
                             // Save undo stack frame since a change/action occurred
