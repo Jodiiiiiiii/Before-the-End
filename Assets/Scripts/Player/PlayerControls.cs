@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
 
-    // statically set variable for locking player controls (i.e. during panel dragging or timed actions)
+    // statically set variable for locking player controls
+    // (i.e. during timed events, such as pterodactyl ability when the player cannot do anything)
     public static bool IsPlayerLocked = false;
 
     // Update is called once per frame
