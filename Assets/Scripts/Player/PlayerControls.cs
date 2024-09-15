@@ -156,6 +156,8 @@ public class PlayerControls : MonoBehaviour
                 newIndex = _dinoCharges.Length - 1;
 
             _currDino = newIndex;
+            // save action
+            UndoHandler.SaveFrame();
         }
         // cycle dino type to one higher
         if(Input.GetKeyDown(CYCLE_RIGHT))
@@ -165,16 +167,34 @@ public class PlayerControls : MonoBehaviour
                 newIndex = 0;
 
             _currDino = newIndex;
+            // save action
+            UndoHandler.SaveFrame();
         }
     }
 
     /// <summary>
     /// Determines and returns current dinosaur type of the player.
-    /// Useful for sprite swapper.
+    /// Useful for sprite swapper and undo system.
     /// </summary>
     public DinoType GetCurrDinoType()
     {
         return _dinoTypes[_currDino];
+    }
+
+    /// <summary>
+    /// Updates player's stored dino type (will impact abilities and visual appearance).
+    /// </summary>
+    public void SetDinoType(DinoType type)
+    {
+        // find index with the input dino type
+        for (int i = 0; i < _dinoTypes.Length; i++)
+        {
+            if (_dinoTypes[i] == type)
+            {
+                _currDino = i;
+                break;
+            }
+        }
     }
     #endregion
 
