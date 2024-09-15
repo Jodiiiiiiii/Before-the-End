@@ -9,22 +9,11 @@ using UnityEngine;
 /// </summary>
 public class ObjectState : MonoBehaviour
 {
-    [Header("Other Components")]
+    [Header("Object Modification Components")]
     [SerializeField, Tooltip("Used for accessing grid positions for visibility checks")]
     private ObjectMover _objMover;
     [SerializeField, Tooltip("Used for vertically flipping sprites during object type change")]
     private SpriteFlipper _objFlipper;
-
-    [Header("Sprites")]
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private Sprite[] _logSprites;
-    [SerializeField] private Sprite[] _waterSprites;
-
-    private const int SPRITE_SHRINK = 0;
-    private const int SPRITE_NORMAL = 1;
-
-    private ObjectType _spriteType;
-    private bool _requiresFlip = false;
 
     [Header("Object Type")]
     public ObjectType ObjType;
@@ -39,21 +28,11 @@ public class ObjectState : MonoBehaviour
         Tunnel,
         Pickup
     }
-    
-
-    [Header("Quantum State")]
-    [SerializeField, Tooltip("game object containing animated particle sprite")]
-    private GameObject _quantumParticles;
-
-    private bool _isQuantum = false;
-    // Stores objectState, and whether the quantum object is visible
-    private static List<ObjectState> _quantumObjects = new List<ObjectState>();
 
     // Start is called before the first frame update
     void Start()
     {
-        // initialize to starting type
-        _spriteType = ObjType;
+
     }
 
     // Update is called once per frame
@@ -62,47 +41,18 @@ public class ObjectState : MonoBehaviour
         // Update particles to match actual quantum state
         if (_quantumParticles.activeInHierarchy != _isQuantum)
             _quantumParticles.SetActive(_isQuantum);
-
-        // Must handle moving sprite towards matching actual object
-        if (_requiresFlip || _spriteType != ObjType)
-        {
-            // Ready to restore sprite to normal
-            if(_objFlipper.GetCurrentScaleY() == SPRITE_SHRINK)
-            {
-                // flip back to base scale
-                _objFlipper.SetScaleY(SPRITE_NORMAL);
-                // ensure sprite update occurs
-                _spriteType = ObjType;
-                // flip concluded
-                _requiresFlip = false;
-            }
-            else // sprite should be shrinking if not yet at fully shrunk
-                _objFlipper.SetScaleY(SPRITE_SHRINK);
-        }
-
-        // actually update the sprite
-        switch (_spriteType)
-        {
-            case ObjectState.ObjectType.Log:
-                _spriteRenderer.sprite = _logSprites[0];
-                break;
-            case ObjectState.ObjectType.Water:
-                _spriteRenderer.sprite = _waterSprites[0];
-                break;
-            case ObjectState.ObjectType.Rock:
-                break;
-            case ObjectState.ObjectType.TallRock:
-                break;
-            case ObjectState.ObjectType.Bush:
-                break;
-            case ObjectState.ObjectType.TallBush:
-                break;
-            case ObjectState.ObjectType.Tunnel:
-                break;
-            case ObjectState.ObjectType.Pickup:
-                break;
-        }
     }
+
+    #region QUANTUM MECHANICS
+    [Header("Quantum State")]
+    [SerializeField, Tooltip("game object containing animated particle sprite")]
+    private GameObject _quantumParticles;
+    [SerializeField, Tooltip("used to call sprite flip when quantum objects are randomized.")]
+    private ObjectSpriteSwapper _spriteSwapper;
+
+    private bool _isQuantum = false;
+    // Stores objectState, and whether the quantum object is visible
+    private static List<ObjectState> _quantumObjects = new List<ObjectState>();
 
     public bool IsQuantum()
     {
@@ -202,11 +152,12 @@ public class ObjectState : MonoBehaviour
             hiddenList[i].ObjType = shuffledTypes[i];
 
             // ensure all quantum objects undergo visual flip (even if no change occurred)
-            hiddenList[i]._requiresFlip = true;
+            hiddenList[i]._spriteSwapper.RequireFlip();
 
             // TODO: Update this to also handle other object data values that need to be swapped (i.e. water w or w/o planks state)
             // this will likely require instead a shuffling of indexes and then iteration through one list updating stats accordingly,
             // based on a copy of the original hidden list
         }
     }
+    #endregion
 }
