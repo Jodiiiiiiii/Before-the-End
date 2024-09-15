@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerControls;
 
 public static class PlayerActionChecks
 {
@@ -185,6 +186,64 @@ public static class PlayerActionChecks
     #endregion
 
     #region PLAYER ABILITY CHECKS
+    /// <summary>
+    /// Attempts to activate player ability in given direction for a certain DinoType, ensuring there are enough charges.
+    /// Returns whether or not the action successfully happened to cause some change
+    /// </summary>
+    public static bool TryPlayerAbility(PlayerControls player, Vector2Int dir, DinoType type, int charges)
+    {
+        if (!player.TryGetComponent(out ObjectMover objMover))
+            throw new Exception("Player MUST have ObjectMover component.");
+
+        // return if out of charges
+        if (charges == 0)
+            return false; // TODO: ability failure effect
+
+        // do ability check depending on current dinosaur type
+        switch (type) // current type
+        {
+            case DinoType.Stego:
+                // Check for object at indicated direction of ability
+                Vector2Int abilityPos = objMover.GetGlobalGridPos() + dir;
+                ObjectState adjacentObj = GetObjectAtPos(player, abilityPos.x, abilityPos.y);
+                if (adjacentObj is not null && VisibilityCheck.IsVisible(player, abilityPos.x, abilityPos.y)) // object present and visible
+                {
+                    // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
+                    if (dir == Vector2Int.right)
+                        player.SetFacingRight(true);
+                    else if (dir == Vector2Int.left)
+                        player.SetFacingRight(false);
+
+                    // mark object as quantum (or unmark)
+                    adjacentObj.ToggleQuantum();
+                    // action successful (save undo frame)
+                    UndoHandler.SaveFrame();
+                    return true;
+                }
+                else
+                {
+                    // play ability failure effect
+
+                    return false;
+                }
+            case DinoType.Trike:
+                return false; // unimplemented
+            case DinoType.Anky:
+                return false; // unimplemented
+            case DinoType.Dilo:
+                return false; // unimplemented
+            case DinoType.Bary:
+                return false; // unimplemented
+            case DinoType.Ptero:
+                return false; // unimplemented
+            case DinoType.Compy:
+                return false; // unimplemented
+            case DinoType.Pachy:
+                return false; // unimplemented
+        }
+
+        throw new Exception("Issue with TryPlayerAbility. Should have returned at some point but did not.");
+    }
     #endregion
 
     /// <summary>

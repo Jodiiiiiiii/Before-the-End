@@ -200,22 +200,26 @@ public class PlayerControls : MonoBehaviour
             // Try ability in appropriate direction and cancel preparing ability state
             if (Input.GetKeyDown(MOVE_UP))
             {
-                TryAbility(Vector2Int.up);
+                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.up, _dinoTypes[_currDino], _dinoCharges[_currDino]))
+                    _dinoCharges[_currDino]--;
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_DOWN))
             {
-                TryAbility(Vector2Int.down);
+                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.down, _dinoTypes[_currDino], _dinoCharges[_currDino]))
+                    _dinoCharges[_currDino]--;
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_RIGHT))
             {
-                TryAbility(Vector2Int.right);
+                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.right, _dinoTypes[_currDino], _dinoCharges[_currDino]))
+                    _dinoCharges[_currDino]--;
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_LEFT))
             {
-                TryAbility(Vector2Int.left);
+                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.left, _dinoTypes[_currDino], _dinoCharges[_currDino]))
+                    _dinoCharges[_currDino]--;
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(INITIATE_ACTION)) // cancel ability if space pressed again
@@ -240,57 +244,6 @@ public class PlayerControls : MonoBehaviour
 
             // make directional indicators visible to visually show preparing action state
             _abilityIndicator.SetAbilityActive(true);
-        }
-    }
-
-    private void TryAbility(Vector2Int dir)
-    {
-        // return if out of charges
-        if (_dinoCharges[_currDino] == 0)
-            return;
-
-        // do ability check depending on current dinosaur type
-        switch (_dinoTypes[_currDino]) // current type
-        {
-            case DinoType.Stego:
-                // Check for object at indicated direction of ability
-                Vector2Int abilityPos = _objMover.GetGlobalGridPos() + dir;
-                ObjectState adjacentObj = PlayerActionChecks.GetObjectAtPos(this, abilityPos.x, abilityPos.y);
-                if (adjacentObj is not null && VisibilityCheck.IsVisible(this, abilityPos.x, abilityPos.y)) // object present and visible
-                {
-                    // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
-                    if (dir == Vector2Int.right)
-                        _objFlipper.SetScaleX(_rightScaleX);
-                    else if (dir == Vector2Int.left)
-                        _objFlipper.SetScaleX(-_rightScaleX);
-
-                    // mark object as quantum (or unmark)
-                    adjacentObj.ToggleQuantum();
-                    // action successful (save undo frame)
-                    UndoHandler.SaveFrame();
-                    // use up charge of ability
-                    _dinoCharges[_currDino]--;
-                }
-                else
-                {
-                    // play ability failure sound effect
-                }
-
-                break;
-            case DinoType.Trike:
-                break;
-            case DinoType.Anky:
-                break;
-            case DinoType.Dilo:
-                break;
-            case DinoType.Bary:
-                break;
-            case DinoType.Ptero:
-                break;
-            case DinoType.Compy:
-                break;
-            case DinoType.Pachy:
-                break;
         }
     }
     #endregion
