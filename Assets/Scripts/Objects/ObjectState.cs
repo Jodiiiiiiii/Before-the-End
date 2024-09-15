@@ -15,6 +15,7 @@ public class ObjectState : MonoBehaviour
     [SerializeField, Tooltip("Used for vertically flipping sprites during object type change")]
     private SpriteFlipper _objFlipper;
 
+    // TODO: add serializable ObjectData inner class that can be easily transferred when quantum swapping
     [Header("Object Type")]
     public ObjectType ObjType;
     public enum ObjectType

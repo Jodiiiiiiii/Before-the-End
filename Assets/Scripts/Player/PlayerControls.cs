@@ -108,7 +108,7 @@ public class PlayerControls : MonoBehaviour
         }
 
         // Check right one unit for validity
-        if (MovementCheck.CanPlayerMove(this, Vector2Int.right))
+        if (PlayerActionChecks.CanPlayerMove(this, Vector2Int.right))
         {
             _objMover.Increment(Vector2Int.right);
             hasChanged = true;
@@ -137,7 +137,7 @@ public class PlayerControls : MonoBehaviour
         }
 
         // Check left one unit for validity
-        if (MovementCheck.CanPlayerMove(this, Vector2Int.left))
+        if (PlayerActionChecks.CanPlayerMove(this, Vector2Int.left))
         {
             _objMover.Increment(Vector2Int.left);
             hasChanged = true;
@@ -156,7 +156,7 @@ public class PlayerControls : MonoBehaviour
     private void TryMoveUp()
     {
         // Check up one unit for validity
-        if(MovementCheck.CanPlayerMove(this, Vector2Int.up))
+        if(PlayerActionChecks.CanPlayerMove(this, Vector2Int.up))
         {
             _objMover.Increment(Vector2Int.up);
             UndoHandler.SaveFrame();
@@ -169,7 +169,7 @@ public class PlayerControls : MonoBehaviour
     private void TryMoveDown()
     {
         // Check down one unit for validity
-        if (MovementCheck.CanPlayerMove(this, Vector2Int.down))
+        if (PlayerActionChecks.CanPlayerMove(this, Vector2Int.down))
         {
             _objMover.Increment(Vector2Int.down);
             UndoHandler.SaveFrame();
@@ -340,7 +340,7 @@ public class PlayerControls : MonoBehaviour
             case DinoType.Stego:
                 // Check for object at indicated direction of ability
                 Vector2Int abilityPos = _objMover.GetGlobalGridPos() + dir;
-                ObjectState adjacentObj = MovementCheck.GetObjectAtPos(this, abilityPos.x, abilityPos.y);
+                ObjectState adjacentObj = PlayerActionChecks.GetObjectAtPos(this, abilityPos.x, abilityPos.y);
                 if (adjacentObj is not null && VisibilityCheck.IsVisible(this, abilityPos.x, abilityPos.y)) // object present and visible
                 {
                     // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback

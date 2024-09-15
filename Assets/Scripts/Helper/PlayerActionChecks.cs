@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class MovementCheck
+public static class PlayerActionChecks
 {
+    #region PLAYER MOVEMENT
     /// <summary>
     /// Determines if the player is able to move in the specified direction.
     /// Input MUST have only one non-zero value and it must be either -1 or 1.
@@ -144,6 +145,10 @@ public static class MovementCheck
             return false;
         #endregion
     }
+    #endregion
+
+    #region PLAYER ABILITY CHECKS
+    #endregion
 
     /// <summary>
     /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the player).
