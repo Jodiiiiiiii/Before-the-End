@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +17,8 @@ public class PlayerControls : MonoBehaviour
             // Player grid movement
             if(!_isPreparingAbility) // when preparing ability, movement inputs are ignored (treated as action inputs later)
                 HandleMovementInputs();
+            // Swapping between different dino types (only affects ability type)
+            HandleDinoSwap();
             // Player ability inputs
             HandleAbilityInputs();
             // Undoing player actions
@@ -202,16 +203,15 @@ public class PlayerControls : MonoBehaviour
     }
     #endregion
 
-    #region ACTIONS
-    // Inspector Variables
-    [Header("Actions")]
-    [SerializeField, Tooltip("Script handling indicators for ability")]
-    private AbilityIndicatorSprites _abilityIndicator;
+    #region SWAP DINO
+    private const KeyCode CYCLE_LEFT = KeyCode.Q;
+    private const KeyCode CYCLE_RIGHT = KeyCode.E;
 
-    // Controls Constants
-    private const KeyCode INITIATE_ACTION = KeyCode.Space;
-
-    private bool _isPreparingAbility = false;
+    [Header("Dino Swapping")]
+    [SerializeField, Tooltip("List of accessible dinosaur types in this level. MUST align with dinoCharges array")]
+    private DinoType[] _dinoTypes;
+    [SerializeField, Tooltip("Starting ability charges for each dino. -1 indicates infinite. MUST align with dinoTypes array")]
+    private int[] _dinoCharges;
 
     public enum DinoType
     {
@@ -224,9 +224,55 @@ public class PlayerControls : MonoBehaviour
         Compy,
         Pachy
     }
-    private DinoType _dinoType = DinoType.Stego;
+    // corresponds to index of dinoTypes and dinoCharges arrays
+    private int _currDino = 0; // default 0 = first dino (probably always stego)
 
-    // TODO: will need to make a list structure for storing charges of a particular dinoType ability remaining (if limited?)
+    private void HandleDinoSwap()
+    {
+        // No dino swapping possible if only one dinosaur is in swapping pool
+        if (_dinoTypes.Length <= 1)
+            return;
+
+        // cycle dino type to one lower
+        if(Input.GetKeyDown(CYCLE_LEFT))
+        {
+            int newIndex = _currDino - 1;
+            if (newIndex == -1) // left from index 0 goes to end
+                newIndex = _dinoCharges.Length - 1;
+
+            _currDino = newIndex;
+        }
+        // cycle dino type to one higher
+        if(Input.GetKeyDown(CYCLE_RIGHT))
+        {
+            int newIndex = _currDino + 1;
+            if (newIndex == _dinoCharges.Length) // right from final index goes back to 0
+                newIndex = 0;
+
+            _currDino = newIndex;
+        }
+    }
+
+    /// <summary>
+    /// Determines and returns current dinosaur type of the player.
+    /// Useful for sprite swapper.
+    /// </summary>
+    public DinoType GetCurrDinoType()
+    {
+        return _dinoTypes[_currDino];
+    }
+    #endregion
+
+    #region ACTIONS
+    // Inspector Variables
+    [Header("Actions")]
+    [SerializeField, Tooltip("Script handling indicators for ability")]
+    private AbilityIndicatorSprites _abilityIndicator;
+
+    // Controls Constants
+    private const KeyCode INITIATE_ACTION = KeyCode.Space;
+
+    private bool _isPreparingAbility = false;
 
     private void HandleAbilityInputs()
     {
@@ -284,8 +330,12 @@ public class PlayerControls : MonoBehaviour
 
     private void TryAbility(Vector2Int dir)
     {
+        // return if out of charges
+        if (_dinoCharges[_currDino] == 0)
+            return;
+
         // do ability check depending on current dinosaur type
-        switch (_dinoType)
+        switch (_dinoTypes[_currDino]) // current type
         {
             case DinoType.Stego:
                 // Check for object at indicated direction of ability
@@ -303,6 +353,8 @@ public class PlayerControls : MonoBehaviour
                     adjacentObj.ToggleQuantum();
                     // action successful (save undo frame)
                     UndoHandler.SaveFrame();
+                    // use up charge of ability
+                    _dinoCharges[_currDino]--;
                 }
                 else
                 {
