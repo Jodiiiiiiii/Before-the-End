@@ -72,13 +72,13 @@ public class PlayerControls : MonoBehaviour
             if (_moveTimer <= 0)
             {
                 if (_moveInputStack[0] == MOVE_UP)
-                    TryMoveUp();
+                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.up);
                 else if (_moveInputStack[0] == MOVE_DOWN)
-                    TryMoveDown();
+                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.down);
                 else if (_moveInputStack[0] == MOVE_RIGHT)
-                    TryMoveRight();
+                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.right);
                 else if (_moveInputStack[0] == MOVE_LEFT)
-                    TryMoveLeft();
+                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.left);
 
                 // reset moveTimer for next input.
                 // Resets even if move fails to have any impact - accounts for action such as panel pushing when player doesn't move.
@@ -89,91 +89,6 @@ public class PlayerControls : MonoBehaviour
         }
         else
             _moveTimer = 0; // no delay on first input
-    }
-
-    /// <summary>
-    /// Handles flipping the sprite, checking for a valid right move, and moving the player.
-    /// </summary>
-    private void TryMoveRight()
-    {
-        bool hasChanged = false;
-
-        // flip even if no movement occurs (indicates attempt) -> still requires player visibility
-        Vector2Int currPos = _objMover.GetGlobalGridPos();
-        // if previouslt facing left (AND visible)
-        if (_objFlipper.GetGoalScaleX() == -_rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
-        {
-            _objFlipper.SetScaleX(_rightScaleX);
-            hasChanged = true;
-        }
-
-        // Check right one unit for validity
-        if (PlayerActionChecks.CanPlayerMove(this, Vector2Int.right))
-        {
-            _objMover.Increment(Vector2Int.right);
-            hasChanged = true;
-        }
-
-        // save frame as long as visible change occurred
-        if(hasChanged)
-            UndoHandler.SaveFrame();
-    }
-
-    /// <summary>
-    /// handles flipping the sprite, checking for a valid left move, and moving the player.
-    /// </summary>
-    private void TryMoveLeft()
-    {
-        int prevGlobalFrame = UndoHandler.GetGlobalFrame();
-        bool hasChanged = false;
-
-        // flip even if no movement occurs (indicates attempt) -> still requires player visbility
-        Vector2Int currPos = _objMover.GetGlobalGridPos();
-        // if previously facing right (AND visible)
-        if (_objFlipper.GetGoalScaleX() == _rightScaleX && VisibilityCheck.IsVisible(this, currPos.x, currPos.y))
-        {
-            _objFlipper.SetScaleX(-_rightScaleX); // faces opposite to right dir
-            hasChanged = true;
-        }
-
-        // Check left one unit for validity
-        if (PlayerActionChecks.CanPlayerMove(this, Vector2Int.left))
-        {
-            _objMover.Increment(Vector2Int.left);
-            hasChanged = true;
-        }
-
-        // save frame as long as scale was flipped (visible change)
-        // Also ensure that an frame was not saved during CanPlayerMove call (would cause an extra empty save frame)
-        if(hasChanged && prevGlobalFrame == UndoHandler.GetGlobalFrame())
-            UndoHandler.SaveFrame();
-        
-    }
-
-    /// <summary>
-    /// handles checking for a valid upwards move, and moving the player.
-    /// </summary>
-    private void TryMoveUp()
-    {
-        // Check up one unit for validity
-        if(PlayerActionChecks.CanPlayerMove(this, Vector2Int.up))
-        {
-            _objMover.Increment(Vector2Int.up);
-            UndoHandler.SaveFrame();
-        }
-    }
-
-    /// <summary>
-    /// handles checking for a valid downwards move, and moving the player.
-    /// </summary>
-    private void TryMoveDown()
-    {
-        // Check down one unit for validity
-        if (PlayerActionChecks.CanPlayerMove(this, Vector2Int.down))
-        {
-            _objMover.Increment(Vector2Int.down);
-            UndoHandler.SaveFrame();
-        }
     }
 
     /// <summary>
