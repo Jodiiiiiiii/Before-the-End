@@ -11,8 +11,8 @@ public class UndoPlayer : UndoHandler
     [SerializeField, Tooltip("Used to determine facing direction of player")]
     private PlayerControls _playerControls;
 
-    // local frame, localPosition, facing direction, Dino Type
-    private Stack<(int, Vector2Int, bool, DinoType)> _undoStack = new Stack<(int, Vector2Int, bool, DinoType)>();
+    // local frame, localPosition, facing direction, Dino Type, dino charges
+    private Stack<(int, Vector2Int, bool, DinoType, int)> _undoStack = new Stack<(int, Vector2Int, bool, DinoType, int)>();
 
     protected override void SaveStackFrame()
     {
@@ -20,18 +20,20 @@ public class UndoPlayer : UndoHandler
         Vector2Int newPos = _objectMover.GetLocalGridPos();
         bool newFacing = _playerControls.IsFacingRight();
         DinoType newType = _playerControls.GetCurrDinoType();
+        int newCharges = _playerControls.GetCurrAbilityCharge();
 
         // No need to compare if new frame is FIRST frame
         if (_undoStack.Count == 0)
-            _undoStack.Push((_localFrame, newPos, newFacing, newType));
+            _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges));
 
         // Compare old values to current
         Vector2Int oldPos = _undoStack.Peek().Item2;
         bool oldFacing = _undoStack.Peek().Item3;
         DinoType oldType = _undoStack.Peek().Item4;
+        int oldCharges = _undoStack.Peek().Item5;
         // update stack ONLY if any change in THIS object has actually occurred
-        if (!newPos.Equals(oldPos) || newFacing != oldFacing || newType != oldType)
-            _undoStack.Push((_localFrame, newPos, newFacing, newType));
+        if (!newPos.Equals(oldPos) || newFacing != oldFacing || newType != oldType || newCharges != oldCharges)
+            _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges));
     }
 
     protected override void UndoStackFrame()
@@ -54,6 +56,10 @@ public class UndoPlayer : UndoHandler
             // update player dino type
             DinoType newType = _undoStack.Peek().Item4;
             _playerControls.SetDinoType(newType);
+
+            // update player ability charges
+            int newCharges = _undoStack.Peek().Item5;
+            _playerControls.SetCurrAbilityCharge(newCharges);
         }
     }
 }

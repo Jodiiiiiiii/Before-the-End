@@ -188,16 +188,15 @@ public static class PlayerActionChecks
     #region PLAYER ABILITY CHECKS
     /// <summary>
     /// Attempts to activate player ability in given direction for a certain DinoType, ensuring there are enough charges.
-    /// Returns whether or not the action successfully happened to cause some change
     /// </summary>
-    public static bool TryPlayerAbility(PlayerControls player, Vector2Int dir, DinoType type, int charges)
+    public static void TryPlayerAbility(PlayerControls player, Vector2Int dir, DinoType type, int charges)
     {
         if (!player.TryGetComponent(out ObjectMover objMover))
             throw new Exception("Player MUST have ObjectMover component.");
 
         // return if out of charges
         if (charges == 0)
-            return false; // TODO: ability failure effect
+            return; // TODO: ability failure effect
 
         // do ability check depending on current dinosaur type
         switch (type) // current type
@@ -216,30 +215,32 @@ public static class PlayerActionChecks
 
                     // mark object as quantum (or unmark)
                     adjacentObj.ToggleQuantum();
+                    // decrement charges
+                    player.UseAbilityCharge();
                     // action successful (save undo frame)
                     UndoHandler.SaveFrame();
-                    return true;
+                    return;
                 }
                 else
                 {
                     // play ability failure effect
 
-                    return false;
+                    return;
                 }
             case DinoType.Trike:
-                return false; // unimplemented
+                return; // unimplemented
             case DinoType.Anky:
-                return false; // unimplemented
+                return; // unimplemented
             case DinoType.Dilo:
-                return false; // unimplemented
+                return; // unimplemented
             case DinoType.Bary:
-                return false; // unimplemented
+                return; // unimplemented
             case DinoType.Ptero:
-                return false; // unimplemented
+                return; // unimplemented
             case DinoType.Compy:
-                return false; // unimplemented
+                return; // unimplemented
             case DinoType.Pachy:
-                return false; // unimplemented
+                return; // unimplemented
         }
 
         throw new Exception("Issue with TryPlayerAbility. Should have returned at some point but did not.");

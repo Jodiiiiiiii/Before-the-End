@@ -196,9 +196,33 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// decrements charge counter for the current dinosaur type.
+    /// </summary>
+    public void UseAbilityCharge()
+    {
+        _dinoCharges[_currDino]--;
+    }
+
+    /// <summary>
+    /// Gets number of ability charges of current dinosaur's ability.
+    /// </summary>
+    public int GetCurrAbilityCharge()
+    {
+        return _dinoCharges[_currDino];
+    }
+
+    /// <summary>
+    /// Sets number of ability charges of current dinosaur's ability.
+    /// </summary>
+    public void SetCurrAbilityCharge(int newCharges)
+    {
+        _dinoCharges[_currDino] = newCharges;
+    }
     #endregion
 
-    #region ACTIONS
+    #region ABILITY
     // Inspector Variables
     [Header("Actions")]
     [SerializeField, Tooltip("Script handling indicators for ability")]
@@ -220,26 +244,22 @@ public class PlayerControls : MonoBehaviour
             // Try ability in appropriate direction and cancel preparing ability state
             if (Input.GetKeyDown(MOVE_UP))
             {
-                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.up, _dinoTypes[_currDino], _dinoCharges[_currDino]))
-                    _dinoCharges[_currDino]--;
+                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.up, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_DOWN))
             {
-                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.down, _dinoTypes[_currDino], _dinoCharges[_currDino]))
-                    _dinoCharges[_currDino]--;
+                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.down, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_RIGHT))
             {
-                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.right, _dinoTypes[_currDino], _dinoCharges[_currDino]))
-                    _dinoCharges[_currDino]--;
+                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.right, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_LEFT))
             {
-                if (PlayerActionChecks.TryPlayerAbility(this, Vector2Int.left, _dinoTypes[_currDino], _dinoCharges[_currDino]))
-                    _dinoCharges[_currDino]--;
+                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.left, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(INITIATE_ACTION)) // cancel ability if space pressed again
