@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ObjectState;
+using static ObjectData;
 
 public class ObjectSpriteSwapper : MonoBehaviour
 {
@@ -39,14 +39,14 @@ public class ObjectSpriteSwapper : MonoBehaviour
 
     private void Start()
     {
-        _spriteType = _objState.ObjType;
+        _spriteType = _objState.ObjData.GetObjectType();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Calls to sprite flipper. update when there is a change
-        if (_spriteType != _objState.ObjType || _requiresFlip)
+        if (_spriteType != _objState.ObjData.GetObjectType() || _requiresFlip)
         {
             // Ready to restore sprite to normal
             if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
@@ -54,7 +54,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
                 // flip back to base scale
                 _flipper.SetScaleY((int)SPRITE_NORMAL);
                 // ensure sprite update occurs
-                _spriteType = _objState.ObjType;
+                _spriteType = _objState.ObjData.GetObjectType();
 
                 _requiresFlip = false;
             }
@@ -69,24 +69,24 @@ public class ObjectSpriteSwapper : MonoBehaviour
         // actually update the sprite
         switch (_spriteType)
         {
-            case ObjectState.ObjectType.Log:
+            case ObjectType.Log:
                 _renderer.sprite = _logSprites[0]; // no animations, just use 0
                 break;
-            case ObjectState.ObjectType.Water:
+            case ObjectType.Water:
                 _renderer.sprite = _waterSprites[0]; // currently no animations, just use 0
                 break;
-            case ObjectState.ObjectType.Rock:
+            case ObjectType.Rock:
                 _renderer.sprite = _rockSprites[0]; // no animations, just use 0
                 break;
-            case ObjectState.ObjectType.TallRock:
+            case ObjectType.TallRock:
                 break;
-            case ObjectState.ObjectType.Bush:
+            case ObjectType.Bush:
                 break;
-            case ObjectState.ObjectType.TallBush:
+            case ObjectType.TallBush:
                 break;
-            case ObjectState.ObjectType.Tunnel:
+            case ObjectType.Tunnel:
                 break;
-            case ObjectState.ObjectType.Pickup:
+            case ObjectType.Pickup:
                 break;
         }
     }

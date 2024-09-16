@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Stores the type of object that this script is attached to.
-/// It is planned for this script to also handle making calls to visually swap objects accordingly.
+/// Stores the data of object that this script is attached to.
+/// Also handles exchanging data between different objects in accordance with the quantum mechanic.
 /// </summary>
 public class ObjectState : MonoBehaviour
 {
@@ -15,27 +15,11 @@ public class ObjectState : MonoBehaviour
     [SerializeField, Tooltip("Used for vertically flipping sprites during object type change")]
     private SpriteFlipper _objFlipper;
 
-    // TODO: add serializable ObjectData inner class that can be easily transferred when quantum swapping
-    [Header("Object Type")]
-    public ObjectType ObjType;
-    public enum ObjectType
-    {
-        Log,
-        Water,
-        Rock,
-        TallRock,
-        Bush,
-        TallBush,
-        Tunnel,
-        Pickup
-    }
+    [Header("Object Data")]
+    [SerializeField, Tooltip("Contains all object data pertaining to all types of objects")]
+    public ObjectData ObjData;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
+    #region QUANTUM MECHANICS
     // Update is called once per frame
     void Update()
     {
@@ -44,7 +28,6 @@ public class ObjectState : MonoBehaviour
             _quantumParticles.SetActive(_isQuantum);
     }
 
-    #region QUANTUM MECHANICS
     [Header("Quantum State")]
     [SerializeField, Tooltip("game object containing animated particle sprite")]
     private GameObject _quantumParticles;
@@ -125,40 +108,27 @@ public class ObjectState : MonoBehaviour
     {
         // make new lists of only the hidden objects
         List<ObjectState> hiddenList = new List<ObjectState>();
-        List<ObjectType> shuffledTypes = new List<ObjectType>();
         foreach(ObjectState obj in _quantumObjects)
         {
             if (!VisibilityCheck.IsVisible(obj.gameObject, obj._objMover.GetGlobalGridPos().x, obj._objMover.GetGlobalGridPos().y))
-            {
                 hiddenList.Add(obj);
-                shuffledTypes.Add(obj.ObjType);
-            }
         }
-        
-        // shuffle hiddenList (Fisher-Yates shuffle - O(n) time)
-        int n = shuffledTypes.Count;
+
+        // shuffle object data (Fisher-Yates shuffle - O(n) time)
+        int n = hiddenList.Count;
         while(n > 1)
         {
             n--;
             int k = UnityEngine.Random.Range(0, n + 1);
             // swap operation
-            ObjectType val = shuffledTypes[k];
-            shuffledTypes[k] = shuffledTypes[n];
-            shuffledTypes[n] = val;
+            ObjectData val = hiddenList[k].ObjData;
+            hiddenList[k].ObjData = hiddenList[n].ObjData;
+            hiddenList[n].ObjData = val;
         }
 
-        // swap values of objects to shuffled values (effectively swapping states)
-        for(int i = 0; i < hiddenList.Count; i++)
-        {
-            hiddenList[i].ObjType = shuffledTypes[i];
-
-            // ensure all quantum objects undergo visual flip (even if no change occurred)
+        // ensure all quantum objects undergo visual flip (even if no change occurred)
+        for (int i = 0; i < hiddenList.Count; i++)
             hiddenList[i]._spriteSwapper.RequireFlip();
-
-            // TODO: Update this to also handle other object data values that need to be swapped (i.e. water w or w/o planks state)
-            // this will likely require instead a shuffling of indexes and then iteration through one list updating stats accordingly,
-            // based on a copy of the original hidden list
-        }
     }
     #endregion
 }

@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: c74f90f8e5cdb0c4b8d46d3fef5b4b13, type: 3}
     - target: {fileID: 4281857284185798206, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Name
-      value: Rock Variant
+      value: Rock
       objectReference: {fileID: 0}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,6 +58,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8439242544287990013, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: ObjType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439242544287990013, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: ObjData.ObjType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439242544287990013, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: _objData.ObjType
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []

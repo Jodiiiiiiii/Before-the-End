@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static PlayerControls;
+using static ObjectData;
 
 public static class PlayerActionChecks
 {
@@ -128,51 +129,67 @@ public static class PlayerActionChecks
                 UndoHandler.SaveFrame();
                 return;
             }
-            else if (obj.ObjType == ObjectState.ObjectType.Log)
+
+            // Player collides immediately with WHICH object type??
+            switch(obj.ObjData.GetObjectType())
             {
-                // generate list of all logs to be pushed by the potential player move
-                List<ObjectState> logs = new List<ObjectState>();
-                logs.Add(obj);
+                case ObjectType.Log:
 
-                // Check for more logs
-                bool currIsLog = true;
-                while (currIsLog)
-                {
-                    targetPos += moveDir;
+                    // generate list of all logs to be pushed by the potential player move
+                    List<ObjectState> logs = new List<ObjectState>();
+                    logs.Add(obj);
 
-                    // Check for log's obstruction by higher-ordered panel
-                    if (!VisibilityCheck.IsVisible(player, targetPos.x, targetPos.y))
-                        return;
+                    // Check for more logs
+                    bool currIsLog = true;
+                    while (currIsLog)
+                    {
+                        targetPos += moveDir;
 
-                    // check for object at next position
-                    obj = GetObjectAtPos(player, targetPos.x, targetPos.y);
-                    if (obj is null) // no object blocking the log
-                        currIsLog = false;
-                    else if (obj.ObjType == ObjectState.ObjectType.Log) // add another log and keep checking for more
-                        logs.Add(obj);
-                    else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup // TODO: account forother cases later
-                        return; // TODO: handle other cases here (e.g. pushing over covered water)
-                }
+                        // Check for log's obstruction by higher-ordered panel
+                        if (!VisibilityCheck.IsVisible(player, targetPos.x, targetPos.y))
+                            return;
 
-                // if we got this far, then all logs in the chain CAN move
-                // AND we therefore know player can move too
-                foreach (ObjectState log in logs)
-                {
-                    // increment each log
-                    if (log.TryGetComponent(out ObjectMover logMover))
-                        logMover.Increment(moveDir);
-                    else
-                        throw new Exception("All log objects MUST have an ObjectMover component");
-                }
-                // move player
-                objMover.Increment(moveDir);
-                // completed player movement action
-                UndoHandler.SaveFrame();
-                return;
-            }
-            else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup
-            {
-                return; // TODO: account forother cases later as objects are added
+                        // check for object at next position
+                        obj = GetObjectAtPos(player, targetPos.x, targetPos.y);
+                        if (obj is null) // no object blocking the log
+                            currIsLog = false;
+                        else if (obj.ObjData.GetObjectType() == ObjectType.Log) // add another log and keep checking for more
+                            logs.Add(obj);
+                        else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup // TODO: account forother cases later
+                            return; // TODO: handle other cases here (e.g. pushing over covered water)
+                    }
+
+                    // if we got this far, then all logs in the chain CAN move
+                    // AND we therefore know player can move too
+                    foreach (ObjectState log in logs)
+                    {
+                        // increment each log
+                        if (log.TryGetComponent(out ObjectMover logMover))
+                            logMover.Increment(moveDir);
+                        else
+                            throw new Exception("All log objects MUST have an ObjectMover component");
+                    }
+                    // move player
+                    objMover.Increment(moveDir);
+                    // completed player movement action
+                    UndoHandler.SaveFrame();
+                    return;
+
+                case ObjectType.Water:
+                    
+                    return;
+                case ObjectType.Rock:
+                    return; // unimplemented
+                case ObjectType.TallRock:
+                    return; // unimplemented
+                case ObjectType.Bush:
+                    return; // unimplemented
+                case ObjectType.TallBush:
+                    return; // unimplemented
+                case ObjectType.Tunnel:
+                    return; // unimplemented
+                case ObjectType.Pickup:
+                    return; // unimplemented
             }
             #endregion
         }
@@ -182,6 +199,8 @@ public static class PlayerActionChecks
             if (hasFlipped && currFrame == UndoHandler.GetGlobalFrame())
                 UndoHandler.SaveFrame();
         }
+
+        throw new Exception("Issue with TryPlayerMove. Should have returned at some point but did not.");
     }
     #endregion
 
