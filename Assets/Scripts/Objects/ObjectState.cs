@@ -20,17 +20,7 @@ public class ObjectState : MonoBehaviour
     public ObjectData ObjData;
 
     #region QUANTUM MECHANICS
-    // Update is called once per frame
-    void Update()
-    {
-        // Update particles to match actual quantum state
-        if (_quantumParticles.activeInHierarchy != _isQuantum)
-            _quantumParticles.SetActive(_isQuantum);
-    }
-
     [Header("Quantum State")]
-    [SerializeField, Tooltip("game object containing animated particle sprite")]
-    private GameObject _quantumParticles;
     [SerializeField, Tooltip("used to call sprite flip when quantum objects are randomized.")]
     private ObjectSpriteSwapper _spriteSwapper;
 

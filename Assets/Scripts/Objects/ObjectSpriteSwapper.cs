@@ -16,6 +16,10 @@ public class ObjectSpriteSwapper : MonoBehaviour
     [SerializeField, Tooltip("Used to actually update player sprite")]
     private SpriteRenderer _renderer;
 
+    [Header("Quantum")]
+    [SerializeField, Tooltip("game object containing animated particle sprite")]
+    private GameObject _quantumParticles;
+
     [Header("Sprites")]
     [SerializeField, Tooltip("sprites for log")]
     private Sprite[] _logSprites;
@@ -48,7 +52,12 @@ public class ObjectSpriteSwapper : MonoBehaviour
     {
         // actually update the goal sprite
         if (_objState.ObjData.IsDisabled) // disabled = no sprite
+        {
+            // no sprite
             _goalSprite = null;
+            // disable quantum particles (gone)
+            _quantumParticles.SetActive(false);
+        }
         else
         {
             // set sprite properly based on object type and its type-specific data states
@@ -80,8 +89,11 @@ public class ObjectSpriteSwapper : MonoBehaviour
                 case ObjectType.Pickup:
                     break;
             }
+
+            // Update quantum particles to match actual quantum state
+            if (_quantumParticles.activeInHierarchy != _objState.IsQuantum())
+                _quantumParticles.SetActive(_objState.IsQuantum());
         }
-        
 
         // call flipping coroutine ONLY if it is not already running
         // AND there is either a sprite change that needs to happen or it requires a flip
