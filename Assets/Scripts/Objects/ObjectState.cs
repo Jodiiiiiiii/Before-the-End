@@ -73,6 +73,7 @@ public class ObjectState : MonoBehaviour
                     return;
                 }
             }
+
             _quantumObjects.Add(this);
         }
 
@@ -92,11 +93,12 @@ public class ObjectState : MonoBehaviour
 
     /// <summary>
     /// Shuffles hidden quantum objects amongst themselves. OR does nothing if no such objects exist.
+    /// Exchanges all object data and parent transforms, AND handles cases of quantum entanglement.
     /// Called by GameTimer.
     /// </summary>
     public static void ShuffleHiddenQuantumObjects()
     {
-        // make new lists of only the hidden objects
+        // GET ALL HIDDEN QUANTUM OBJECTS
         List<ObjectState> hiddenList = new List<ObjectState>();
         foreach(ObjectState obj in _quantumObjects)
         {
@@ -107,20 +109,89 @@ public class ObjectState : MonoBehaviour
                 hiddenList.Add(obj);
             }
         }
+        
+        // TRIM HIDDEN OBJECT LIST -> for quantum entanglement
+        for (int i = hiddenList.Count-1; i >= 0; i--)
+        {
+            // determine lowest object at position
+            Vector2Int hiddenObjPos = hiddenList[i]._objMover.GetGlobalGridPos();
+            ObjectState lowestObj = VisibilityCheck.GetObjectAtPos(hiddenList[i]._objMover, hiddenObjPos.x, hiddenObjPos.y, true);
 
-        // shuffle object data (Fisher-Yates shuffle - O(n) time)
+            // replace hiddenObj with the object below it for shuffling calculations
+            if (lowestObj != hiddenList[i])
+            {
+                // lower object (if not already present) will replace it
+                hiddenList.Remove(hiddenList[i]);
+
+                // ensure not adding a duplicate
+                bool dupeFound = false;
+                foreach (ObjectState otherHiddenObj in hiddenList)
+                {
+                    if (otherHiddenObj == lowestObj)
+                    {
+                        dupeFound = true;
+                        break;
+                    }
+                }
+                // add lower object
+                if (!dupeFound)
+                    hiddenList.Add(lowestObj);
+            }
+        }
+
+        // SHUFFLE QUANTUM LIST (Fisher-Yates shuffle - O(n) time)
         int n = hiddenList.Count;
         while(n > 1)
         {
             n--;
             int k = UnityEngine.Random.Range(0, n + 1);
-            // swap operation
+
+            // QUANTUM ENTANGLEMENT CHECKS
+            Vector2Int obj1Pos = hiddenList[k]._objMover.GetGlobalGridPos();
+            Vector2Int obj2Pos = hiddenList[n]._objMover.GetGlobalGridPos();
+            // entangled object on hiddenList[k]
+            ObjectState entangledObj1 = VisibilityCheck.GetObjectAtPos(hiddenList[k]._objMover, obj1Pos.x, obj1Pos.y);
+            bool entangledSwap1 = false;
+            if (entangledObj1 != hiddenList[k])
+                entangledSwap1 = true;
+            // entangled object on hiddenList[n]
+            ObjectState entangledObj2 = VisibilityCheck.GetObjectAtPos(hiddenList[n]._objMover, obj2Pos.x, obj2Pos.y);
+            bool entangledSwap2 = false;
+            if (entangledObj2 != hiddenList[n])
+                entangledSwap2 = true;
+            // MUST handle ifs with bools like this to prevent on effect from impacting the next condition
+            if(entangledSwap1)
+            {
+                entangledObj1._objMover.SetGlobalGoal(obj2Pos.x, obj2Pos.y);
+                entangledObj1._spriteSwapper.RequireFlip();
+            }
+            if(entangledSwap2)
+            {
+                entangledObj2._objMover.SetGlobalGoal(obj1Pos.x, obj1Pos.y);
+                entangledObj2._spriteSwapper.RequireFlip();
+            }
+
+            // SWAPPING
+            // swap object data
             ObjectData val = hiddenList[k].ObjData;
             hiddenList[k].ObjData = hiddenList[n].ObjData;
             hiddenList[n].ObjData = val;
+
+            // swap quantum states
+            bool quantumVal = hiddenList[k].IsQuantum();
+            hiddenList[k].SetQuantum(hiddenList[n].IsQuantum());
+            hiddenList[n].SetQuantum(quantumVal);
+
+            // swap parent transforms, if necessary
+            if(hiddenList[k].transform.parent != hiddenList[n].transform.parent)
+            {
+                Transform parent = hiddenList[k].transform.parent;
+                hiddenList[k].transform.parent = hiddenList[n].transform.parent;
+                hiddenList[n].transform.parent = parent;
+            }
         }
 
-        // ensure all quantum objects undergo visual flip (even if no change occurred)
+        // ENSURE VISUAL FLIP (even if no change occurred)
         for (int i = 0; i < hiddenList.Count; i++)
             hiddenList[i]._spriteSwapper.RequireFlip();
     }

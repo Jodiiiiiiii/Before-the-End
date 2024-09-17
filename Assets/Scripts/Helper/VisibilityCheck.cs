@@ -74,4 +74,52 @@ public static class VisibilityCheck
         else
             throw new Exception("MainPanel object must have SortingOrderHandler component");
     }
+
+    /// <summary>
+    /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the object).
+    /// In the case of two objects on the same grid position, returns the topmost (i.e. log on water w/ log/rock)
+    /// </summary>
+    /// <param name="getLower">true = default, get topmost object; false = get lower object</param>
+    public static ObjectState GetObjectAtPos(ObjectMover obj, int x, int y, bool getLower = false)
+    {
+        // parent must be in UpperObjects, which must be in a Panel
+        if (obj.transform.parent is not null && obj.transform.parent.parent is not null)
+        {
+            // find all sibling objects (objects on the same panel as player)
+            // 1 = Upper Objects; 2 = Lower Objects
+            ObjectState[] upperSiblingObjects = obj.transform.parent.parent.GetChild(1).GetComponentsInChildren<ObjectState>();
+            ObjectState[] lowerSiblingObjects = obj.transform.parent.parent.GetChild(2).GetComponentsInChildren<ObjectState>();
+            ObjectState[] siblingObjects = new ObjectState[upperSiblingObjects.Length + lowerSiblingObjects.Length];
+            // ordering of siblings as upper, then lower gives priority to higher order objects
+            if (getLower)
+            {
+                lowerSiblingObjects.CopyTo(siblingObjects, 0);
+                upperSiblingObjects.CopyTo(siblingObjects, lowerSiblingObjects.Length);
+            }
+            // ordering of siblings as lower, then upper gives priority to lower order objects
+            else
+            {
+                upperSiblingObjects.CopyTo(siblingObjects, 0);
+                lowerSiblingObjects.CopyTo(siblingObjects, upperSiblingObjects.Length);
+            }
+
+            // iterate through sibling objects checking for position
+            foreach (ObjectState sibling in siblingObjects)
+            {
+                if (sibling.TryGetComponent(out ObjectMover objMover) && sibling.TryGetComponent(out ObjectState objState))
+                {
+                    Vector2Int pos = objMover.GetGlobalGridPos();
+                    if (pos.x == x && pos.y == y && !objState.ObjData.IsDisabled)
+                        return sibling;
+                }
+                else
+                    throw new Exception("All Objects MUST have ObjectMover and ObjectState components.");
+            }
+        }
+        else
+            throw new Exception("Object MUST be a child of the 'Objects' object within a panel");
+
+        // return null if no object at position found (on same panel as object)
+        return null;
+    }
 }

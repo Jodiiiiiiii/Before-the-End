@@ -20,10 +20,10 @@ public static class PlayerActionChecks
         if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
             throw new Exception("Input of CanMove function MUST have only one non-zero value and it must be eiether -1 or 1.");
 
-        if (!player.TryGetComponent(out ObjectMover objMover))
+        if (!player.TryGetComponent(out ObjectMover playerObjMover))
             throw new Exception("Player object MUST have ObjectMover component.");
 
-        Vector2Int currPos = objMover.GetGlobalGridPos();
+        Vector2Int currPos = playerObjMover.GetGlobalGridPos();
         Vector2Int targetPos = currPos + moveDir;
         
         // Ensure player current visibility
@@ -121,11 +121,11 @@ public static class PlayerActionChecks
 
             #region OBJECTS / PLAYER MOVEMENT
             // Check for object in current panel at target position
-            ObjectState obj = GetObjectAtPos(player, targetPos.x, targetPos.y);
+            ObjectState obj = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
             if (obj is null)
             {
                 // Move action complete
-                ConfirmPlayerMove(player, objMover, moveDir);
+                ConfirmPlayerMove(player, playerObjMover, moveDir);
                 return;
             }
 
@@ -149,7 +149,7 @@ public static class PlayerActionChecks
                             return;
 
                         // check for object at next position
-                        obj = GetObjectAtPos(player, targetPos.x, targetPos.y);
+                        obj = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
                         if (obj is null) // no object blocking the log
                             currIsLog = false;
                         else if (obj.ObjData.ObjType == ObjectType.Log) // add another log and keep checking for more
@@ -166,6 +166,10 @@ public static class PlayerActionChecks
 
                                 // update water data state
                                 obj.ObjData.WaterHasLog = true;
+
+                                // make water quantum if log was (transferring state)
+                                if(logs[logs.Count - 1].IsQuantum())
+                                    obj.SetQuantum(true);
 
                                 // disable last most log in the list (it was pushed into water!)
                                 logs[logs.Count - 1].ObjData.IsDisabled = true;
@@ -189,7 +193,7 @@ public static class PlayerActionChecks
                     }
 
                     // Move action complete
-                    ConfirmPlayerMove(player, objMover, moveDir);
+                    ConfirmPlayerMove(player, playerObjMover, moveDir);
                     return;
 
                 case ObjectType.Water:
@@ -197,7 +201,7 @@ public static class PlayerActionChecks
                     if(obj.ObjData.WaterHasLog || obj.ObjData.WaterHasRock)
                     {
                         // Move action complete
-                        ConfirmPlayerMove(player, objMover, moveDir);
+                        ConfirmPlayerMove(player, playerObjMover, moveDir);
                         return;
                     }
 
@@ -235,7 +239,7 @@ public static class PlayerActionChecks
     {
         // If player was on log, sink log along with player movement
         Vector2Int currPos = objMover.GetGlobalGridPos();
-        ObjectState logSinkCheck = GetObjectAtPos(player, currPos.x, currPos.y);
+        ObjectState logSinkCheck = VisibilityCheck.GetObjectAtPos(objMover, currPos.x, currPos.y);
         if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
             logSinkCheck.ObjData.WaterHasLog = false;
 
@@ -266,7 +270,7 @@ public static class PlayerActionChecks
             case DinoType.Stego:
                 // Check for object at indicated direction of ability
                 Vector2Int abilityPos = objMover.GetGlobalGridPos() + dir;
-                ObjectState adjacentObj = GetObjectAtPos(player, abilityPos.x, abilityPos.y);
+                ObjectState adjacentObj = VisibilityCheck.GetObjectAtPos(objMover, abilityPos.x, abilityPos.y);
                 if (adjacentObj is not null && VisibilityCheck.IsVisible(player, abilityPos.x, abilityPos.y)) // object present and visible
                 {
                     // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
@@ -309,41 +313,4 @@ public static class PlayerActionChecks
         throw new Exception("Issue with TryPlayerAbility. Should have returned at some point but did not.");
     }
     #endregion
-
-    /// <summary>
-    /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the player).
-    /// In the case of two objects on the same grid position, returns the topmost (i.e. log on water w/ log/rock)
-    /// </summary>
-    public static ObjectState GetObjectAtPos(PlayerControls player, int x, int y)
-    {
-        // parent must be in UpperObjects, which must be in a Panel
-        if (player.transform.parent is not null && player.transform.parent.parent is not null)
-        {
-            // find all sibling objects (objects on the same panel as player)
-            ObjectState[] upperSiblingObjects = player.transform.parent.GetComponentsInChildren<ObjectState>();
-            ObjectState[] lowerSiblingObjects = player.transform.parent.parent.GetChild(2).GetComponentsInChildren<ObjectState>();
-            // ordering of siblings as upper, then lower gives priority to higher order objects
-            ObjectState[] siblingObjects = new ObjectState[upperSiblingObjects.Length + lowerSiblingObjects.Length];
-            upperSiblingObjects.CopyTo(siblingObjects, 0);
-            lowerSiblingObjects.CopyTo(siblingObjects, upperSiblingObjects.Length);
-
-            // iterate through sibling objects checking for position
-            foreach (ObjectState obj in siblingObjects)
-            {
-                if (obj.TryGetComponent(out ObjectMover objMover) && obj.TryGetComponent(out ObjectState objState))
-                {
-                    Vector2Int pos = objMover.GetGlobalGridPos();
-                    if (pos.x == x && pos.y == y && !objState.ObjData.IsDisabled)
-                        return obj;
-                }
-                else
-                    throw new Exception("All Objects MUST have an ObjectMover.");
-            }
-        }
-        else
-            throw new Exception("Object MUST be a child of the 'Objects' object within a panel");
-
-        // return null if no object at position found (on same panel as player)
-        return null;
-    }
 }
