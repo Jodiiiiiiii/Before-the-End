@@ -17,7 +17,7 @@ public class UndoPlayer : UndoHandler
     protected override void SaveStackFrame()
     {
         // retrieve new stack frame values
-        Vector2Int newPos = _objectMover.GetLocalGridPos();
+        Vector2Int newPos = _mover.GetLocalGridPos();
         bool newFacing = _playerControls.IsFacingRight();
         DinoType newType = _playerControls.GetCurrDinoType();
         int newCharges = _playerControls.GetCurrAbilityCharge();
@@ -47,7 +47,7 @@ public class UndoPlayer : UndoHandler
 
             // update actual panel position
             Vector2Int newPos = _undoStack.Peek().Item2;
-            _objectMover.SetLocalGoal(newPos.x, newPos.y);
+            _mover.SetLocalGoal(newPos.x, newPos.y);
 
             // update player facing direction
             bool newFacing = _undoStack.Peek().Item3;

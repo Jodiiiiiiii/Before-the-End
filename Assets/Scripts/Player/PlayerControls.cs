@@ -29,7 +29,7 @@ public class PlayerControls : MonoBehaviour
     #region MOVEMENT
     [Header("Movement")]
     [SerializeField, Tooltip("used to actually cause the player to move")] 
-    private Mover _objMover;
+    private Mover _mover;
     [SerializeField, Tooltip("used to apply visual sprite swapping changes to the player")] 
     private SpriteFlipper _objFlipper;
     [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player")]
@@ -277,7 +277,7 @@ public class PlayerControls : MonoBehaviour
         }
 
         // start ability state (stationary && no movement queued up && pressing action key)
-        if (_objMover.IsStationary() && _moveInputStack.Count == 0 && Input.GetKeyDown(INITIATE_ACTION) 
+        if (_mover.IsStationary() && _moveInputStack.Count == 0 && Input.GetKeyDown(INITIATE_ACTION) 
             && !_isPreparingAbility && !canceledPrepareThisFrame)
         {
             _isPreparingAbility = true;

@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e1c259e8656c540a84c9cd7a8e0a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectMover: {fileID: 767906668905008094}
+  _mover: {fileID: 767906668905008094}
 --- !u!114 &767906668905008094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,7 +936,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8889746075599448935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a8c629932bbe5541bf7f0a274bc619f, type: 3}
+  m_Script: {fileID: 11500000, guid: e2dfe82d4e9b4b84fa4e9e5240222c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _snappingThreshold: 0.01

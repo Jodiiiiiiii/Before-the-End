@@ -51,7 +51,7 @@ public class UndoObject : UndoHandler
         {
             case ObjectType.Log:
                 // Retrieve new values
-                Vector2Int newPos = _objectMover.GetLocalGridPos();
+                Vector2Int newPos = _mover.GetLocalGridPos();
 
                 // push to stack if stack currently empty
                 if(_logStack.Count <= 0)
@@ -162,7 +162,7 @@ public class UndoObject : UndoHandler
             case ObjectType.Log:
                 // restore/undo position
                 Vector2Int newPos = _logStack.Peek().Item2;
-                _objectMover.SetLocalGoal(newPos.x, newPos.y);
+                _mover.SetLocalGoal(newPos.x, newPos.y);
 
                 break;
             case ObjectType.Water:

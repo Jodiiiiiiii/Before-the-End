@@ -13,7 +13,7 @@ public class UndoSubpanel : UndoHandler
 
     protected override void SaveStackFrame()
     {
-        Vector2Int newPos = _objectMover.GetLocalGridPos();
+        Vector2Int newPos = _mover.GetLocalGridPos();
 
         // retrieve sibling order (0 for panels without siblings)
         int siblingOrder;
@@ -46,7 +46,7 @@ public class UndoSubpanel : UndoHandler
 
             // update actual panel position
             Vector2Int newPos = _undoStack.Peek().Item2;
-            _objectMover.SetLocalGoal(newPos.x, newPos.y);
+            _mover.SetLocalGoal(newPos.x, newPos.y);
 
             // update panel sorting order (if necessary)
             int newSiblingOrder = _undoStack.Peek().Item3;
