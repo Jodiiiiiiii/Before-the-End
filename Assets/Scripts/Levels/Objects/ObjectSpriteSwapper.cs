@@ -10,7 +10,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
 
     [Header("Components")]
     [SerializeField, Tooltip("Used to access current object type")]
-    private ObjectState _objState;
+    private QuantumState _objState;
     [SerializeField, Tooltip("Used for calling actual calls to update player scale.")]
     private SpriteFlipper _flipper;
     [SerializeField, Tooltip("Used to actually update player sprite")]

@@ -7,7 +7,7 @@ using UnityEngine;
 /// Stores the data of object that this script is attached to.
 /// Also handles exchanging data between different objects in accordance with the quantum mechanic.
 /// </summary>
-public class ObjectState : MonoBehaviour
+public class QuantumState : MonoBehaviour
 {
     [Header("Object Modification Components")]
     [SerializeField, Tooltip("Used for accessing grid positions for visibility checks")]
@@ -26,7 +26,7 @@ public class ObjectState : MonoBehaviour
 
     private bool _isQuantum = false;
     // Stores objectState, and whether the quantum object is visible
-    private static List<ObjectState> _quantumObjects = new List<ObjectState>();
+    private static List<QuantumState> _quantumObjects = new List<QuantumState>();
 
     public bool IsQuantum()
     {
@@ -57,7 +57,7 @@ public class ObjectState : MonoBehaviour
     }
 
     /// <summary>
-    /// either adds or removes current ObjectState from quantum objects list.
+    /// either adds or removes current QuantumState from quantum objects list.
     /// Used within ToggleQuantum and SetQuantum functions.
     /// </summary>
     private void UpdateQuantumList()
@@ -66,7 +66,7 @@ public class ObjectState : MonoBehaviour
         if (_isQuantum)
         {
             // ONLY add object if it is not already in the list
-            foreach (ObjectState obj in _quantumObjects)
+            foreach (QuantumState obj in _quantumObjects)
             {
                 if (obj.Equals(this))
                 {
@@ -80,7 +80,7 @@ public class ObjectState : MonoBehaviour
         else // removing quantum state
         {
             // remove quantum object from list (if possible)
-            foreach (ObjectState obj in _quantumObjects)
+            foreach (QuantumState obj in _quantumObjects)
             {
                 if (obj.Equals(this))
                 {
@@ -99,8 +99,8 @@ public class ObjectState : MonoBehaviour
     public static void ShuffleHiddenQuantumObjects()
     {
         // GET ALL HIDDEN QUANTUM OBJECTS
-        List<ObjectState> hiddenList = new List<ObjectState>();
-        foreach(ObjectState obj in _quantumObjects)
+        List<QuantumState> hiddenList = new List<QuantumState>();
+        foreach(QuantumState obj in _quantumObjects)
         {
             // object counts as hidden if it is not visible AND it is not disabled (don't randomize objects no longer in play)
             if (!VisibilityCheck.IsVisible(obj.gameObject, obj._objMover.GetGlobalGridPos().x, obj._objMover.GetGlobalGridPos().y)
@@ -115,7 +115,7 @@ public class ObjectState : MonoBehaviour
         {
             // determine lowest object at position
             Vector2Int hiddenObjPos = hiddenList[i]._objMover.GetGlobalGridPos();
-            ObjectState lowestObj = VisibilityCheck.GetObjectAtPos(hiddenList[i]._objMover, hiddenObjPos.x, hiddenObjPos.y, true);
+            QuantumState lowestObj = VisibilityCheck.GetObjectAtPos(hiddenList[i]._objMover, hiddenObjPos.x, hiddenObjPos.y, true);
 
             // replace hiddenObj with the object below it for shuffling calculations
             if (lowestObj != hiddenList[i])
@@ -125,7 +125,7 @@ public class ObjectState : MonoBehaviour
 
                 // ensure not adding a duplicate
                 bool dupeFound = false;
-                foreach (ObjectState otherHiddenObj in hiddenList)
+                foreach (QuantumState otherHiddenObj in hiddenList)
                 {
                     if (otherHiddenObj == lowestObj)
                     {
@@ -150,12 +150,12 @@ public class ObjectState : MonoBehaviour
             Vector2Int obj1Pos = hiddenList[k]._objMover.GetGlobalGridPos();
             Vector2Int obj2Pos = hiddenList[n]._objMover.GetGlobalGridPos();
             // entangled object on hiddenList[k]
-            ObjectState entangledObj1 = VisibilityCheck.GetObjectAtPos(hiddenList[k]._objMover, obj1Pos.x, obj1Pos.y);
+            QuantumState entangledObj1 = VisibilityCheck.GetObjectAtPos(hiddenList[k]._objMover, obj1Pos.x, obj1Pos.y);
             bool entangledSwap1 = false;
             if (entangledObj1 != hiddenList[k])
                 entangledSwap1 = true;
             // entangled object on hiddenList[n]
-            ObjectState entangledObj2 = VisibilityCheck.GetObjectAtPos(hiddenList[n]._objMover, obj2Pos.x, obj2Pos.y);
+            QuantumState entangledObj2 = VisibilityCheck.GetObjectAtPos(hiddenList[n]._objMover, obj2Pos.x, obj2Pos.y);
             bool entangledSwap2 = false;
             if (entangledObj2 != hiddenList[n])
                 entangledSwap2 = true;

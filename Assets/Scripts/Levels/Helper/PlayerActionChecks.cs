@@ -99,7 +99,7 @@ public static class PlayerActionChecks
                                     throw new Exception("ALL subpanels MUST have an Mover component.");
 
                                 // shuffle quantum objects just before moving panel
-                                ObjectState.ShuffleHiddenQuantumObjects();
+                                QuantumState.ShuffleHiddenQuantumObjects();
                                 // Apply movement to pushed panel
                                 panelMover.Increment(moveDir);
                                 // action fully completed
@@ -121,8 +121,8 @@ public static class PlayerActionChecks
 
             #region OBJECTS / PLAYER MOVEMENT
             // Check for object in current panel at target position
-            ObjectState obj = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
-            if (obj is null)
+            QuantumState objState = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
+            if (objState is null)
             {
                 // Move action complete
                 ConfirmPlayerMove(player, playerObjMover, moveDir);
@@ -130,13 +130,13 @@ public static class PlayerActionChecks
             }
 
             // Player collides immediately with WHICH object type??
-            switch(obj.ObjData.ObjType)
+            switch(objState.ObjData.ObjType)
             {
                 case ObjectType.Log:
 
                     // generate list of all logs to be pushed by the potential player move
-                    List<ObjectState> logs = new List<ObjectState>();
-                    logs.Add(obj);
+                    List<QuantumState> logs = new List<QuantumState>();
+                    logs.Add(objState);
 
                     // Find all logs in a chain
                     bool currIsLog = true;
@@ -149,15 +149,15 @@ public static class PlayerActionChecks
                             return;
 
                         // check for object at next position
-                        obj = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
-                        if (obj is null) // no object blocking the log
+                        objState = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
+                        if (objState is null) // no object blocking the log
                             currIsLog = false;
-                        else if (obj.ObjData.ObjType == ObjectType.Log) // add another log and keep checking for more
-                            logs.Add(obj);
-                        else if (obj.ObjData.ObjType == ObjectType.Water)
+                        else if (objState.ObjData.ObjType == ObjectType.Log) // add another log and keep checking for more
+                            logs.Add(objState);
+                        else if (objState.ObjData.ObjType == ObjectType.Water)
                         {
                             // log can be pushed over water with rock/log
-                            if (obj.ObjData.WaterHasRock || obj.ObjData.WaterHasLog)
+                            if (objState.ObjData.WaterHasRock || objState.ObjData.WaterHasLog)
                                 currIsLog = false;
                             else // if water has nothing in it, add log; if water has log, push new log in and keep log in water
                             {
@@ -165,11 +165,11 @@ public static class PlayerActionChecks
                                 currIsLog = false;
 
                                 // update water data state
-                                obj.ObjData.WaterHasLog = true;
+                                objState.ObjData.WaterHasLog = true;
 
                                 // make water quantum if log was (transferring state)
                                 if(logs[logs.Count - 1].IsQuantum())
-                                    obj.SetQuantum(true);
+                                    objState.SetQuantum(true);
 
                                 // disable last most log in the list (it was pushed into water!)
                                 logs[logs.Count - 1].ObjData.IsDisabled = true;
@@ -183,7 +183,7 @@ public static class PlayerActionChecks
                     // AND we therefore know player can move too
 
                     // move logs
-                    foreach (ObjectState log in logs)
+                    foreach (QuantumState log in logs)
                     {
                         // increment each log
                         if (log.TryGetComponent(out Mover logMover))
@@ -198,7 +198,7 @@ public static class PlayerActionChecks
 
                 case ObjectType.Water:
                     // allow movement if water has an object in it
-                    if(obj.ObjData.WaterHasLog || obj.ObjData.WaterHasRock)
+                    if(objState.ObjData.WaterHasLog || objState.ObjData.WaterHasRock)
                     {
                         // Move action complete
                         ConfirmPlayerMove(player, playerObjMover, moveDir);
@@ -239,7 +239,7 @@ public static class PlayerActionChecks
     {
         // If player was on log, sink log along with player movement
         Vector2Int currPos = objMover.GetGlobalGridPos();
-        ObjectState logSinkCheck = VisibilityCheck.GetObjectAtPos(objMover, currPos.x, currPos.y);
+        QuantumState logSinkCheck = VisibilityCheck.GetObjectAtPos(objMover, currPos.x, currPos.y);
         if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
             logSinkCheck.ObjData.WaterHasLog = false;
 
@@ -270,7 +270,7 @@ public static class PlayerActionChecks
             case DinoType.Stego:
                 // Check for object at indicated direction of ability
                 Vector2Int abilityPos = objMover.GetGlobalGridPos() + dir;
-                ObjectState adjacentObj = VisibilityCheck.GetObjectAtPos(objMover, abilityPos.x, abilityPos.y);
+                QuantumState adjacentObj = VisibilityCheck.GetObjectAtPos(objMover, abilityPos.x, abilityPos.y);
                 if (adjacentObj is not null && VisibilityCheck.IsVisible(player, abilityPos.x, abilityPos.y)) // object present and visible
                 {
                     // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback

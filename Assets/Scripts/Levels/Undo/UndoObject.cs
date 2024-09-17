@@ -9,10 +9,10 @@ using static ObjectData;
 public class UndoObject : UndoHandler
 {
     [SerializeField, Tooltip("Contains object type, saved to undo stack")]
-    private ObjectState _objState;
+    private QuantumState _objState;
 
     // OBJECT TYPE: local frame, ObjectType enum, quantum state, isDisabled, parent transform
-    private Stack<(int, ObjectType, bool, bool, Transform)> _typeStack = new Stack<(int, ObjectType, bool, bool, Transform)>();
+    private Stack<(int, ObjectType, bool, bool, Transform)> _objectStack = new Stack<(int, ObjectType, bool, bool, Transform)>();
 
     // LOGS: local frame, localPosition
     private Stack<(int, Vector2Int)> _logStack = new Stack<(int, Vector2Int)>();
@@ -29,21 +29,21 @@ public class UndoObject : UndoHandler
         Transform newParent = _objState.transform.parent;
 
         // push to stack if currently empty
-        if (_typeStack.Count <= 0)
-            _typeStack.Push((_localFrame, newType, newQuantumState, newIsDisabled, newParent));
+        if (_objectStack.Count <= 0)
+            _objectStack.Push((_localFrame, newType, newQuantumState, newIsDisabled, newParent));
 
         // retrieve old values
-        ObjectType oldType = _typeStack.Peek().Item2;
-        bool oldQuantumState = _typeStack.Peek().Item3;
-        bool oldIsDisabled = _typeStack.Peek().Item4;
-        Transform oldParent = _typeStack.Peek().Item5;
+        ObjectType oldType = _objectStack.Peek().Item2;
+        bool oldQuantumState = _objectStack.Peek().Item3;
+        bool oldIsDisabled = _objectStack.Peek().Item4;
+        Transform oldParent = _objectStack.Peek().Item5;
 
         // push to stack if change occurred
         // ALSO always save state if quantum (to prevent object type re-jumbling while undoing)
         if (newType != oldType || newQuantumState != oldQuantumState || newIsDisabled != oldIsDisabled
             || newParent != oldParent || newQuantumState)
         {
-            _typeStack.Push((_localFrame, newType, newQuantumState, newIsDisabled, newParent));
+            _objectStack.Push((_localFrame, newType, newQuantumState, newIsDisabled, newParent));
         }
 
         // SPECIFIC OBJECT STACK
@@ -101,23 +101,23 @@ public class UndoObject : UndoHandler
     protected override void UndoStackFrame()
     {
         // get type before we potentially remove it
-        ObjectType oldType = _typeStack.Peek().Item2;
+        ObjectType oldType = _objectStack.Peek().Item2;
 
         // TYPE STACK (POP + RESTORE)
         // CANNOT undo past first move, therefore count of at least 2 is required to undo
         // Remove current data and revert type (and quantum state)
-        if (_typeStack.Count > 1 && _typeStack.Peek().Item1 > _localFrame)
+        if (_objectStack.Count > 1 && _objectStack.Peek().Item1 > _localFrame)
         {
-            _typeStack.Pop();
+            _objectStack.Pop();
 
             // update actual object type & quantum state
-            ObjectType newType = _typeStack.Peek().Item2;
+            ObjectType newType = _objectStack.Peek().Item2;
             _objState.ObjData.ObjType = newType;
-            bool newQuantumState = _typeStack.Peek().Item3;
+            bool newQuantumState = _objectStack.Peek().Item3;
             _objState.SetQuantum(newQuantumState);
-            bool newIsDisabled = _typeStack.Peek().Item4;
+            bool newIsDisabled = _objectStack.Peek().Item4;
             _objState.ObjData.IsDisabled = newIsDisabled;
-            Transform newParent = _typeStack.Peek().Item5;
+            Transform newParent = _objectStack.Peek().Item5;
             _objState.transform.parent = newParent;
         }
 
@@ -157,7 +157,7 @@ public class UndoObject : UndoHandler
 
         // SPECIFIC OBJECT STACK (RESTORE)
         // Restore undo frame data from new topmost stack frame (may be unchanged).
-        switch (_typeStack.Peek().Item2)
+        switch (_objectStack.Peek().Item2)
         {
             case ObjectType.Log:
                 // restore/undo position

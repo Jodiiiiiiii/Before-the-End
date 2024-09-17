@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ObjectState;
+using static QuantumState;
 
 public enum ObjectType
 {
