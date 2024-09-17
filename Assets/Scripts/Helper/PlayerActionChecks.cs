@@ -131,7 +131,7 @@ public static class PlayerActionChecks
             }
 
             // Player collides immediately with WHICH object type??
-            switch(obj.ObjData.GetObjectType())
+            switch(obj.ObjData.ObjType)
             {
                 case ObjectType.Log:
 
@@ -153,7 +153,7 @@ public static class PlayerActionChecks
                         obj = GetObjectAtPos(player, targetPos.x, targetPos.y);
                         if (obj is null) // no object blocking the log
                             currIsLog = false;
-                        else if (obj.ObjData.GetObjectType() == ObjectType.Log) // add another log and keep checking for more
+                        else if (obj.ObjData.ObjType == ObjectType.Log) // add another log and keep checking for more
                             logs.Add(obj);
                         else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup // TODO: account forother cases later
                             return; // TODO: handle other cases here (e.g. pushing over covered water)

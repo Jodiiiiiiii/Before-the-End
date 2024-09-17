@@ -23,7 +23,7 @@ public class UndoObject : UndoHandler
     {
         // TYPE STACK
         // Retrieve new values
-        ObjectType newType = _objState.ObjData.GetObjectType();
+        ObjectType newType = _objState.ObjData.ObjType;
         bool newQuantumState = _objState.IsQuantum();
 
         // push to stack if currently empty
@@ -60,8 +60,8 @@ public class UndoObject : UndoHandler
                 break;
             case ObjectType.Water:
                 // Retrieve new values
-                bool newHasLog = _objState.ObjData.IsWaterHasLog();
-                bool newHasRock = _objState.ObjData.IsWaterHasRock();
+                bool newHasLog = _objState.ObjData.WaterHasLog;
+                bool newHasRock = _objState.ObjData.WaterHasRock;
 
                 // push to stack if currently empty
                 if (_waterStack.Count <= 0)
@@ -105,7 +105,7 @@ public class UndoObject : UndoHandler
 
             // update actual object type & quantum state
             ObjectType newType = _typeStack.Peek().Item2;
-            _objState.ObjData.SetObjectType(newType);
+            _objState.ObjData.ObjType = newType;
             bool newQuantumState = _typeStack.Peek().Item3;
             _objState.SetQuantum(newQuantumState);
         }
@@ -156,10 +156,10 @@ public class UndoObject : UndoHandler
                 break;
             case ObjectType.Water:
                 bool newHasLog = _waterStack.Peek().Item2;
-                _objState.ObjData.SetWaterHasLog(newHasLog);
+                _objState.ObjData.WaterHasLog = newHasLog;
 
                 bool newHasRock = _waterStack.Peek().Item3;
-                _objState.ObjData.SetWaterHasLog(newHasRock);
+                _objState.ObjData.WaterHasLog = newHasRock;
 
                 break;
             case ObjectType.Rock:

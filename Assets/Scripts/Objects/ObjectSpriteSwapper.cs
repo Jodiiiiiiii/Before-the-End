@@ -39,14 +39,14 @@ public class ObjectSpriteSwapper : MonoBehaviour
 
     private void Start()
     {
-        _spriteType = _objState.ObjData.GetObjectType();
+        _spriteType = _objState.ObjData.ObjType;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Calls to sprite flipper. update when there is a change
-        if (_spriteType != _objState.ObjData.GetObjectType() || _requiresFlip)
+        if (_spriteType != _objState.ObjData.ObjType || _requiresFlip)
         {
             // Ready to restore sprite to normal
             if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
@@ -54,7 +54,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
                 // flip back to base scale
                 _flipper.SetScaleY((int)SPRITE_NORMAL);
                 // ensure sprite update occurs
-                _spriteType = _objState.ObjData.GetObjectType();
+                _spriteType = _objState.ObjData.ObjType;
 
                 _requiresFlip = false;
             }
