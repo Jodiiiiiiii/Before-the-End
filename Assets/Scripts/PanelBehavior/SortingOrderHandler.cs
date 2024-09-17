@@ -18,7 +18,8 @@ public class SortingOrderHandler : MonoBehaviour
 
     private TilemapRenderer _groundTilemap = null;
     private TilemapRenderer _borderTilemap = null;
-    private SortingGroup _objectsSortingGroup;
+    private SortingGroup _upperObjectsSortingGroup;
+    private SortingGroup _lowerObjectsSortingGroup;
 
     private List<SortingOrderHandler> _subPanels = new List<SortingOrderHandler>();
 
@@ -50,11 +51,16 @@ public class SortingOrderHandler : MonoBehaviour
                 }
             }
 
-            // initialize object sorting group
+            // initialize object sorting groups
             if (child.CompareTag("PanelObjects"))
             {
                 if (child.TryGetComponent(out SortingGroup sortGroup))
-                    _objectsSortingGroup = sortGroup;
+                {
+                    if (_upperObjectsSortingGroup is null)
+                        _upperObjectsSortingGroup = sortGroup;
+                    else
+                        _lowerObjectsSortingGroup = sortGroup;
+                }
                 else
                     throw new Exception("Object tagged as PanelObjects must contain SortingGroup component");
             }
@@ -69,7 +75,7 @@ public class SortingOrderHandler : MonoBehaviour
             throw new Exception("GroundTilemap and/or BorderTilemap improperly initialized. Are you missing a Grid altogether?");
 
         // Missing PanelObjects container
-        if (_objectsSortingGroup is null)
+        if (_upperObjectsSortingGroup is null)
             throw new Exception("Panel must contain PanelObjects container object. Are you maybe missing the PanelObjects tag");
     }
     // Update is called once per frame
@@ -85,10 +91,11 @@ public class SortingOrderHandler : MonoBehaviour
         }
        
         // update actual sorting orders based on calculated PanelOrders
-        // also ensures proper ground->border->objects layering within each panel
+        // also ensures proper ground/border->lowerObjects->upperObjects layering within each panel
         _groundTilemap.sortingOrder = 3 * PanelOrder;
-        _borderTilemap.sortingOrder = 3 * PanelOrder + 1;
-        _objectsSortingGroup.sortingOrder = 3 * PanelOrder + 2;
+        _borderTilemap.sortingOrder = 3 * PanelOrder;
+        _lowerObjectsSortingGroup.sortingOrder = 3 * PanelOrder + 1;
+        _upperObjectsSortingGroup.sortingOrder = 3 * PanelOrder + 2;
     }
 
     /// <summary>

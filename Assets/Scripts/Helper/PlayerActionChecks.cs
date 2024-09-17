@@ -316,11 +316,18 @@ public static class PlayerActionChecks
     /// </summary>
     public static ObjectState GetObjectAtPos(PlayerControls player, int x, int y)
     {
-        //List<ObjectState> objectsAtPos = new List<ObjectState>();
-        if (player.transform.parent is not null)
+        // parent must be in UpperObjects, which must be in a Panel
+        if (player.transform.parent is not null && player.transform.parent.parent is not null)
         {
+            // find all sibling objects (objects on the same panel as player)
+            ObjectState[] upperSiblingObjects = player.transform.parent.GetComponentsInChildren<ObjectState>();
+            ObjectState[] lowerSiblingObjects = player.transform.parent.parent.GetChild(2).GetComponentsInChildren<ObjectState>();
+            // ordering of siblings as upper, then lower gives priority to higher order objects
+            ObjectState[] siblingObjects = new ObjectState[upperSiblingObjects.Length + lowerSiblingObjects.Length];
+            upperSiblingObjects.CopyTo(siblingObjects, 0);
+            lowerSiblingObjects.CopyTo(siblingObjects, upperSiblingObjects.Length);
+
             // iterate through sibling objects checking for position
-            ObjectState[] siblingObjects = player.transform.parent.GetComponentsInChildren<ObjectState>();
             foreach (ObjectState obj in siblingObjects)
             {
                 if (obj.TryGetComponent(out ObjectMover objMover) && obj.TryGetComponent(out ObjectState objState))
@@ -328,7 +335,6 @@ public static class PlayerActionChecks
                     Vector2Int pos = objMover.GetGlobalGridPos();
                     if (pos.x == x && pos.y == y && !objState.ObjData.IsDisabled)
                         return obj;
-                        //objectsAtPos.Add(obj);
                 }
                 else
                     throw new Exception("All Objects MUST have an ObjectMover.");
