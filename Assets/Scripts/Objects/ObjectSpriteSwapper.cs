@@ -19,7 +19,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
     [Header("Sprites")]
     [SerializeField, Tooltip("sprites for log")]
     private Sprite[] _logSprites;
-    [SerializeField, Tooltip("sprites for water")]
+    [SerializeField, Tooltip("0 = water; 1 = water log; 2 = rock log")]
     private Sprite[] _waterSprites;
     [SerializeField, Tooltip("sprites for rock")]
     private Sprite[] _rockSprites;
@@ -34,61 +34,59 @@ public class ObjectSpriteSwapper : MonoBehaviour
     [SerializeField, Tooltip("sprites for item pickup")]
     private Sprite[] _pickupSprites;
 
-    private ObjectType _spriteType;
+    private Sprite _goalSprite;
     private bool _requiresFlip = false;
+    private bool _isCoroutineActive = false;
 
     private void Start()
     {
-        _spriteType = _objState.ObjData.ObjType;
+        _goalSprite = _renderer.sprite;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Calls to sprite flipper. update when there is a change
-        if (_spriteType != _objState.ObjData.ObjType || _requiresFlip)
+        // actually update the goal sprite
+        if (_objState.ObjData.IsDisabled) // disabled = no sprite
+            _goalSprite = null;
+        else
         {
-            // Ready to restore sprite to normal
-            if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
+            // set sprite properly based on object type and its type-specific data states
+            switch (_objState.ObjData.ObjType)
             {
-                // flip back to base scale
-                _flipper.SetScaleY((int)SPRITE_NORMAL);
-                // ensure sprite update occurs
-                _spriteType = _objState.ObjData.ObjType;
-
-                _requiresFlip = false;
+                case ObjectType.Log:
+                    _goalSprite = _logSprites[0]; // no animations, just use 0
+                    break;
+                case ObjectType.Water:
+                    // check based on water state
+                    if (_objState.ObjData.WaterHasLog)
+                        _goalSprite = _waterSprites[1];
+                    else if (_objState.ObjData.WaterHasRock)
+                        _goalSprite = _waterSprites[2];
+                    else
+                        _goalSprite = _waterSprites[0];
+                    break;
+                case ObjectType.Rock:
+                    _goalSprite = _rockSprites[0]; // no animations, just use 0
+                    break;
+                case ObjectType.TallRock:
+                    break;
+                case ObjectType.Bush:
+                    break;
+                case ObjectType.TallBush:
+                    break;
+                case ObjectType.Tunnel:
+                    break;
+                case ObjectType.Pickup:
+                    break;
             }
-            else // sprite should be shrinking if not yet at fully shrunk
-                _flipper.SetScaleY((int)SPRITE_SHRINK);
         }
-        // ensures object NEVER gets stuck at scale 0 (invisible)
-        else if (_flipper.GetCurrentScaleY() != SPRITE_NORMAL)
-            _flipper.SetScaleY((int)SPRITE_NORMAL);
+        
 
-
-        // actually update the sprite
-        switch (_spriteType)
-        {
-            case ObjectType.Log:
-                _renderer.sprite = _logSprites[0]; // no animations, just use 0
-                break;
-            case ObjectType.Water:
-                _renderer.sprite = _waterSprites[0]; // currently no animations, just use 0
-                break;
-            case ObjectType.Rock:
-                _renderer.sprite = _rockSprites[0]; // no animations, just use 0
-                break;
-            case ObjectType.TallRock:
-                break;
-            case ObjectType.Bush:
-                break;
-            case ObjectType.TallBush:
-                break;
-            case ObjectType.Tunnel:
-                break;
-            case ObjectType.Pickup:
-                break;
-        }
+        // call flipping coroutine ONLY if it is not already running
+        // AND there is either a sprite change that needs to happen or it requires a flip
+        if (!_isCoroutineActive && (_renderer.sprite != _goalSprite || _requiresFlip))
+            StartCoroutine(FlipEffect());
     }
 
     /// <summary>
@@ -98,5 +96,33 @@ public class ObjectSpriteSwapper : MonoBehaviour
     public void RequireFlip()
     {
         _requiresFlip = true;
+    }
+
+    IEnumerator FlipEffect()
+    {
+        _isCoroutineActive = true;
+
+        // Calls to sprite flipper. update when there is a change
+        while (_renderer.sprite != _goalSprite || _requiresFlip)
+        {
+            // EXIT: Ready to restore sprite to normal
+            if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
+            {
+                // flip back to base scale
+                _flipper.SetScaleY((int)SPRITE_NORMAL);
+
+                // make sure flipping conditions are set to false
+                _renderer.sprite = _goalSprite;
+                _requiresFlip = false;
+            }
+            else // sprite should be shrinking if not yet at fully shrunk
+                _flipper.SetScaleY((int)SPRITE_SHRINK);    
+
+            yield return null;
+        }
+        // ensures object NEVER gets stuck at scale 0 (invisible)
+        _flipper.SetScaleY((int)SPRITE_NORMAL);
+
+        _isCoroutineActive = false;
     }
 }

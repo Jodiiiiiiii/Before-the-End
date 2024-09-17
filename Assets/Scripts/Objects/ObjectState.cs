@@ -110,8 +110,12 @@ public class ObjectState : MonoBehaviour
         List<ObjectState> hiddenList = new List<ObjectState>();
         foreach(ObjectState obj in _quantumObjects)
         {
-            if (!VisibilityCheck.IsVisible(obj.gameObject, obj._objMover.GetGlobalGridPos().x, obj._objMover.GetGlobalGridPos().y))
+            // object counts as hidden if it is not visible AND it is not disabled (don't randomize objects no longer in play)
+            if (!VisibilityCheck.IsVisible(obj.gameObject, obj._objMover.GetGlobalGridPos().x, obj._objMover.GetGlobalGridPos().y)
+                && !obj.ObjData.IsDisabled)
+            {
                 hiddenList.Add(obj);
+            }
         }
 
         // shuffle object data (Fisher-Yates shuffle - O(n) time)

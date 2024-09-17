@@ -33,7 +33,7 @@ public static class PlayerActionChecks
 
         #region SPRITE FLIPPING
         bool hasFlipped = false;
-        int currFrame = UndoHandler.GetGlobalFrame();
+        int prevFrame = UndoHandler.GetGlobalFrame();
         if (player.IsFacingRight() && moveDir == Vector2Int.left)
         {
             player.SetFacingRight(false);
@@ -119,14 +119,13 @@ public static class PlayerActionChecks
             }
             #endregion
 
-            #region OBJECTS
+            #region OBJECTS / PLAYER MOVEMENT
             // Check for object in current panel at target position
             ObjectState obj = GetObjectAtPos(player, targetPos.x, targetPos.y);
             if (obj is null)
             {
-                objMover.Increment(moveDir); // MOVE PLAYER
-                                             // end of movement action
-                UndoHandler.SaveFrame();
+                // Move action complete
+                ConfirmPlayerMove(player, objMover, moveDir);
                 return;
             }
 
@@ -139,7 +138,7 @@ public static class PlayerActionChecks
                     List<ObjectState> logs = new List<ObjectState>();
                     logs.Add(obj);
 
-                    // Check for more logs
+                    // Find all logs in a chain
                     bool currIsLog = true;
                     while (currIsLog)
                     {
@@ -155,12 +154,31 @@ public static class PlayerActionChecks
                             currIsLog = false;
                         else if (obj.ObjData.ObjType == ObjectType.Log) // add another log and keep checking for more
                             logs.Add(obj);
-                        else // obstructed by water/rock/tallRock/bush/tallBush/Tunnel/Pickup // TODO: account forother cases later
-                            return; // TODO: handle other cases here (e.g. pushing over covered water)
+                        else if (obj.ObjData.ObjType == ObjectType.Water)
+                        {
+                            // log can be pushed over water with rock/log
+                            if (obj.ObjData.WaterHasRock || obj.ObjData.WaterHasLog)
+                                currIsLog = false;
+                            else // if water has nothing in it, add log; if water has log, push new log in and keep log in water
+                            {
+                                // exit loop
+                                currIsLog = false;
+
+                                // update water data state
+                                obj.ObjData.WaterHasLog = true;
+
+                                // disable last most log in the list (it was pushed into water!)
+                                logs[logs.Count - 1].ObjData.IsDisabled = true;
+                            }
+                        }
+                        else // obstructed rock/tallRock/bush/tallBush/Tunnel/Pickup
+                            return; // handle other cases here as necessary
                     }
 
                     // if we got this far, then all logs in the chain CAN move
                     // AND we therefore know player can move too
+
+                    // move logs
                     foreach (ObjectState log in logs)
                     {
                         // increment each log
@@ -169,14 +187,20 @@ public static class PlayerActionChecks
                         else
                             throw new Exception("All log objects MUST have an ObjectMover component");
                     }
-                    // move player
-                    objMover.Increment(moveDir);
-                    // completed player movement action
-                    UndoHandler.SaveFrame();
+
+                    // Move action complete
+                    ConfirmPlayerMove(player, objMover, moveDir);
                     return;
 
                 case ObjectType.Water:
-                    
+                    // allow movement if water has an object in it
+                    if(obj.ObjData.WaterHasLog || obj.ObjData.WaterHasRock)
+                    {
+                        // Move action complete
+                        ConfirmPlayerMove(player, objMover, moveDir);
+                        return;
+                    }
+
                     return;
                 case ObjectType.Rock:
                     return; // unimplemented
@@ -196,11 +220,30 @@ public static class PlayerActionChecks
         finally
         {
             // check if flip happened but new undo frame has not been saved yet
-            if (hasFlipped && currFrame == UndoHandler.GetGlobalFrame())
+            if (hasFlipped && prevFrame == UndoHandler.GetGlobalFrame())
                 UndoHandler.SaveFrame();
         }
 
         throw new Exception("Issue with TryPlayerMove. Should have returned at some point but did not.");
+    }
+
+    /// <summary>
+    /// Contains all necessary functions when player move is confirmed
+    /// Handles potential log sinking (on curr position), player movement, and saving an undo frame.
+    /// </summary>
+    private static void ConfirmPlayerMove(PlayerControls player, ObjectMover objMover, Vector2Int moveDir)
+    {
+        // If player was on log, sink log along with player movement
+        Vector2Int currPos = objMover.GetGlobalGridPos();
+        ObjectState logSinkCheck = GetObjectAtPos(player, currPos.x, currPos.y);
+        if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+            logSinkCheck.ObjData.WaterHasLog = false;
+
+        // move player
+        objMover.Increment(moveDir);
+
+        // completed player movement action
+        UndoHandler.SaveFrame();
     }
     #endregion
 
@@ -234,6 +277,7 @@ public static class PlayerActionChecks
 
                     // mark object as quantum (or unmark)
                     adjacentObj.ToggleQuantum();
+
                     // decrement charges
                     player.UseAbilityCharge();
                     // action successful (save undo frame)
@@ -268,21 +312,23 @@ public static class PlayerActionChecks
 
     /// <summary>
     /// Returns the ObjectsStats component of the object at the specified grid position (within the same panel as the player).
-    /// Returns null if no object found.
+    /// In the case of two objects on the same grid position, returns the topmost (i.e. log on water w/ log/rock)
     /// </summary>
     public static ObjectState GetObjectAtPos(PlayerControls player, int x, int y)
     {
+        //List<ObjectState> objectsAtPos = new List<ObjectState>();
         if (player.transform.parent is not null)
         {
             // iterate through sibling objects checking for position
             ObjectState[] siblingObjects = player.transform.parent.GetComponentsInChildren<ObjectState>();
             foreach (ObjectState obj in siblingObjects)
             {
-                if (obj.TryGetComponent(out ObjectMover objMover))
+                if (obj.TryGetComponent(out ObjectMover objMover) && obj.TryGetComponent(out ObjectState objState))
                 {
                     Vector2Int pos = objMover.GetGlobalGridPos();
-                    if (pos.x == x && pos.y == y)
+                    if (pos.x == x && pos.y == y && !objState.ObjData.IsDisabled)
                         return obj;
+                        //objectsAtPos.Add(obj);
                 }
                 else
                     throw new Exception("All Objects MUST have an ObjectMover.");

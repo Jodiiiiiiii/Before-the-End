@@ -119,6 +119,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c834c366a92de0b4494dd3833c9ffbf4, type: 3}
   _waterSprites:
   - {fileID: 21300000, guid: 6360ff95a2360e14f81025061234c9af, type: 3}
+  - {fileID: 21300000, guid: 9206f1c4dcba6744ea5df39330d6a2b6, type: 3}
+  - {fileID: 21300000, guid: 66e20e61920abd443ba0c052765f07b0, type: 3}
   _rockSprites:
   - {fileID: 21300000, guid: c74f90f8e5cdb0c4b8d46d3fef5b4b13, type: 3}
   _tallRockSprites: []
@@ -192,7 +194,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objMover: {fileID: 533334616384499222}
   _objFlipper: {fileID: 1110672753592046569}
-  ObjType: 0
+  ObjData:
+    ObjType: 0
+    IsDisabled: 0
+    WaterHasLog: 0
+    WaterHasRock: 0
   _quantumParticles: {fileID: 7417001617649512533}
   _spriteSwapper: {fileID: 5412454214512777860}
 --- !u!114 &4087480735737977805

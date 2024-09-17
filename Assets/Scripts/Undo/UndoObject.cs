@@ -11,8 +11,8 @@ public class UndoObject : UndoHandler
     [SerializeField, Tooltip("Contains object type, saved to undo stack")]
     private ObjectState _objState;
 
-    // OBJECT TYPE: local frame, ObjectType enum, quantum state
-    private Stack<(int, ObjectType, bool)> _typeStack = new Stack<(int, ObjectType, bool)>();
+    // OBJECT TYPE: local frame, ObjectType enum, quantum state, isDisabled
+    private Stack<(int, ObjectType, bool, bool)> _typeStack = new Stack<(int, ObjectType, bool, bool)>();
 
     // LOGS: local frame, localPosition
     private Stack<(int, Vector2Int)> _logStack = new Stack<(int, Vector2Int)>();
@@ -25,19 +25,21 @@ public class UndoObject : UndoHandler
         // Retrieve new values
         ObjectType newType = _objState.ObjData.ObjType;
         bool newQuantumState = _objState.IsQuantum();
+        bool newIsDisabled = _objState.ObjData.IsDisabled;
 
         // push to stack if currently empty
         if (_typeStack.Count <= 0)
-            _typeStack.Push((_localFrame, newType, newQuantumState));
+            _typeStack.Push((_localFrame, newType, newQuantumState, newIsDisabled));
 
         // retrieve old values
         ObjectType oldType = _typeStack.Peek().Item2;
         bool oldQuantumState = _typeStack.Peek().Item3;
+        bool oldIsDisabled = _typeStack.Peek().Item4;
 
         // push to stack if change occurred
         // ALSO always save state if quantum (to prevent object type re-jumbling while undoing)
-        if (newType != oldType || newQuantumState != oldQuantumState || newQuantumState) 
-            _typeStack.Push((_localFrame, newType, newQuantumState));
+        if (newType != oldType || newQuantumState != oldQuantumState || newIsDisabled != oldIsDisabled || newQuantumState) 
+            _typeStack.Push((_localFrame, newType, newQuantumState, newIsDisabled));
 
         // SPECIFIC OBJECT STACK
         switch(newType)
@@ -108,6 +110,8 @@ public class UndoObject : UndoHandler
             _objState.ObjData.ObjType = newType;
             bool newQuantumState = _typeStack.Peek().Item3;
             _objState.SetQuantum(newQuantumState);
+            bool newIsDisabled = _typeStack.Peek().Item4;
+            _objState.ObjData.IsDisabled = newIsDisabled;
         }
 
         // SPECIFIC OBJECT STACK (POP)
@@ -159,7 +163,7 @@ public class UndoObject : UndoHandler
                 _objState.ObjData.WaterHasLog = newHasLog;
 
                 bool newHasRock = _waterStack.Peek().Item3;
-                _objState.ObjData.WaterHasLog = newHasRock;
+                _objState.ObjData.WaterHasRock = newHasRock;
 
                 break;
             case ObjectType.Rock:
