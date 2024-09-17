@@ -21,8 +21,8 @@ public abstract class UndoHandler : MonoBehaviour
             _globalFrame--;
     }
 
-    [SerializeField, Tooltip("ObjectMover component; handles position changes")] 
-    protected ObjectMover _objectMover; 
+    [SerializeField, Tooltip("Mover component; handles position changes")] 
+    protected Mover _objectMover; 
     
     protected int _localFrame = -1;
 

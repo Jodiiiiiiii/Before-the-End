@@ -21,7 +21,7 @@ public class AbilityIndicatorSprites : MonoBehaviour
 
     [Header("Other Components")]
     [SerializeField, Tooltip("Needed to determine the position for visibility checks")]
-    private ObjectMover _objMover;
+    private Mover _objMover;
 
     private bool _isActive = false;
     private bool _prevActive = false;

@@ -80,7 +80,7 @@ public static class VisibilityCheck
     /// In the case of two objects on the same grid position, returns the topmost (i.e. log on water w/ log/rock)
     /// </summary>
     /// <param name="getLower">true = default, get topmost object; false = get lower object</param>
-    public static ObjectState GetObjectAtPos(ObjectMover obj, int x, int y, bool getLower = false)
+    public static ObjectState GetObjectAtPos(Mover obj, int x, int y, bool getLower = false)
     {
         // parent must be in UpperObjects, which must be in a Panel
         if (obj.transform.parent is not null && obj.transform.parent.parent is not null)
@@ -106,14 +106,14 @@ public static class VisibilityCheck
             // iterate through sibling objects checking for position
             foreach (ObjectState sibling in siblingObjects)
             {
-                if (sibling.TryGetComponent(out ObjectMover objMover) && sibling.TryGetComponent(out ObjectState objState))
+                if (sibling.TryGetComponent(out Mover objMover) && sibling.TryGetComponent(out ObjectState objState))
                 {
                     Vector2Int pos = objMover.GetGlobalGridPos();
                     if (pos.x == x && pos.y == y && !objState.ObjData.IsDisabled)
                         return sibling;
                 }
                 else
-                    throw new Exception("All Objects MUST have ObjectMover and ObjectState components.");
+                    throw new Exception("All Objects MUST have Mover and ObjectState components.");
             }
         }
         else

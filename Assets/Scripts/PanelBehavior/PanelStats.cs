@@ -31,14 +31,14 @@ public class PanelStats : MonoBehaviour
         }
         else // subpanels
         {
-            if (TryGetComponent(out ObjectMover objMover))
+            if (TryGetComponent(out Mover objMover))
             {
                 OriginX = objMover.GetGlobalGridPos().x;
                 // subtract to get to absolute bottom-left corner (since objectMover stores position as top left pos of grid)
                 OriginY = objMover.GetGlobalGridPos().y - Height; 
             }
             else
-                throw new System.Exception("Subpanels MUST have an ObjectMover component.");
+                throw new System.Exception("Subpanels MUST have an Mover component.");
         }
     }
 

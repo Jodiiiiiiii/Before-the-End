@@ -11,7 +11,7 @@ public class ObjectState : MonoBehaviour
 {
     [Header("Object Modification Components")]
     [SerializeField, Tooltip("Used for accessing grid positions for visibility checks")]
-    private ObjectMover _objMover;
+    private Mover _objMover;
     [SerializeField, Tooltip("Used for vertically flipping sprites during object type change")]
     private SpriteFlipper _objFlipper;
 

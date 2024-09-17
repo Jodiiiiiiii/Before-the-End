@@ -7,7 +7,7 @@ using UnityEngine;
 /// Handles updating of local positions through functions for getting/setting/incrementing local/global grid (integer) positions.
 /// Supports functionality for objects that can NEVER move (used then just for storing exact grid positions).
 /// </summary>
-public class ObjectMover : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     [Header("Movement Behavior")]
     [SerializeField, Tooltip("Distance from goal position when object will snap to exact goal position")] private float _snappingThreshold = 0.01f;

@@ -20,8 +20,8 @@ public static class PlayerActionChecks
         if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
             throw new Exception("Input of CanMove function MUST have only one non-zero value and it must be eiether -1 or 1.");
 
-        if (!player.TryGetComponent(out ObjectMover playerObjMover))
-            throw new Exception("Player object MUST have ObjectMover component.");
+        if (!player.TryGetComponent(out Mover playerObjMover))
+            throw new Exception("Player object MUST have Mover component.");
 
         Vector2Int currPos = playerObjMover.GetGlobalGridPos();
         Vector2Int targetPos = currPos + moveDir;
@@ -95,8 +95,8 @@ public static class PlayerActionChecks
                                 && pushedPanel.OriginY + moveDir.y >= parentPanel.OriginY
                                 && pushedPanel.OriginY + moveDir.y + pushedPanel.Height <= parentPanel.OriginY + parentPanel.Height)
                             {
-                                if (!pushedPanel.TryGetComponent(out ObjectMover panelMover))
-                                    throw new Exception("ALL subpanels MUST have an ObjectMover component.");
+                                if (!pushedPanel.TryGetComponent(out Mover panelMover))
+                                    throw new Exception("ALL subpanels MUST have an Mover component.");
 
                                 // shuffle quantum objects just before moving panel
                                 ObjectState.ShuffleHiddenQuantumObjects();
@@ -186,10 +186,10 @@ public static class PlayerActionChecks
                     foreach (ObjectState log in logs)
                     {
                         // increment each log
-                        if (log.TryGetComponent(out ObjectMover logMover))
+                        if (log.TryGetComponent(out Mover logMover))
                             logMover.Increment(moveDir);
                         else
-                            throw new Exception("All log objects MUST have an ObjectMover component");
+                            throw new Exception("All log objects MUST have an Mover component");
                     }
 
                     // Move action complete
@@ -235,7 +235,7 @@ public static class PlayerActionChecks
     /// Contains all necessary functions when player move is confirmed
     /// Handles potential log sinking (on curr position), player movement, and saving an undo frame.
     /// </summary>
-    private static void ConfirmPlayerMove(PlayerControls player, ObjectMover objMover, Vector2Int moveDir)
+    private static void ConfirmPlayerMove(PlayerControls player, Mover objMover, Vector2Int moveDir)
     {
         // If player was on log, sink log along with player movement
         Vector2Int currPos = objMover.GetGlobalGridPos();
@@ -257,8 +257,8 @@ public static class PlayerActionChecks
     /// </summary>
     public static void TryPlayerAbility(PlayerControls player, Vector2Int dir, DinoType type, int charges)
     {
-        if (!player.TryGetComponent(out ObjectMover objMover))
-            throw new Exception("Player MUST have ObjectMover component.");
+        if (!player.TryGetComponent(out Mover objMover))
+            throw new Exception("Player MUST have Mover component.");
 
         // return if out of charges
         if (charges == 0)
