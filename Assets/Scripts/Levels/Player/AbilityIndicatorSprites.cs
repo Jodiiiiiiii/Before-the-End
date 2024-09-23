@@ -38,16 +38,16 @@ public class AbilityIndicatorSprites : MonoBehaviour
             Vector2Int gridPos;
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.left;
-            _leftSprite.enabled = VisibilityCheck.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _leftSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.right;
-            _rightSprite.enabled = VisibilityCheck.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _rightSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.up;
-            _upSprite.enabled = VisibilityCheck.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _upSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.down;
-            _downSprite.enabled = VisibilityCheck.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _downSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
         }
         else if(!_isActive) // turn all off if not active
         {

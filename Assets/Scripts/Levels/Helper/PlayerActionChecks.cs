@@ -27,7 +27,7 @@ public static class PlayerActionChecks
         Vector2Int targetPos = currPos + moveDir;
         
         // Ensure player current visibility
-        if (!VisibilityCheck.IsVisible(player, currPos.x, currPos.y))
+        if (!VisibilityChecks.IsVisible(player, currPos.x, currPos.y))
             return;
         #endregion
 
@@ -52,13 +52,13 @@ public static class PlayerActionChecks
         {
             #region PANEL PUSHING
             // Check for current panel visibility of target/adjacent pos
-            if (!VisibilityCheck.IsVisible(player, targetPos.x, targetPos.y))
+            if (!VisibilityChecks.IsVisible(player, targetPos.x, targetPos.y))
             {
                 // try to find which panel is visible at target/adjacent pos
                 for (int i = 0; i <= SortingOrderHandler.MaxPanelOrder; i++)
                 {
                     // Topmost panel at pos found
-                    if (VisibilityCheck.IsVisible(i, targetPos.x, targetPos.y))
+                    if (VisibilityChecks.IsVisible(i, targetPos.x, targetPos.y))
                     {
                         // retrieve current panel's panel order (through SortingOrderHandler)
                         if (player.transform.parent is not null && player.transform.parent.parent is not null
@@ -121,7 +121,7 @@ public static class PlayerActionChecks
 
             #region OBJECTS / PLAYER MOVEMENT
             // Check for object in current panel at target position
-            QuantumState objState = VisibilityCheck.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
+            QuantumState objState = VisibilityChecks.GetObjectAtPos(playerObjMover, targetPos.x, targetPos.y);
             if (objState is null)
             {
                 // Move action complete
@@ -183,7 +183,7 @@ public static class PlayerActionChecks
     {
         // If player was on log, sink log along with player movement
         Vector2Int currPos = objMover.GetGlobalGridPos();
-        QuantumState logSinkCheck = VisibilityCheck.GetObjectAtPos(objMover, currPos.x, currPos.y);
+        QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(objMover, currPos.x, currPos.y);
         if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
             logSinkCheck.ObjData.WaterHasLog = false;
 
@@ -204,7 +204,7 @@ public static class PlayerActionChecks
     {
         // check for first log
         Vector2Int adjacentPos = initialCheckPos;
-        QuantumState adjacentObj = VisibilityCheck.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
         if (adjacentObj.ObjData.ObjType != ObjectType.Log)
             return false;
 
@@ -220,11 +220,11 @@ public static class PlayerActionChecks
             adjacentPos += dir;
 
             // Check for log's obstruction by higher-ordered panel
-            if (!VisibilityCheck.IsVisible(mover.gameObject, adjacentPos.x, adjacentPos.y))
+            if (!VisibilityChecks.IsVisible(mover.gameObject, adjacentPos.x, adjacentPos.y))
                 break; // no more logs to add, we hit a panel
 
             // check for object at next position
-            adjacentObj = VisibilityCheck.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+            adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
             if (adjacentObj is null) // no object blocking the log
             {
                 currIsLog = false;
@@ -344,10 +344,10 @@ public static class PlayerActionChecks
     {
         // Check for object at indicated direction of ability (immediate neighbor)
         Vector2Int abilityPos = mover.GetGlobalGridPos() + dir;
-        QuantumState adjacentObj = VisibilityCheck.GetObjectAtPos(mover, abilityPos.x, abilityPos.y);
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, abilityPos.x, abilityPos.y);
 
         // object present and visible
-        if (adjacentObj is not null && VisibilityCheck.IsVisible(player, abilityPos.x, abilityPos.y))
+        if (adjacentObj is not null && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y))
         {
             // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
             if (dir == Vector2Int.right)
@@ -381,10 +381,10 @@ public static class PlayerActionChecks
     {
         // Check for object at indicated direction of ability (immediate neighbor)
         Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
-        QuantumState adjacentObj = VisibilityCheck.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
 
         // object present and visible AND rock
-        if (adjacentObj is not null && VisibilityCheck.IsVisible(player, adjacentPos.x, adjacentPos.y))
+        if (adjacentObj is not null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
         {
             if (adjacentObj.ObjData.ObjType == ObjectType.Log)
             {
@@ -410,11 +410,11 @@ public static class PlayerActionChecks
                     adjacentPos += dir;
 
                     // Check for rock's obstruction by higher-ordered panel
-                    if (!VisibilityCheck.IsVisible(player, adjacentPos.x, adjacentPos.y))
+                    if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
                         return; // obstruction to rock = NO PUSH/ACTION
 
                     // check for object at next position
-                    adjacentObj = VisibilityCheck.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+                    adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
                     if (adjacentObj is null) // no object blocking the log
                         currIsRock = false;
                     else if (adjacentObj.ObjData.ObjType == ObjectType.Rock) // add another log, then keep checking for more
@@ -443,7 +443,7 @@ public static class PlayerActionChecks
 
                         // check for rock sinking into water (if a rock is not already there)
                         Vector2Int rockPos = rockMover.GetGlobalGridPos();
-                        QuantumState lowerObjCheck = VisibilityCheck.GetObjectAtPos(mover, rockPos.x, rockPos.y, true);
+                        QuantumState lowerObjCheck = VisibilityChecks.GetObjectAtPos(mover, rockPos.x, rockPos.y, true);
                         if(lowerObjCheck.ObjData.ObjType == ObjectType.Water && !lowerObjCheck.ObjData.WaterHasRock)
                         {
                             lowerObjCheck.ObjData.WaterHasLog = false;

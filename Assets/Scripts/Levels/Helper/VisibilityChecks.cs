@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Static helper class with easily referenced functions that will handle the complex object/component finding aspects of visibility detection.
 /// </summary>
-public static class VisibilityCheck
+public static class VisibilityChecks
 {
     /// <summary>
     /// Indicates if the given player object would be visible if located at the (x, y) GLOBAL position on its current panel
