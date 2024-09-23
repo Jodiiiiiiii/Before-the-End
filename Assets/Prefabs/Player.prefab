@@ -314,7 +314,7 @@ MonoBehaviour:
   _rightScaleX: -1
   _moveDelay: 0.25
   _dinoTypes: 0000000001000000
-  _dinoCharges: ffffffff03000000
+  _dinoCharges: ffffffffffffffff
   _abilityIndicator: {fileID: 3435671876989254576}
   _firstUndoDelay: 0.5
   _undoDelay: 0.1

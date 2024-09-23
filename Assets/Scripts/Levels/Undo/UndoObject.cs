@@ -16,6 +16,8 @@ public class UndoObject : UndoHandler
 
     // LOGS: local frame, localPosition
     private Stack<(int, Vector2Int)> _logStack = new Stack<(int, Vector2Int)>();
+    // ROCKS: local frame, localPosition
+    private Stack<(int, Vector2Int)> _rockStack = new Stack<(int, Vector2Int)>();
     // WATER: local frame, hasLog, hasRock
     private Stack<(int, bool, bool)> _waterStack = new Stack<(int, bool, bool)>();
 
@@ -51,18 +53,18 @@ public class UndoObject : UndoHandler
         {
             case ObjectType.Log:
                 // Retrieve new values
-                Vector2Int newPos = _mover.GetLocalGridPos();
+                Vector2Int newLogPos = _mover.GetLocalGridPos();
 
                 // push to stack if stack currently empty
                 if(_logStack.Count <= 0)
-                    _logStack.Push((_localFrame, newPos));
+                    _logStack.Push((_localFrame, newLogPos));
 
                 // retrieve old values
-                Vector2Int oldPos = _logStack.Peek().Item2;
+                Vector2Int oldLogPos = _logStack.Peek().Item2;
 
                 // push to stack if a change occurred
-                if(!newPos.Equals(oldPos))
-                    _logStack.Push((_localFrame, newPos));
+                if(!newLogPos.Equals(oldLogPos))
+                    _logStack.Push((_localFrame, newLogPos));
 
                 break;
             case ObjectType.Water:
@@ -84,6 +86,20 @@ public class UndoObject : UndoHandler
 
                 break;
             case ObjectType.Rock:
+                // Retrieve new values
+                Vector2Int newRockPos = _mover.GetLocalGridPos();
+
+                // push to stack if stack currently empty
+                if (_rockStack.Count <= 0)
+                    _rockStack.Push((_localFrame, newRockPos));
+
+                // retrieve old values
+                Vector2Int oldRockPos = _rockStack.Peek().Item2;
+
+                // push to stack if a change occurred
+                if (!newRockPos.Equals(oldRockPos))
+                    _rockStack.Push((_localFrame, newRockPos));
+
                 break;
             case ObjectType.TallRock:
                 break;
@@ -127,16 +143,17 @@ public class UndoObject : UndoHandler
         // still ensure only pop on proper frame when change occurred
         switch (oldType)
         {
-            case ObjectType.Log:
+            case ObjectType.Log: // pop log
                 if(_logStack.Count > 1 && _logStack.Peek().Item1 > _localFrame) 
                     _logStack.Pop();
                 break;
-            case ObjectType.Water:
+            case ObjectType.Water: // pop water
                 if (_waterStack.Count > 1 && _waterStack.Peek().Item1 > _localFrame)
                     _waterStack.Pop();
                 break;
-            case ObjectType.Rock:
-                // pop rock
+            case ObjectType.Rock: // pop rock
+                if (_rockStack.Count > 1 && _rockStack.Peek().Item1 > _localFrame)
+                    _rockStack.Pop();
                 break;
             case ObjectType.TallRock:
                 // pop tall rock
@@ -160,9 +177,8 @@ public class UndoObject : UndoHandler
         switch (_objectStack.Peek().Item2)
         {
             case ObjectType.Log:
-                // restore/undo position
-                Vector2Int newPos = _logStack.Peek().Item2;
-                _mover.SetLocalGoal(newPos.x, newPos.y);
+                Vector2Int newLogPos = _logStack.Peek().Item2;
+                _mover.SetLocalGoal(newLogPos.x, newLogPos.y);
 
                 break;
             case ObjectType.Water:
@@ -174,6 +190,9 @@ public class UndoObject : UndoHandler
 
                 break;
             case ObjectType.Rock:
+                Vector2Int newRockPos = _rockStack.Peek().Item2;
+                _mover.SetLocalGoal(newRockPos.x, newRockPos.y);
+
                 break;
             case ObjectType.TallRock:
                 break;
