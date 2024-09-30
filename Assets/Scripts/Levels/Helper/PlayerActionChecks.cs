@@ -265,7 +265,16 @@ public static class PlayerActionChecks
                     logs[logs.Count - 1].ObjData.IsDisabled = true;
                 }
             }
-            else // obstructed rock/tallRock/bush/tallBush/Tunnel/Pickup
+            else if(adjacentObj.ObjData.ObjType == ObjectType.Clock)
+            {
+                // exit loop
+                currIsLog = false;
+                obstructed = false; // allow push
+
+                // disable last most log in the list (it was pushed into clock rift)
+                logs[logs.Count - 1].ObjData.IsDisabled = true;
+            }
+            else // obstructed rock/tallRock/bush/tallBush/Tunnel
                 break;
         }
 
