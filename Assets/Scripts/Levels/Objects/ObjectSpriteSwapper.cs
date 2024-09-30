@@ -85,6 +85,8 @@ public class ObjectSpriteSwapper : MonoBehaviour
                 case ObjectType.TallBush:
                     break;
                 case ObjectType.Tunnel:
+                    // set goal sprite to numbered tunnel based on tunnel index
+                    _goalSprite = _tunnelSprites[_objState.ObjData.TunnelIndex];
                     break;
                 case ObjectType.Clock:
                     // needs to handle higher frame rate?

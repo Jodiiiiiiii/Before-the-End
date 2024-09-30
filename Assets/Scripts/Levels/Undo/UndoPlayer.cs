@@ -11,8 +11,8 @@ public class UndoPlayer : UndoHandler
     [SerializeField, Tooltip("Used to determine facing direction of player")]
     private PlayerControls _playerControls;
 
-    // local frame, localPosition, facing direction, Dino Type, dino charges
-    private Stack<(int, Vector2Int, bool, DinoType, int)> _undoStack = new Stack<(int, Vector2Int, bool, DinoType, int)>();
+    // local frame, localPosition, facing direction, Dino Type, dino charges, parent transform
+    private Stack<(int, Vector2Int, bool, DinoType, int, Transform)> _undoStack = new Stack<(int, Vector2Int, bool, DinoType, int, Transform)>();
 
     protected override void SaveStackFrame()
     {
@@ -21,19 +21,22 @@ public class UndoPlayer : UndoHandler
         bool newFacing = _playerControls.IsFacingRight();
         DinoType newType = _playerControls.GetCurrDinoType();
         int newCharges = _playerControls.GetCurrAbilityCharge();
+        Transform newParent = _mover.transform.parent;
 
         // No need to compare if new frame is FIRST frame
         if (_undoStack.Count == 0)
-            _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges));
+            _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges, newParent));
 
         // Compare old values to current
         Vector2Int oldPos = _undoStack.Peek().Item2;
         bool oldFacing = _undoStack.Peek().Item3;
         DinoType oldType = _undoStack.Peek().Item4;
         int oldCharges = _undoStack.Peek().Item5;
+        Transform oldParent = _undoStack.Peek().Item6;
+
         // update stack ONLY if any change in THIS object has actually occurred
-        if (!newPos.Equals(oldPos) || newFacing != oldFacing || newType != oldType || newCharges != oldCharges)
-            _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges));
+        if (!newPos.Equals(oldPos) || newFacing != oldFacing || newType != oldType || newCharges != oldCharges || newParent != oldParent)
+            _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges, newParent));
     }
 
     protected override void UndoStackFrame()
@@ -60,6 +63,9 @@ public class UndoPlayer : UndoHandler
             // update player ability charges
             int newCharges = _undoStack.Peek().Item5;
             _playerControls.SetCurrAbilityCharge(newCharges);
+
+            Transform newParent = _undoStack.Peek().Item6;
+            _mover.transform.parent = newParent;
         }
     }
 }

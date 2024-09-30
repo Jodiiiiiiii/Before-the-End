@@ -182,8 +182,14 @@ public class QuantumState : MonoBehaviour
             hiddenList[k].SetQuantum(hiddenList[n].IsQuantum());
             hiddenList[n].SetQuantum(quantumVal);
 
+            // Ensure swapped tunnel's other tunnel points to NEW tunnel object
+            if (hiddenList[n].ObjData.ObjType == ObjectType.Tunnel)
+                hiddenList[n].ObjData.OtherTunnel.ObjData.OtherTunnel = hiddenList[n];
+            if (hiddenList[k].ObjData.ObjType == ObjectType.Tunnel)
+                hiddenList[k].ObjData.OtherTunnel.ObjData.OtherTunnel = hiddenList[k];
+
             // swap parent transforms, if necessary
-            if(hiddenList[k].transform.parent != hiddenList[n].transform.parent)
+            if (hiddenList[k].transform.parent != hiddenList[n].transform.parent)
             {
                 Transform parent = hiddenList[k].transform.parent;
                 hiddenList[k].transform.parent = hiddenList[n].transform.parent;

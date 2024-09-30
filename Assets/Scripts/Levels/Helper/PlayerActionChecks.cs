@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static PlayerControls;
-using static ObjectData;
 
 public static class PlayerActionChecks
 {
@@ -159,7 +157,54 @@ public static class PlayerActionChecks
                 case ObjectType.TallBush:
                     return; // unimplemented
                 case ObjectType.Tunnel:
-                    return; // unimplemented
+                    
+                    // require the player to be moving UP into the tunnel (other directions are just an obstruction)
+                    if (moveDir != Vector2Int.up)
+                        return;
+
+                    // retrieve mover component of other tunnel
+                    QuantumState otherTunnel = objState.ObjData.OtherTunnel;
+                    if (!otherTunnel.TryGetComponent(out Mover otherTunnelMover))
+                        throw new Exception("Level Objects MUST have a mover component.");
+                    
+                    // Requirement: tunnel is visible
+                    Vector2Int otherTunnelPos = otherTunnelMover.GetGlobalGridPos();
+                    if (!VisibilityChecks.IsVisible(otherTunnel.gameObject, otherTunnelPos.x, otherTunnelPos.y))
+                        return;
+                    
+                    // Requirement: visibility of exit pos
+                    Vector2Int exitPos = otherTunnelPos + Vector2Int.down;
+                    if (!VisibilityChecks.IsVisible(otherTunnel.gameObject, exitPos.x, exitPos.y))
+                        return;
+
+                    // Requirement: exit pos is clear of obstructions (anything)
+                    QuantumState exitObj = VisibilityChecks.GetObjectAtPos(otherTunnelMover, exitPos.x, exitPos.y);
+                    if (exitObj is not null)
+                        return;
+                    
+                    // ALL PRECONDITIONS ARE MET -> player can move
+
+                    // Check for log sinking before moving through tunnel
+                    QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(playerObjMover, currPos.x, currPos.y);
+                    if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+                        logSinkCheck.ObjData.WaterHasLog = false;
+
+                    // move player to panel of the other tunnel
+                    player.transform.parent = otherTunnel.transform.parent;
+
+                    // move player to position beneath other tunnel
+                    playerObjMover.SetGlobalGoal(exitPos.x, exitPos.y);
+
+                    // visually flip the player
+                    PlayerSpriteSwapper spriteSwapper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+                    if (spriteSwapper is null)
+                        throw new Exception("Player MUST have PlayerSpriteSwapper component.");
+                    spriteSwapper.RequireFlip();
+
+                    // completed player movement action
+                    UndoHandler.SaveFrame();
+                    
+                    return;
                 case ObjectType.Clock:
                     // confirm move FIRST
                     ConfirmPlayerMove(playerObjMover, moveDir);
@@ -208,6 +253,7 @@ public static class PlayerActionChecks
     /// Includes bool crushEndLog so this can be reused during strong push ability.
     /// Returns true/false whether a change in log states (push/crush) actually occurred).
     /// </summary>
+    /// <param name="mover">Any Mover component on the same panel as the logs being pushed.</param>
     private static bool PushLogsInSeries(Mover mover, Vector2Int initialCheckPos, Vector2Int dir, bool crushEndLog = false)
     {
         // check for first log

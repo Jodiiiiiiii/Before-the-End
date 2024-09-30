@@ -127,8 +127,14 @@ MonoBehaviour:
   _tallRockSprites: []
   _bushSprites: []
   _tallBushSprites: []
-  _tunnelSprites: []
-  _pickupSprites: []
+  _tunnelSprites:
+  - {fileID: 21300000, guid: 911ca302f48b13148a51805b8536a76f, type: 3}
+  - {fileID: 21300000, guid: 0c9b2263841808f4c9f01125b89ac02e, type: 3}
+  - {fileID: 21300000, guid: 06fdba0686d6084489104a0e47e2372c, type: 3}
+  - {fileID: 21300000, guid: 3bd6c29e387c0324c82079f31886f246, type: 3}
+  - {fileID: 21300000, guid: f2635d24566a41b4d9a3589ddb6be032, type: 3}
+  - {fileID: 21300000, guid: 6f67bab251b7db14c946eaa01f162dd8, type: 3}
+  _clockSprites: []
 --- !u!1 &4281857284185798206
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +206,8 @@ MonoBehaviour:
     IsDisabled: 0
     WaterHasLog: 0
     WaterHasRock: 0
+    OtherTunnel: {fileID: 0}
+    TunnelIndex: 0
   _spriteSwapper: {fileID: 5412454214512777860}
 --- !u!114 &4087480735737977805
 MonoBehaviour:

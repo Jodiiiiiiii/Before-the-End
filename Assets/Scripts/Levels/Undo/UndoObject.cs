@@ -20,10 +20,12 @@ public class UndoObject : UndoHandler
     private Stack<(int, Vector2Int)> _rockStack = new Stack<(int, Vector2Int)>();
     // WATER: local frame, hasLog, hasRock
     private Stack<(int, bool, bool)> _waterStack = new Stack<(int, bool, bool)>();
+    // TUNNEL: local frame, other tunnel, tunnel index
+    private Stack<(int, QuantumState, int)> _tunnelStack = new Stack<(int, QuantumState, int)>();
 
     protected override void SaveStackFrame()
     {
-        // TYPE STACK
+        // OBJECT STACK
         // Retrieve new values
         ObjectType newType = _objState.ObjData.ObjType;
         bool newQuantumState = _objState.IsQuantum();
@@ -108,6 +110,22 @@ public class UndoObject : UndoHandler
             case ObjectType.TallBush:
                 break;
             case ObjectType.Tunnel:
+                // Retrieve new values
+                QuantumState newOtherTunnel = _objState.ObjData.OtherTunnel;
+                int newTunnelIndex = _objState.ObjData.TunnelIndex;
+
+                // push to stack if stack currently empty
+                if (_tunnelStack.Count <= 0)
+                    _tunnelStack.Push((_localFrame, newOtherTunnel, newTunnelIndex));
+
+                // retrieve old values
+                QuantumState oldOtherTunnel = _tunnelStack.Peek().Item2;
+                int oldTunnelIndex = _tunnelStack.Peek().Item3;
+
+                // push to stack if a change occurred
+                if (newOtherTunnel != oldOtherTunnel || newTunnelIndex != oldTunnelIndex)
+                    _tunnelStack.Push((_localFrame, newOtherTunnel, newTunnelIndex));
+
                 break;
             case ObjectType.Clock:
                 break;
@@ -119,7 +137,7 @@ public class UndoObject : UndoHandler
         // get type before we potentially remove it
         ObjectType oldType = _objectStack.Peek().Item2;
 
-        // TYPE STACK (POP + RESTORE)
+        // OBJECT STACK (POP + RESTORE)
         // CANNOT undo past first move, therefore count of at least 2 is required to undo
         // Remove current data and revert type (and quantum state)
         if (_objectStack.Count > 1 && _objectStack.Peek().Item1 > _localFrame)
@@ -164,11 +182,12 @@ public class UndoObject : UndoHandler
             case ObjectType.TallBush:
                 // pop tall bush
                 break;
-            case ObjectType.Tunnel:
-                // pop tunnel
+            case ObjectType.Tunnel: // pop tunnel
+                if (_tunnelStack.Count > 1 && _tunnelStack.Peek().Item1 > _localFrame)
+                    _tunnelStack.Pop();
                 break;
             case ObjectType.Clock:
-                // pop pickup
+                // pop clock
                 break;
         }
 
@@ -201,6 +220,12 @@ public class UndoObject : UndoHandler
             case ObjectType.TallBush:
                 break;
             case ObjectType.Tunnel:
+                QuantumState newOtherTunnel = _tunnelStack.Peek().Item2;
+                _objState.ObjData.OtherTunnel = newOtherTunnel;
+
+                int newTunnelIndex = _tunnelStack.Peek().Item3;
+                _objState.ObjData.TunnelIndex = newTunnelIndex;
+
                 break;
             case ObjectType.Clock:
                 break;

@@ -23,6 +23,7 @@ public class PlayerSpriteSwapper : MonoBehaviour
     private Sprite[] _trikeSprites;
 
     private DinoType _spriteType;
+    private bool _requiresFlip = false;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class PlayerSpriteSwapper : MonoBehaviour
     void Update()
     {
         // Calls to sprite flipper. update when there is a change
-        if (_spriteType != _playerControls.GetCurrDinoType())
+        if (_spriteType != _playerControls.GetCurrDinoType() || _requiresFlip)
         {
             // Ready to restore sprite to normal
             if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
@@ -42,6 +43,8 @@ public class PlayerSpriteSwapper : MonoBehaviour
                 _flipper.SetScaleY((int)SPRITE_NORMAL);
                 // ensure sprite update occurs
                 _spriteType = _playerControls.GetCurrDinoType();
+                // ensure it no longer requires flip
+                _requiresFlip = false;
             }
             else // sprite should be shrinking if not yet at fully shrunk
                 _flipper.SetScaleY((int)SPRITE_SHRINK);
@@ -73,5 +76,14 @@ public class PlayerSpriteSwapper : MonoBehaviour
             case DinoType.Pachy:
                 break;
         }
+    }
+
+    /// <summary>
+    /// Used to make sprites flip even when no sprite change occurs.
+    /// Useful for when player moved through tunnel (but dino type remains the same).
+    /// </summary>
+    public void RequireFlip()
+    {
+        _requiresFlip = true;
     }
 }

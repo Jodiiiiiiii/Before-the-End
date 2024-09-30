@@ -29,6 +29,12 @@ public struct ObjectData
     public bool WaterHasLog;
     [Tooltip("Whether water contains a rock object (traversable)")]
     public bool WaterHasRock;
+
+    [Header("Tunnel")]
+    [Tooltip("Corresponding tunnel.")]
+    public QuantumState OtherTunnel;
+    [Tooltip("Pairing number of the tunnel; used for sprite swapping properly.")]
+    public int TunnelIndex;
 }
 
 
