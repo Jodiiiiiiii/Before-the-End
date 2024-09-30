@@ -160,7 +160,7 @@ public static class PlayerActionChecks
                     return; // unimplemented
                 case ObjectType.Tunnel:
                     return; // unimplemented
-                case ObjectType.Pickup:
+                case ObjectType.Clock:
                     return; // unimplemented
             }
             #endregion

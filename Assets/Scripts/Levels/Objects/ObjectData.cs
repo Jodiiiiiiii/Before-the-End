@@ -12,7 +12,7 @@ public enum ObjectType
     Bush,
     TallBush,
     Tunnel,
-    Pickup
+    Clock
 }
 
 [System.Serializable]

@@ -35,8 +35,8 @@ public class ObjectSpriteSwapper : MonoBehaviour
     private Sprite[] _tallBushSprites;
     [SerializeField, Tooltip("sprites for tunnel")]
     private Sprite[] _tunnelSprites;
-    [SerializeField, Tooltip("sprites for item pickup")]
-    private Sprite[] _pickupSprites;
+    [SerializeField, Tooltip("sprites for clock")]
+    private Sprite[] _clockSprites;
 
     private Sprite _goalSprite;
     private bool _requiresFlip = false;
@@ -86,7 +86,8 @@ public class ObjectSpriteSwapper : MonoBehaviour
                     break;
                 case ObjectType.Tunnel:
                     break;
-                case ObjectType.Pickup:
+                case ObjectType.Clock:
+                    // needs to handle higher frame rate?
                     break;
             }
 

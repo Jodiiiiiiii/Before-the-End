@@ -109,7 +109,7 @@ public class UndoObject : UndoHandler
                 break;
             case ObjectType.Tunnel:
                 break;
-            case ObjectType.Pickup:
+            case ObjectType.Clock:
                 break;
         }
     }
@@ -167,7 +167,7 @@ public class UndoObject : UndoHandler
             case ObjectType.Tunnel:
                 // pop tunnel
                 break;
-            case ObjectType.Pickup:
+            case ObjectType.Clock:
                 // pop pickup
                 break;
         }
@@ -202,7 +202,7 @@ public class UndoObject : UndoHandler
                 break;
             case ObjectType.Tunnel:
                 break;
-            case ObjectType.Pickup:
+            case ObjectType.Clock:
                 break;
         }
     }
