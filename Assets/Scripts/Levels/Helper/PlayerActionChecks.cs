@@ -161,6 +161,14 @@ public static class PlayerActionChecks
                 case ObjectType.Tunnel:
                     return; // unimplemented
                 case ObjectType.Clock:
+                    // confirm move FIRST
+                    ConfirmPlayerMove(playerObjMover, moveDir);
+                    // then make call for transitioning level
+                    // TODO: will be replaced instead later with:
+                    // 1. updating completed level state in game manager
+                    // 2. transition BACK to level select at pos. indicated by current compelted level
+                    SceneTransitionHelper.LoadNextScene();
+
                     return; // unimplemented
             }
             #endregion
