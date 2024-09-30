@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: -1523328516, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
     - target: {fileID: 4281857284185798206, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Name
-      value: Clock Variant
+      value: Clock
       objectReference: {fileID: 0}
     - target: {fileID: 5412454214512777860, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: _clockSprites.Array.size
@@ -54,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: -1771768113, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.z
