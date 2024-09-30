@@ -24,9 +24,15 @@ public class SceneTransitionHelper : MonoBehaviour
     /// </summary>
     public static void LoadNextScene()
     {
-        // Determine next scene by adding one to scene name's number
+        // Parse current scene's name
         string currScene = SceneManager.GetActiveScene().name;
         int currSceneNum = Mathf.RoundToInt((float) Char.GetNumericValue(currScene[currScene.Length - 1]));
+
+        // exit if load scene will not be valid (doesn't end in integer)
+        if (currSceneNum == -1)
+            return;
+
+        // load next scene
         string nextScene = currScene.Substring(0, currScene.Length - 1) + "" + (currSceneNum + 1);
         SceneManager.LoadScene(nextScene);
     }
