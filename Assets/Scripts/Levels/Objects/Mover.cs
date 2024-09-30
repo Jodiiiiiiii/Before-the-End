@@ -28,6 +28,9 @@ public class Mover : MonoBehaviour
     {
         // ensure it starts at even integers
         _localGridPos = new Vector2Int(Mathf.FloorToInt(transform.localPosition.x), Mathf.FloorToInt(transform.localPosition.y));
+        // ensure object is grid-snapped at start
+        transform.localPosition = new Vector3(_localGridPos.x, _localGridPos.y, transform.localPosition.z);
+
         _globalGridPos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
     }
 

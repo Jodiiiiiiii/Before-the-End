@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Development/PanelDemo.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Build/Tutorial/Tutorial1.unity
+    guid: 9a3faada8d587e04eab8d455f751c17b
+  - enabled: 1
+    path: Assets/Scenes/Build/Tutorial/Tutorial2.unity
+    guid: add8467206a068346a5e235f85ac8b96
   m_configObjects: {}
