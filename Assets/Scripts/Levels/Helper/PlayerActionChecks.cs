@@ -446,6 +446,14 @@ public static class PlayerActionChecks
                         // push/crush logs
                         PushLogsInSeries(mover, adjacentPos, dir, true);
                     }
+                    else if (adjacentObj.ObjData.ObjType == ObjectType.Clock)
+                    {
+                        // exit loop
+                        currIsRock = false;
+
+                        // destroy rock pushed into clock vortex
+                        rocks[rocks.Count - 1].ObjData.IsDisabled = true;
+                    }
                     else // obstructed bush/tallBush/Tunnel
                         return; // obstruction to rock = NO PUSH/ACTION
                 }
