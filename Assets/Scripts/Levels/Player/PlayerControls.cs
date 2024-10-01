@@ -282,14 +282,22 @@ public class PlayerControls : MonoBehaviour
             _abilityIndicator.SetAbilityActive(false);
         }
 
-        // start ability state (stationary && no movement queued up && pressing action key)
-        if (_mover.IsStationary() && _moveInputStack.Count == 0 && Input.GetKeyDown(INITIATE_ACTION) 
+        // start ability state (no movement queued up && pressing action key)
+        if (_moveInputStack.Count == 0 && Input.GetKeyDown(INITIATE_ACTION) 
             && !_isPreparingAbility && !canceledPrepareThisFrame)
         {
-            _isPreparingAbility = true;
+            // ensure player has charges remaining
+            if(_dinoCharges[_currDino] == 0)
+            {
+                // TODO: failure sound effect (no visual)
+            }
+            else
+            {
+                _isPreparingAbility = true;
 
-            // make directional indicators visible to visually show preparing action state
-            _abilityIndicator.SetAbilityActive(true);
+                // make directional indicators visible to visually show preparing action state
+                _abilityIndicator.SetAbilityActive(true);
+            }
         }
     }
     #endregion

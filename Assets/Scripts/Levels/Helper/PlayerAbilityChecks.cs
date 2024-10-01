@@ -15,7 +15,7 @@ public static class PlayerAbilityChecks
 
         // return if out of charges
         if (charges == 0)
-            return; // TODO: ability failure effect
+            return;
 
         // do ability check depending on current dinosaur type
         switch (type) // current type
