@@ -26,6 +26,12 @@ public abstract class UndoHandler : MonoBehaviour
     
     protected int _localFrame = -1;
 
+    private void Start()
+    {
+        // ensure global frame resets to zero in each level
+        _globalFrame = 0;
+    }
+
     // Update is called once per frame
     protected void Update()
     {
