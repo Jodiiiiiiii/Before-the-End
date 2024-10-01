@@ -86,7 +86,12 @@ public class SortingOrderHandler : MonoBehaviour
         if(!_instantiated)
         {
             if (transform.parent is null) // main panel (root) only
-                SetPanelOrder(0); // starts recursive setPanelOrder call through subpanel hierarchy
+            {
+                // ensure MaxPanelOrder is re-calculated in each level
+                MaxPanelOrder = 0;
+                // starts recursive setPanelOrder call through subpanel hierarchy
+                SetPanelOrder(0);
+            }
             _instantiated = true;
         }
        
