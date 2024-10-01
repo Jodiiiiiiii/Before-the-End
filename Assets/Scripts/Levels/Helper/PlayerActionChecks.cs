@@ -47,70 +47,13 @@ public static class PlayerActionChecks
         try
         {
             #region PANEL PUSHING
-            // Check for current panel visibility of target/adjacent pos
+            // Check if adjacent/target pos is in a different panel
             if (!VisibilityChecks.IsVisible(player, targetPos.x, targetPos.y))
             {
-                // try to find which panel is visible at target/adjacent pos
-                for (int i = 0; i <= SortingOrderHandler.MaxPanelOrder; i++)
-                {
-                    // Topmost panel at pos found
-                    if (VisibilityChecks.IsVisible(i, targetPos.x, targetPos.y))
-                    {
-                        // retrieve current panel's panel order (through SortingOrderHandler)
-                        if (player.transform.parent is not null && player.transform.parent.parent is not null
-                            && player.transform.parent.parent.TryGetComponent(out SortingOrderHandler currSortHandler))
-                        {
-                            // Retrieve PanelStats of panel to be pushed AND its parent
-                            PanelStats pushedPanel;
-                            PanelStats parentPanel;
-                            // should always enter one of the if statements above otherwise we wouldn't have gotten this far in the logic.
-                            // this logic SHOULD prevent the pushed panel from ever being the main panel since the main panel CANNOT move.
-                            if (i > currSortHandler.PanelOrder) // pushing external edge of other panel
-                            {
-                                // retrieve PanelStats of panel to be pushed
-                                pushedPanel = SortingOrderHandler.GetPanelOfOrder(i);
-                                // retrieve parent panel's panel stats
-                                if (pushedPanel.transform.parent is null || !pushedPanel.transform.parent.TryGetComponent(out parentPanel))
-                                    throw new Exception("ALL Subpanels MUST have a parent panel with a PanelStats component.");
-                            }
-                            else if (i < currSortHandler.PanelOrder) // pushing internal edge of current panel
-                            {
-                                // retrieve current panel's PanelStats
-                                if (!currSortHandler.TryGetComponent(out pushedPanel))
-                                    throw new Exception("ALL panels MUST have a PanelStats component.");
-                                // retrieve parent panel's panel stats
-                                if (pushedPanel.transform.parent is null || !pushedPanel.transform.parent.TryGetComponent(out parentPanel))
-                                    throw new Exception("ALL Subpanels MUST have a parent panel with a PanelStats component.");
-                            }
-                            else
-                                throw new Exception("It should be impossible to see this exception unless something is fundamentally wrong with VisibilityCheck");
+                // Attempt to panel push
+                TryPanelPush(player, targetPos, moveDir);
 
-                            // check if the pushed panel can move in the moveDir within its parent panel
-                            if (pushedPanel.OriginX + moveDir.x >= parentPanel.OriginX
-                                && pushedPanel.OriginX + moveDir.x + pushedPanel.Width <= parentPanel.OriginX + parentPanel.Width
-                                && pushedPanel.OriginY + moveDir.y >= parentPanel.OriginY
-                                && pushedPanel.OriginY + moveDir.y + pushedPanel.Height <= parentPanel.OriginY + parentPanel.Height)
-                            {
-                                if (!pushedPanel.TryGetComponent(out Mover panelMover))
-                                    throw new Exception("ALL subpanels MUST have an Mover component.");
-
-                                // shuffle quantum objects just before moving panel
-                                QuantumState.ShuffleHiddenQuantumObjects();
-                                // Apply movement to pushed panel
-                                panelMover.Increment(moveDir);
-                                // action fully completed
-                                UndoHandler.SaveFrame();
-                                return;
-                            }
-                        }
-                        else
-                            throw new Exception("Player object MUST be contained within Objects child object of a panel AND the panel must have a SortingOrderHandler component.");
-
-                        // no need to check more panels
-                        break;
-                    }
-                }
-                // Player moved into a panel so, if any action occurs, it has already happened
+                // Player has either pushed the panel OR no change has occurred. Move action is over.
                 return;
             }
             #endregion
@@ -243,6 +186,77 @@ public static class PlayerActionChecks
 
         // completed player movement action
         UndoHandler.SaveFrame();
+    }
+
+    /// <summary>
+    /// Attempts to push (in moveDir direction) by one position the topmost panel located at targetPos.
+    /// OR attempts to push current panel (in moveDir direction) - if adjacent panel is of lower order.
+    /// </summary>
+    /// <param name="player">used to detect current player panel.</param>
+    /// <param name="targetPos">position at which the player attempted to move.</param>
+    /// <param name="moveDir">unit vector direction in which the player attempted to move.</param>
+    private static void TryPanelPush(PlayerControls player, Vector2Int targetPos, Vector2Int moveDir)
+    {
+        // try to find which panel is visible at target/adjacent pos
+        for (int i = 0; i <= SortingOrderHandler.MaxPanelOrder; i++)
+        {
+            // Topmost panel at pos found
+            if (VisibilityChecks.IsVisible(i, targetPos.x, targetPos.y))
+            {
+                // retrieve current panel's panel order (through SortingOrderHandler)
+                if (player.transform.parent is not null && player.transform.parent.parent is not null
+                    && player.transform.parent.parent.TryGetComponent(out SortingOrderHandler currSortHandler))
+                {
+                    // Retrieve PanelStats of panel to be pushed AND its parent
+                    PanelStats pushedPanel;
+                    PanelStats parentPanel;
+                    // should always enter one of the if statements above otherwise we wouldn't have gotten this far in the logic.
+                    // this logic SHOULD prevent the pushed panel from ever being the main panel since the main panel CANNOT move.
+                    if (i > currSortHandler.PanelOrder) // pushing external edge of other panel
+                    {
+                        // retrieve PanelStats of panel to be pushed
+                        pushedPanel = SortingOrderHandler.GetPanelOfOrder(i);
+                        // retrieve parent panel's panel stats
+                        if (pushedPanel.transform.parent is null || !pushedPanel.transform.parent.TryGetComponent(out parentPanel))
+                            throw new Exception("ALL Subpanels MUST have a parent panel with a PanelStats component.");
+                    }
+                    else if (i < currSortHandler.PanelOrder) // pushing internal edge of current panel
+                    {
+                        // retrieve current panel's PanelStats
+                        if (!currSortHandler.TryGetComponent(out pushedPanel))
+                            throw new Exception("ALL panels MUST have a PanelStats component.");
+                        // retrieve parent panel's panel stats
+                        if (pushedPanel.transform.parent is null || !pushedPanel.transform.parent.TryGetComponent(out parentPanel))
+                            throw new Exception("ALL Subpanels MUST have a parent panel with a PanelStats component.");
+                    }
+                    else
+                        throw new Exception("It should be impossible to see this exception unless something is fundamentally wrong with VisibilityCheck");
+
+                    // check if the pushed panel can move in the moveDir within its parent panel
+                    if (pushedPanel.OriginX + moveDir.x >= parentPanel.OriginX
+                        && pushedPanel.OriginX + moveDir.x + pushedPanel.Width <= parentPanel.OriginX + parentPanel.Width
+                        && pushedPanel.OriginY + moveDir.y >= parentPanel.OriginY
+                        && pushedPanel.OriginY + moveDir.y + pushedPanel.Height <= parentPanel.OriginY + parentPanel.Height)
+                    {
+                        if (!pushedPanel.TryGetComponent(out Mover panelMover))
+                            throw new Exception("ALL subpanels MUST have an Mover component.");
+
+                        // shuffle quantum objects just before moving panel
+                        QuantumState.ShuffleHiddenQuantumObjects();
+                        // Apply movement to pushed panel
+                        panelMover.Increment(moveDir);
+                        // action fully completed
+                        UndoHandler.SaveFrame();
+                        return;
+                    }
+                }
+                else
+                    throw new Exception("Player object MUST be contained within Objects child object of a panel AND the panel must have a SortingOrderHandler component.");
+
+                // no need to check more panels
+                break;
+            }
+        }
     }
 
     /// <summary>
