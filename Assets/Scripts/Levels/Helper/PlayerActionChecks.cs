@@ -409,8 +409,9 @@ public static class PlayerActionChecks
         Vector2Int abilityPos = mover.GetGlobalGridPos() + dir;
         QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, abilityPos.x, abilityPos.y);
 
-        // object present and visible
-        if (adjacentObj is not null && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y))
+        // object present and visible (and not clock)
+        if (adjacentObj is not null && adjacentObj.ObjData.ObjType != ObjectType.Clock 
+            && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y))
         {
             // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
             if (dir == Vector2Int.right)
