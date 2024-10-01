@@ -26,7 +26,13 @@ public class QuantumState : MonoBehaviour
 
     private bool _isQuantum = false;
     // Stores objectState, and whether the quantum object is visible
-    private static List<QuantumState> _quantumObjects = new List<QuantumState>();
+    private static List<QuantumState> _quantumObjects;
+
+    private void Start()
+    {
+        // ensure quantum objects properly reset between different levels
+        _quantumObjects = new List<QuantumState>();
+    }
 
     public bool IsQuantum()
     {
