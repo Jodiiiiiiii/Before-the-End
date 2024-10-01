@@ -89,97 +89,109 @@ public static class PlayerAbilityChecks
         Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
         QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
 
-        // object present and visible AND rock
-        if (adjacentObj is not null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+        // REQUIREMENT: object must be present AND visible.
+        // REQUIREMENT: object MUST be EITHER a log OR a rock.
+        if (adjacentObj is null || !VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y)
+            || (adjacentObj.ObjData.ObjType != ObjectType.Log && adjacentObj.ObjData.ObjType != ObjectType.Rock))
         {
-            if (adjacentObj.ObjData.ObjType == ObjectType.Log)
+            // TODO: failure effect at adjacent tile
+
+            return;
+        }
+
+        // log = guaranteed success
+        if (adjacentObj.ObjData.ObjType == ObjectType.Log)
+        {
+            // push/crush logs
+            PlayerActionChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
+
+            // decrement charges
+            player.UseAbilityCharge();
+            // action successful (save undo frame)
+            UndoHandler.SaveFrame();
+            return;
+        }
+        else if (adjacentObj.ObjData.ObjType == ObjectType.Rock)
+        {
+            // generate list of all logs to be pushed by the potential player move
+            List<QuantumState> rocks = new List<QuantumState>();
+            rocks.Add(adjacentObj);
+
+            // Find all rocks in a chain
+            bool currIsRock = true;
+            while (currIsRock)
             {
-                // push/crush logs
-                PlayerActionChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
+                adjacentPos += dir;
 
-                // decrement charges
-                player.UseAbilityCharge();
-                // action successful (save undo frame)
-                UndoHandler.SaveFrame();
-                return;
+                // Check for rock's obstruction by higher-ordered panel
+                if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+                    return; // obstruction to rock = NO PUSH/ACTION
+
+                // check for object at next position
+                adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+                if (adjacentObj is null) // no object blocking the log
+                    currIsRock = false;
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Rock) // add another log, then keep checking for more
+                    rocks.Add(adjacentObj);
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Water) // sinking check handled later
+                    currIsRock = false;
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Log)
+                {
+                    // exit loop
+                    currIsRock = false;
+
+                    // push/crush logs
+                    PlayerActionChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
+                }
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Clock)
+                {
+                    // exit loop
+                    currIsRock = false;
+
+                    // destroy rock pushed into clock vortex
+                    rocks[rocks.Count - 1].ObjData.IsDisabled = true;
+                }
+                else // obstructed by bush/tallBush/Tunnel/etc.
+                {
+                    // TODO: failure effect on object which cannot be pushed at end of chain
+
+                    return; // obstruction to rock = NO PUSH/ACTION
+                }
+                    
             }
-            else if (adjacentObj.ObjData.ObjType == ObjectType.Rock)
+
+            // if we got this far, rock push is guaranteed
+            foreach (QuantumState rock in rocks)
             {
-                // generate list of all logs to be pushed by the potential player move
-                List<QuantumState> rocks = new List<QuantumState>();
-                rocks.Add(adjacentObj);
-
-                // Find all rocks in a chain
-                bool currIsRock = true;
-                while (currIsRock)
+                // increment each log
+                if (rock.TryGetComponent(out Mover rockMover))
                 {
-                    adjacentPos += dir;
+                    rockMover.Increment(dir);
 
-                    // Check for rock's obstruction by higher-ordered panel
-                    if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
-                        return; // obstruction to rock = NO PUSH/ACTION
-
-                    // check for object at next position
-                    adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
-                    if (adjacentObj is null) // no object blocking the log
-                        currIsRock = false;
-                    else if (adjacentObj.ObjData.ObjType == ObjectType.Rock) // add another log, then keep checking for more
-                        rocks.Add(adjacentObj);
-                    else if (adjacentObj.ObjData.ObjType == ObjectType.Water) // sinking check handled later
-                        currIsRock = false;
-                    else if (adjacentObj.ObjData.ObjType == ObjectType.Log)
+                    // check for rock sinking into water (if a rock is not already there)
+                    Vector2Int rockPos = rockMover.GetGlobalGridPos();
+                    QuantumState lowerObjCheck = VisibilityChecks.GetObjectAtPos(mover, rockPos.x, rockPos.y, true);
+                    if (lowerObjCheck.ObjData.ObjType == ObjectType.Water && !lowerObjCheck.ObjData.WaterHasRock)
                     {
-                        // exit loop
-                        currIsRock = false;
+                        lowerObjCheck.ObjData.WaterHasLog = false;
+                        lowerObjCheck.ObjData.WaterHasRock = true;
 
-                        // push/crush logs
-                        PlayerActionChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
-                    }
-                    else if (adjacentObj.ObjData.ObjType == ObjectType.Clock)
-                    {
-                        // exit loop
-                        currIsRock = false;
+                        // make water quantum if rock was (transferring state)
+                        if (rocks[rocks.Count - 1].IsQuantum())
+                            adjacentObj.SetQuantum(true);
 
-                        // destroy rock pushed into clock vortex
-                        rocks[rocks.Count - 1].ObjData.IsDisabled = true;
+                        rock.ObjData.IsDisabled = true;
                     }
-                    else // obstructed bush/tallBush/Tunnel
-                        return; // obstruction to rock = NO PUSH/ACTION
                 }
-
-                // if we got this far, rock push is guaranteed
-                foreach (QuantumState rock in rocks)
-                {
-                    // increment each log
-                    if (rock.TryGetComponent(out Mover rockMover))
-                    {
-                        rockMover.Increment(dir);
-
-                        // check for rock sinking into water (if a rock is not already there)
-                        Vector2Int rockPos = rockMover.GetGlobalGridPos();
-                        QuantumState lowerObjCheck = VisibilityChecks.GetObjectAtPos(mover, rockPos.x, rockPos.y, true);
-                        if (lowerObjCheck.ObjData.ObjType == ObjectType.Water && !lowerObjCheck.ObjData.WaterHasRock)
-                        {
-                            lowerObjCheck.ObjData.WaterHasLog = false;
-                            lowerObjCheck.ObjData.WaterHasRock = true;
-
-                            // make water quantum if rock was (transferring state)
-                            if (rocks[rocks.Count - 1].IsQuantum())
-                                adjacentObj.SetQuantum(true);
-
-                            rock.ObjData.IsDisabled = true;
-                        }
-                    }
-                    else
-                        throw new System.Exception("All log objects MUST have an Mover component");
-                }
-
-                // decrement charges
-                player.UseAbilityCharge();
-                // action successful (save undo frame)
-                UndoHandler.SaveFrame();
-                return;
+                else
+                    throw new System.Exception("All log objects MUST have an Mover component");
             }
+
+            // decrement charges
+            player.UseAbilityCharge();
+            // action successful (save undo frame)
+            UndoHandler.SaveFrame();
+            return;
         }
     }
 }
