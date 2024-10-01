@@ -7,7 +7,13 @@ public class PlayerControls : MonoBehaviour
 
     // statically set variable for locking player controls
     // (i.e. during timed events, such as pterodactyl ability when the player cannot do anything)
-    public static bool IsPlayerLocked = false;
+    public static bool IsPlayerLocked;
+
+    private void Start()
+    {
+        // ensure locked state doesn't carry between scenes
+        IsPlayerLocked = false;
+    }
 
     // Update is called once per frame
     void Update()
