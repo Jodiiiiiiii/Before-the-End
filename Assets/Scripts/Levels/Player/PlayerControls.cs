@@ -244,22 +244,22 @@ public class PlayerControls : MonoBehaviour
             // Try ability in appropriate direction and cancel preparing ability state
             if (Input.GetKeyDown(MOVE_UP))
             {
-                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.up, _dinoTypes[_currDino], _dinoCharges[_currDino]);
+                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.up, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_DOWN))
             {
-                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.down, _dinoTypes[_currDino], _dinoCharges[_currDino]);
+                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.down, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_RIGHT))
             {
-                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.right, _dinoTypes[_currDino], _dinoCharges[_currDino]);
+                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.right, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(MOVE_LEFT))
             {
-                PlayerActionChecks.TryPlayerAbility(this, Vector2Int.left, _dinoTypes[_currDino], _dinoCharges[_currDino]);
+                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.left, _dinoTypes[_currDino], _dinoCharges[_currDino]);
                 _isPreparingAbility = false;
             }
             else if (Input.GetKeyDown(INITIATE_ACTION)) // cancel ability if space pressed again
