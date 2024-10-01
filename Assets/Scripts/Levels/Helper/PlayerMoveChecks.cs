@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PlayerActionChecks
+public static class PlayerMoveChecks
 {
     /// <summary>
     /// Determines if the player is able to move in the specified direction and handles all according behavior.

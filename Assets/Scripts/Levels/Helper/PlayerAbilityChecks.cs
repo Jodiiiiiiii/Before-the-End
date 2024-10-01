@@ -103,7 +103,7 @@ public static class PlayerAbilityChecks
         if (adjacentObj.ObjData.ObjType == ObjectType.Log)
         {
             // push/crush logs
-            PlayerActionChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
+            PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
 
             // decrement charges
             player.UseAbilityCharge();
@@ -141,7 +141,7 @@ public static class PlayerAbilityChecks
                     currIsRock = false;
 
                     // push/crush logs
-                    PlayerActionChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
+                    PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
                 }
                 else if (adjacentObj.ObjData.ObjType == ObjectType.Clock)
                 {

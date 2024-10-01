@@ -72,13 +72,13 @@ public class PlayerControls : MonoBehaviour
             if (_moveTimer <= 0)
             {
                 if (_moveInputStack[0] == MOVE_UP)
-                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.up);
+                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.up);
                 else if (_moveInputStack[0] == MOVE_DOWN)
-                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.down);
+                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.down);
                 else if (_moveInputStack[0] == MOVE_RIGHT)
-                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.right);
+                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.right);
                 else if (_moveInputStack[0] == MOVE_LEFT)
-                    PlayerActionChecks.TryPlayerMove(this, Vector2Int.left);
+                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.left);
 
                 // reset moveTimer for next input.
                 // Resets even if move fails to have any impact - accounts for action such as panel pushing when player doesn't move.
