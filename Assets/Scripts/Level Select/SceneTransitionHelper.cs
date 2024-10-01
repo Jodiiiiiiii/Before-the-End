@@ -28,7 +28,14 @@ public class SceneTransitionHelper : MonoBehaviour
         string currScene = SceneManager.GetActiveScene().name;
         int currSceneNum = Mathf.RoundToInt((float) Char.GetNumericValue(currScene[currScene.Length - 1]));
 
-        // exit if load scene will not be valid (doesn't end in integer)
+        // temporary exit to demo end screen - for the purpose of build.
+        if (currScene.Equals("Tutorial4"))
+        {
+            SceneManager.LoadScene("DemoEnd");
+            return;
+        }
+
+        // exit if an error will result from trying to load generated next scene
         if (currSceneNum == -1)
             return;
 
