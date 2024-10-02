@@ -20,7 +20,7 @@ PlayerSettings:
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
-  m_SplashScreenAnimation: 1
+  m_SplashScreenAnimation: 0
   m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 1
   m_SplashScreenBackgroundAnimationZoom: 1
@@ -322,7 +322,7 @@ PlayerSettings:
       m_Height: 32
       m_Kind: 0
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 4464dc4d95e786b46aeec1ad42f97be1, type: 3}
+      m_Icon: {fileID: 2800000, guid: 1c542cde3f5945240abe5eeb0867fae1, type: 3}
       m_Width: 16
       m_Height: 16
       m_Kind: 0
