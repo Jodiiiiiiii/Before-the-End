@@ -143,14 +143,6 @@ public static class PlayerAbilityChecks
                     // push/crush logs
                     PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
                 }
-                else if (adjacentObj.ObjData.ObjType == ObjectType.Clock)
-                {
-                    // exit loop
-                    currIsRock = false;
-
-                    // destroy rock pushed into clock vortex
-                    rocks[rocks.Count - 1].ObjData.IsDisabled = true;
-                }
                 else // obstructed by bush/tallBush/Tunnel/etc.
                 {
                     // TODO: failure effect on object which cannot be pushed at end of chain
