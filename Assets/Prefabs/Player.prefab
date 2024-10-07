@@ -537,6 +537,25 @@ MonoBehaviour:
   _trikeSprites:
   - {fileID: 1834596240, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
   - {fileID: 553733346, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
+  _ankySprites:
+  - {fileID: -1812381768, guid: c11439d20d5bbb143a6faf87219bd8ec, type: 3}
+  - {fileID: -332999555, guid: c11439d20d5bbb143a6faf87219bd8ec, type: 3}
+  _spinoSprites:
+  - {fileID: -503337098, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
+  - {fileID: 54393391, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
+  _pteraSprites:
+  - {fileID: 1927601058, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
+  - {fileID: -2050789821, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
+  _pyroSprites:
+  - {fileID: -1584332002, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
+  - {fileID: 1447686760, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
+  _compySprites:
+  - {fileID: -816541181, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
+  - {fileID: 1107487041, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
+  - {fileID: 1604211149, guid: e077bd4f3c03e5f41a9edd3a7579f2e4, type: 3}
+  - {fileID: 1854352751, guid: e077bd4f3c03e5f41a9edd3a7579f2e4, type: 3}
+  - {fileID: -513878039, guid: 0f993c2cf481aac45925b28a920c7a26, type: 3}
+  - {fileID: 1145445151, guid: 0f993c2cf481aac45925b28a920c7a26, type: 3}
 --- !u!1 &4614642553146230113
 GameObject:
   m_ObjectHideFlags: 0

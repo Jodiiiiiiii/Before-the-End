@@ -21,6 +21,16 @@ public class PlayerSpriteSwapper : MonoBehaviour
     private Sprite[] _stegoSprites;
     [SerializeField, Tooltip("sprites for triceratops")]
     private Sprite[] _trikeSprites;
+    [SerializeField, Tooltip("sprites for ankylosaurus")]
+    private Sprite[] _ankySprites;
+    [SerializeField, Tooltip("sprites for spinosaurus")]
+    private Sprite[] _spinoSprites;
+    [SerializeField, Tooltip("sprites for pteranodon")]
+    private Sprite[] _pteraSprites;
+    [SerializeField, Tooltip("sprites for pyroraptor")]
+    private Sprite[] _pyroSprites;
+    [SerializeField, Tooltip("sprites for compsagnathus")]
+    private Sprite[] _compySprites;
 
     private DinoType _spriteType;
     private bool _requiresFlip = false;
