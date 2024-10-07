@@ -491,7 +491,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1253676304, guid: 7a6040cb9a99cb54293fdb583cd76660, type: 3}
+  m_Sprite: {fileID: 1776261479, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -532,8 +532,8 @@ MonoBehaviour:
   _flipper: {fileID: 544080690693282415}
   _renderer: {fileID: 3358966218623298645}
   _stegoSprites:
-  - {fileID: 1253676304, guid: 7a6040cb9a99cb54293fdb583cd76660, type: 3}
-  - {fileID: -530762580, guid: 7a6040cb9a99cb54293fdb583cd76660, type: 3}
+  - {fileID: 1776261479, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
+  - {fileID: -125612406, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
   _trikeSprites:
   - {fileID: 1834596240, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
   - {fileID: 553733346, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
