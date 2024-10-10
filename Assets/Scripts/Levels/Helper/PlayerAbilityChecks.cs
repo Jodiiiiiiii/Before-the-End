@@ -29,11 +29,11 @@ public static class PlayerAbilityChecks
             case DinoType.Anky:
                 TryAnkyAbility(player, objMover, dir);
                 return;
-            case DinoType.Pyro:
-                return; // unimplemented
             case DinoType.Spino:
                 return; // unimplemented
-            case DinoType.Ptero:
+            case DinoType.Ptera:
+                return; // unimplemented
+            case DinoType.Pyro:
                 return; // unimplemented
             case DinoType.Compy:
                 return; // unimplemented

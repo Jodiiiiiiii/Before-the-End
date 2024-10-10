@@ -139,9 +139,9 @@ public class PlayerControls : MonoBehaviour
         Stego,
         Trike,
         Anky,
-        Pyro,
         Spino,
-        Ptero,
+        Ptera,
+        Pyro,
         Compy
     }
     // corresponds to index of dinoTypes and dinoCharges arrays
