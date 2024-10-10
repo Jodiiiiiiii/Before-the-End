@@ -103,11 +103,7 @@ public class UndoObject : UndoHandler
                     _rockStack.Push((_localFrame, newRockPos));
 
                 break;
-            case ObjectType.TallRock:
-                break;
             case ObjectType.Bush:
-                break;
-            case ObjectType.TallBush:
                 break;
             case ObjectType.Tunnel:
                 // Retrieve new values
@@ -173,14 +169,8 @@ public class UndoObject : UndoHandler
                 if (_rockStack.Count > 1 && _rockStack.Peek().Item1 > _localFrame)
                     _rockStack.Pop();
                 break;
-            case ObjectType.TallRock:
-                // pop tall rock
-                break;
             case ObjectType.Bush:
                 // pop bush
-                break;
-            case ObjectType.TallBush:
-                // pop tall bush
                 break;
             case ObjectType.Tunnel: // pop tunnel
                 if (_tunnelStack.Count > 1 && _tunnelStack.Peek().Item1 > _localFrame)
@@ -213,11 +203,7 @@ public class UndoObject : UndoHandler
                 _mover.SetLocalGoal(newRockPos.x, newRockPos.y);
 
                 break;
-            case ObjectType.TallRock:
-                break;
             case ObjectType.Bush:
-                break;
-            case ObjectType.TallBush:
                 break;
             case ObjectType.Tunnel:
                 QuantumState newOtherTunnel = _tunnelStack.Peek().Item2;

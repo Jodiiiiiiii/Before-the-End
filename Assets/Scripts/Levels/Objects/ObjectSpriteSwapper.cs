@@ -35,6 +35,8 @@ public class ObjectSpriteSwapper : MonoBehaviour
     private Sprite[] _tallBushSprites;
     [SerializeField, Tooltip("sprites for tunnel")]
     private Sprite[] _tunnelSprites;
+    [SerializeField, Tooltip("sprites for tree")]
+    private Sprite[] _treeSprites;
     [SerializeField, Tooltip("sprites for clock")]
     private Sprite[] _clockSprites;
 
@@ -78,15 +80,13 @@ public class ObjectSpriteSwapper : MonoBehaviour
                 case ObjectType.Rock:
                     _goalSprite = _rockSprites[0]; // no animations, just use 0
                     break;
-                case ObjectType.TallRock:
-                    break;
                 case ObjectType.Bush:
-                    break;
-                case ObjectType.TallBush:
                     break;
                 case ObjectType.Tunnel:
                     // set goal sprite to numbered tunnel based on tunnel index
                     _goalSprite = _tunnelSprites[_objState.ObjData.TunnelIndex];
+                    break;
+                case ObjectType.Tree:
                     break;
                 case ObjectType.Clock:
                     // needs to handle higher frame rate?

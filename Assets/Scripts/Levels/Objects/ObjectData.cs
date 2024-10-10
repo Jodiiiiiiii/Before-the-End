@@ -8,10 +8,9 @@ public enum ObjectType
     Log,
     Water,
     Rock,
-    TallRock,
     Bush,
-    TallBush,
     Tunnel,
+    Tree,
     Clock
 }
 

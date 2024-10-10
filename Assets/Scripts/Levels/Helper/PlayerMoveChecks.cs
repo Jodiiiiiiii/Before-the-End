@@ -75,16 +75,14 @@ public static class PlayerMoveChecks
                     return;
                 case ObjectType.Rock:
                     return; // CANNOT move into rocks
-                case ObjectType.TallRock:
-                    return; // CANNOT move into tall rocks
                 case ObjectType.Bush:
                     return; // CANNOT move into bushes
-                case ObjectType.TallBush:
-                    return; // CANNOT move into tall bushes
                 case ObjectType.Tunnel:
                     TryMoveIntoTunnel(playerMover, moveDir, adjacentObj);
                     // action attempt is complete whether move happened or not
                     return;
+                case ObjectType.Tree:
+                    return; // CANNOT move into trees
                 case ObjectType.Clock:
                     TryMoveIntoClock(playerMover, moveDir);
                     // action attempt is complete (and the entire level!)
