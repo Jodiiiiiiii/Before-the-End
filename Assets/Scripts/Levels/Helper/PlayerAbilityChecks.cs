@@ -291,6 +291,9 @@ public static class PlayerAbilityChecks
                 else if (dir == Vector2Int.left)
                     player.SetFacingRight(false);
 
+                // decrement charges (only on water exit)
+                player.UseAbilityCharge();
+
                 // move player out of water
                 PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
             }
