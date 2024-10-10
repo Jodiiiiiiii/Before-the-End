@@ -41,6 +41,7 @@ public static class PlayerAbilityChecks
         }
     }
 
+    #region DINO TYPE FUNCTIONS
     /// <summary>
     /// Handles QUANTUM ABILITY of Stegosaurus.
     /// Marks (or unmarks) adjacent object as quantum.
@@ -55,15 +56,11 @@ public static class PlayerAbilityChecks
         if (adjacentObj is not null && adjacentObj.ObjData.ObjType != ObjectType.Clock
             && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y))
         {
-            // flip player to face what they set to quantum state (if left or right) - slightly more visual feedback
-            if (dir == Vector2Int.right)
-                player.SetFacingRight(true);
-            else if (dir == Vector2Int.left)
-                player.SetFacingRight(false);
-
             // mark object as quantum (or unmark)
             adjacentObj.ToggleQuantum();
 
+            // set facing direction
+            FaceDirection(player, dir);
             // decrement charges
             player.UseAbilityCharge();
             // action successful (save undo frame)
@@ -105,6 +102,8 @@ public static class PlayerAbilityChecks
             // push/crush logs
             PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir, true);
 
+            // set facing direction
+            FaceDirection(player, dir);
             // decrement charges
             player.UseAbilityCharge();
             // action successful (save undo frame)
@@ -179,6 +178,8 @@ public static class PlayerAbilityChecks
                     throw new System.Exception("All log objects MUST have an Mover component");
             }
 
+            // set facing direction
+            FaceDirection(player, dir);
             // decrement charges
             player.UseAbilityCharge();
             // action successful (save undo frame)
@@ -256,12 +257,8 @@ public static class PlayerAbilityChecks
                 // swim!
                 player.IsSwimming = true;
 
-                // ensure facing direction is updated, if necessary
-                if (dir == Vector2Int.right)
-                    player.SetFacingRight(true);
-                else if (dir == Vector2Int.left)
-                    player.SetFacingRight(false);
-
+                // set facing direction
+                FaceDirection(player, dir);
                 // move player into water
                 PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
             }
@@ -285,15 +282,11 @@ public static class PlayerAbilityChecks
                 // un-swim!
                 player.IsSwimming = false;
 
-                // ensure facing direction is updated, if necessary
-                if (dir == Vector2Int.right)
-                    player.SetFacingRight(true);
-                else if (dir == Vector2Int.left)
-                    player.SetFacingRight(false);
 
+                // set facing direction
+                FaceDirection(player, dir);
                 // decrement charges (only on water exit)
                 player.UseAbilityCharge();
-
                 // move player out of water
                 PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
             }
@@ -304,7 +297,20 @@ public static class PlayerAbilityChecks
                 return;
             }
         }
-
-        
     }
+    #endregion
+
+    #region HELPER FUNCTIONS
+    /// <summary>
+    /// Attempts to make the player face input direction (no change if up/down direction)
+    /// </summary>
+    private static void FaceDirection(PlayerControls player, Vector2Int dir)
+    {
+        // ensure facing direction is updated, if necessary
+        if (dir == Vector2Int.right)
+            player.SetFacingRight(true);
+        else if (dir == Vector2Int.left)
+            player.SetFacingRight(false);
+    }
+    #endregion
 }
