@@ -271,7 +271,7 @@ public static class PlayerMoveChecks
     /// Contains all necessary functions when player move is confirmed
     /// Handles potential log sinking (on curr position), player movement, and saving an undo frame.
     /// </summary>
-    private static void ConfirmPlayerMove(Mover objMover, Vector2Int moveDir)
+    public static void ConfirmPlayerMove(Mover objMover, Vector2Int moveDir)
     {
         // LOG SINKING (when player leaves floating log)
         Vector2Int currPos = objMover.GetGlobalGridPos();
@@ -299,7 +299,7 @@ public static class PlayerMoveChecks
         // check for first log
         Vector2Int adjacentPos = initialCheckPos;
         QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
-        if (adjacentObj.ObjData.ObjType != ObjectType.Log)
+        if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Log)
             return false;
 
         // generate list of all logs to be pushed by the potential player move

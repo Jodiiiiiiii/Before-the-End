@@ -30,7 +30,8 @@ public static class PlayerAbilityChecks
                 TryAnkyAbility(player, objMover, dir);
                 return;
             case DinoType.Spino:
-                return; // unimplemented
+                TrySpinoAbility(player, objMover, dir);
+                return;
             case DinoType.Ptera:
                 return; // unimplemented
             case DinoType.Pyro:
@@ -231,5 +232,74 @@ public static class PlayerAbilityChecks
         // action successful (save undo frame)
         UndoHandler.SaveFrame();
         return;
+    }
+
+    /// <summary>
+    /// Handles SWIMMING ability of the Spinosaurus.
+    /// If not in water: checks for entering water.
+    /// If in water: checks for exiting water.
+    /// </summary>
+    private static void TrySpinoAbility(PlayerControls player, Mover mover, Vector2Int dir)
+    {
+        // Check for object at indicated direction of ability (immediate neighbor)
+        Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+
+        // Check for ENTERING water
+        if (!player.IsSwimming)
+        {
+            // REQUIREMENT: adjacent object must be present AND visible.
+            // REQUIREMENT: Adjacent object is water AND without any submerged object
+            if (adjacentObj is not null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y) &&
+                adjacentObj.ObjData.ObjType == ObjectType.Water && !adjacentObj.ObjData.WaterHasLog && !adjacentObj.ObjData.WaterHasRock)
+            {
+                // swim!
+                player.IsSwimming = true;
+
+                // ensure facing direction is updated, if necessary
+                if (dir == Vector2Int.right)
+                    player.SetFacingRight(true);
+                else if (dir == Vector2Int.left)
+                    player.SetFacingRight(false);
+
+                // move player into water
+                PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
+            }
+            else
+            {
+                // TODO: failure effect at adjacent tile
+
+                return;
+            }
+        }
+        // Check for EXITING water
+        else
+        {
+            // OPTION 1: moving into open space out of water
+            // OPTION 2: moving out of water into pushable logs
+            if ((adjacentObj is null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+                || PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir))
+            {
+                // un-swim!
+                player.IsSwimming = false;
+
+                // ensure facing direction is updated, if necessary
+                if (dir == Vector2Int.right)
+                    player.SetFacingRight(true);
+                else if (dir == Vector2Int.left)
+                    player.SetFacingRight(false);
+
+                // move player out of water
+                PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
+            }
+            else
+            {
+                // TODO: failure effect at adjacent tile
+
+                return;
+            }
+        }
+
+        
     }
 }

@@ -77,7 +77,11 @@ public class PlayerSpriteSwapper : MonoBehaviour
                 _renderer.sprite = _ankySprites[0]; // currently not animated, just use 0
                 break;
             case DinoType.Spino:
-                _renderer.sprite = _spinoSprites[0]; // currently not animated, just use 0
+                // show EITHER grounded, or swimming variant
+                if (!_playerControls.IsSwimming)
+                    _renderer.sprite = _spinoSprites[0]; // currently not animated, just use 0
+                else
+                    _renderer.sprite = _spinoSprites[3];
                 break;
             case DinoType.Ptera:
                 _renderer.sprite = _pteraSprites[0]; // currently not animated, just use 0
