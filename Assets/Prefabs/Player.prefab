@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7237427636783226371}
   - component: {fileID: 497027150355698948}
   - component: {fileID: 3435671876989254576}
+  - component: {fileID: 3355436681514233416}
   m_Layer: 0
   m_Name: Ability Indicator Sprites
   m_TagString: Untagged
@@ -77,6 +78,18 @@ MonoBehaviour:
   _anim: {fileID: 497027150355698948}
   _flashAnimName: AbilityIndicatorFlash
   _objMover: {fileID: 8153983557811043434}
+--- !u!210 &3355436681514233416
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449128274242985847}
+  m_Enabled: 1
+  m_SortingLayerID: 1147583847
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
 --- !u!1 &1955003545107701571
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6bdc245d9ccc2d4eb232b933f4f9b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsSwimming: 0
   _mover: {fileID: 8153983557811043434}
   _objFlipper: {fileID: 544080690693282415}
   _rightScaleX: -1

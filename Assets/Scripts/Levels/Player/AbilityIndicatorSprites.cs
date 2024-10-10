@@ -35,19 +35,20 @@ public class AbilityIndicatorSprites : MonoBehaviour
             // restart flashing indicators animation
             _anim.Play(_flashAnimName, -1, 0); // -1 indicates to not use animation layers, 0 means restart animation at start
 
+            PanelStats mainPanel = SortingOrderHandler.GetPanelOfOrder(0);
             Vector2Int gridPos;
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.left;
-            _leftSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _leftSprite.enabled = mainPanel.IsPosInBounds(gridPos.x, gridPos.y);
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.right;
-            _rightSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _rightSprite.enabled = mainPanel.IsPosInBounds(gridPos.x, gridPos.y);
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.up;
-            _upSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _upSprite.enabled = mainPanel.IsPosInBounds(gridPos.x, gridPos.y);
 
             gridPos = _objMover.GetGlobalGridPos() + Vector2Int.down;
-            _downSprite.enabled = VisibilityChecks.IsVisible(_objMover.gameObject, gridPos.x, gridPos.y);
+            _downSprite.enabled = mainPanel.IsPosInBounds(gridPos.x, gridPos.y);
         }
         else if(!_isActive) // turn all off if not active
         {
