@@ -139,11 +139,10 @@ public class PlayerControls : MonoBehaviour
         Stego,
         Trike,
         Anky,
-        Dilo,
-        Bary,
+        Pyro,
+        Spino,
         Ptero,
-        Compy,
-        Pachy
+        Compy
     }
     // corresponds to index of dinoTypes and dinoCharges arrays
     private int _currDino = 0; // default 0 = first dino (probably always stego)

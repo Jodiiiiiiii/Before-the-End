@@ -76,15 +76,13 @@ public class PlayerSpriteSwapper : MonoBehaviour
             case DinoType.Anky:
                 _renderer.sprite = _ankySprites[0]; // currently not animated, just use 0
                 break;
-            case DinoType.Dilo:
+            case DinoType.Pyro:
                 break;
-            case DinoType.Bary:
+            case DinoType.Spino:
                 break;
             case DinoType.Ptero:
                 break;
             case DinoType.Compy:
-                break;
-            case DinoType.Pachy:
                 break;
         }
     }
