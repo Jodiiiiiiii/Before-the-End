@@ -25,9 +25,10 @@ public static class PlayerAbilityChecks
                 break;
             case DinoType.Trike:
                 TryTrikeAbility(player, objMover, dir);
-                break; // unimplemented
+                break;
             case DinoType.Anky:
-                return; // unimplemented
+                TryAnkyAbility(player, objMover, dir);
+                return;
             case DinoType.Dilo:
                 return; // unimplemented
             case DinoType.Bary:
@@ -149,7 +150,7 @@ public static class PlayerAbilityChecks
 
                     return; // obstruction to rock = NO PUSH/ACTION
                 }
-                    
+
             }
 
             // if we got this far, rock push is guaranteed
@@ -185,5 +186,52 @@ public static class PlayerAbilityChecks
             UndoHandler.SaveFrame();
             return;
         }
+    }
+
+    /// <summary>
+    /// Handles ROCK BREAK ability of Ankylosaurus.
+    /// Can destroy normal rock (simply disables it) AND can destroy a rock within water, converting it back to a normal water tile.
+    /// </summary>
+    private static void TryAnkyAbility(PlayerControls player, Mover mover, Vector2Int dir)
+    {
+        // Check for object at indicated direction of ability (immediate neighbor)
+        Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+
+        // REQUIREMENT: adjacent object must be present AND visible.
+        if (adjacentObj is null || !VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+        {
+            // TODO: failure effect at adjacent tile
+
+            return;
+        }
+
+        // rock
+        if (adjacentObj.ObjData.ObjType == ObjectType.Rock)
+        {
+            // destroy rock
+            adjacentObj.ObjData.IsDisabled = true;
+        }
+        // submerged rock
+        else if (adjacentObj.ObjData.ObjType == ObjectType.Water && adjacentObj.ObjData.WaterHasRock)
+        {
+            // return water to simply water state
+            adjacentObj.ObjData.WaterHasRock = false;
+        }
+        // invalid adjacent object type
+        else
+        {
+            // TODO: failure effect at adjacent tile 
+            return;
+        }
+
+        // always flip player to indicate dino swinging its tail
+        player.SetFacingRight(!player.IsFacingRight());
+
+        // decrement charges
+        player.UseAbilityCharge();
+        // action successful (save undo frame)
+        UndoHandler.SaveFrame();
+        return;
     }
 }

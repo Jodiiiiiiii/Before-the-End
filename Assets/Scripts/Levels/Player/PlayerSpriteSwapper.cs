@@ -74,6 +74,7 @@ public class PlayerSpriteSwapper : MonoBehaviour
                 _renderer.sprite = _trikeSprites[0]; // currently not animated, just use 0
                 break;
             case DinoType.Anky:
+                _renderer.sprite = _ankySprites[0]; // currently not animated, just use 0
                 break;
             case DinoType.Dilo:
                 break;
