@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static QuantumState;
 
 public enum ObjectType
 {
@@ -30,10 +29,24 @@ public struct ObjectData
     public bool WaterHasRock;
 
     [Header("Tunnel")]
-    [Tooltip("Corresponding tunnel.")]
+    [Tooltip("Corresponding tunnel reference.")]
     public QuantumState OtherTunnel;
     [Tooltip("Pairing number of the tunnel; used for sprite swapping properly.")]
     public int TunnelIndex;
+
+    /// <summary>
+    /// Returns true if ALL component data elements are equal between the two ObjectData instances.
+    /// </summary>
+    public bool Equals(ObjectData other)
+    {
+        // most time/data efficient way to compare (avoids byte comparisons of default Object.Equals(Object).)
+        return ObjType == other.ObjType
+            && IsDisabled == other.IsDisabled
+            && WaterHasLog == other.WaterHasLog
+            && WaterHasRock == other.WaterHasRock
+            && OtherTunnel == other.OtherTunnel
+            && TunnelIndex == other.TunnelIndex;
+    }
 }
 
 
