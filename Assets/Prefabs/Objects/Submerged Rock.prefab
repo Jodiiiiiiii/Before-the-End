@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 79b84be2b1387b342b93aec5013feea1, type: 3}
     - target: {fileID: 4281857284185798206, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Name
-      value: Submerged Rock Variant
+      value: Submerged Rock
       objectReference: {fileID: 0}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.z

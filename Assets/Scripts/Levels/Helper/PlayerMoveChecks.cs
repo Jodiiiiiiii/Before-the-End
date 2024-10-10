@@ -328,26 +328,14 @@ public static class PlayerMoveChecks
 
         // ALL PRECONDITIONS ARE MET -> player can move
 
-        // Check for log sinking before moving through tunnel
-        Vector2Int currPlayerPos = playerMover.GetGlobalGridPos();
-        QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(playerMover, currPlayerPos.x, currPlayerPos.y);
-        if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
-            logSinkCheck.ObjData.WaterHasLog = false;
-
-        // move player to panel of the other tunnel
-        playerMover.transform.parent = otherTunnel.transform.parent;
-
-        // move player to position beneath other tunnel
-        playerMover.SetGlobalGoal(exitPos.x, exitPos.y);
-
         // visually flip the player
         PlayerSpriteSwapper spriteSwapper = playerMover.GetComponentInChildren<PlayerSpriteSwapper>();
         if (spriteSwapper is null)
             throw new Exception("Player MUST have PlayerSpriteSwapper component.");
         spriteSwapper.RequireFlip();
 
-        // completed player movement action
-        UndoHandler.SaveFrame();
+        // finalize player move
+        ConfirmPlayerMove(playerMover, exitPos, otherTunnel.transform.parent);
     }
 
     /// <summary>
@@ -381,6 +369,28 @@ public static class PlayerMoveChecks
 
         // move player
         objMover.Increment(moveDir);
+
+        // completed player movement action
+        UndoHandler.SaveFrame();
+    }
+
+    /// <summary>
+    /// Contains all necessary functions when player move is confirmed between panels.
+    /// Handles potential log sinking (on curr position), player movement, parent transform changing, and undo frame.
+    /// </summary>
+    public static void ConfirmPlayerMove(Mover mover, Vector2Int movePos, Transform newParent)
+    {
+        // Check for log sinking before moving through tunnel
+        Vector2Int currPlayerPos = mover.GetGlobalGridPos();
+        QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(mover, currPlayerPos.x, currPlayerPos.y);
+        if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+            logSinkCheck.ObjData.WaterHasLog = false;
+
+        // move player to panel of the other tunnel
+        mover.transform.parent = newParent;
+
+        // move player to position beneath other tunnel
+        mover.SetGlobalGoal(movePos.x, movePos.y);
 
         // completed player movement action
         UndoHandler.SaveFrame();

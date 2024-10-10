@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +34,8 @@ public static class PlayerAbilityChecks
                 TrySpinoAbility(player, objMover, dir);
                 return;
             case DinoType.Ptera:
-                return; // unimplemented
+                TryPteraAbility(player, objMover, dir);
+                return;
             case DinoType.Pyro:
                 return; // unimplemented
             case DinoType.Compy:
@@ -282,7 +284,6 @@ public static class PlayerAbilityChecks
                 // un-swim!
                 player.IsSwimming = false;
 
-
                 // set facing direction
                 FaceDirection(player, dir);
                 // decrement charges (only on water exit)
@@ -295,6 +296,74 @@ public static class PlayerAbilityChecks
                 // TODO: failure effect at adjacent tile
 
                 return;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to relocate player to a different panel at the position next to the player.
+    /// Requires there to be no obstructions (no object OR submerged log/rock)
+    /// </summary>
+    private static void TryPteraAbility(PlayerControls player, Mover mover, Vector2Int dir)
+    {
+        // Check for object at indicated direction of ability (immediate neighbor)
+        Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
+
+        bool abilitySuccess = true; // assume success by default
+        try
+        {
+            // REQUIREMENT: cannot be flying to same panel player is already on
+            if (VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+            {
+                abilitySuccess = false;
+                return;
+            }
+
+            // Find topmost panel at adjacent pos
+            for (int i = 0; i <= SortingOrderHandler.MaxPanelOrder; i++)
+            {
+                // Topmost panel at pos found
+                if (VisibilityChecks.IsVisible(i, adjacentPos.x, adjacentPos.y))
+                {
+                    QuantumState landingObject = VisibilityChecks.GetObjectAtPos(i, adjacentPos.x, adjacentPos.y);
+                    
+                    // OPTION 1: No obstruction
+                    // OPTION 2: Submerged log/rock
+                    if (landingObject is null || 
+                        (landingObject.ObjData.ObjType == ObjectType.Water && (landingObject.ObjData.WaterHasLog || landingObject.ObjData.WaterHasRock)))
+                    {
+                        // visually flip player sprite
+                        PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+                        if (flipper is null)
+                            throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+                        flipper.RequireFlip();
+
+                        // set facing direction
+                        FaceDirection(player, dir);
+                        // decrement charges (only on water exit)
+                        player.UseAbilityCharge();
+                        // move player to adjacent panel
+                        Transform newParent = SortingOrderHandler.GetPanelOfOrder(i).transform.GetChild(1).transform; // 1 = Upper Objects
+                        PlayerMoveChecks.ConfirmPlayerMove(mover, adjacentPos, newParent);
+
+                        return;
+                    }
+                    else
+                    {
+                        abilitySuccess = false;
+                        return;
+                    }
+                }
+            }
+
+            // no panel was found at adjacentPos (it is outside of main panel)
+            abilitySuccess = false;
+        }
+        finally
+        {
+            if (!abilitySuccess)
+            {
+                // TODO: play ability failure effect at adjacent tile
             }
         }
     }
