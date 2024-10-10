@@ -53,8 +53,17 @@ public static class PlayerMoveChecks
                 return;
             }
 
-            // NO OBSTRUCTION
+            // Start of object checks
             QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(playerMover, targetPos.x, targetPos.y);
+
+            // SWIMMING CHECK: do swimming version of move checks instead of standard move checks below?
+            if (player.IsSwimming)
+            {
+                TrySwimmingMove(playerMover, moveDir, adjacentObj);
+                return;
+            }
+
+            // NO OBSTRUCTION
             if (adjacentObj is null)
             {
                 // Move action complete -> no obstruction
@@ -62,7 +71,7 @@ public static class PlayerMoveChecks
                 return;
             }
 
-            // HANDLE SPECIFIC OBSTRUCTION
+            // HANDLE SPECIFIC OBSTRUCTION TYPE
             switch(adjacentObj.ObjData.ObjType)
             {
                 case ObjectType.Log:
@@ -166,6 +175,97 @@ public static class PlayerMoveChecks
                 // no need to check more panels
                 break;
             }
+        }
+    }
+
+    /// <summary>
+    /// Attempts to move within water to other water tiles that are not obstructed by contained rocks or logs.
+    /// If attempting to move into a submerged log, then it will attempt to push it in series.
+    /// </summary>
+    private static void TrySwimmingMove(Mover playerMover, Vector2Int moveDir, QuantumState adjacentObj)
+    {
+        // REQUIREMENT: there MUST be a tile and it MUST be water
+        if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Water)
+            return;
+
+        // REQUIREMENT: cannot move into submerged rock
+        if (adjacentObj.ObjData.WaterHasRock)
+            return;
+
+        // no obstruction! (empty water)
+        if (!adjacentObj.ObjData.WaterHasLog)
+        {
+            // Move action complete -> no obstruction
+            ConfirmPlayerMove(playerMover, moveDir);
+            return;
+        }
+        // Pushable submerged logs?
+        else
+        {
+            Vector2Int adjacentPos = playerMover.GetGlobalGridPos() + moveDir;
+
+            // generate list of all logs to be pushed by the potential player move
+            List<QuantumState> pushList = new List<QuantumState>();
+            pushList.Add(adjacentObj);
+
+            // Find all logs in a series
+            bool currIsLog = true;
+            while (currIsLog)
+            {
+                adjacentPos += moveDir;
+                adjacentObj = VisibilityChecks.GetObjectAtPos(playerMover, adjacentPos.x, adjacentPos.y);
+
+                // REQUIREMENT: not pushing submerged log into panel
+                if (!VisibilityChecks.IsVisible(playerMover.gameObject, adjacentPos.x, adjacentPos.y))
+                    return; // obstructed -> cannot move/push
+
+                // REQUIREMENT: Can ONLY push into adjacent water
+                // REQUIREMENT: Can NOT push into submerged rocks
+                if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Water || adjacentObj.ObjData.WaterHasRock)
+                    return; // obstructed -> cannot move/push
+
+                // add another log to list to push, then loop again
+                if (adjacentObj.ObjData.WaterHasLog)
+                {
+                    pushList.Add(adjacentObj);
+                }
+                // no more obstruction! -> can push/move
+                else
+                {
+                    pushList.Add(adjacentObj); // add final empty water tile to add a log into
+
+                    currIsLog = false;
+                }
+                    
+            }
+
+            // if we have gotten this far, the logs can be all pushed, AND the player can move
+
+            // shift quantum and log state values between log chain
+            bool prevQuantum = false;
+            bool prevHasLog = false;
+            for (int i = 0; i < pushList.Count; i++)
+            {
+                // swap operations
+                bool currQuantum = pushList[i].IsQuantum();
+                bool currHasLog = pushList[i].ObjData.WaterHasLog;
+
+                pushList[i].SetQuantum(prevQuantum);
+                pushList[i].ObjData.WaterHasLog = prevHasLog;
+
+                prevQuantum = currQuantum;
+                prevHasLog = currHasLog;
+
+                // require visual flip for each log
+                ObjectSpriteSwapper flipper = pushList[i].GetComponentInChildren<ObjectSpriteSwapper>();
+                if(flipper is null)
+                    throw new Exception("All level objects MUST have ObjectSpriteSwapper component on a child object.");
+                flipper.RequireFlip();
+            }
+
+            // confirm movement of player
+            ConfirmPlayerMove(playerMover, moveDir);
+            return;
         }
     }
 
