@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    // State variables
+    [HideInInspector]
+    public bool IsSwimming = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -135,6 +139,10 @@ public class PlayerControls : MonoBehaviour
 
     private void HandleDinoSwap()
     {
+        // CANNOT swap dino type while swimming (must leave water first)
+        if (IsSwimming)
+            return;
+
         // No dino swapping possible if only one dinosaur is in swapping pool
         if (_dinoTypes.Length <= 1)
             return;
