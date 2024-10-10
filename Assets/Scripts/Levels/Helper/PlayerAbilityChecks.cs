@@ -277,8 +277,10 @@ public static class PlayerAbilityChecks
         {
             // OPTION 1: moving into open space out of water
             // OPTION 2: moving out of water into pushable logs
+            // OPTION 3: moving out of water onto submerged log OR submerged rock
             if ((adjacentObj is null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
-                || PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir))
+                || PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir)
+                || (adjacentObj is not null && adjacentObj.ObjData.ObjType == ObjectType.Water && (adjacentObj.ObjData.WaterHasLog || adjacentObj.ObjData.WaterHasRock)))
             {
                 // un-swim!
                 player.IsSwimming = false;
