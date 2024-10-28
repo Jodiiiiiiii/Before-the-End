@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -8,73 +10,182 @@ public class PlayerControls : MonoBehaviour
     [HideInInspector]
     public bool IsSwimming = false;
 
+    private PlayerInputActions actions;
+
+    private void Start()
+    {
+        // configuration validation
+        if (_dinoCharges.Length != _dinoTypes.Length)
+            throw new Exception("Player configuration error: dino charges and types lists must be equal length.");
+
+        #region ACTION BINDINGS
+        actions = new PlayerInputActions();
+
+        // move presses (press and release, to handle queuing move commands)
+        actions.Player.Up.started += UpInput;
+        actions.Player.Up.canceled += UpInput;
+        actions.Player.Down.started += DownInput;
+        actions.Player.Down.canceled += DownInput;
+        actions.Player.Left.started += LeftInput;
+        actions.Player.Left.canceled += LeftInput;
+        actions.Player.Right.started += RightInput;
+        actions.Player.Right.canceled += RightInput;
+
+        // Undo (press and release, to handle holding to undo)
+        actions.Player.Undo.started += Undo;
+        actions.Player.Undo.canceled += Undo;
+
+        // Ability activate/deactivate (only enabled if starting dino has some charges) - useful for locking controls in tutorial
+        if(_dinoCharges[0] != 0)
+            actions.Player.Ability.started += ToggleAbilityActive;
+
+        // Only add swap controls if there are at least two dinos
+        if (_dinoTypes.Length > 1)
+        {
+            actions.Player.CycleLeft.started += CycleLeft;
+            actions.Player.CycleRight.started += CycleRight;
+
+            // assign swap operations (for present dinos)
+            actions.Player.Swap1.started += Swap1;
+            actions.Player.Swap2.started += Swap2;
+            if (_dinoTypes.Length > 2) actions.Player.Swap3.started += Swap3;
+            if (_dinoTypes.Length > 3) actions.Player.Swap4.started += Swap4;
+            if (_dinoTypes.Length > 4) actions.Player.Swap5.started += Swap5;
+            if (_dinoTypes.Length > 5) actions.Player.Swap6.started += Swap6;
+            if (_dinoTypes.Length > 6) actions.Player.Swap7.started += Swap7;
+        }
+
+        actions.Player.Enable();
+        #endregion
+    }
+
     // Update is called once per frame
     void Update()
     {
         // Player grid movement
-        if(!_isPreparingAbility) // when preparing ability, movement inputs are ignored (treated as action inputs later)
-            HandleMovementInputs();
-        // Swapping between different dino types (only affects ability type)
-        HandleDinoSwap();
-        // Player ability inputs
-        HandleAbilityInputs();
+        if(!_isPreparingAbility)
+            HandlePlayerMovement();
+
         // Undoing player actions
-        HandleUndoInputs();
+        HandleHoldingUndo();
     }
 
     #region MOVEMENT
     [Header("Movement")]
-    [SerializeField, Tooltip("used to actually cause the player to move")] 
+    [SerializeField, Tooltip("used to actually cause the player to move.")] 
     private Mover _mover;
-    [SerializeField, Tooltip("used to apply visual sprite swapping changes to the player")] 
+    [SerializeField, Tooltip("used to apply visual sprite swapping changes to the player.")] 
     private SpriteFlipper _objFlipper;
-    [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player")]
+    [SerializeField, Tooltip("x scale (of child sprite object) that corresponds to right facing player.")]
     private int _rightScaleX = -1;
-    [SerializeField, Tooltip("Time delay between player movements if holding down movement inputs")]
+    [SerializeField, Tooltip("Time delay between player movements if holding down movement inputs.")]
     private float _moveDelay = 0.25f;
+    [SerializeField, Tooltip("Delay after a move input is unregistered. " +
+        "Brief window to allow the player to come to a stop and move in the tapped direction before it is removed from the list.")]
+    private float _releaseDelay = 0.2f;
 
-    // Controls constants
-    private const KeyCode MOVE_UP = KeyCode.W;
-    private const KeyCode MOVE_RIGHT = KeyCode.D;
-    private const KeyCode MOVE_DOWN = KeyCode.S;
-    private const KeyCode MOVE_LEFT = KeyCode.A;
-
-    private List<KeyCode> _moveInputStack = new();
+    private List<Vector2Int> _moveDirectionQueue = new();
 
     private float _moveTimer;
 
-    private void HandleMovementInputs()
+    /// <summary>
+    /// Handles upward input used for movement or ability activation. 
+    /// Called on both button press and release to handle queuing and unqueuing movement commands.
+    /// </summary>
+    private void UpInput(InputAction.CallbackContext context)
     {
-        // Add new input to start of structure when pressed
-        if (Input.GetKeyDown(MOVE_UP))
-            _moveInputStack.Insert(0, MOVE_UP);
-        else if (Input.GetKeyDown(MOVE_DOWN))
-            _moveInputStack.Insert(0, MOVE_DOWN);
-        else if (Input.GetKeyDown(MOVE_RIGHT))
-            _moveInputStack.Insert(0, MOVE_RIGHT);
-        else if (Input.GetKeyDown(MOVE_LEFT))
-            _moveInputStack.Insert(0, MOVE_LEFT);
+        ProcessDirectionalInput(Vector2Int.up, context.started, context.canceled);
+    }
 
-        // Remove any inputs upon release
-        for (int i = _moveInputStack.Count - 1; i >= 0; i--)
+    /// <summary>
+    /// Handles downward input used for movement or ability activation. 
+    /// Called on both button press and release to handle queuing and unqueuing movement commands.
+    /// </summary>
+    private void DownInput(InputAction.CallbackContext context)
+    {
+        ProcessDirectionalInput(Vector2Int.down, context.started, context.canceled);
+    }
+
+    /// <summary>
+    /// Handles left input used for movement or ability activation. 
+    /// Called on both button press and release to handle queuing and unqueuing movement commands.
+    /// </summary>
+    private void LeftInput(InputAction.CallbackContext context)
+    {
+        ProcessDirectionalInput(Vector2Int.left, context.started, context.canceled);
+    }
+
+    /// <summary>
+    /// Handles right input used for movement or ability activation. 
+    /// Called on both button press and release to handle queuing and unqueuing movement commands.
+    /// </summary>
+    private void RightInput(InputAction.CallbackContext context)
+    {
+        ProcessDirectionalInput(Vector2Int.right, context.started, context.canceled);
+    }
+
+    /// <summary>
+    /// Handles logic for processing directional input, including queuing movement, unqueuing movement, and attempting ability.
+    /// </summary>
+    private void ProcessDirectionalInput(Vector2Int dir, bool started, bool canceled)
+    {
+        if(started)
         {
-            if (!Input.GetKey(_moveInputStack[i]))
-                _moveInputStack.RemoveAt(i);
+            if (_isPreparingAbility)
+                AttemptAbility(dir);
+            else // movement
+                QueueMove(dir);
         }
-
-        // Process most recent move input (if any)
-        if (_moveInputStack.Count > 0)
+        else if (canceled)
         {
-            if (_moveTimer <= 0)
+            StartCoroutine(UnqueueMove(dir));
+        }
+    }
+
+    /// <summary>
+    /// adds movement direction to the front of the move direction queue.
+    /// </summary>
+    private void QueueMove(Vector2Int dir)
+    {
+        // reset move timer on a new button press
+        _moveTimer = 0;
+
+        _moveDirectionQueue.Insert(0, dir);
+    }
+
+    /// <summary>
+    /// removes movement direction from the back of the move direction queue, after a delay.
+    /// </summary>
+    private IEnumerator UnqueueMove(Vector2Int dir)
+    {
+        // delay
+        yield return new WaitForSeconds(_releaseDelay);
+
+        // removes the latest instance of the input (leaving potential more recent presses)
+        for (int i = _moveDirectionQueue.Count - 1; i >= 0; i--)
+        {
+            // only remove first found item from the right
+            if (_moveDirectionQueue[i] == dir)
             {
-                if (_moveInputStack[0] == MOVE_UP)
-                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.up);
-                else if (_moveInputStack[0] == MOVE_DOWN)
-                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.down);
-                else if (_moveInputStack[0] == MOVE_RIGHT)
-                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.right);
-                else if (_moveInputStack[0] == MOVE_LEFT)
-                    PlayerMoveChecks.TryPlayerMove(this, Vector2Int.left);
+                _moveDirectionQueue.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handles calls to move the player based on generated move input queue
+    /// </summary>
+    private void HandlePlayerMovement()
+    {
+        // Process most recent move input (if any)
+        if (_moveDirectionQueue.Count > 0)
+        {
+            // ready to move again, and player not currently moving
+            // ensures smoothness of movement
+            if (_moveTimer <= 0 && _mover.IsStationary())
+            {
+                PlayerMoveChecks.TryPlayerMove(this, _moveDirectionQueue[0]);
 
                 // reset moveTimer for next input.
                 // Resets even if move fails to have any impact - accounts for action such as panel pushing when player doesn't move.
@@ -115,13 +226,10 @@ public class PlayerControls : MonoBehaviour
     #endregion
 
     #region SWAP DINO
-    private const KeyCode CYCLE_LEFT = KeyCode.Q;
-    private const KeyCode CYCLE_RIGHT = KeyCode.E;
-
     [Header("Dino Swapping")]
-    [SerializeField, Tooltip("List of accessible dinosaur types in this level. MUST align with dinoCharges array")]
+    [SerializeField, Tooltip("List of accessible dinosaur types in this level. MUST align with dinoCharges array.")]
     private DinoType[] _dinoTypes;
-    [SerializeField, Tooltip("Starting ability charges for each dino. -1 indicates infinite. MUST align with dinoTypes array")]
+    [SerializeField, Tooltip("Starting ability charges for each dino. -1 indicates infinite. MUST align with dinoTypes array.")]
     private int[] _dinoCharges;
 
     public enum DinoType
@@ -137,38 +245,112 @@ public class PlayerControls : MonoBehaviour
     // corresponds to index of dinoTypes and dinoCharges arrays
     private int _currDino = 0; // default 0 = first dino (probably always stego)
 
-    private void HandleDinoSwap()
+    /// <summary>
+    /// Swaps to the next dinosaur type (to the left). Only called on button press.
+    /// </summary>
+    private void CycleLeft(InputAction.CallbackContext context)
+    {
+        // determine left cycle index
+        int index = _currDino - 1;
+        if (index < 0) index = _dinoTypes.Length - 1;
+
+        SwapToIndex(index);
+    }
+
+    /// <summary>
+    /// Swaps to the next dinosaur type (to the right). Only called on button press.
+    /// </summary>
+    private void CycleRight(InputAction.CallbackContext context)
+    {
+        // determine right cycle index
+        int index = _currDino + 1;
+        if (index > _dinoCharges.Length - 1) index = 0;
+
+        SwapToIndex(index);
+    }
+
+    /// <summary>
+    /// Swaps to first dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap1(InputAction.CallbackContext context)
+    {
+        SwapToIndex(0);
+    }
+
+    /// <summary>
+    /// Swaps to second dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap2(InputAction.CallbackContext context)
+    {
+        // button press only
+        if (context.started)
+            SwapToIndex(1);
+    }
+
+    /// <summary>
+    /// Swaps to third dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap3(InputAction.CallbackContext context)
+    {
+        // button press only
+        if (context.started)
+            SwapToIndex(2);
+    }
+
+    /// <summary>
+    /// Swaps to fourth dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap4(InputAction.CallbackContext context)
+    {
+        // button press only
+        if (context.started)
+            SwapToIndex(3);
+    }
+
+    /// <summary>
+    /// Swaps to fifth dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap5(InputAction.CallbackContext context)
+    {
+        // button press only
+        if (context.started)
+            SwapToIndex(4);
+    }
+
+    /// <summary>
+    /// Swaps to sixth dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap6(InputAction.CallbackContext context)
+    {
+        // button press only
+        if (context.started)
+            SwapToIndex(5);
+    }
+
+    /// <summary>
+    /// Swaps to seventh dinosaur type. Only called on button press.
+    /// </summary>
+    private void Swap7(InputAction.CallbackContext context)
+    {
+        // button press only
+        if (context.started)
+            SwapToIndex(6);
+    }
+
+    /// <summary>
+    /// Handles dino swapping logic used by all specific swap functions.
+    /// </summary>
+    private void SwapToIndex(int index)
     {
         // CANNOT swap dino type while swimming (must leave water first)
         if (IsSwimming)
             return;
 
-        // No dino swapping possible if only one dinosaur is in swapping pool
-        if (_dinoTypes.Length <= 1)
-            return;
+        // update index
+        _currDino = index;
 
-        // cycle dino type to one lower
-        if(Input.GetKeyDown(CYCLE_LEFT))
-        {
-            int newIndex = _currDino - 1;
-            if (newIndex == -1) // left from index 0 goes to end
-                newIndex = _dinoCharges.Length - 1;
-
-            _currDino = newIndex;
-            // save action
-            UndoHandler.SaveFrame();
-        }
-        // cycle dino type to one higher
-        if(Input.GetKeyDown(CYCLE_RIGHT))
-        {
-            int newIndex = _currDino + 1;
-            if (newIndex == _dinoCharges.Length) // right from final index goes back to 0
-                newIndex = 0;
-
-            _currDino = newIndex;
-            // save action
-            UndoHandler.SaveFrame();
-        }
+        // save action
+        UndoHandler.SaveFrame();
     }
 
     /// <summary>
@@ -194,6 +376,49 @@ public class PlayerControls : MonoBehaviour
                 break;
             }
         }
+    }
+    #endregion
+
+    #region ABILITY
+    // Inspector Variables
+    [Header("Actions")]
+    [SerializeField, Tooltip("Script handling indicators for ability.")]
+    private AbilityIndicatorSprites _abilityIndicator;
+
+    private bool _isPreparingAbility = false;
+
+    /// <summary>
+    /// Either enters ability preparing state or exits it. Only called on button press.
+    /// </summary>
+    private void ToggleAbilityActive(InputAction.CallbackContext context)
+    {
+        // flip ability preparing state
+        _isPreparingAbility = !_isPreparingAbility;
+
+        // Update ability indicator
+        _abilityIndicator.SetAbilityActive(_isPreparingAbility);
+    }
+
+    /// <summary>
+    /// Contains logic for attempting ability in given direction.
+    /// Checks for remaining charges of the ability.
+    /// </summary>
+    private void AttemptAbility(Vector2Int dir)
+    {
+        // ensure player has charges remaining
+        if (_dinoCharges[_currDino] == 0)
+        {
+            // TODO: failure sound effect (no visual)
+
+            return;
+        }
+
+        // Attempt ability functionality
+        PlayerAbilityChecks.TryPlayerAbility(this, dir, _dinoTypes[_currDino], _dinoCharges[_currDino]);
+        
+        // exit preparing ability state
+        _isPreparingAbility = false;
+        _abilityIndicator.SetAbilityActive(false);
     }
 
     /// <summary>
@@ -221,115 +446,59 @@ public class PlayerControls : MonoBehaviour
     }
     #endregion
 
-    #region ABILITY
-    // Inspector Variables
-    [Header("Actions")]
-    [SerializeField, Tooltip("Script handling indicators for ability")]
-    private AbilityIndicatorSprites _abilityIndicator;
-
-    // Controls Constants
-    private const KeyCode INITIATE_ACTION = KeyCode.Space;
-
-    private bool _isPreparingAbility = false;
-
-    private void HandleAbilityInputs()
-    {
-        // required so that cancelling with space doesn't start new ability prepare in the same frame
-        bool canceledPrepareThisFrame = false;
-
-        // Ready for directional inputs
-        if (_isPreparingAbility)
-        {
-            // Try ability in appropriate direction and cancel preparing ability state
-            if (Input.GetKeyDown(MOVE_UP))
-            {
-                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.up, _dinoTypes[_currDino], _dinoCharges[_currDino]);
-                _isPreparingAbility = false;
-            }
-            else if (Input.GetKeyDown(MOVE_DOWN))
-            {
-                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.down, _dinoTypes[_currDino], _dinoCharges[_currDino]);
-                _isPreparingAbility = false;
-            }
-            else if (Input.GetKeyDown(MOVE_RIGHT))
-            {
-                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.right, _dinoTypes[_currDino], _dinoCharges[_currDino]);
-                _isPreparingAbility = false;
-            }
-            else if (Input.GetKeyDown(MOVE_LEFT))
-            {
-                PlayerAbilityChecks.TryPlayerAbility(this, Vector2Int.left, _dinoTypes[_currDino], _dinoCharges[_currDino]);
-                _isPreparingAbility = false;
-            }
-            else if (Input.GetKeyDown(INITIATE_ACTION)) // cancel ability if space pressed again
-            {
-                _isPreparingAbility = false;
-                canceledPrepareThisFrame = true;
-                // disable indicator
-                _abilityIndicator.SetAbilityActive(false);
-            }
-        }
-        else
-        {
-            // hide directional indicators that show preparing action state
-            _abilityIndicator.SetAbilityActive(false);
-        }
-
-        // start ability state (no movement queued up && pressing action key)
-        if (_moveInputStack.Count == 0 && Input.GetKeyDown(INITIATE_ACTION) 
-            && !_isPreparingAbility && !canceledPrepareThisFrame)
-        {
-            // ensure player has charges remaining
-            if(_dinoCharges[_currDino] == 0)
-            {
-                // TODO: failure sound effect (no visual)
-            }
-            else
-            {
-                _isPreparingAbility = true;
-
-                // make directional indicators visible to visually show preparing action state
-                _abilityIndicator.SetAbilityActive(true);
-            }
-        }
-    }
-    #endregion
-
     #region UNDO
-    // Controls constants
-    private const KeyCode UNDO = KeyCode.R;
-
     [Header("Undo")]
-    [SerializeField, Tooltip("delay between first and second undo steps. Longer to prevent accidental double undo")]
+    [SerializeField, Tooltip("delay between first and second undo steps. Longer to prevent accidental double undo.")]
     private float _firstUndoDelay = 0.5f;
-    [SerializeField, Tooltip("delay between undo steps when undo key is being held")] 
+    [SerializeField, Tooltip("delay between undo steps when undo key is being held.")] 
     private float _undoDelay = 0.2f;
 
     private float _undoTimer = 0f;
+    private bool _isUndoing = false;
 
-    private void HandleUndoInputs()
+    /// <summary>
+    /// Handles undoing on one frame on button press, and cancelling the hold state on button release.
+    /// </summary>
+    private void Undo(InputAction.CallbackContext context)
     {
-        // Process undo press
-        if(Input.GetKeyDown(UNDO))
+        // start undo
+        if(context.started)
         {
+            // cancel ability preparation
+            _isPreparingAbility = false;
+            _abilityIndicator.SetAbilityActive(false);
+
+            // start holding state
+            _isUndoing = true;
+
             // start/restart delay timer
             _undoTimer = _firstUndoDelay;
             // Undo action
             UndoHandler.UndoFrame();
         }
 
-        // Process holding input
-        if(Input.GetKey(UNDO))
+        // release undo
+        if (context.canceled)
+            _isUndoing = false;
+    }
+
+    /// <summary>
+    /// Handles repeatedly undoing after delay intervals, assuming the undo key is still held.
+    /// </summary>
+    private void HandleHoldingUndo()
+    {
+        // Undo is being held 
+        if(_isUndoing)
         {
-            if(_undoTimer < 0) // ready to undo another frame
+            if (_undoTimer < 0) // ready to undo another frame
             {
                 // start/restart delay timer
                 _undoTimer = _undoDelay;
                 // Undo action
                 UndoHandler.UndoFrame();
             }
-
-            _undoTimer -= Time.deltaTime;
+            else
+                _undoTimer -= Time.deltaTime;
         }
     }
     #endregion
