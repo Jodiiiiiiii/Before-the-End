@@ -33,7 +33,7 @@ public abstract class UndoHandler : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected void LateUpdate()
     {
         // Progress game state (store new stack frame)
         if(_localFrame < _globalFrame)
