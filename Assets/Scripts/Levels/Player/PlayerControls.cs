@@ -62,12 +62,13 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Player grid movement
-        if(!_isPreparingAbility)
-            HandlePlayerMovement();
-
         // Undoing player actions
         HandleHoldingUndo();
+
+        // Player grid movement
+        // avoid moving while ability preparing OR while undoing (can cause clipping)
+        if (!_isPreparingAbility && !_isUndoing)
+            HandlePlayerMovement();
     }
 
     #region MOVEMENT
