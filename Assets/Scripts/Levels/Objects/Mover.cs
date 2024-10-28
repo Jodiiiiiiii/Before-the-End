@@ -107,9 +107,12 @@ public class Mover : MonoBehaviour
         // set local pos
         _localGridPos = new Vector2Int(x, y);
 
-        // set global pos
+        // set local pos
         Vector3 localPos = new Vector3(x, y, transform.localPosition.z);
-        Vector3 globalPos = transform.TransformPoint(localPos);
+
+        // calculate global pos based on change
+        Vector3 diff = localPos - transform.localPosition;
+        Vector3 globalPos = new Vector3(_globalGridPos.x, _globalGridPos.y, 0) + diff;
 
         // must round to ensure no floating point results from TransformPoint
         _globalGridPos = new Vector2Int(Mathf.RoundToInt(globalPos.x), Mathf.RoundToInt(globalPos.y));
