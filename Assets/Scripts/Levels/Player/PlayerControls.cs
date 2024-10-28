@@ -347,6 +347,10 @@ public class PlayerControls : MonoBehaviour
         if (IsSwimming)
             return;
 
+        // cannot swap dino type during undo
+        if (_isUndoing)
+            return;
+
         // update index
         _currDino = index;
 
