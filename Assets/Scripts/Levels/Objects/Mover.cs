@@ -18,11 +18,6 @@ public class Mover : MonoBehaviour
     [SerializeField, Tooltip("DO NOT CHANGE. Local position of current object. Useful to see in Inspector")] private Vector2Int _localGridPos;
     [SerializeField, Tooltip("DO NOT CHANGE. Global position of current object. Useful to see in Inspector")] private Vector2Int _globalGridPos;
 
-    // useful when the position needs to be visually updated but algorithms using the actual level position are unaffected.
-    private bool _isLocked = false;
-    private Vector2Int _lockedLocalPos;
-    private Vector2Int _lockedGlobalPos;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -80,10 +75,6 @@ public class Mover : MonoBehaviour
     /// </summary>
     public Vector2Int GetGlobalGridPos()
     {
-        // return locked pos if locked
-        if (_isLocked)
-            return _lockedGlobalPos;
-
         return _globalGridPos;
     }
 
@@ -92,10 +83,6 @@ public class Mover : MonoBehaviour
     /// </summary>
     public Vector2Int GetLocalGridPos()
     {
-        // return locked pos if locked
-        if (_isLocked)
-            return _lockedLocalPos;
-
         return _localGridPos;
     }
 
@@ -150,27 +137,5 @@ public class Mover : MonoBehaviour
     {
         Vector2 currLocalPos = new Vector2(transform.localPosition.x, transform.localPosition.y);
         return currLocalPos == _localGridPos;
-    }
-
-    /// <summary>
-    /// Make it so that movement behavior is set the same now, BUT returned position behavior will NOT change until unlocked again.
-    /// If already locked, then nothing will change (original locked positions are preserved).
-    /// </summary>
-    public void LockResults()
-    {
-        if(!_isLocked)
-        {
-            _isLocked = true;
-            _lockedGlobalPos = _globalGridPos;
-            _lockedLocalPos = _localGridPos;
-        }
-    }
-
-    /// <summary>
-    /// Return movement behavior to default. Returns where it visually is.
-    /// </summary>
-    public void UnlockResults()
-    {
-        _isLocked = false;
     }
 }
