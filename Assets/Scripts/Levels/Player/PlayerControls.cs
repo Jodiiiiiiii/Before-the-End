@@ -488,6 +488,31 @@ public class PlayerControls : MonoBehaviour
     {
         _dinoCharges[_currDino] = newCharges;
     }
+
+    /// <summary>
+    /// Returns current dinosaur types the player may use.
+    /// </summary>
+    public DinoType[] GetDinoTypes()
+    {
+        return _dinoTypes;
+    }
+
+    /// <summary>
+    /// Returns current dinosaur ability charges the player has left.
+    /// A value of -1 indicates infinite uses.
+    /// </summary>
+    public int[] GetAbilityCharges()
+    {
+        return _dinoCharges;
+    }
+
+    /// <summary>
+    /// Returns current dino type's index in the dinoTypes list
+    /// </summary>
+    public int GetCurrDinoIndex()
+    {
+        return _currDino;
+    }
     #endregion
 
     #region UNDO
