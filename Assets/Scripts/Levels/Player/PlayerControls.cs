@@ -165,10 +165,6 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void ProcessDirectionalInput(Vector2Int dir, bool started, bool canceled)
     {
-        // Skip input processing when paused
-        if (GameManager.Instance.IsPaused)
-            return;
-
         if (started)
         {
             if (_isPreparingAbility)
@@ -218,9 +214,9 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void HandlePlayerMovement()
     {
-        // clear queue while paused
+        // Don't process movement inputs while paused (they can still be queued though)
         if (GameManager.Instance.IsPaused)
-            _moveDirectionQueue.Clear();
+            return;
 
         // Process most recent move input (if any)
         if (_moveDirectionQueue.Count > 0)
@@ -449,6 +445,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void AttemptAbility(Vector2Int dir)
     {
+        // Don't use ability while paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
         // ensure player has charges remaining
         if (_dinoCharges[_currDino] == 0)
         {
@@ -505,19 +505,19 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Undo(InputAction.CallbackContext context)
     {
-        // Skip input processing when paused
-        if (GameManager.Instance.IsPaused)
-            return;
-
         // start undo
         if (context.started)
         {
+            // start holding state
+            _isUndoing = true;
+
+            // Skip undo operation (but still save undoing state in case of unpause)
+            if (GameManager.Instance.IsPaused)
+                return;
+
             // cancel ability preparation
             _isPreparingAbility = false;
             _abilityIndicator.SetAbilityActive(false);
-
-            // start holding state
-            _isUndoing = true;
 
             // start/restart delay timer
             _undoTimer = _firstUndoDelay;
@@ -535,9 +535,9 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void HandleHoldingUndo()
     {
-        // Cancel undo while paused
+        // Don't undo while paused
         if (GameManager.Instance.IsPaused)
-            _isUndoing = false;
+            return;
 
         // Undo is being held 
         if (_isUndoing)
@@ -563,6 +563,10 @@ public class PlayerControls : MonoBehaviour
     {
         // flip paused state
         GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
+
+        // also cancel ability preparing so the UI stops blinking
+        _isPreparingAbility = false;
+        _abilityIndicator.SetAbilityActive(false);
     }
     #endregion
 }
