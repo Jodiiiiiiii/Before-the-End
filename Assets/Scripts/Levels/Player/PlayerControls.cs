@@ -54,6 +54,8 @@ public class PlayerControls : MonoBehaviour
             if (_dinoTypes.Length > 6) actions.Player.Swap7.started += Swap7;
         }
 
+        actions.Player.Pause.started += PauseToggle;
+
         actions.Player.Enable();
     }
 
@@ -85,6 +87,9 @@ public class PlayerControls : MonoBehaviour
         actions.Player.Swap5.started += Swap5;
         actions.Player.Swap6.started += Swap6;
         actions.Player.Swap7.started += Swap7;
+        // remove pause binding
+        actions.Player.Pause.started -= PauseToggle;
+
         // disable player actions altogether
         actions.Player.Disable();
     }
@@ -547,6 +552,17 @@ public class PlayerControls : MonoBehaviour
             else
                 _undoTimer -= Time.deltaTime;
         }
+    }
+    #endregion
+
+    #region PAUSE
+    /// <summary>
+    /// Interfaces with the game manager to toggle the pause state of the game
+    /// </summary>
+    private void PauseToggle(InputAction.CallbackContext context)
+    {
+        // flip paused state
+        GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
     }
     #endregion
 }

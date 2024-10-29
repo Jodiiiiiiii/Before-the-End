@@ -161,6 +161,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d2b64c5-d2f0-492c-aef8-4a2455cb3383"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,6 +379,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Undo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25215d2b-157a-4033-860d-3338f3dd1063"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -972,6 +992,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Swap5 = m_Player.FindAction("Swap5", throwIfNotFound: true);
         m_Player_Swap6 = m_Player.FindAction("Swap6", throwIfNotFound: true);
         m_Player_Swap7 = m_Player.FindAction("Swap7", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1066,6 +1087,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Swap5;
     private readonly InputAction m_Player_Swap6;
     private readonly InputAction m_Player_Swap7;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1085,6 +1107,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Swap5 => m_Wrapper.m_Player_Swap5;
         public InputAction @Swap6 => m_Wrapper.m_Player_Swap6;
         public InputAction @Swap7 => m_Wrapper.m_Player_Swap7;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1139,6 +1162,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swap7.started += instance.OnSwap7;
             @Swap7.performed += instance.OnSwap7;
             @Swap7.canceled += instance.OnSwap7;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1188,6 +1214,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Swap7.started -= instance.OnSwap7;
             @Swap7.performed -= instance.OnSwap7;
             @Swap7.canceled -= instance.OnSwap7;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1385,6 +1414,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSwap5(InputAction.CallbackContext context);
         void OnSwap6(InputAction.CallbackContext context);
         void OnSwap7(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
