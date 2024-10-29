@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         IsPaused = false;
     }
-    #region
+    #endregion
 
     #region SAVE DATA
     // save data (saved between sessions)
