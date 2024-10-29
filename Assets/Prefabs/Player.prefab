@@ -326,9 +326,10 @@ MonoBehaviour:
   _mover: {fileID: 8153983557811043434}
   _objFlipper: {fileID: 544080690693282415}
   _rightScaleX: -1
-  _moveDelay: 0.25
-  _dinoTypes: 00000000
-  _dinoCharges: ffffffff
+  _moveDelay: 0.2
+  _releaseDelay: 0.05
+  _dinoTypes: 00000000010000000200000003000000040000000500000006000000
+  _dinoCharges: ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
   _abilityIndicator: {fileID: 3435671876989254576}
   _firstUndoDelay: 0.5
   _undoDelay: 0.1
