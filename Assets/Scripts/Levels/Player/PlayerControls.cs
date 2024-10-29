@@ -160,7 +160,11 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void ProcessDirectionalInput(Vector2Int dir, bool started, bool canceled)
     {
-        if(started)
+        // Skip input processing when paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
+        if (started)
         {
             if (_isPreparingAbility)
                 AttemptAbility(dir);
@@ -209,6 +213,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void HandlePlayerMovement()
     {
+        // clear queue while paused
+        if (GameManager.Instance.IsPaused)
+            _moveDirectionQueue.Clear();
+
         // Process most recent move input (if any)
         if (_moveDirectionQueue.Count > 0)
         {
@@ -313,9 +321,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Swap2(InputAction.CallbackContext context)
     {
-        // button press only
-        if (context.started)
-            SwapToIndex(1);
+        SwapToIndex(1);
     }
 
     /// <summary>
@@ -323,9 +329,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Swap3(InputAction.CallbackContext context)
     {
-        // button press only
-        if (context.started)
-            SwapToIndex(2);
+        SwapToIndex(2);
     }
 
     /// <summary>
@@ -333,9 +337,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Swap4(InputAction.CallbackContext context)
     {
-        // button press only
-        if (context.started)
-            SwapToIndex(3);
+        SwapToIndex(3);
     }
 
     /// <summary>
@@ -343,9 +345,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Swap5(InputAction.CallbackContext context)
     {
-        // button press only
-        if (context.started)
-            SwapToIndex(4);
+        SwapToIndex(4);
     }
 
     /// <summary>
@@ -353,9 +353,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Swap6(InputAction.CallbackContext context)
     {
-        // button press only
-        if (context.started)
-            SwapToIndex(5);
+        SwapToIndex(5);
     }
 
     /// <summary>
@@ -363,9 +361,7 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Swap7(InputAction.CallbackContext context)
     {
-        // button press only
-        if (context.started)
-            SwapToIndex(6);
+        SwapToIndex(6);
     }
 
     /// <summary>
@@ -373,6 +369,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void SwapToIndex(int index)
     {
+        // Skip input processing when paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
         // CANNOT swap dino type while swimming (must leave water first)
         if (IsSwimming)
             return;
@@ -427,6 +427,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void ToggleAbilityActive(InputAction.CallbackContext context)
     {
+        // Skip input processing when paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
         // flip ability preparing state
         _isPreparingAbility = !_isPreparingAbility;
 
@@ -496,8 +500,12 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void Undo(InputAction.CallbackContext context)
     {
+        // Skip input processing when paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
         // start undo
-        if(context.started)
+        if (context.started)
         {
             // cancel ability preparation
             _isPreparingAbility = false;
@@ -522,8 +530,12 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void HandleHoldingUndo()
     {
+        // Cancel undo while paused
+        if (GameManager.Instance.IsPaused)
+            _isUndoing = false;
+
         // Undo is being held 
-        if(_isUndoing)
+        if (_isUndoing)
         {
             if (_undoTimer < 0) // ready to undo another frame
             {

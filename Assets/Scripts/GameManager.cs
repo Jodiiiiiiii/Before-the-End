@@ -33,6 +33,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region SINGLE SCENE DATA
+    public bool IsPaused = false;
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// Resets Single Scene Data, happens at the start of each new scene.
+    /// For example, ensures that pause state is always false at the start of a new scene
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        IsPaused = false;
+    }
+    #region
+
     #region SAVE DATA
     // save data (saved between sessions)
     [System.Serializable]
