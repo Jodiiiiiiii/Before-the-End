@@ -35,6 +35,9 @@ public class AbilityIconList : MonoBehaviour
         {
             _icons[i].gameObject.SetActive(false);
         }
+
+        // Initialize charges
+        UpdateCharges();
     }
 
     // Update is called once per frame
@@ -46,6 +49,19 @@ public class AbilityIconList : MonoBehaviour
             _icons[_currIndex].IsCurrent = false;
             _currIndex = _player.GetCurrDinoIndex();
             _icons[_currIndex].IsCurrent = true;
+        }
+
+        // Update in case of changes to remaining charges
+        UpdateCharges();
+    }
+
+    private void UpdateCharges()
+    {
+        // Update Charges
+        int[] charges = _player.GetAbilityCharges();
+        for (int i = 0; i < charges.Length; i++)
+        {
+            _icons[i].SetCharges(charges[i]);
         }
     }
 }

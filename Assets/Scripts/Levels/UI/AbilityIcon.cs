@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;   
+using UnityEngine.UI;
+using TMPro;
 
 public class AbilityIcon : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class AbilityIcon : MonoBehaviour
     private Image _borderImage;
     [SerializeField, Tooltip("Used for updating indicator sprite.")]
     private Animator _dinoAnimator;
+    [SerializeField, Tooltip("Used for updating charges counter.")]
+    private TextMeshProUGUI _chargesText;
+    [SerializeField, Tooltip("Used for disabling charges counter when you have infinite charges.")]
+    private GameObject _chargesObject;
 
     [Header("Sprites")]
     [SerializeField, Tooltip("0 = default; 1 = current")]
@@ -34,5 +39,19 @@ public class AbilityIcon : MonoBehaviour
     public void SetAnimation(string name)
     {
         _dinoAnimator.Play(name);
+    }
+
+    /// <summary>
+    /// Updates text to show provided number.
+    /// Hides charge indicator if -1 (infinite charges).
+    /// </summary>
+    public void SetCharges(int num)
+    {
+        if(num == -1)
+        {
+            _chargesObject.SetActive(false);
+        }
+        else
+            _chargesText.text = "" + num;
     }
 }
