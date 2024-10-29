@@ -432,6 +432,10 @@ public class PlayerControls : MonoBehaviour
         if (GameManager.Instance.IsPaused)
             return;
 
+        // must have remaining ability uses to prepare to use ability
+        if (_dinoCharges[_currDino] == 0)
+            return;
+
         // flip ability preparing state
         _isPreparingAbility = !_isPreparingAbility;
 
