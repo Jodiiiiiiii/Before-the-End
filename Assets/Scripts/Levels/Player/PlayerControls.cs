@@ -18,7 +18,6 @@ public class PlayerControls : MonoBehaviour
         if (_dinoCharges.Length != _dinoTypes.Length)
             throw new Exception("Player configuration error: dino charges and types lists must be equal length.");
 
-        #region ACTION BINDINGS
         actions = new PlayerInputActions();
 
         // move presses (press and release, to handle queuing move commands)
@@ -56,7 +55,38 @@ public class PlayerControls : MonoBehaviour
         }
 
         actions.Player.Enable();
-        #endregion
+    }
+
+    private void OnDisable()
+    {
+        // remove move input bindings
+        actions.Player.Up.started -= UpInput;
+        actions.Player.Up.canceled -= UpInput;
+        actions.Player.Down.started -= DownInput;
+        actions.Player.Down.canceled -= DownInput;
+        actions.Player.Left.started -= LeftInput;
+        actions.Player.Left.canceled -= LeftInput;
+        actions.Player.Right.started -= RightInput;
+        actions.Player.Right.canceled -= RightInput;
+        actions.Player.Swap7.started -= Swap7;
+        // remove undo bindings
+        actions.Player.Undo.started += Undo;
+        actions.Player.Undo.canceled += Undo;
+        // remove ability toggle binding
+        actions.Player.Ability.started += ToggleAbilityActive;
+        // remove type cycle bindings
+        actions.Player.CycleLeft.started += CycleLeft;
+        actions.Player.CycleRight.started += CycleRight;
+        // remove swap bindings
+        actions.Player.Swap1.started += Swap1;
+        actions.Player.Swap2.started += Swap2;
+        actions.Player.Swap3.started += Swap3;
+        actions.Player.Swap4.started += Swap4;
+        actions.Player.Swap5.started += Swap5;
+        actions.Player.Swap6.started += Swap6;
+        actions.Player.Swap7.started += Swap7;
+        // disable player actions altogether
+        actions.Player.Disable();
     }
 
     // Update is called once per frame
