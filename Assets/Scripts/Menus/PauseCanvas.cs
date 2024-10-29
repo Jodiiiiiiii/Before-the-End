@@ -6,17 +6,22 @@ public class PauseCanvas : MonoBehaviour
 {
     [SerializeField, Tooltip("Used to disable/enable the entire canvas based on pause state.")]
     private Canvas _canvas;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus")]
+    private GameObject _pauseMenu;
+    [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus")]
+    private GameObject _optionsMenu;
 
     // Update is called once per frame
     void Update()
     {
         _canvas.enabled = GameManager.Instance.IsPaused;
+
+        // ensure pausing always opens up to pause menu, not options.
+        if(_canvas.enabled == false)
+        {
+            _pauseMenu.SetActive(true);
+            _optionsMenu.SetActive(false);
+        }
     }
 
     #region PAUSE MENU
@@ -29,11 +34,12 @@ public class PauseCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// Opens the options menu (from the pause menu)
+    /// Opens the options menu (from the pause menu).
     /// </summary>
     public void ToOptions()
     {
-
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(true);
     }
 
     public void Exit()
@@ -45,5 +51,13 @@ public class PauseCanvas : MonoBehaviour
     #endregion
 
     #region OPTIONS MENU
+    /// <summary>
+    /// Opens the pause menu (from the options menu).
+    /// </summary>
+    public void ToPause()
+    {
+        _pauseMenu.SetActive(true);
+        _optionsMenu.SetActive(false);
+    }
     #endregion
 }
