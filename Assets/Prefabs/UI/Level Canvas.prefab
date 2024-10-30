@@ -257,6 +257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability Icon 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6749015837089358478, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 888912992, guid: a6aa25ae62186b24ba6f5e2591fe4890, type: 3}
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -487,6 +491,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability Icon 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6749015837089358478, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 888912992, guid: a6aa25ae62186b24ba6f5e2591fe4890, type: 3}
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -604,6 +612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability Icon 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6749015837089358478, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 888912992, guid: a6aa25ae62186b24ba6f5e2591fe4890, type: 3}
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -721,6 +733,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability Icon 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6749015837089358478, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 888912992, guid: a6aa25ae62186b24ba6f5e2591fe4890, type: 3}
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -838,6 +854,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability Icon 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6749015837089358478, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 888912992, guid: a6aa25ae62186b24ba6f5e2591fe4890, type: 3}
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -955,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability Icon 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6749015837089358478, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 888912992, guid: a6aa25ae62186b24ba6f5e2591fe4890, type: 3}
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
