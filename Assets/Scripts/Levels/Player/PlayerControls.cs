@@ -10,7 +10,9 @@ public class PlayerControls : MonoBehaviour
     [HideInInspector]
     public bool IsSwimming = false;
 
-    private PlayerInputActions actions;
+    #region CONTROLS BINDINGS
+    [SerializeField, Tooltip("Default player controls.")]
+    private InputActionAsset _actions;
 
     private void Start()
     {
@@ -18,81 +20,80 @@ public class PlayerControls : MonoBehaviour
         if (_dinoCharges.Length != _dinoTypes.Length)
             throw new Exception("Player configuration error: dino charges and types lists must be equal length.");
 
-        actions = new PlayerInputActions();
-
         // move presses (press and release, to handle queuing move commands)
-        actions.Player.Up.started += UpInput;
-        actions.Player.Up.canceled += UpInput;
-        actions.Player.Down.started += DownInput;
-        actions.Player.Down.canceled += DownInput;
-        actions.Player.Left.started += LeftInput;
-        actions.Player.Left.canceled += LeftInput;
-        actions.Player.Right.started += RightInput;
-        actions.Player.Right.canceled += RightInput;
+        _actions.actionMaps[0].FindAction("Up").started += UpInput;
+        _actions.actionMaps[0].FindAction("Up").canceled += UpInput;
+        _actions.actionMaps[0].FindAction("Down").started += DownInput;
+        _actions.actionMaps[0].FindAction("Down").canceled += DownInput;
+        _actions.actionMaps[0].FindAction("Left").started += LeftInput;
+        _actions.actionMaps[0].FindAction("Left").canceled += LeftInput;
+        _actions.actionMaps[0].FindAction("Right").started += RightInput;
+        _actions.actionMaps[0].FindAction("Right").canceled += RightInput;
 
         // Undo (press and release, to handle holding to undo)
-        actions.Player.Undo.started += Undo;
-        actions.Player.Undo.canceled += Undo;
+        _actions.actionMaps[0].FindAction("Undo").started += Undo;
+        _actions.actionMaps[0].FindAction("Undo").canceled += Undo;
 
         // Ability activate/deactivate (only enabled if starting dino has some charges) - useful for locking controls in tutorial
         if(_dinoCharges[0] != 0)
-            actions.Player.Ability.started += ToggleAbilityActive;
+            _actions.actionMaps[0].FindAction("Ability").started += ToggleAbilityActive;
 
         // Only add swap controls if there are at least two dinos
         if (_dinoTypes.Length > 1)
         {
-            actions.Player.CycleLeft.started += CycleLeft;
-            actions.Player.CycleRight.started += CycleRight;
+            _actions.actionMaps[0].FindAction("CycleLeft").started += CycleLeft;
+            _actions.actionMaps[0].FindAction("CycleRight").started += CycleRight;
 
             // assign swap operations (for present dinos)
-            actions.Player.Swap1.started += Swap1;
-            actions.Player.Swap2.started += Swap2;
-            if (_dinoTypes.Length > 2) actions.Player.Swap3.started += Swap3;
-            if (_dinoTypes.Length > 3) actions.Player.Swap4.started += Swap4;
-            if (_dinoTypes.Length > 4) actions.Player.Swap5.started += Swap5;
-            if (_dinoTypes.Length > 5) actions.Player.Swap6.started += Swap6;
-            if (_dinoTypes.Length > 6) actions.Player.Swap7.started += Swap7;
+            _actions.actionMaps[0].FindAction("Swap1").started += Swap1;
+            _actions.actionMaps[0].FindAction("Swap2").started += Swap2;
+            if (_dinoTypes.Length > 2) _actions.actionMaps[0].FindAction("Swap3").started += Swap3;
+            if (_dinoTypes.Length > 3) _actions.actionMaps[0].FindAction("Swap4").started += Swap4;
+            if (_dinoTypes.Length > 4) _actions.actionMaps[0].FindAction("Swap5").started += Swap5;
+            if (_dinoTypes.Length > 5) _actions.actionMaps[0].FindAction("Swap6").started += Swap6;
+            if (_dinoTypes.Length > 6) _actions.actionMaps[0].FindAction("Swap7").started += Swap7;
         }
 
-        actions.Player.Pause.started += PauseToggle;
+        // pause
+        _actions.actionMaps[0].FindAction("Pause").started += PauseToggle;
 
-        actions.Player.Enable();
+        _actions.actionMaps[0].Enable();
     }
 
     private void OnDisable()
     {
         // remove move input bindings
-        actions.Player.Up.started -= UpInput;
-        actions.Player.Up.canceled -= UpInput;
-        actions.Player.Down.started -= DownInput;
-        actions.Player.Down.canceled -= DownInput;
-        actions.Player.Left.started -= LeftInput;
-        actions.Player.Left.canceled -= LeftInput;
-        actions.Player.Right.started -= RightInput;
-        actions.Player.Right.canceled -= RightInput;
-        actions.Player.Swap7.started -= Swap7;
+        _actions.actionMaps[0].FindAction("Up").started -= UpInput;
+        _actions.actionMaps[0].FindAction("Up").canceled -= UpInput;
+        _actions.actionMaps[0].FindAction("Down").started -= DownInput;
+        _actions.actionMaps[0].FindAction("Down").canceled -= DownInput;
+        _actions.actionMaps[0].FindAction("Left").started -= LeftInput;
+        _actions.actionMaps[0].FindAction("Left").canceled -= LeftInput;
+        _actions.actionMaps[0].FindAction("Right").started -= RightInput;
+        _actions.actionMaps[0].FindAction("Right").canceled -= RightInput;
         // remove undo bindings
-        actions.Player.Undo.started += Undo;
-        actions.Player.Undo.canceled += Undo;
+        _actions.actionMaps[0].FindAction("Undo").started += Undo;
+        _actions.actionMaps[0].FindAction("Undo").canceled += Undo;
         // remove ability toggle binding
-        actions.Player.Ability.started += ToggleAbilityActive;
+        _actions.actionMaps[0].FindAction("Ability").started += ToggleAbilityActive;
         // remove type cycle bindings
-        actions.Player.CycleLeft.started += CycleLeft;
-        actions.Player.CycleRight.started += CycleRight;
+        _actions.actionMaps[0].FindAction("CycleLeft").started += CycleLeft;
+        _actions.actionMaps[0].FindAction("CycleRight").started += CycleRight;
         // remove swap bindings
-        actions.Player.Swap1.started += Swap1;
-        actions.Player.Swap2.started += Swap2;
-        actions.Player.Swap3.started += Swap3;
-        actions.Player.Swap4.started += Swap4;
-        actions.Player.Swap5.started += Swap5;
-        actions.Player.Swap6.started += Swap6;
-        actions.Player.Swap7.started += Swap7;
+        _actions.actionMaps[0].FindAction("Swap1").started += Swap1;
+        _actions.actionMaps[0].FindAction("Swap2").started += Swap2;
+        _actions.actionMaps[0].FindAction("Swap3").started += Swap3;
+        _actions.actionMaps[0].FindAction("Swap4").started += Swap4;
+        _actions.actionMaps[0].FindAction("Swap5").started += Swap5;
+        _actions.actionMaps[0].FindAction("Swap6").started += Swap6;
+        _actions.actionMaps[0].FindAction("Swap7").started += Swap7;
         // remove pause binding
-        actions.Player.Pause.started -= PauseToggle;
+        _actions.actionMaps[0].FindAction("Pause").started -= PauseToggle;
 
         // disable player actions altogether
-        actions.Player.Disable();
+        _actions.actionMaps[0].Disable();
     }
+    #endregion
 
     // Update is called once per frame
     void Update()
