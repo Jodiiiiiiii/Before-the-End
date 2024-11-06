@@ -67,16 +67,6 @@ public class PauseCanvas : MonoBehaviour
 
     #region OPTIONS MENU
 
-    [Header("Remapping")]
-    [SerializeField, Tooltip("Must be assigned in same order as ControlsType enum definition.")]
-    public InputActionReference[] _actionReferences;
-    [SerializeField, Tooltip("Must be assigned in same order as ControlsType enum definition.")]
-    public TextMeshProUGUI[] _displayTexts;
-    [SerializeField, Tooltip("Must be assigned in same order as ControlsType enum definition.")]
-    public TextMeshProUGUI[] _altDisplayTexts;
-
-    private InputActionRebindingExtensions.RebindingOperation _rebind;
-
     /// <summary>
     /// Opens the pause menu (from the options menu).
     /// </summary>
@@ -85,6 +75,17 @@ public class PauseCanvas : MonoBehaviour
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
     }
+
+    #region CONTROLS REMAPPING
+    [Header("Controls Remapping")]
+    [SerializeField, Tooltip("Must be assigned in same order as ControlsType enum definition.")]
+    public InputActionReference[] _actionReferences;
+    [SerializeField, Tooltip("Must be assigned in same order as ControlsType enum definition.")]
+    public TextMeshProUGUI[] _displayTexts;
+    [SerializeField, Tooltip("Must be assigned in same order as ControlsType enum definition.")]
+    public TextMeshProUGUI[] _altDisplayTexts;
+
+    private InputActionRebindingExtensions.RebindingOperation _rebind;
 
     /// <summary>
     /// Function called by remap button on click to remap controls.
@@ -103,6 +104,37 @@ public class PauseCanvas : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns this control to default controls (removes overrides).
+    /// Resets both main binding AND alt binding.
+    /// </summary>
+    public void ResetControl(int controlToReset)
+    {
+        // restore default behavior
+        _actionReferences[controlToReset].action.RemoveAllBindingOverrides();
+
+        // update main binding text
+        _displayTexts[controlToReset].text =
+                _actionReferences[controlToReset].action.GetBindingDisplayString(0, InputBinding.DisplayStringOptions.DontIncludeInteractions);
+
+        // update alt binding text
+        _altDisplayTexts[controlToReset].text =
+            _actionReferences[controlToReset].action.GetBindingDisplayString(1, InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        // update string if empty binding
+        if (_altDisplayTexts[controlToReset].text == "")
+            _altDisplayTexts[controlToReset].text = "--";
+    }
+
+    /// <summary>
+    /// Returns ALL controls to default controls (including main and alt bindings).
+    /// </summary>
+    public void ResetAllControls()
+    {
+        // iterate through all controls to reset
+        for (int i = 0; i < _actionReferences.Length; i++)
+            ResetControl(i);
+    }
+
+    /// <summary>
     /// Starts remapping operation for provided control, handling next input press as the new input binding.
     /// Allows for remapping of alternate binding as well.
     /// </summary>
@@ -113,8 +145,7 @@ public class PauseCanvas : MonoBehaviour
 
         // configure rebinding operation
         _rebind = _actionReferences[controlToRemap].action.PerformInteractiveRebinding(isAlt ? 1 : 0)
-            .WithControlsExcluding("Mouse")
-            .WithCancelingThrough("<Keyboard>/escape")
+            .WithCancelingThrough("<Mouse>/leftButton")
             .OnCancel(_ => RemoveBinding(controlToRemap, isAlt))
             .OnComplete(_ => RemappingComplete(controlToRemap, isAlt));
 
@@ -122,10 +153,9 @@ public class PauseCanvas : MonoBehaviour
     }
 
     /// <summary>
-    /// Unbinds
+    /// Unbinds any override and creates a new empty (null) override.
+    /// This is distinct from default controls; it overides default with no control
     /// </summary>
-    /// <param name="controlToUnbind"></param>
-    /// <param name="isAlt"></param>
     private void RemoveBinding(int controlToUnbind, bool isAlt)
     {
         _actionReferences[controlToUnbind].action.RemoveBindingOverride(isAlt ? 1 : 0);
@@ -136,6 +166,9 @@ public class PauseCanvas : MonoBehaviour
             _altDisplayTexts[controlToUnbind].text = "--";
         else
             _displayTexts[controlToUnbind].text = "--";
+
+        // so it can actually be used again - if this wasn't here, it would break one control when the other was unbound
+        _actionReferences[controlToUnbind].action.Enable();
     }
 
     /// <summary>
@@ -146,27 +179,36 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     private void RemappingComplete(int controlToUpdate, bool isAlt)
     {
-        // Update text
-        if(isAlt) // alt binding
-        {
-            _altDisplayTexts[controlToUpdate].text =
-                _actionReferences[controlToUpdate].action.GetBindingDisplayString(1, InputBinding.DisplayStringOptions.DontIncludeInteractions);
-            // indicate no binding rather than empty string
-            if (_altDisplayTexts[controlToUpdate].text == "")
-                _altDisplayTexts[controlToUpdate].text = "--";
-        }
-        else // first binding
-        {
-            _displayTexts[controlToUpdate].text =
-                _actionReferences[controlToUpdate].action.GetBindingDisplayString(0, InputBinding.DisplayStringOptions.DontIncludeInteractions);
-            // indicate no binding rather than empty string
-            if (_displayTexts[controlToUpdate].text == "")
-                _displayTexts[controlToUpdate].text = "--";
-        }
-        
+        string newInput = _actionReferences[controlToUpdate].action
+            .GetBindingDisplayString(isAlt ? 1 : 0, InputBinding.DisplayStringOptions.DontIncludeInteractions);
 
-        // Delete duplicate bindings
-        DuplicateBindingCheck(controlToUpdate, isAlt);
+        // Escape should undo binding
+        if(newInput == "Esc")
+        {
+            RemoveBinding(controlToUpdate, isAlt);
+        }
+        else // valid binding
+        {
+            // Update text
+            if (isAlt) // alt binding
+            {
+                _altDisplayTexts[controlToUpdate].text = newInput;
+                // indicate no binding rather than empty string
+                if (_altDisplayTexts[controlToUpdate].text == "")
+                    _altDisplayTexts[controlToUpdate].text = "--";
+            }
+            else // first binding
+            {
+                _displayTexts[controlToUpdate].text = newInput;
+                // indicate no binding rather than empty string
+                if (_displayTexts[controlToUpdate].text == "")
+                    _displayTexts[controlToUpdate].text = "--";
+            }
+
+
+            // Delete duplicate bindings
+            DuplicateBindingCheck(controlToUpdate, isAlt);
+        }
 
         // so it can actually be used again
         _actionReferences[controlToUpdate].action.Enable();
@@ -237,5 +279,7 @@ public class PauseCanvas : MonoBehaviour
                 _altDisplayTexts[i].text = "--";
         }
     }
+    #endregion
+
     #endregion
 }
