@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class PauseCanvas : MonoBehaviour
 {
-    [Header("Navigation")]
+    [Header("Pause Navigation")]
     [SerializeField, Tooltip("Used to disable/enable the entire canvas based on pause state.")]
     private Canvas _canvas;
     [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus")]
@@ -37,8 +38,25 @@ public class PauseCanvas : MonoBehaviour
         // ensure pausing always opens up to pause menu, not options.
         if(_canvas.enabled == false)
         {
+            // pause menu by default when you pause, not options
             _pauseMenu.SetActive(true);
             _optionsMenu.SetActive(false);
+
+            // controls is default menu for options
+            _controlsMenu.SetActive(true);
+            _audioMenu.SetActive(false);
+        }
+
+        // update options tab sprite states
+        if(_controlsMenu.activeSelf)
+        {
+            _controlsButtonSprite.sprite = _optionsButtonSprites[1];
+            _audioButtonSprite.sprite = _optionsButtonSprites[0];
+        }
+        else if (_audioMenu.activeSelf)
+        {
+            _controlsButtonSprite.sprite = _optionsButtonSprites[0];
+            _audioButtonSprite.sprite = _optionsButtonSprites[1];
         }
     }
 
@@ -69,6 +87,17 @@ public class PauseCanvas : MonoBehaviour
     #endregion
 
     #region OPTIONS MENU
+    [Header("Options Navigation")]
+    [SerializeField, Tooltip("Used to enable/disable controls sub-menu.")]
+    private GameObject _controlsMenu;
+    [SerializeField, Tooltip("Used to enable/disable audio sub-menu.")]
+    private GameObject _audioMenu;
+    [SerializeField, Tooltip("Used to manually set controls button sprite based on tab state")]
+    private Image _controlsButtonSprite;
+    [SerializeField, Tooltip("Used to manually set audio button sprite based on tab selected state")]
+    private Image _audioButtonSprite;
+    [SerializeField, Tooltip("Sprites for options navigation buttons. 0 = unselected; 1 = selected.")]
+    private Sprite[] _optionsButtonSprites;
 
     /// <summary>
     /// Opens the pause menu (from the options menu).
@@ -77,6 +106,28 @@ public class PauseCanvas : MonoBehaviour
     {
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
+
+        // controls is default menu for options
+        _controlsMenu.SetActive(true);
+        _audioMenu.SetActive(false);
+    }
+
+    /// <summary>
+    /// Shows controls settings and hides all other options.
+    /// </summary>
+    public void ToControls()
+    {
+        _controlsMenu.SetActive(true);
+        _audioMenu.SetActive(false);
+    }
+
+    /// <summary>
+    /// Shows audio settings and hides all other options.
+    /// </summary>
+    public void ToAudio()
+    {
+        _controlsMenu.SetActive(false);
+        _audioMenu.SetActive(true);
     }
 
     #region CONTROLS REMAPPING
