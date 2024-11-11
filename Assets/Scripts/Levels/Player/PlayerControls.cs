@@ -11,7 +11,6 @@ public class PlayerControls : MonoBehaviour
     public bool IsSwimming = false;
 
     #region CONTROLS BINDINGS
-    [SerializeField, Tooltip("Default player controls.")]
     private InputActionAsset _actions;
 
     private void Start()
@@ -19,6 +18,8 @@ public class PlayerControls : MonoBehaviour
         // configuration validation
         if (_dinoCharges.Length != _dinoTypes.Length)
             throw new Exception("Player configuration error: dino charges and types lists must be equal length.");
+
+        _actions = InputSystem.actions;
 
         // move presses (press and release, to handle queuing move commands)
         _actions.actionMaps[0].FindAction("Up").started += UpInput;

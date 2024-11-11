@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Stores and manages player data saved between scenes.
@@ -27,6 +28,11 @@ public class GameManager : MonoBehaviour
                 newManager.AddComponent<GameManager>();
                 DontDestroyOnLoad(newManager);
                 _instance = newManager.GetComponent<GameManager>();
+
+                // ensures controls are updated with player overrides
+                // loaded here so it always happens at the start and not after rebindings are needed
+                string rebindsJson = PlayerPrefs.GetString("rebinds");
+                InputSystem.actions.LoadBindingOverridesFromJson(rebindsJson);
             }
             // return new/existing instance
             return _instance;
@@ -92,9 +98,9 @@ public class GameManager : MonoBehaviour
         PersistentData newSaveData = new PersistentData();
 
         // TODO: INITIALIZE DEFAULT VALUES FOR SAVE DATA
-        // default data in case player prefs not found
+        // default data in case json not found (does playerprefs need this workaround?)
 
-        // TODO: read existing save data (if it exists) from PlayerPrefs
+        // TODO: read volume and progression save save data (if it exists) from PlayerPrefs/json
 
         /*****************************************************************
         // JSON functionality. To be replaced with PlayerPrefs
@@ -114,7 +120,12 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        // TODO: SAVE PersistentData to PlayerPrefs
+        // save controls rebindings
+        string rebindsJson = InputSystem.actions.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("rebinds", rebindsJson);
+        PlayerPrefs.Save();
+
+        // TODO: SAVE PersistentData to PlayerPrefs (settings and progression data?)
 
         /*****************************************************************
         // JSON functionality. To be replaced with PlayerPrefs
