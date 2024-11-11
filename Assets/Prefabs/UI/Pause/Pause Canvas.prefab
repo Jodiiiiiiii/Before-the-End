@@ -1189,6 +1189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 816623935789727725}
+  - component: {fileID: 682840510389246442}
   m_Layer: 5
   m_Name: Controls Menu
   m_TagString: Untagged
@@ -1219,6 +1220,66 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &682840510389246442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829653157667896259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0fa416c26629b9449953b553944c370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionReferences:
+  - {fileID: -8150642409226284811, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -3907249602865173366, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -4037309114182955384, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -7334913376799932675, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -2099379676528639254, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: 7040659881675835329, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -3021995015047664884, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: 1120369429361536294, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: 921616565900355458, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -7277465594391017437, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -1465077410475691936, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -3362192201760513410, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: 7601653190639714737, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: 1715086410139253591, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  - {fileID: -9207944417353073766, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
+  _displayTexts:
+  - {fileID: 5152837947556691086}
+  - {fileID: 597571402453751702}
+  - {fileID: 4409219921408708891}
+  - {fileID: 6560952419852530476}
+  - {fileID: 5347775760666134853}
+  - {fileID: 7170019281830349528}
+  - {fileID: 1728152045024762587}
+  - {fileID: 5112511601428860732}
+  - {fileID: 8818476662108155121}
+  - {fileID: 8979050976216874915}
+  - {fileID: 3376743025430608515}
+  - {fileID: 6499173802241069192}
+  - {fileID: 4296974462699874685}
+  - {fileID: 6089793454920875136}
+  - {fileID: 695096081696482709}
+  _altDisplayTexts:
+  - {fileID: 1640624165425127942}
+  - {fileID: 6416824857687935262}
+  - {fileID: 7815599249402793875}
+  - {fileID: 741698956540407204}
+  - {fileID: 1977424984575956941}
+  - {fileID: 3658931430045635664}
+  - {fileID: 5097376671762351187}
+  - {fileID: 1708392602726420916}
+  - {fileID: 3109632183746540153}
+  - {fileID: 3305039017096323371}
+  - {fileID: 9194870322623636491}
+  - {fileID: 826287455296048640}
+  - {fileID: 7703354053156435957}
+  - {fileID: 415860389953954312}
+  - {fileID: 6405066481576065821}
 --- !u!1 &5638640934282995806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,54 +2067,6 @@ MonoBehaviour:
   _optionsButtonSprites:
   - {fileID: -724556831, guid: c007564277727f745b3679d3290fa5b2, type: 3}
   - {fileID: 866189934, guid: c007564277727f745b3679d3290fa5b2, type: 3}
-  _actionReferences:
-  - {fileID: -8150642409226284811, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -3907249602865173366, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -4037309114182955384, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -7334913376799932675, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -2099379676528639254, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: 7040659881675835329, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -3021995015047664884, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: 1120369429361536294, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: 921616565900355458, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -7277465594391017437, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -1465077410475691936, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -3362192201760513410, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: 7601653190639714737, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: 1715086410139253591, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  - {fileID: -9207944417353073766, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
-  _displayTexts:
-  - {fileID: 5152837947556691086}
-  - {fileID: 597571402453751702}
-  - {fileID: 4409219921408708891}
-  - {fileID: 6560952419852530476}
-  - {fileID: 5347775760666134853}
-  - {fileID: 7170019281830349528}
-  - {fileID: 1728152045024762587}
-  - {fileID: 5112511601428860732}
-  - {fileID: 8818476662108155121}
-  - {fileID: 8979050976216874915}
-  - {fileID: 3376743025430608515}
-  - {fileID: 6499173802241069192}
-  - {fileID: 4296974462699874685}
-  - {fileID: 6089793454920875136}
-  - {fileID: 695096081696482709}
-  _altDisplayTexts:
-  - {fileID: 1640624165425127942}
-  - {fileID: 6416824857687935262}
-  - {fileID: 7815599249402793875}
-  - {fileID: 741698956540407204}
-  - {fileID: 1977424984575956941}
-  - {fileID: 3658931430045635664}
-  - {fileID: 5097376671762351187}
-  - {fileID: 1708392602726420916}
-  - {fileID: 3109632183746540153}
-  - {fileID: 3305039017096323371}
-  - {fileID: 9194870322623636491}
-  - {fileID: 826287455296048640}
-  - {fileID: 7703354053156435957}
-  - {fileID: 415860389953954312}
-  - {fileID: 6405066481576065821}
 --- !u!223 &8754600255387812405
 Canvas:
   m_ObjectHideFlags: 0
@@ -2238,8 +2251,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7435191660324703702}
-        m_TargetAssemblyTypeName: PauseCanvas, Assembly-CSharp
+      - m_Target: {fileID: 682840510389246442}
+        m_TargetAssemblyTypeName: ControlsOptions, Assembly-CSharp
         m_MethodName: ResetAllControls
         m_Mode: 1
         m_Arguments:
@@ -3255,10 +3268,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3353,10 +3370,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3369,10 +3390,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3421,10 +3446,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3517,10 +3546,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3533,10 +3566,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3585,10 +3622,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3683,10 +3724,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3699,10 +3744,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3751,10 +3800,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3847,10 +3900,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3863,10 +3920,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3915,10 +3976,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4011,10 +4076,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4027,10 +4096,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4079,10 +4152,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1298566526783971195, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_text
@@ -4173,10 +4250,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4745350843199128595, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_Name
@@ -4185,10 +4266,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4233,10 +4318,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4329,10 +4418,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4345,10 +4438,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4397,10 +4494,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4493,10 +4594,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4509,10 +4614,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4561,10 +4670,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4661,10 +4774,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4677,10 +4794,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4729,10 +4850,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4825,10 +4950,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4841,10 +4970,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4893,10 +5026,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4989,10 +5126,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5005,10 +5146,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5057,10 +5202,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5153,10 +5302,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5169,10 +5322,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5314,10 +5471,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5410,10 +5571,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5426,10 +5591,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5478,10 +5647,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5574,10 +5747,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5590,10 +5767,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5735,10 +5916,14 @@ PrefabInstance:
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AltRemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 562129233623521642, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5831,10 +6016,14 @@ PrefabInstance:
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3950344877328532862, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -5847,10 +6036,14 @@ PrefabInstance:
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7435191660324703702}
+      objectReference: {fileID: 682840510389246442}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RemapButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsOptions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7914517043724626371, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
