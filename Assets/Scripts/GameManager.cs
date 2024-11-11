@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using Unity.Mathematics;
 
 /// <summary>
 /// Stores and manages player data saved between scenes.
@@ -62,8 +63,11 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class PersistentData
     {
-        // TODO: ADD SAVE DATA HERE
-        // i.e. COMPLETED LEVELS, SETTINGS
+        public int MasterVolume;    // 0 to 200
+        public int MusicVolume;     // 0 to 200
+        public int SfxVolume;       // 0 to 200
+
+        // TODO: add level progression data here
     }
 
     // private stored save data
@@ -96,11 +100,13 @@ public class GameManager : MonoBehaviour
     {
         // initialize and load save data
         PersistentData newSaveData = new PersistentData();
+        
+        // Read save data from PlayerPrefs (or assign default values)
+        newSaveData.MasterVolume = PlayerPrefs.GetInt("masterVolume", 100);
+        newSaveData.MusicVolume = PlayerPrefs.GetInt("musicVolume", 100);
+        newSaveData.SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
 
-        // TODO: INITIALIZE DEFAULT VALUES FOR SAVE DATA
-        // default data in case json not found (does playerprefs need this workaround?)
-
-        // TODO: read volume and progression save save data (if it exists) from PlayerPrefs/json
+        // TODO: add level progression loading here
 
         /*****************************************************************
         // JSON functionality. To be replaced with PlayerPrefs
@@ -123,9 +129,15 @@ public class GameManager : MonoBehaviour
         // save controls rebindings
         string rebindsJson = InputSystem.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebindsJson);
-        PlayerPrefs.Save();
 
-        // TODO: SAVE PersistentData to PlayerPrefs (settings and progression data?)
+        // Store save data in PlayerPrefs
+        PlayerPrefs.SetInt("masterVolume", SaveData.MasterVolume);
+        PlayerPrefs.SetInt("musicVolume", SaveData.MusicVolume);
+        PlayerPrefs.SetInt("sfxVolume", SaveData.SfxVolume);
+
+        // TODO: add level progression saving here
+
+        PlayerPrefs.Save();
 
         /*****************************************************************
         // JSON functionality. To be replaced with PlayerPrefs
@@ -134,5 +146,35 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "\\savedata.json", json);
         *****************************************************************/
     }
+
+    #region Save Data Getters/Setters
+    /// <summary>
+    /// Gets useable master volume value for audio sources.
+    /// Converts from 0 to 200, to 0 to 1
+    /// </summary>
+    public float GetMasterVolume()
+    {
+        return math.remap(0, 200, 0, 1, SaveData.MasterVolume);
+    }
+
+    /// <summary>
+    /// Gets useable music volume value for audio sources.
+    /// Converts from 0 to 200, to 0 to 1
+    /// </summary>
+    public float GetMusicVolume()
+    {
+        return math.remap(0, 200, 0, 1, SaveData.MusicVolume);
+    }
+
+    /// <summary>
+    /// Gets useable sfx volume value for audio sources.
+    /// Converts from 0 to 200, to 0 to 1
+    /// </summary>
+    public float GetSfxVolume()
+    {
+        return math.remap(0, 200, 0, 1, SaveData.SfxVolume);
+    }
+    #endregion
+
     #endregion
 }
