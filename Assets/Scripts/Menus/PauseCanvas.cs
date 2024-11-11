@@ -148,6 +148,12 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void RemapOperation(int controlToRemap, bool isAlt = false)
     {
+        // visually indicate pending remap operation
+        if (!isAlt)
+            _displayTexts[controlToRemap].text = ". . .";
+        else
+            _altDisplayTexts[controlToRemap].text = ". . .";
+
         string actionToRemap = _actionReferences[controlToRemap].action.name;
 
         // ensure not being changed while enabled (crashes)
