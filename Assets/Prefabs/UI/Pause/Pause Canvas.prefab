@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4945437592708627187
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1195,7 +1195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &816623935789727725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1772,7 +1772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8369898207308323973
 Transform:
   m_ObjectHideFlags: 0
@@ -2061,7 +2061,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7428090090025047461}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -3007,7 +3007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4341312420892872119
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3173,7 +3173,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 207581374705386610, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 451858311706273439, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3221,7 +3221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5114750332352785140, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5220,7 +5220,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 207581374705386610, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 451858311706273439, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5268,7 +5268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5114750332352785140, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5848707900608808513, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: _isMusicVolume
@@ -5641,7 +5641,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 207581374705386610, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 451858311706273439, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5689,7 +5689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5114750332352785140, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5848707900608808513, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: _isSfxVolume
