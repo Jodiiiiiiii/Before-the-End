@@ -392,6 +392,7 @@ public static class PlayerMoveChecks
     /// <summary>
     /// Contains all necessary functions when player move is confirmed between panels.
     /// Handles potential log sinking (on curr position), player movement, parent transform changing, and undo frame.
+    /// Use null newParent if no parent reassignment is taking place (i.e. raptor & pteranodon abilities).
     /// </summary>
     public static void ConfirmPlayerMove(Mover mover, Vector2Int movePos, Transform newParent)
     {
@@ -401,8 +402,9 @@ public static class PlayerMoveChecks
         if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
             logSinkCheck.ObjData.WaterHasLog = false;
 
-        // move player to panel of the other tunnel
-        mover.transform.parent = newParent;
+        // move player to panel of the other tunnel (reassign to new parent transform)
+        if(newParent is not null)
+            mover.transform.parent = newParent;
 
         // move player to position beneath other tunnel
         mover.SetGlobalGoal(movePos.x, movePos.y);

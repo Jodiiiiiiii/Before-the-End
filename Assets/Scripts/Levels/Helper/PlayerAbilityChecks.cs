@@ -37,7 +37,8 @@ public static class PlayerAbilityChecks
                 TryPteraAbility(player, objMover, dir);
                 return;
             case DinoType.Pyro:
-                return; // unimplemented
+                TryPyroAbility(player, objMover, dir);
+                return;
             case DinoType.Compy:
                 return; // unimplemented
         }
@@ -367,11 +368,120 @@ public static class PlayerAbilityChecks
             }
         }
     }
+
+    /// <summary>
+    /// Attempts to move the player through a series of bushes, exiting into the tile after the final bush in series.
+    /// Requires no osbtructions to exit the end bush (no object, traversable water, or pushable log).
+    /// </summary>
+    private static void TryPyroAbility(PlayerControls player, Mover mover, Vector2Int dir)
+    {
+        // Check for object at indicated direction of ability (immediate neighbor)
+        Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+
+        // REQUIREMENT: object must be present AND visible.
+        // REQUIREMENT: object MUST be a bush.
+        if (adjacentObj is null || !VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y)
+            || adjacentObj.ObjData.ObjType != ObjectType.Bush)
+        {
+            // TODO: failure effect at adjacent tile
+
+            return;
+        }
+
+        // generate list of all bushes to pass through
+        List<QuantumState> bushes = new List<QuantumState>();
+        bushes.Add(adjacentObj);
+
+        // Find all bushes in a series
+        bool currIsBush = true;
+        while (currIsBush)
+        {
+            adjacentPos += dir;
+
+            // Check for next position's obstruction by higher-ordered panel
+            if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+            {
+                // TODO: failure effect indicating the position with the panel obstruction
+                // (may need an additional check to see if it is in bounds of main panel)
+
+                return; // panel obstruction -> CANNOT MOVE
+            }
+
+            // check for object at next position
+            adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+            if (adjacentObj is null) // no object blocking the log
+                currIsBush = false;
+            else if (adjacentObj.ObjData.ObjType == ObjectType.Bush)
+            {
+                bushes.Add(adjacentObj);
+            }
+            else if (adjacentObj.ObjData.ObjType == ObjectType.Water)
+            {
+                // check for traversable water
+                if (adjacentObj.ObjData.WaterHasLog || adjacentObj.ObjData.WaterHasRock)
+                    currIsBush = false;
+                else // otherwise action fails
+                {
+                    // TODO: failure effect at position of the water (latest adjacentPos)
+
+                    return;
+                }
+            }
+            else if (adjacentObj.ObjData.ObjType == ObjectType.Log) // exit into pushable log
+            {
+                // check for pushable log
+                if (PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir))
+                    currIsBush = false;
+                else // otherwise action fails
+                {
+                    // TODO: failure effect at position of FIRST adjacent log (latest adjacentPos)
+
+                    return;
+                }
+            }
+            else // obstructed by non-pushable object
+            {
+                // TODO: failure effect at obstruction (latest adjacentPos)
+
+                return;
+            }
+        }
+
+        // if we got this far, the player CAN move through the bushes
+
+        // visual flip of bush sprites
+        foreach(QuantumState bush in bushes)
+        {
+            ObjectSpriteSwapper bushSwapper = bush.GetComponentInChildren<ObjectSpriteSwapper>();
+            if (bushSwapper is null) throw new Exception("All level objects must have ObjectSpriteSwapper component on sprite.");
+            bushSwapper.RequireFlip();
+        }
+
+        // visual flip of playe rsprite
+        PlayerSpriteSwapper playerFlipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+        if (playerFlipper is null) throw new Exception("Player MUST have PlayerSpriteSwapper component on child.");
+        playerFlipper.RequireFlip();
+
+        // retrieve pos for player to move to
+        if (!bushes[bushes.Count - 1].TryGetComponent(out Mover lastBush))
+            throw new Exception("All level objects MUST have Mover component.");
+        Vector2Int movePos = lastBush.GetGlobalGridPos() + dir;
+
+        // set facing direction
+        FaceDirection(player, dir);
+        // decrement charges
+        player.UseAbilityCharge();
+        // confirm movement (and save undo frame)
+        PlayerMoveChecks.ConfirmPlayerMove(mover, movePos, null);
+
+    }
     #endregion
 
     #region HELPER FUNCTIONS
     /// <summary>
-    /// Attempts to make the player face input direction (no change if up/down direction)
+    /// Attempts to make the player face input direction (no change if up/down direction).
+    /// Useful for calling just before the stack frame is saved (if ability causes a facing change).
     /// </summary>
     private static void FaceDirection(PlayerControls player, Vector2Int dir)
     {
