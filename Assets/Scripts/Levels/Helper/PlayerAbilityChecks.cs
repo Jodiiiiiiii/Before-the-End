@@ -307,66 +307,86 @@ public static class PlayerAbilityChecks
     /// </summary>
     private static void TryPteraAbility(PlayerControls player, Mover mover, Vector2Int dir)
     {
-        // Check for object at indicated direction of ability (immediate neighbor)
-        Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
+        Vector2Int adjacentPos = mover.GetGlobalGridPos(); // define adjacent posS - to be iterated on later
+        QuantumState nextObj;
+        PanelStats mainPanel = SortingOrderHandler.GetPanelOfOrder(0); // used for checks of in bounds of main panel
 
-        bool abilitySuccess = true; // assume success by default
-        try
+        int tilesToMove = 1;
+        while(true)
         {
-            // REQUIREMENT: cannot be flying to same panel player is already on
-            if (VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+            adjacentPos += dir;
+
+            // Check for flying outside of main panel
+            if(!mainPanel.IsPosInBounds(adjacentPos.x, adjacentPos.y))
             {
-                abilitySuccess = false;
+                // TODO: ability failure effect at adjacentPos (or one less dir of it so its not out of bounds?)
+
                 return;
             }
 
+            // Check for not enough charges
+            if (tilesToMove > player.GetCurrAbilityCharge())
+            {
+                // TODO: ability failure effect at adjacentPos
+
+                return;
+            }
+
+            // player has charges and it is within the main panel -> lets check the object
+
             // Find topmost panel at adjacent pos
+            int topMostIndex = -1;
             for (int i = 0; i <= SortingOrderHandler.MaxPanelOrder; i++)
             {
                 // Topmost panel at pos found
                 if (VisibilityChecks.IsVisible(i, adjacentPos.x, adjacentPos.y))
                 {
-                    QuantumState landingObject = VisibilityChecks.GetObjectAtPos(i, adjacentPos.x, adjacentPos.y);
-                    
-                    // OPTION 1: No obstruction
-                    // OPTION 2: Submerged log/rock
-                    if (landingObject is null || 
-                        (landingObject.ObjData.ObjType == ObjectType.Water && (landingObject.ObjData.WaterHasLog || landingObject.ObjData.WaterHasRock)))
-                    {
-                        // visually flip player sprite
-                        PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
-                        if (flipper is null)
-                            throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
-                        flipper.RequireFlip();
-
-                        // set facing direction
-                        FaceDirection(player, dir);
-                        // decrement charges (only on water exit)
-                        player.UseAbilityCharge();
-                        // move player to adjacent panel
-                        Transform newParent = SortingOrderHandler.GetPanelOfOrder(i).transform.GetChild(1).transform; // 1 = Upper Objects
-                        PlayerMoveChecks.ConfirmPlayerMove(mover, adjacentPos, newParent);
-
-                        return;
-                    }
-                    else
-                    {
-                        abilitySuccess = false;
-                        return;
-                    }
+                    topMostIndex = i;
+                    break;
                 }
             }
+            // To ensure topMOstIndex counts as initialized, but to filter out garbage values
+            if (topMostIndex == -1) throw new Exception("How was this reached? topmost panel should always be found here in the Ptera Ability.");
 
-            // no panel was found at adjacentPos (it is outside of main panel)
-            abilitySuccess = false;
-        }
-        finally
-        {
-            if (!abilitySuccess)
+            // retrieve object on topmost panel
+            nextObj = VisibilityChecks.GetObjectAtPos(topMostIndex, adjacentPos.x, adjacentPos.y);
+            Debug.Log(topMostIndex);
+
+            // check for landability
+            // OPTION 1: No obstruction
+            // OPTION 2: Submerged log/rock
+            if (nextObj is null ||
+                (nextObj.ObjData.ObjType == ObjectType.Water && (nextObj.ObjData.WaterHasLog || nextObj.ObjData.WaterHasRock)))
             {
-                // TODO: play ability failure effect at adjacent tile
+                // visually flip player sprite
+                PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+                if (flipper is null)
+                    throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+                flipper.RequireFlip();
+
+                // set facing direction
+                FaceDirection(player, dir);
+                // decrement charges (one charge per tile moved)
+                for (int i = 0; i < tilesToMove; i++)
+                    player.UseAbilityCharge();
+                // move player to adjacent panel
+                Transform newParent = SortingOrderHandler.GetPanelOfOrder(topMostIndex).transform.GetChild(1).transform; // 1 = Upper Objects
+                // confirm movement and save
+                PlayerMoveChecks.ConfirmPlayerMove(mover, adjacentPos, newParent);
+
+                return;
             }
-        }
+
+            // tree obstruction
+            if (nextObj.ObjData.ObjType == ObjectType.Tree)
+            {
+                // TODO: ability failure effect at adjacentPos
+
+                return;
+            }
+
+            tilesToMove++;
+        } 
     }
 
     /// <summary>
