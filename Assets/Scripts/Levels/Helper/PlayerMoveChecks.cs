@@ -321,10 +321,25 @@ public static class PlayerMoveChecks
         if (!VisibilityChecks.IsVisible(otherTunnel.gameObject, exitPos.x, exitPos.y))
             return;
 
-        // REQUIREMENT: exit pos is clear of obstructions (anything)
+        // REQUIREMENT: exit pos is clear of obstructions (or default to more specific obstruction checks
         QuantumState exitObj = VisibilityChecks.GetObjectAtPos(otherTunnelMover, exitPos.x, exitPos.y);
         if (exitObj is not null)
-            return;
+        {
+            // log -> must be pushable to move
+            if (exitObj.ObjData.ObjType == ObjectType.Log)
+            {
+                if (!PushLogsInSeries(otherTunnelMover, exitPos, Vector2Int.down))
+                    return;
+            }
+            // water -> must contain submerged log or rock
+            else if (exitObj.ObjData.ObjType == ObjectType.Water)
+            {
+                if (!exitObj.ObjData.WaterHasLog && !exitObj.ObjData.WaterHasRock)
+                    return;
+            }
+            else // other object -> never traversable
+                return;
+        }
 
         // ALL PRECONDITIONS ARE MET -> player can move
 
