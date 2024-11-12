@@ -2102,9 +2102,17 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[119].second.m_TileSpriteIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3351841520704605844, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5174239036298729176, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       propertyPath: m_Name
       value: Main Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967932846911621924, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7585939544672635142, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       propertyPath: m_LocalPosition.x
