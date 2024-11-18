@@ -47,11 +47,14 @@ public class AbilityIcon : MonoBehaviour
     /// </summary>
     public void SetCharges(int num)
     {
-        if(num == -1)
+        if (num == -1)
         {
             _chargesObject.SetActive(false);
         }
         else
+        {
+            _chargesObject.SetActive(true);
             _chargesText.text = "" + num;
+        }
     }
 }

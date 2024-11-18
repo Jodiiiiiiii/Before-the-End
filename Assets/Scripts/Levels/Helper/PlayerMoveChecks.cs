@@ -102,7 +102,7 @@ public static class PlayerMoveChecks
                     return; // CANNOT move into void
                 case ObjectType.Compy:
                     // can ALWAYS move into compy
-                    ConsumeCompy(player);
+                    player.CollectCompy();
                     ConfirmPlayerMove(playerMover, moveDir);
                     // action attempt is complete (and the entire level)
                     return;
@@ -545,14 +545,6 @@ public static class PlayerMoveChecks
 
         // no actual change has occurred
         return false;
-    }
-
-    /// <summary>
-    /// Used to handle compy consumption and resetting behavior prior to any type of movement that would move the player to where the compy was.
-    /// </summary>
-    public static void ConsumeCompy(PlayerControls player)
-    {
-        // destroy compy object, remove reference in player, set compy charges back to 1 in player.
     }
     #endregion
 }

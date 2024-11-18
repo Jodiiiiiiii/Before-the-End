@@ -19,6 +19,30 @@ public class PlayerControls : MonoBehaviour
         if (_dinoCharges.Length != _dinoTypes.Length)
             throw new Exception("Player configuration error: dino charges and types lists must be equal length.");
 
+        // Instantiate compy reference if present
+        // having a reference from the start is important so that the undo system still works
+        if (_compyReference is null)
+        {
+            for (int i = 0; i < _dinoTypes.Length; i++)
+            {
+                if (_dinoTypes[i] == DinoType.Compy)
+                {
+                    // create reference
+                    GameObject compy = Instantiate(_compyPrefab, transform.parent);
+
+                    // assign reference
+                    if (!compy.TryGetComponent(out QuantumState compyObj))
+                        throw new Exception("Compy prefab MUST have QuantumState component.");
+                    _compyReference = compyObj;
+
+                    // ensure disabled by default
+                    _compyReference.ObjData.IsDisabled = true;
+
+                    break;
+                }
+            }
+        }
+
         _actions = InputSystem.actions;
 
         // move presses (press and release, to handle queuing move commands)
@@ -605,8 +629,8 @@ public class PlayerControls : MonoBehaviour
     [Header("Compy")]
     [SerializeField, Tooltip("Prefab used to spawn compy object.")]
     private GameObject _compyPrefab;
-
-    private QuantumState _compyReference = null;
+    [SerializeField, Tooltip("Reference to the compy object in the scene. If this is not assigned, it will be created disabled by default if the player has the compy in this level.")]
+    private QuantumState _compyReference = null; // initialized in start IF necessary
 
     /// <summary>
     /// Spawns compy prefab at adjacent position and saves the compy instance.
@@ -614,20 +638,52 @@ public class PlayerControls : MonoBehaviour
     public void SpawnCompy(Vector2Int dir)
     {
         // REQUIREMENT: only ONE compy in scene at once (charges should never exceed 1)
-        if (_compyReference is not null)
-            throw new Exception("Only ONE compy pair can be placed into the scene at a given point in time.");
+        if (_compyReference is null)
+            throw new Exception("Compy reference MUST be initialized at start. Why was it not?");
 
-        // Spawn compy at adjacent pos
+        // Determine spawn pos
         Vector2Int spawnPos = _mover.GetGlobalGridPos() + dir;
-        Vector3 spawnPosVec3 = new Vector3(spawnPos.x, spawnPos.y, 0);
-        GameObject newCompy = Instantiate(_compyPrefab, spawnPosVec3, _compyPrefab.transform.rotation, transform.parent);
 
-        // assign compy reference
-        if (!newCompy.TryGetComponent(out QuantumState compyObject))
-            throw new Exception("Compy Prefab MUST have Mover component.");
-        _compyReference = compyObject;
+        // Update compy reference position
+        if (!_compyReference.TryGetComponent(out Mover compyMover))
+            throw new Exception("Compy Prefab/Reference MUST have Mover component.");
+        compyMover.SetGlobalGoal(spawnPos.x, spawnPos.y);
+
+        // enable compy object
+        _compyReference.ObjData.IsDisabled = false;
+
+        // set ability charge to infinite now that it is placed (infinite swapping)
+        if (_dinoTypes[_currDino] != DinoType.Compy)
+            throw new Exception("Spawning Compy while player is a different dinosaur should be impossible. something is wrong.");
+        _dinoCharges[_currDino] = -1;
+
+        // this is the end of a player action, so save
+        UndoHandler.SaveFrame();
     }
 
-    // TODO: add function for CONSUMING COMPY (this will be called around at all the other todo spots I listed previously.
+    /// <summary>
+    /// Handles restoring an ability charge AND destroying the compy object and reference.
+    /// </summary>
+    public void CollectCompy()
+    {
+        // find which index is the compy
+        int compyIndex = -1;
+        for (int i = _dinoTypes.Length - 1; i >= 0; i--)
+        {
+            if (_dinoTypes[i] == DinoType.Compy)
+            {
+                compyIndex = i;
+                break;
+            }
+        }
+        if (compyIndex == -1)
+            throw new Exception("How is the player collecting a compy when they don't even have the compy on this level?");
+
+        // restore charge to place another compy pair down
+        _dinoCharges[compyIndex] = 1;
+
+        // destroy reference since it has been collected
+        _compyReference.ObjData.IsDisabled = true;
+    }
     #endregion
 }

@@ -540,13 +540,11 @@ public static class PlayerAbilityChecks
             return;
         }
 
-        // if we got this far, compy can be placed.
-        player.SpawnCompy(dir);
-
         // set facing direction
         FaceDirection(player, dir);
-        // decrement charges
-        player.UseAbilityCharge();
+
+        // if we got this far, compy can be placed. this function handles undo frame saving.
+        player.SpawnCompy(dir);
     }
     #endregion
 
