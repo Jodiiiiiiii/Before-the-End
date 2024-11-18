@@ -541,6 +541,12 @@ public static class PlayerAbilityChecks
         }
 
         // if we got this far, compy can be placed.
+        player.SpawnCompy(dir);
+
+        // set facing direction
+        FaceDirection(player, dir);
+        // decrement charges
+        player.UseAbilityCharge();
     }
     #endregion
 

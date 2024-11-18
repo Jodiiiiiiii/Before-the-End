@@ -600,4 +600,34 @@ public class PlayerControls : MonoBehaviour
         _abilityIndicator.SetAbilityActive(false);
     }
     #endregion
+
+    #region COMPY
+    [Header("Compy")]
+    [SerializeField, Tooltip("Prefab used to spawn compy object.")]
+    private GameObject _compyPrefab;
+
+    private QuantumState _compyReference = null;
+
+    /// <summary>
+    /// Spawns compy prefab at adjacent position and saves the compy instance.
+    /// </summary>
+    public void SpawnCompy(Vector2Int dir)
+    {
+        // REQUIREMENT: only ONE compy in scene at once (charges should never exceed 1)
+        if (_compyReference is not null)
+            throw new Exception("Only ONE compy pair can be placed into the scene at a given point in time.");
+
+        // Spawn compy at adjacent pos
+        Vector2Int spawnPos = _mover.GetGlobalGridPos() + dir;
+        Vector3 spawnPosVec3 = new Vector3(spawnPos.x, spawnPos.y, 0);
+        GameObject newCompy = Instantiate(_compyPrefab, spawnPosVec3, _compyPrefab.transform.rotation, transform.parent);
+
+        // assign compy reference
+        if (!newCompy.TryGetComponent(out QuantumState compyObject))
+            throw new Exception("Compy Prefab MUST have Mover component.");
+        _compyReference = compyObject;
+    }
+
+    // TODO: add function for CONSUMING COMPY (this will be called around at all the other todo spots I listed previously.
+    #endregion
 }
