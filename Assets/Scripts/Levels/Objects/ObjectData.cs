@@ -10,7 +10,10 @@ public enum ObjectType
     Bush,
     Tunnel,
     Tree,
-    Clock
+    Clock,
+    Compy,
+    Fire,
+    Void
 }
 
 [System.Serializable]
@@ -21,6 +24,10 @@ public struct ObjectData
     public ObjectType ObjType;
     [Tooltip("whether the object is interactable OR simple gone (disabled, destroyed, etc.).")]
     public bool IsDisabled;
+
+    [Header("Fire (log/bush)")]
+    [Tooltip("Whether this log/bush is currently on fire")]
+    public bool IsOnFire;
 
     [Header("Water")]
     [Tooltip("Whether water contains a log object (traversable)")]
@@ -42,6 +49,7 @@ public struct ObjectData
         // most time/data efficient way to compare (avoids byte comparisons of default Object.Equals(Object).)
         return ObjType == other.ObjType
             && IsDisabled == other.IsDisabled
+            && IsOnFire == other.IsOnFire
             && WaterHasLog == other.WaterHasLog
             && WaterHasRock == other.WaterHasRock
             && OtherTunnel == other.OtherTunnel

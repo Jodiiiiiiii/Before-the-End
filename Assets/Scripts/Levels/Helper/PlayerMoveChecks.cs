@@ -96,6 +96,16 @@ public static class PlayerMoveChecks
                     TryMoveIntoClock(playerMover, moveDir);
                     // action attempt is complete (and the entire level!)
                     return;
+                case ObjectType.Fire:
+                    return; // CANNOT move into fire
+                case ObjectType.Void:
+                    return; // CANNOT move into void
+                case ObjectType.Compy:
+                    // can ALWAYS move into compy
+                    ConsumeCompy(player);
+                    ConfirmPlayerMove(playerMover, moveDir);
+                    // action attempt is complete (and the entire level)
+                    return;
             }
         }
         finally
@@ -321,7 +331,7 @@ public static class PlayerMoveChecks
         if (!VisibilityChecks.IsVisible(otherTunnel.gameObject, exitPos.x, exitPos.y))
             return;
 
-        // REQUIREMENT: exit pos is clear of obstructions (or default to more specific obstruction checks
+        // REQUIREMENT: exit pos is clear of obstructions (or default to more specific obstruction checks)
         QuantumState exitObj = VisibilityChecks.GetObjectAtPos(otherTunnelMover, exitPos.x, exitPos.y);
         if (exitObj is not null)
         {
@@ -336,6 +346,12 @@ public static class PlayerMoveChecks
             {
                 if (!exitObj.ObjData.WaterHasLog && !exitObj.ObjData.WaterHasRock)
                     return;
+            }
+            else if (exitObj.ObjData.ObjType == ObjectType.Compy)
+            {
+                // TODO: CONSUME/DESTROY COMPY, RESTORE ABILITY CHARGE
+
+                // no return since moving into a compy will ALWAYS work
             }
             else // other object -> never traversable
                 return;
@@ -379,7 +395,7 @@ public static class PlayerMoveChecks
         // LOG SINKING (when player leaves floating log)
         Vector2Int currPos = objMover.GetGlobalGridPos();
         QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(objMover, currPos.x, currPos.y);
-        if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+        if (logSinkCheck is not null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
             logSinkCheck.ObjData.WaterHasLog = false;
 
         // move player
@@ -467,18 +483,30 @@ public static class PlayerMoveChecks
                     currIsLog = false;
                     obstructed = false; // allow push
 
-                    // update water data state
-                    adjacentObj.ObjData.WaterHasLog = true;
+                    // Only place log in water if it was NOT on fire, otherwise just destroy the log
+                    if (!adjacentObj.ObjData.IsOnFire)
+                    {
+                        // update water data state
+                        adjacentObj.ObjData.WaterHasLog = true;
 
-                    // make water quantum if log was (transferring state)
-                    if (logs[logs.Count - 1].IsQuantum())
-                        adjacentObj.SetQuantum(true);
+                        // make water quantum if log was (transferring state)
+                        if (logs[logs.Count - 1].IsQuantum())
+                            adjacentObj.SetQuantum(true);
+                    }
 
                     // disable last most log in the list (it was pushed into water!)
                     logs[logs.Count - 1].ObjData.IsDisabled = true;
                 }
             }
-            else // obstructed rock/tallRock/bush/tallBush/Tunnel/Clock
+            else if (adjacentObj.ObjData.ObjType == ObjectType.Fire)
+            {
+                // exit loop
+                currIsLog = false;
+                obstructed = false; // allow push
+
+                // TODO: extinguish fire (destroy it), and set LAST log as on fire
+            }
+            else // obstructed rock/bush/tree/Tunnel/Clock
                 break;
         }
 
@@ -517,6 +545,14 @@ public static class PlayerMoveChecks
 
         // no actual change has occurred
         return false;
+    }
+
+    /// <summary>
+    /// Used to handle compy consumption and resetting behavior prior to any type of movement that would move the player to where the compy was.
+    /// </summary>
+    public static void ConsumeCompy(PlayerControls player)
+    {
+        // destroy compy object, remove reference in player, set compy charges back to 1 in player.
     }
     #endregion
 }

@@ -35,6 +35,12 @@ public class ObjectSpriteSwapper : MonoBehaviour
     private Sprite[] _treeSprites;
     [SerializeField, Tooltip("sprites for clock")]
     private Sprite[] _clockSprites;
+    [SerializeField, Tooltip("sprites for fire")]
+    private Sprite[] _fireSprites;
+    [SerializeField, Tooltip("sprites for void")]
+    private Sprite[] _voidSprites;
+    [SerializeField, Tooltip("sprites for compy")]
+    private Sprite[] _compySprites;
 
     private Sprite _goalSprite;
     private bool _requiresFlip = false;
@@ -88,6 +94,15 @@ public class ObjectSpriteSwapper : MonoBehaviour
                     break;
                 case ObjectType.Clock:
                     // needs to handle higher frame rate?
+                    break;
+                case ObjectType.Fire:
+                    // unimplemented
+                    break;
+                case ObjectType.Void:
+                    // unimplemented
+                    break;
+                case ObjectType.Compy:
+                    _goalSprite = _compySprites[0]; // no animations currently, just use 0
                     break;
             }
 

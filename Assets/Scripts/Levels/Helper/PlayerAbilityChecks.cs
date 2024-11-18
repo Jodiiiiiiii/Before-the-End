@@ -40,7 +40,8 @@ public static class PlayerAbilityChecks
                 TryPyroAbility(player, objMover, dir);
                 return;
             case DinoType.Compy:
-                return; // unimplemented
+                TryCompyAbility(player, objMover, dir);
+                return;
         }
     }
 
@@ -55,9 +56,12 @@ public static class PlayerAbilityChecks
         Vector2Int abilityPos = mover.GetGlobalGridPos() + dir;
         QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, abilityPos.x, abilityPos.y);
 
-        // object present and visible (and not clock)
-        if (adjacentObj is not null && adjacentObj.ObjData.ObjType != ObjectType.Clock
-            && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y))
+        // object present and visible
+        // CANNOT mark certain objects as quantum: clock, compy, void
+        if (adjacentObj is not null && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y)
+            && adjacentObj.ObjData.ObjType != ObjectType.Clock 
+            && adjacentObj.ObjData.ObjType != ObjectType.Compy 
+            && adjacentObj.ObjData.ObjType != ObjectType.Void)
         {
             // mark object as quantum (or unmark)
             adjacentObj.ToggleQuantum();
@@ -135,7 +139,7 @@ public static class PlayerAbilityChecks
                     currIsRock = false;
                 else if (adjacentObj.ObjData.ObjType == ObjectType.Rock) // add another log, then keep checking for more
                     rocks.Add(adjacentObj);
-                else if (adjacentObj.ObjData.ObjType == ObjectType.Water) // sinking check handled later
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Water) // sinking/extinguish check handled later
                     currIsRock = false;
                 else if (adjacentObj.ObjData.ObjType == ObjectType.Log)
                 {
@@ -175,6 +179,10 @@ public static class PlayerAbilityChecks
                             adjacentObj.SetQuantum(true);
 
                         rock.ObjData.IsDisabled = true;
+                    }
+                    else if (lowerObjCheck.ObjData.ObjType == ObjectType.Fire)
+                    {
+                        // TODO: ROCK EXTINGUISHES FIRE!!
                     }
                 }
                 else
@@ -275,15 +283,25 @@ public static class PlayerAbilityChecks
         // Check for EXITING water
         else
         {
+            // REQUIREMENT: adjacentPos MUST be visible
             // OPTION 1: moving into open space out of water
             // OPTION 2: moving out of water into pushable logs
             // OPTION 3: moving out of water onto submerged log OR submerged rock
-            if ((adjacentObj is null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+            // OPTION 4: moving out of water into compy
+            if (VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y) &&
+                (adjacentObj is null
                 || PlayerMoveChecks.PushLogsInSeries(mover, adjacentPos, dir)
                 || (adjacentObj is not null && adjacentObj.ObjData.ObjType == ObjectType.Water && (adjacentObj.ObjData.WaterHasLog || adjacentObj.ObjData.WaterHasRock)))
+                || adjacentObj is not null && adjacentObj.ObjData.ObjType == ObjectType.Compy)
             {
                 // un-swim!
                 player.IsSwimming = false;
+
+                // compy check
+                if (adjacentObj is not null && adjacentObj.ObjData.ObjType == ObjectType.Compy)
+                {
+                    // TODO: CONSUME COMPY, RESTORE ABILITY CHARGE
+                }
 
                 // set facing direction
                 FaceDirection(player, dir);
@@ -376,6 +394,12 @@ public static class PlayerAbilityChecks
                 return;
             }
 
+            // land on compy
+            if (nextObj.ObjData.ObjType == ObjectType.Compy)
+            {
+                // TODO: LAND WHERE COMPY WAS, CONSUME COMPY, RESTORE ABILITY CHARGE
+            }
+
             // tree obstruction
             if (nextObj.ObjData.ObjType == ObjectType.Tree)
             {
@@ -459,6 +483,10 @@ public static class PlayerAbilityChecks
                     return;
                 }
             }
+            else if (adjacentObj.ObjData.ObjType == ObjectType.Compy)
+            {
+                // TODO: EXIT WHERE COMPY WAS, CONSUME COMPY, RESTORE ABILITY CHARGE
+            }
             else // obstructed by non-pushable object
             {
                 // TODO: failure effect at obstruction (latest adjacentPos)
@@ -494,6 +522,25 @@ public static class PlayerAbilityChecks
         // confirm movement (and save undo frame)
         PlayerMoveChecks.ConfirmPlayerMove(mover, movePos, null);
 
+    }
+
+    private static void TryCompyAbility(PlayerControls player, Mover mover, Vector2Int dir)
+    {
+        // Check for object at indicated direction of ability (immediate neighbor)
+        Vector2Int adjacentPos = mover.GetGlobalGridPos() + dir;
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
+
+        // REQUIREMENT: adjacent tile must be visible.
+        // REQUIREMENT: object MUST be EITHER nothing OR water (with rock/log).
+        if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y)
+            || !(adjacentObj is null || (adjacentObj.ObjData.ObjType == ObjectType.Water && (adjacentObj.ObjData.WaterHasLog || adjacentObj.ObjData.WaterHasRock))))
+        {
+            // TODO: failure effect at adjacent tile
+
+            return;
+        }
+
+        // if we got this far, compy can be placed.
     }
     #endregion
 
