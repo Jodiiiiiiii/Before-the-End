@@ -462,11 +462,19 @@ public class PlayerControls : MonoBehaviour
         if (_dinoCharges[_currDino] == 0)
             return;
 
-        // flip ability preparing state
-        _isPreparingAbility = !_isPreparingAbility;
+        // Compy Swapping: unique case that doesn't use preparing indicator
+        if (_dinoTypes[_currDino] == DinoType.Compy && _dinoCharges[_currDino] == -1)
+        {
+            SwapWithCompy();
+        }
+        else
+        {
+            // flip ability preparing state
+            _isPreparingAbility = !_isPreparingAbility;
 
-        // Update ability indicator
-        _abilityIndicator.SetAbilityActive(_isPreparingAbility);
+            // Update ability indicator
+            _abilityIndicator.SetAbilityActive(_isPreparingAbility);
+        }
     }
 
     /// <summary>
@@ -641,6 +649,9 @@ public class PlayerControls : MonoBehaviour
         if (_compyReference is null)
             throw new Exception("Compy reference MUST be initialized at start. Why was it not?");
 
+        // ensure compy is moved to the correct panel (same panel as player using ability)
+        _compyReference.transform.parent = transform.parent;
+
         // Determine spawn pos
         Vector2Int spawnPos = _mover.GetGlobalGridPos() + dir;
 
@@ -684,6 +695,30 @@ public class PlayerControls : MonoBehaviour
 
         // destroy reference since it has been collected
         _compyReference.ObjData.IsDisabled = true;
+    }
+
+    /// <summary>
+    /// Swaps positions (and parent transform) of player and compy.
+    /// </summary>
+    public void SwapWithCompy()
+    {
+        // CANNOT swap if compy reference is null or disabled
+        if (_compyReference is null || _compyReference.ObjData.IsDisabled)
+            throw new Exception("Cannot swap with compy if reference is null or disabled. This should not have been called.");
+
+        if (!_compyReference.TryGetComponent(out Mover compyMover))
+            throw new Exception("Compy prefab/reference MUST have Mover component.");
+
+        // swap positions AND parent transforms
+        Vector2Int compyPos = compyMover.GetGlobalGridPos();
+        Transform compyParent = _compyReference.transform.parent;
+        // update compy
+        _compyReference.transform.parent = transform.parent;
+        compyMover.SetGlobalGoal(_mover.GetGlobalGridPos().x, _mover.GetGlobalGridPos().y);
+        // update player
+        transform.parent = compyParent;
+        _mover.SetGlobalGoal(compyPos.x, compyPos.y);
+        
     }
     #endregion
 }
