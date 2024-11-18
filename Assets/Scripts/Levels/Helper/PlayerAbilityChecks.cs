@@ -350,7 +350,6 @@ public static class PlayerAbilityChecks
 
             // retrieve object on topmost panel
             nextObj = VisibilityChecks.GetObjectAtPos(topMostIndex, adjacentPos.x, adjacentPos.y);
-            Debug.Log(topMostIndex);
 
             // check for landability
             // OPTION 1: No obstruction
