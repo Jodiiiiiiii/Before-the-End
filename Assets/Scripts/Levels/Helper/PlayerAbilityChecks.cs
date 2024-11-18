@@ -139,8 +139,16 @@ public static class PlayerAbilityChecks
                     currIsRock = false;
                 else if (adjacentObj.ObjData.ObjType == ObjectType.Rock) // add another log, then keep checking for more
                     rocks.Add(adjacentObj);
-                else if (adjacentObj.ObjData.ObjType == ObjectType.Water) // sinking/extinguish check handled later
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Water) // sinking check handled later
                     currIsRock = false;
+                else if (adjacentObj.ObjData.ObjType == ObjectType.Fire) // extinguish fire
+                {
+                    // exit loop
+                    currIsRock = false;
+
+                    // extinguish fire
+                    adjacentObj.ObjData.IsDisabled = true;
+                }
                 else if (adjacentObj.ObjData.ObjType == ObjectType.Log)
                 {
                     // exit loop
@@ -179,10 +187,6 @@ public static class PlayerAbilityChecks
                             adjacentObj.SetQuantum(true);
 
                         rock.ObjData.IsDisabled = true;
-                    }
-                    else if (lowerObjCheck.ObjData.ObjType == ObjectType.Fire)
-                    {
-                        // TODO: ROCK EXTINGUISHES FIRE!!
                     }
                 }
                 else
