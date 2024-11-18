@@ -505,10 +505,19 @@ public static class PlayerMoveChecks
                 currIsLog = false;
                 obstructed = false; // allow push
 
-                // extinguish fire
-                adjacentObj.ObjData.IsDisabled = true;
-                // light log on fire
-                logs[logs.Count - 1].ObjData.IsOnFire = true;
+                // destroy log since it was already burning - don't change fire tile
+                if(logs[logs.Count - 1].ObjData.IsOnFire)
+                {
+                    logs[logs.Count - 1].ObjData.IsDisabled = true;
+                }
+                // transfer fire from fire tile to log
+                else
+                {
+                    // extinguish fire
+                    adjacentObj.ObjData.IsDisabled = true;
+                    // light log on fire
+                    logs[logs.Count - 1].ObjData.IsOnFire = true;
+                }
             }
             else if (adjacentObj.ObjData.ObjType == ObjectType.Bush)
             {
