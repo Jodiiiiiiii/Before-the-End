@@ -68,7 +68,10 @@ public class ObjectSpriteSwapper : MonoBehaviour
             switch (_objState.ObjData.ObjType)
             {
                 case ObjectType.Log:
-                    _goalSprite = _logSprites[0]; // no animations, just use 0
+                    if (_objState.ObjData.IsOnFire)
+                        _goalSprite = _logSprites[1]; // fire variant (no animations yet)
+                    else
+                        _goalSprite = _logSprites[0]; // normal variant (no animations yet)
                     break;
                 case ObjectType.Water:
                     // check based on water state

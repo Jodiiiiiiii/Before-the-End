@@ -485,7 +485,7 @@ public static class PlayerMoveChecks
                     obstructed = false; // allow push
 
                     // Only place log in water if it was NOT on fire, otherwise just destroy the log
-                    if (!adjacentObj.ObjData.IsOnFire)
+                    if (!logs[logs.Count-1].ObjData.IsOnFire)
                     {
                         // update water data state
                         adjacentObj.ObjData.WaterHasLog = true;
@@ -505,7 +505,10 @@ public static class PlayerMoveChecks
                 currIsLog = false;
                 obstructed = false; // allow push
 
-                // TODO: extinguish fire (destroy it), and set LAST log as on fire
+                // extinguish fire
+                adjacentObj.ObjData.IsDisabled = true;
+                // light log on fire
+                logs[logs.Count - 1].ObjData.IsOnFire = true;
             }
             else // obstructed rock/bush/tree/Tunnel/Clock
                 break;
