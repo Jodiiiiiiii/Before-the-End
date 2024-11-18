@@ -118,6 +118,8 @@ MonoBehaviour:
   _quantumParticles: {fileID: 7417001617649512533}
   _logSprites:
   - {fileID: 21300000, guid: c834c366a92de0b4494dd3833c9ffbf4, type: 3}
+  - {fileID: 1833961189, guid: cb87a8024e7cbe74d84211916e0bbb7b, type: 3}
+  - {fileID: -1865753830, guid: cb87a8024e7cbe74d84211916e0bbb7b, type: 3}
   _waterSprites:
   - {fileID: 21300000, guid: 6360ff95a2360e14f81025061234c9af, type: 3}
   - {fileID: 21300000, guid: 9206f1c4dcba6744ea5df39330d6a2b6, type: 3}
@@ -126,6 +128,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c74f90f8e5cdb0c4b8d46d3fef5b4b13, type: 3}
   _bushSprites:
   - {fileID: 21300000, guid: 1063b671f1c34ad4889de720872fffc0, type: 3}
+  - {fileID: 927747327, guid: 34d2c89b15cc88243abfe246853c61c9, type: 3}
+  - {fileID: 1121021043, guid: 34d2c89b15cc88243abfe246853c61c9, type: 3}
   _tunnelSprites:
   - {fileID: 21300000, guid: 911ca302f48b13148a51805b8536a76f, type: 3}
   - {fileID: 21300000, guid: 0c9b2263841808f4c9f01125b89ac02e, type: 3}
@@ -144,7 +148,9 @@ MonoBehaviour:
   - {fileID: -1647943920, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
   - {fileID: -1843424380, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
   - {fileID: -1771768113, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
-  _fireSprites: []
+  _fireSprites:
+  - {fileID: 819659301, guid: 723c86dd3cce75740aeb26ee17a88299, type: 3}
+  - {fileID: 2077651131, guid: 723c86dd3cce75740aeb26ee17a88299, type: 3}
   _voidSprites: []
   _compySprites:
   - {fileID: 1145445151, guid: 0f993c2cf481aac45925b28a920c7a26, type: 3}

@@ -96,7 +96,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
                     // needs to handle higher frame rate?
                     break;
                 case ObjectType.Fire:
-                    // unimplemented
+                    _goalSprite = _fireSprites[0]; // no animations currently, just use 0
                     break;
                 case ObjectType.Void:
                     // unimplemented
