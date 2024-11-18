@@ -510,7 +510,19 @@ public static class PlayerMoveChecks
                 // light log on fire
                 logs[logs.Count - 1].ObjData.IsOnFire = true;
             }
-            else // obstructed rock/bush/tree/Tunnel/Clock
+            else if (adjacentObj.ObjData.ObjType == ObjectType.Bush)
+            {
+                if (logs[logs.Count - 1].ObjData.IsOnFire)
+                {
+                    // destroy log
+                    logs[logs.Count - 1].ObjData.IsDisabled = true;
+                    // transfer fire to bush
+                    adjacentObj.ObjData.IsOnFire = true;
+                }
+                else // cannot push into bush if log is not on fire
+                    break;
+            }
+            else // obstructed rock/tree/Tunnel/Clock
                 break;
         }
 

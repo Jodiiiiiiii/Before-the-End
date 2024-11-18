@@ -86,7 +86,10 @@ public class ObjectSpriteSwapper : MonoBehaviour
                     _goalSprite = _rockSprites[0]; // no animations, just use 0
                     break;
                 case ObjectType.Bush:
-                    _goalSprite = _bushSprites[0]; // no animations currently, just use 0
+                    if (_objState.ObjData.IsOnFire)
+                        _goalSprite = _bushSprites[1]; // fire variant (no animations yet)
+                    else
+                        _goalSprite = _bushSprites[0]; // normal variant (no animations yet)
                     break;
                 case ObjectType.Tunnel:
                     // set goal sprite to numbered tunnel based on tunnel index
