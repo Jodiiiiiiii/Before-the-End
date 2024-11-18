@@ -301,8 +301,6 @@ public static class PlayerMoveChecks
             ConfirmPlayerMove(playerMover, moveDir);
             return;
         }
-
-        // TODO: account for baryonyx swimming state
     }
 
     /// <summary>
@@ -349,7 +347,10 @@ public static class PlayerMoveChecks
             }
             else if (exitObj.ObjData.ObjType == ObjectType.Compy)
             {
-                // TODO: CONSUME/DESTROY COMPY, RESTORE ABILITY CHARGE
+                // college compy before handling motion
+                if (!playerMover.TryGetComponent(out PlayerControls playerControls))
+                    throw new Exception("Player MUST have PlayerControls script.");
+                playerControls.CollectCompy();
 
                 // no return since moving into a compy will ALWAYS work
             }

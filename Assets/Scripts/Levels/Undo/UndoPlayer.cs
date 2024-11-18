@@ -12,8 +12,8 @@ public class UndoPlayer : UndoHandler
     private PlayerControls _playerControls;
 
     // local frame, localPosition, facing direction, Dino Type, dino charges, parent transform, swimming state
-    private Stack<(int, Vector2Int, bool, DinoType, int, Transform, bool)> _undoStack = 
-        new Stack<(int, Vector2Int, bool, DinoType, int, Transform, bool)>();
+    private Stack<(int, Vector2Int, bool, DinoType, int[], Transform, bool)> _undoStack = 
+        new Stack<(int, Vector2Int, bool, DinoType, int[], Transform, bool)>();
 
     protected override void SaveStackFrame()
     {
@@ -21,10 +21,10 @@ public class UndoPlayer : UndoHandler
         Vector2Int newPos = _mover.GetLocalGridPos();
         bool newFacing = _playerControls.IsFacingRight();
         DinoType newType = _playerControls.GetCurrDinoType();
-        int newCharges = _playerControls.GetCurrAbilityCharge();
+        int[] newCharges = _playerControls.GetAbilityCharges();
         Transform newParent = _mover.transform.parent;
         bool newSwimming = _playerControls.IsSwimming;
-
+        
         // No need to compare if new frame is FIRST frame
         if (_undoStack.Count == 0)
             _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges, newParent, newSwimming));
@@ -33,13 +33,13 @@ public class UndoPlayer : UndoHandler
         Vector2Int oldPos = _undoStack.Peek().Item2;
         bool oldFacing = _undoStack.Peek().Item3;
         DinoType oldType = _undoStack.Peek().Item4;
-        int oldCharges = _undoStack.Peek().Item5;
+        int[] oldCharges = _undoStack.Peek().Item5;
         Transform oldParent = _undoStack.Peek().Item6;
         bool oldSwimming = _undoStack.Peek().Item7;
-
+        
         // update stack ONLY if any change in THIS object has actually occurred
         if (!newPos.Equals(oldPos) || newFacing != oldFacing || newType != oldType
-            || newCharges != oldCharges || newParent != oldParent || newSwimming != oldSwimming)
+            || !ListsEqual(newCharges, oldCharges) || newParent != oldParent || newSwimming != oldSwimming)
         {
             _undoStack.Push((_localFrame, newPos, newFacing, newType, newCharges, newParent, newSwimming));
         }
@@ -67,8 +67,8 @@ public class UndoPlayer : UndoHandler
             _playerControls.SetDinoType(newType);
 
             // update player ability charges
-            int newCharges = _undoStack.Peek().Item5;
-            _playerControls.SetCurrAbilityCharge(newCharges);
+            int[] newCharges = _undoStack.Peek().Item5;
+            _playerControls.SetAbilityCharges(newCharges);
 
             // update parent transform
             Transform newParent = _undoStack.Peek().Item6;
@@ -78,5 +78,25 @@ public class UndoPlayer : UndoHandler
             bool newSwimming = _undoStack.Peek().Item7;
             _playerControls.IsSwimming = newSwimming;
         }
+    }
+
+    /// <summary>
+    /// Returns true only if each list has the same contents in the same order.
+    /// </summary>
+    private bool ListsEqual(int[] list1, int[] list2)
+    {
+        // automatically not equal if different number of elements
+        if (list1.Length != list2.Length)
+            return false;
+
+        // check individual elements
+        for (int i = 0; i < list1.Length; i++)
+        {
+            if (list1[i] != list2[i])
+                return false;
+        }
+
+        // if we got this far, the lists are equal.
+        return true;
     }
 }

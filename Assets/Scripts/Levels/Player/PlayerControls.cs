@@ -538,10 +538,30 @@ public class PlayerControls : MonoBehaviour
     /// <summary>
     /// Returns current dinosaur ability charges the player has left.
     /// A value of -1 indicates infinite uses.
+    /// Returns a copy of the list (necessary for undo system to work properly)
     /// </summary>
     public int[] GetAbilityCharges()
     {
-        return _dinoCharges;
+        // create copy of charges
+        int[] chargesCopy = new int[_dinoCharges.Length];
+        for (int i = 0; i < _dinoCharges.Length; i++)
+            chargesCopy[i] = _dinoCharges[i];
+
+        return chargesCopy;
+    }
+
+    /// <summary>
+    /// Used by the undo handler to save ALL charges.
+    /// This is needed for cases where two charges change in same frame (i.e. compy collecting)
+    /// </summary>
+    public void SetAbilityCharges(int[] newCharges)
+    {
+        if (_dinoCharges.Length != newCharges.Length)
+            throw new Exception("New ability charges list MUST be the same length.");
+
+        // update each element
+        for (int i = 0; i < newCharges.Length; i++)
+            _dinoCharges[i] = newCharges[i];
     }
 
     /// <summary>
@@ -668,8 +688,7 @@ public class PlayerControls : MonoBehaviour
             throw new Exception("Spawning Compy while player is a different dinosaur should be impossible. something is wrong.");
         _dinoCharges[_currDino] = -1;
 
-        // this is the end of a player action, so save
-        UndoHandler.SaveFrame();
+        // no need to save, this is handled in PlayerAbilityChecks
     }
 
     /// <summary>
@@ -695,6 +714,8 @@ public class PlayerControls : MonoBehaviour
 
         // destroy reference since it has been collected
         _compyReference.ObjData.IsDisabled = true;
+
+        // does not save frame here since frame saving is handled where player movement is handled
     }
 
     /// <summary>

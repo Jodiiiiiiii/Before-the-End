@@ -300,7 +300,8 @@ public static class PlayerAbilityChecks
                 // compy check
                 if (adjacentObj is not null && adjacentObj.ObjData.ObjType == ObjectType.Compy)
                 {
-                    // TODO: CONSUME COMPY, RESTORE ABILITY CHARGE
+                    // college compy before handling motion
+                    player.CollectCompy();
                 }
 
                 // set facing direction
@@ -372,14 +373,20 @@ public static class PlayerAbilityChecks
             // check for landability
             // OPTION 1: No obstruction
             // OPTION 2: Submerged log/rock
+            // OPTION 3: landing on compy pair
             if (nextObj is null ||
-                (nextObj.ObjData.ObjType == ObjectType.Water && (nextObj.ObjData.WaterHasLog || nextObj.ObjData.WaterHasRock)))
+                (nextObj.ObjData.ObjType == ObjectType.Water && (nextObj.ObjData.WaterHasLog || nextObj.ObjData.WaterHasRock))
+                || nextObj.ObjData.ObjType == ObjectType.Compy)
             {
                 // visually flip player sprite
                 PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
                 if (flipper is null)
                     throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
                 flipper.RequireFlip();
+
+                // land on compy - collect compy before handling motion
+                if (nextObj.ObjData.ObjType == ObjectType.Compy)
+                    player.CollectCompy();
 
                 // set facing direction
                 FaceDirection(player, dir);
@@ -392,12 +399,6 @@ public static class PlayerAbilityChecks
                 PlayerMoveChecks.ConfirmPlayerMove(mover, adjacentPos, newParent);
 
                 return;
-            }
-
-            // land on compy
-            if (nextObj.ObjData.ObjType == ObjectType.Compy)
-            {
-                // TODO: LAND WHERE COMPY WAS, CONSUME COMPY, RESTORE ABILITY CHARGE
             }
 
             // tree obstruction
@@ -485,7 +486,10 @@ public static class PlayerAbilityChecks
             }
             else if (adjacentObj.ObjData.ObjType == ObjectType.Compy)
             {
-                // TODO: EXIT WHERE COMPY WAS, CONSUME COMPY, RESTORE ABILITY CHARGE
+                currIsBush = false;
+
+                // college compy before handling motion
+                player.CollectCompy();
             }
             else // obstructed by non-pushable object
             {
@@ -545,6 +549,9 @@ public static class PlayerAbilityChecks
 
         // if we got this far, compy can be placed. this function handles undo frame saving.
         player.SpawnCompy(dir);
+
+        // this is the end of a player action, so save
+        UndoHandler.SaveFrame();
     }
     #endregion
 
