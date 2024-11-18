@@ -718,7 +718,9 @@ public class PlayerControls : MonoBehaviour
         // update player
         transform.parent = compyParent;
         _mover.SetGlobalGoal(compyPos.x, compyPos.y);
-        
+
+        // swapping counts as an action so frame must be saved
+        UndoHandler.SaveFrame();
     }
     #endregion
 }
