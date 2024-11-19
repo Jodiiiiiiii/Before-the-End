@@ -168,11 +168,19 @@ public class QuantumState : MonoBehaviour
             // MUST handle ifs with bools like this to prevent on effect from impacting the next condition
             if(entangledSwap1)
             {
+                // ensure entangled objects also swap panel parent
+                Transform entangledPanelParent = hiddenList[n].transform.parent.parent;
+                entangledObj1.transform.parent = entangledPanelParent.GetChild(1); // assign entangled object to upper objects
+
                 entangledObj1._objMover.SetGlobalGoal(obj2Pos.x, obj2Pos.y);
                 entangledObj1._spriteSwapper.RequireFlip();
             }
             if(entangledSwap2)
             {
+                // ensure entangled objects also swap panel parent
+                Transform entangledPanelParent = hiddenList[k].transform.parent.parent;
+                entangledObj2.transform.parent = entangledPanelParent.GetChild(1); // assign entangled object to upper objects
+
                 entangledObj2._objMover.SetGlobalGoal(obj1Pos.x, obj1Pos.y);
                 entangledObj2._spriteSwapper.RequireFlip();
             }
@@ -194,13 +202,20 @@ public class QuantumState : MonoBehaviour
             if (hiddenList[k].ObjData.ObjType == ObjectType.Tunnel)
                 hiddenList[k].ObjData.OtherTunnel.ObjData.OtherTunnel = hiddenList[k];
 
-            // swap parent transforms, if necessary
-            if (hiddenList[k].transform.parent != hiddenList[n].transform.parent)
-            {
-                Transform parent = hiddenList[k].transform.parent;
-                hiddenList[k].transform.parent = hiddenList[n].transform.parent;
-                hiddenList[n].transform.parent = parent;
-            }
+            // assign object to correct layer (upper vs lower objects)
+            // does not require position adjustments because these parent changes are always between lower/upper objects on the SAME PANEL
+
+            Transform panelParent = hiddenList[k].transform.parent.parent;
+            if (hiddenList[k].ObjData.ObjType == ObjectType.Water) // lower objects
+                hiddenList[k].transform.parent = panelParent.GetChild(2); // lower objects = index 2
+            else // upper objects
+                hiddenList[k].transform.parent = panelParent.GetChild(1); // lower objects = index 1
+
+            panelParent = hiddenList[n].transform.parent.parent;
+            if (hiddenList[n].ObjData.ObjType == ObjectType.Water) // lower objects
+                hiddenList[n].transform.parent = panelParent.GetChild(2); // lower objects = index 2
+            else // upper objects
+                hiddenList[n].transform.parent = panelParent.GetChild(1); // lower objects = index 1
         }
 
         // ENSURE VISUAL FLIP (even if no change occurred)
