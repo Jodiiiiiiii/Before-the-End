@@ -730,8 +730,16 @@ public class PlayerControls : MonoBehaviour
         if (!_compyReference.TryGetComponent(out Mover compyMover))
             throw new Exception("Compy prefab/reference MUST have Mover component.");
 
-        // swap positions AND parent transforms
+        // require compy to be visible in order to swap
         Vector2Int compyPos = compyMover.GetGlobalGridPos();
+        if (!VisibilityChecks.IsVisible(_compyReference.gameObject, compyPos.x, compyPos.y))
+        {
+            // TODO: failure effect at location of obstructed compy (compyPos)
+
+            return;
+        }
+
+        // swap positions AND parent transforms
         Transform compyParent = _compyReference.transform.parent;
         // update compy
         _compyReference.transform.parent = transform.parent;
