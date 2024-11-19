@@ -527,9 +527,18 @@ public static class PlayerMoveChecks
                     logs[logs.Count - 1].ObjData.IsDisabled = true;
                     // transfer fire to bush
                     adjacentObj.ObjData.IsOnFire = true;
+                    // add fire bush to fire spread handler
+                    FireSpreadHandler.AddFireBush(adjacentObj);
+
+                    // exit loop
+                    currIsLog = false;
+                    obstructed = false; // allow push
                 }
                 else // cannot push into bush if log is not on fire
-                    break;
+                {
+                    // exit loop
+                    currIsLog = false;
+                }
             }
             else // obstructed rock/tree/Tunnel/Clock
                 break;

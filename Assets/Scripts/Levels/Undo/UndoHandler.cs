@@ -12,6 +12,9 @@ public abstract class UndoHandler : MonoBehaviour
 
     public static void SaveFrame()
     {
+        // ensure all fire bushes are ticked before action frame ends
+        FireSpreadHandler.UpdateFireTick();
+
         _globalFrame++;
     }
 

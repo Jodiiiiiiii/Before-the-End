@@ -3283,6 +3283,7 @@ GameObject:
   - component: {fileID: 7585939544672635142}
   - component: {fileID: 6054828548703351666}
   - component: {fileID: 7574867866279077676}
+  - component: {fileID: 8651370838645160645}
   m_Layer: 0
   m_Name: Main Panel
   m_TagString: MainPanel
@@ -3336,6 +3337,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelOrder: 0
+--- !u!114 &8651370838645160645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5174239036298729176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1465bf9d070524c90e663dee709a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 0}
 --- !u!1 &5290935063083571642
 GameObject:
   m_ObjectHideFlags: 0
