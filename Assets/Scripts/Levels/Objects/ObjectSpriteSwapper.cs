@@ -105,7 +105,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
                     _goalSprite = _fireSprites[0]; // no animations currently, just use 0
                     break;
                 case ObjectType.Void:
-                    // unimplemented
+                    _goalSprite = _voidSprites[0]; // no animations currently, just use 0
                     break;
                 case ObjectType.Compy:
                     _goalSprite = _compySprites[0]; // no animations currently, just use 0

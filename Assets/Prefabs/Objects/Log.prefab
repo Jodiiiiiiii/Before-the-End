@@ -151,7 +151,8 @@ MonoBehaviour:
   _fireSprites:
   - {fileID: 819659301, guid: 723c86dd3cce75740aeb26ee17a88299, type: 3}
   - {fileID: 2077651131, guid: 723c86dd3cce75740aeb26ee17a88299, type: 3}
-  _voidSprites: []
+  _voidSprites:
+  - {fileID: 21300000, guid: 006d280564369ce458c24b4018872c82, type: 3}
   _compySprites:
   - {fileID: 1145445151, guid: 0f993c2cf481aac45925b28a920c7a26, type: 3}
   - {fileID: -513878039, guid: 0f993c2cf481aac45925b28a920c7a26, type: 3}

@@ -389,7 +389,7 @@ public static class PlayerAbilityChecks
                 flipper.RequireFlip();
 
                 // land on compy - collect compy before handling motion
-                if (nextObj.ObjData.ObjType == ObjectType.Compy)
+                if (nextObj is not null && nextObj.ObjData.ObjType == ObjectType.Compy)
                     player.CollectCompy();
 
                 // set facing direction
