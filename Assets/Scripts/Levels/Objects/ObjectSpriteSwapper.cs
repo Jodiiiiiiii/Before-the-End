@@ -31,8 +31,6 @@ public class ObjectSpriteSwapper : MonoBehaviour
     private Sprite[] _bushSprites;
     [SerializeField, Tooltip("sprites for tunnel")]
     private Sprite[] _tunnelSprites;
-    [SerializeField, Tooltip("sprites for tree")]
-    private Sprite[] _treeSprites;
     [SerializeField, Tooltip("sprites for clock")]
     private Sprite[] _clockSprites;
     [SerializeField, Tooltip("sprites for fire")]
@@ -96,7 +94,7 @@ public class ObjectSpriteSwapper : MonoBehaviour
                     _goalSprite = _tunnelSprites[_objState.ObjData.TunnelIndex];
                     break;
                 case ObjectType.Tree:
-                    _goalSprite = _treeSprites[0]; // no animations currently, just use 0
+                    // tree state will never change
                     break;
                 case ObjectType.Clock:
                     // needs to handle higher frame rate?
