@@ -61,7 +61,8 @@ public static class PlayerAbilityChecks
         if (adjacentObj is not null && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y)
             && adjacentObj.ObjData.ObjType != ObjectType.Clock 
             && adjacentObj.ObjData.ObjType != ObjectType.Compy 
-            && adjacentObj.ObjData.ObjType != ObjectType.Void)
+            && adjacentObj.ObjData.ObjType != ObjectType.Void
+            && adjacentObj.ObjData.ObjType != ObjectType.Tree)
         {
             // mark object as quantum (or unmark)
             adjacentObj.ToggleQuantum();
