@@ -46,8 +46,20 @@ public class TreeFader : MonoBehaviour
     /// </summary>
     private void UpdateLogic() // late update ensures checks are action-aligned
     {
-        // check for object behind tree top
+        // position of tree top
         Vector2Int checkPos = _mover.GetGlobalGridPos() + Vector2Int.up;
+
+        // skip object/player detection if tree top is not even visible currently
+        if (!VisibilityChecks.IsVisible(_mover.gameObject, checkPos.x, checkPos.y))
+        {
+            Color tempCol = _treeTopSprite.color;
+            tempCol.a = 1;
+            _treeTopSprite.color = tempCol;
+
+            return;
+        }
+
+        // check for object behind tree top
         QuantumState foundObj = VisibilityChecks.GetObjectAtPos(_mover, checkPos.x, checkPos.y);
 
         // attempt to find player reference if its in the same panel
