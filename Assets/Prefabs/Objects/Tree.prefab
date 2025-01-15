@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8883727450705562355}
   - component: {fileID: 8208553708107446715}
+  - component: {fileID: 4023462728386188584}
   m_Layer: 0
   m_Name: Small Tops
   m_TagString: Untagged
@@ -84,6 +85,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4023462728386188584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5092019296327710259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3ff19c3fd8e2a4ea31d3749076066d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 7117162860134246226}
+  _treeTopSprite: {fileID: 8208553708107446715}
+  _fadeAlpha: 0.4
 --- !u!1001 &7323966712190323012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4281857284185798206, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Name
-      value: Short Tree
+      value: Tree
       objectReference: {fileID: 0}
     - target: {fileID: 5824489155988496214, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_IsActive
@@ -177,3 +193,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6482108974918542339, guid: dd841003e047a5b478c112805596af7f, type: 3}
   m_PrefabInstance: {fileID: 7323966712190323012}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7117162860134246226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 533334616384499222, guid: dd841003e047a5b478c112805596af7f, type: 3}
+  m_PrefabInstance: {fileID: 7323966712190323012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dfe82d4e9b4b84fa4e9e5240222c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,6 +8,11 @@ using UnityEngine;
 /// </summary>
 public abstract class UndoHandler : MonoBehaviour
 {
+    public delegate void ActionOccurred();
+    public static event ActionOccurred ActionOccur;
+    public delegate void UndoOccurred();
+    public static event UndoOccurred UndoOccur;
+
     protected static int _globalFrame = 0;
 
     public static void SaveFrame()
@@ -16,12 +21,16 @@ public abstract class UndoHandler : MonoBehaviour
         FireSpreadHandler.UpdateFireTick();
 
         _globalFrame++;
+
+        ActionOccur?.Invoke();
     }
 
     public static void UndoFrame()
     {
         if(_globalFrame > 0)
             _globalFrame--;
+
+        UndoOccur?.Invoke();
     }
 
     [SerializeField, Tooltip("Mover component; handles position changes")] 
