@@ -406,13 +406,14 @@ public static class PlayerAbilityChecks
                 return;
             }
 
+            // leaving this logic here in case this feature may be re-introduced later
             // tree obstruction
-            if (nextObj.ObjData.ObjType == ObjectType.Tree)
+            /*if (nextObj.ObjData.ObjType == ObjectType.Tree)
             {
                 // TODO: ability failure effect at adjacentPos
 
                 return;
-            }
+            }*/
 
             tilesToMove++;
         } 
