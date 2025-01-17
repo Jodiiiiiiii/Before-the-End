@@ -102,6 +102,16 @@ public class Mover : MonoBehaviour
         _localGridPos = new Vector2Int(Mathf.RoundToInt(localPos.x), Mathf.RoundToInt(localPos.y));
     }
 
+    /// <summary>
+    /// Input global goal coordinates, and this will set it WITHOUT setting local coordinates.
+    /// Useful specifically for the case of panel pushing to ensure object positions are action-aligned.
+    /// </summary>
+    public void SetGlobalGoalRaw(int x, int y)
+    {
+        // set global pos
+        _globalGridPos = new Vector2Int(x, y);
+    }
+
     public void SetLocalGoal(int x, int y)
     {
         // set local pos
@@ -121,7 +131,7 @@ public class Mover : MonoBehaviour
     /// <summary>
     /// Increments local/global grid position by moveDir, which must be a vector with only one non-zero value of either -1 or 1
     /// </summary>
-    public void Increment(Vector2Int moveDir)
+    public void Increment(Vector2Int moveDir, bool isPanel = false)
     {
         // Ensure target position is validly only one unit away
         if (moveDir.magnitude != 1 || (moveDir.x != 1 && moveDir.x != -1 && moveDir.x != 0) || (moveDir.y != 1 && moveDir.y != -1 && moveDir.y != 0))
@@ -130,6 +140,38 @@ public class Mover : MonoBehaviour
         // Increment local/global positions
         _localGridPos += moveDir;
         _globalGridPos += moveDir;
+
+        // increment contained things
+        if (isPanel)
+        {
+            // increment saves position in PanelStats
+            if (!TryGetComponent(out PanelStats panel))
+                throw new Exception("Panels MUST have PanelStats component.");
+            panel.SetNewOrigin(_globalGridPos.x, _globalGridPos.y);
+
+            // increment contained objects (ensure their new positions are action-aligned)
+            Mover[] upperObjects = transform.GetChild(1).GetComponentsInChildren<Mover>();
+            Mover[] lowerObjects = transform.GetChild(2).GetComponentsInChildren<Mover>();
+            Vector2Int newPos;
+            foreach (Mover obj in upperObjects)
+            {
+                newPos = obj.GetGlobalGridPos() + moveDir;
+                obj.SetGlobalGoalRaw(newPos.x, newPos.y);
+            }
+            foreach (Mover obj in lowerObjects)
+            {
+                newPos = obj.GetGlobalGridPos();
+                obj.SetGlobalGoalRaw(newPos.x, newPos.y);
+            }
+
+            // increment contained panels
+            Mover[] subpanels = transform.GetComponentsInChildren<Mover>();
+            foreach (Mover subpanel in subpanels)
+            {
+                if (subpanel.transform.parent == transform)
+                    subpanel.Increment(moveDir, true); // WRONG
+            }
+        }
     }
 
     /// <summary>

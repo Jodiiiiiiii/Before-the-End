@@ -18,11 +18,10 @@ public class PanelStats : MonoBehaviour
     public int OriginX { get; private set; }
     public int OriginY { get; private set; }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
         // it is safe to access transform for positioning of main panel because it CANNOT move
-        if(_isMainPanel)
+        if (_isMainPanel)
         {
             // update position variable in case it just changed (rounding ensures approximate alignment with visuals)
             OriginX = Mathf.RoundToInt(transform.position.x);
@@ -35,7 +34,7 @@ public class PanelStats : MonoBehaviour
             {
                 OriginX = objMover.GetGlobalGridPos().x;
                 // subtract to get to absolute bottom-left corner (since objectMover stores position as top left pos of grid)
-                OriginY = objMover.GetGlobalGridPos().y - Height; 
+                OriginY = objMover.GetGlobalGridPos().y - Height;
             }
             else
                 throw new System.Exception("Subpanels MUST have an Mover component.");
@@ -57,5 +56,14 @@ public class PanelStats : MonoBehaviour
         
         // therefore, must be within bounds
         return true;
+    }
+
+    /// <summary>
+    /// Updates stored positions based on positions of Mover component
+    /// </summary>
+    public void SetNewOrigin(int globalX, int globalY)
+    {
+        OriginX = globalX;
+        OriginY = globalY - Height;
     }
 }

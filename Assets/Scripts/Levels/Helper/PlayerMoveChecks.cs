@@ -173,7 +173,7 @@ public static class PlayerMoveChecks
                         // shuffle quantum objects just before moving panel
                         QuantumState.ShuffleHiddenQuantumObjects();
                         // Apply movement to pushed panel
-                        panelMover.Increment(moveDir);
+                        panelMover.Increment(moveDir, true);
                         // action fully completed
                         UndoHandler.SaveFrame();
                         return;
