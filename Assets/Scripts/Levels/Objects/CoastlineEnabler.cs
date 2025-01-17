@@ -33,7 +33,7 @@ public class CoastlineEnabler : MonoBehaviour
             throw new System.Exception("ALL Objects MUST be a child of a child of a panel.");
 
         // ensure proper state at start of scene
-        //UpdateLogic();
+        CheckAtEndOfFrame();
     }
 
     private void OnEnable()
