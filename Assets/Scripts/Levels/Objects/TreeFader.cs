@@ -17,6 +17,12 @@ public class TreeFader : MonoBehaviour
 
     private Mover _playerMover = null;
 
+    private void Start()
+    {
+        // ensure proper state at start of scene
+        CheckAtEndOfFrame();
+    }
+
     private void OnEnable()
     {
         UndoHandler.ActionOccur += CheckAtEndOfFrame;
