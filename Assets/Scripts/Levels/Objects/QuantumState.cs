@@ -10,8 +10,8 @@ using UnityEngine;
 public class QuantumState : MonoBehaviour
 {
     [Header("Object Modification Components")]
-    [SerializeField, Tooltip("Used for accessing grid positions for visibility checks")]
-    private Mover _objMover;
+    [Tooltip("Used for accessing grid positions for visibility checks")]
+    public Mover ObjMover;
     [SerializeField, Tooltip("Used for vertically flipping sprites during object type change")]
     private SpriteFlipper _objFlipper;
 
@@ -109,7 +109,7 @@ public class QuantumState : MonoBehaviour
         foreach(QuantumState obj in _quantumObjects)
         {
             // object counts as hidden if it is not visible AND it is not disabled (don't randomize objects no longer in play)
-            if (!VisibilityChecks.IsVisible(obj.gameObject, obj._objMover.GetGlobalGridPos().x, obj._objMover.GetGlobalGridPos().y)
+            if (!VisibilityChecks.IsVisible(obj.gameObject, obj.ObjMover.GetGlobalGridPos().x, obj.ObjMover.GetGlobalGridPos().y)
                 && !obj.ObjData.IsDisabled)
             {
                 hiddenList.Add(obj);
@@ -120,8 +120,8 @@ public class QuantumState : MonoBehaviour
         for (int i = hiddenList.Count-1; i >= 0; i--)
         {
             // determine lowest object at position
-            Vector2Int hiddenObjPos = hiddenList[i]._objMover.GetGlobalGridPos();
-            QuantumState lowestObj = VisibilityChecks.GetObjectAtPos(hiddenList[i]._objMover, hiddenObjPos.x, hiddenObjPos.y, true);
+            Vector2Int hiddenObjPos = hiddenList[i].ObjMover.GetGlobalGridPos();
+            QuantumState lowestObj = VisibilityChecks.GetObjectAtPos(hiddenList[i].ObjMover, hiddenObjPos.x, hiddenObjPos.y, true);
 
             // replace hiddenObj with the object below it for shuffling calculations
             if (lowestObj != hiddenList[i])
@@ -153,15 +153,15 @@ public class QuantumState : MonoBehaviour
             int k = UnityEngine.Random.Range(0, n + 1);
 
             // QUANTUM ENTANGLEMENT CHECKS
-            Vector2Int obj1Pos = hiddenList[k]._objMover.GetGlobalGridPos();
-            Vector2Int obj2Pos = hiddenList[n]._objMover.GetGlobalGridPos();
+            Vector2Int obj1Pos = hiddenList[k].ObjMover.GetGlobalGridPos();
+            Vector2Int obj2Pos = hiddenList[n].ObjMover.GetGlobalGridPos();
             // entangled object on hiddenList[k]
-            QuantumState entangledObj1 = VisibilityChecks.GetObjectAtPos(hiddenList[k]._objMover, obj1Pos.x, obj1Pos.y);
+            QuantumState entangledObj1 = VisibilityChecks.GetObjectAtPos(hiddenList[k].ObjMover, obj1Pos.x, obj1Pos.y);
             bool entangledSwap1 = false;
             if (entangledObj1 != hiddenList[k])
                 entangledSwap1 = true;
             // entangled object on hiddenList[n]
-            QuantumState entangledObj2 = VisibilityChecks.GetObjectAtPos(hiddenList[n]._objMover, obj2Pos.x, obj2Pos.y);
+            QuantumState entangledObj2 = VisibilityChecks.GetObjectAtPos(hiddenList[n].ObjMover, obj2Pos.x, obj2Pos.y);
             bool entangledSwap2 = false;
             if (entangledObj2 != hiddenList[n])
                 entangledSwap2 = true;
@@ -172,7 +172,7 @@ public class QuantumState : MonoBehaviour
                 Transform entangledPanelParent = hiddenList[n].transform.parent.parent;
                 entangledObj1.transform.parent = entangledPanelParent.GetChild(1); // assign entangled object to upper objects
 
-                entangledObj1._objMover.SetGlobalGoal(obj2Pos.x, obj2Pos.y);
+                entangledObj1.ObjMover.SetGlobalGoal(obj2Pos.x, obj2Pos.y);
                 entangledObj1._spriteSwapper.RequireFlip();
             }
             if(entangledSwap2)
@@ -181,7 +181,7 @@ public class QuantumState : MonoBehaviour
                 Transform entangledPanelParent = hiddenList[k].transform.parent.parent;
                 entangledObj2.transform.parent = entangledPanelParent.GetChild(1); // assign entangled object to upper objects
 
-                entangledObj2._objMover.SetGlobalGoal(obj1Pos.x, obj1Pos.y);
+                entangledObj2.ObjMover.SetGlobalGoal(obj1Pos.x, obj1Pos.y);
                 entangledObj2._spriteSwapper.RequireFlip();
             }
 
