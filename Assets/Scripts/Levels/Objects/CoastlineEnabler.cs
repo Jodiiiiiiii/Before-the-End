@@ -7,6 +7,10 @@ using UnityEngine;
 /// </summary>
 public class CoastlineEnabler : MonoBehaviour
 {
+    // required to get around position desync issues for objects when pushing panels.
+    // the issue has still happened but it is inconsistently uncommon. Plus when it happens it fixes itself after a small delay - not a big issue.
+    private const float CHECK_DELAY_TIME = 0.1f;
+
     [SerializeField, Tooltip("Used to tell which object type the current object is (only water has coastline).")]
     private QuantumState _state;
 
@@ -33,29 +37,29 @@ public class CoastlineEnabler : MonoBehaviour
             throw new System.Exception("ALL Objects MUST be a child of a child of a panel.");
 
         // ensure proper state at start of scene
-        CheckAtEndOfFrame();
+        CheckAfterDelay();
     }
 
     private void OnEnable()
     {
-        UndoHandler.ActionOccur += CheckAtEndOfFrame;
-        UndoHandler.UndoOccur += CheckAtEndOfFrame;
+        UndoHandler.ActionOccur += CheckAfterDelay;
+        UndoHandler.UndoOccur += CheckAfterDelay;
     }
 
     private void OnDisable()
     {
-        UndoHandler.ActionOccur -= CheckAtEndOfFrame;
-        UndoHandler.UndoOccur -= CheckAtEndOfFrame;
+        UndoHandler.ActionOccur -= CheckAfterDelay;
+        UndoHandler.UndoOccur -= CheckAfterDelay;
     }
 
-    private void CheckAtEndOfFrame()
+    private void CheckAfterDelay()
     {
-        StartCoroutine(WaitCheckAtEndOfFrame());
+        StartCoroutine(DoCheckAfterDelay());
     }
 
-    private IEnumerator WaitCheckAtEndOfFrame()
+    private IEnumerator DoCheckAfterDelay()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(CHECK_DELAY_TIME);
 
         UpdateLogic();
     }
