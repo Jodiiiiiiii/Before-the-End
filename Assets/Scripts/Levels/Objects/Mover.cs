@@ -96,7 +96,11 @@ public class Mover : MonoBehaviour
 
         // set local pos
         Vector3 globalPos = new Vector3(x, y, transform.position.z);
-        Vector3 localPos = transform.parent.InverseTransformPoint(globalPos);
+        Vector3 localPos;
+        if (transform.parent is null)
+            localPos = globalPos;
+        else
+            localPos = transform.parent.InverseTransformPoint(globalPos);
 
         // must round because it should already be near an int from the inputs, but InverseTransformPoint can make floating-point variability
         _localGridPos = new Vector2Int(Mathf.RoundToInt(localPos.x), Mathf.RoundToInt(localPos.y));

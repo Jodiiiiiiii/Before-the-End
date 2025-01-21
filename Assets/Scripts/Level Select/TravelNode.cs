@@ -10,13 +10,22 @@ public class TravelNode : MonoBehaviour
 
     [Header("Adjacent Nodes")]
     [Tooltip("Connecting node in up direction.")]
-    public TravelNode _upNode;
+    public TravelNode UpNode = null;
     [Tooltip("Connecting node in right direction.")]
-    public TravelNode _rightNode;
+    public TravelNode RightNode = null;
     [Tooltip("Connecting node in down direction.")]
-    public TravelNode _downNode;
+    public TravelNode DownNode = null;
     [Tooltip("Connecting node in left direction.")]
-    public TravelNode _leftNode;
+    public TravelNode LeftNode = null;
+
+    /// <summary>
+    /// Rounds the nearest integer position of the current node.
+    /// Note: the nodes should be integer aligned in Unity already.
+    /// </summary>
+    public Vector2Int GetTravelPos()
+    {
+        return new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+    }
 
     // Start is called before the first frame update
     void Start()

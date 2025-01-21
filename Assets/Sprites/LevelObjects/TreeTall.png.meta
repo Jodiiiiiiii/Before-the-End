@@ -118,7 +118,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,15 +131,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TallTree_Top
+      name: TallTree_Mid
       rect:
         serializedVersion: 2
         x: 0
         y: 16
         width: 16
-        height: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,6 +147,27 @@ TextureImporter:
       bones: []
       spriteID: a7fe101a6c68a0647a0bb39477ef7d34
       internalID: -1594615792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeTall_Top
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1337b8bdf5e98048bcae3d17326aa27
+      internalID: 1012828897
       vertices: []
       indices: 
       edges: []
@@ -163,7 +184,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       TallTree_Base: -464384294
-      TallTree_Top: -1594615792
+      TallTree_Mid: -1594615792
+      TreeTall_Top: 1012828897
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
