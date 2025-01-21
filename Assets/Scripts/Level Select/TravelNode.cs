@@ -18,10 +18,6 @@ public class TravelNode : MonoBehaviour
     [Tooltip("Connecting node in left direction.")]
     public TravelNode LeftNode = null;
 
-    [Header("Other Components")]
-    [SerializeField, Tooltip("Used to enable level popup when on level.")]
-    private Canvas _popupCanvas;
-
     /// <summary>
     /// Rounds the nearest integer position of the current node.
     /// Note: the nodes should be integer aligned in Unity already.
@@ -31,6 +27,17 @@ public class TravelNode : MonoBehaviour
         return new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
     }
 
+    #region Popup
+    [Header("Popup")]
+    [SerializeField, Tooltip("Used to fade popup canvas in and out smoothly.")]
+    private CanvasGroup _canvasFader;
+    [SerializeField, Tooltip("Rate of change of alpha value.")]
+    private float _alphaChangeRate;
+    [SerializeField, Tooltip("Delay after arriving at new level when popup starts fading in.")]
+    private float _fadeInDelay;
+
+    private bool _fadeIn = false;
+
     /// <summary>
     /// Shows popup canvas for level description.
     /// Does nothing in the case of a travel node without a level.
@@ -38,7 +45,7 @@ public class TravelNode : MonoBehaviour
     public void EnablePopup()
     {
         if (LevelName != "None")
-            _popupCanvas.enabled = true;
+            StartCoroutine(DoFadeInAfterDelay());
     }
 
     /// <summary>
@@ -48,6 +55,35 @@ public class TravelNode : MonoBehaviour
     public void DisablePopup()
     {
         if (LevelName != "None")
-            _popupCanvas.enabled = false;
+        {
+            StopAllCoroutines(); // cancel fade in delay to prevent strange ordering.
+            _fadeIn = false;
+        }
     }
+
+    private IEnumerator DoFadeInAfterDelay()
+    {
+        yield return new WaitForSeconds(_fadeInDelay);
+        _fadeIn = true;
+    }
+
+    private void Update()
+    {
+        // skip popup processing for non-level nodes
+        if (LevelName == "None")
+            return;
+
+        // smoothly fade in and out
+        if (_fadeIn)
+        {
+            _canvasFader.alpha += _alphaChangeRate * Time.deltaTime;
+            if (_canvasFader.alpha > 1) _canvasFader.alpha = 1;
+        }
+        else
+        {
+            _canvasFader.alpha -= _alphaChangeRate * Time.deltaTime;
+            if (_canvasFader.alpha < 0) _canvasFader.alpha = 0;
+        }
+    }
+    #endregion
 }
