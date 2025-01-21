@@ -6,7 +6,7 @@ public class TravelNode : MonoBehaviour
 {
     [Header("Configuration")]
     [Tooltip("Level string name associated with the current node. \"None\" if not a level node.")]
-    public string LevelName = "None";
+    public string SceneName = "None";
 
     [Header("Adjacent Nodes")]
     public NodeConnectionData[] NodeConnections;
@@ -58,7 +58,7 @@ public class TravelNode : MonoBehaviour
     /// </summary>
     public void EnablePopup()
     {
-        if (LevelName != "None")
+        if (SceneName != "None")
             StartCoroutine(DoFadeInAfterDelay());
     }
 
@@ -68,7 +68,7 @@ public class TravelNode : MonoBehaviour
     /// </summary>
     public void DisablePopup()
     {
-        if (LevelName != "None")
+        if (SceneName != "None")
         {
             StopAllCoroutines(); // cancel fade in delay to prevent strange ordering.
             _fadeIn = false;
@@ -84,7 +84,7 @@ public class TravelNode : MonoBehaviour
     private void Update()
     {
         // skip popup processing for non-level nodes
-        if (LevelName == "None")
+        if (SceneName == "None")
             return;
 
         // smoothly fade in and out

@@ -8,7 +8,7 @@ public class PopupInitializer : MonoBehaviour
 {
     [Header("Configuration")]
     [SerializeField, Tooltip("Used to set text name of popup.")]
-    private string _levelName;
+    private string _displayName;
     [SerializeField, Tooltip("Dinos to show in level popup.")]
     private DinoType[] _dinos;
 
@@ -35,7 +35,7 @@ public class PopupInitializer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _title.text = _levelName;
+        _title.text = _displayName;
 
         // center align when only one row
         if (_dinos.Length <= 3)
