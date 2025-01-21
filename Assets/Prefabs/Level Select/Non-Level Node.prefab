@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _canvasFader
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _popupCanvas
       value: 
       objectReference: {fileID: 0}
@@ -22,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 6792133256481055299, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6792133256481055299, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6792133256481055299, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_LocalPosition.z
