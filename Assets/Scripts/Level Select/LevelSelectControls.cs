@@ -8,6 +8,8 @@ public class LevelSelectControls : MonoBehaviour
     private void Start()
     {
         // configure starting node whenever entering scene based on save data of current node/level - rather than using scene as default
+
+        // also handle enabling first node popup by default here
     }
 
     #region Controls Bindings
@@ -124,6 +126,10 @@ public class LevelSelectControls : MonoBehaviour
         // move player to new node pos
         Vector2Int newPos = newNode.GetTravelPos();
         _playerMover.SetGlobalGoal(newPos.x, newPos.y);
+
+        // update popups
+        _currNode.DisablePopup();
+        newNode.EnablePopup();
 
         // update current node
         _currNode = newNode;

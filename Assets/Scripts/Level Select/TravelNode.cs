@@ -18,6 +18,10 @@ public class TravelNode : MonoBehaviour
     [Tooltip("Connecting node in left direction.")]
     public TravelNode LeftNode = null;
 
+    [Header("Other Components")]
+    [SerializeField, Tooltip("Used to enable level popup when on level.")]
+    private Canvas _popupCanvas;
+
     /// <summary>
     /// Rounds the nearest integer position of the current node.
     /// Note: the nodes should be integer aligned in Unity already.
@@ -27,15 +31,23 @@ public class TravelNode : MonoBehaviour
         return new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
     }
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Shows popup canvas for level description.
+    /// Does nothing in the case of a travel node without a level.
+    /// </summary>
+    public void EnablePopup()
     {
-        
+        if (LevelName != "None")
+            _popupCanvas.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Hides popup canvas for level description.
+    /// Does nothing in the case of a travel node without a level.
+    /// </summary>
+    public void DisablePopup()
     {
-        
+        if (LevelName != "None")
+            _popupCanvas.enabled = false;
     }
 }

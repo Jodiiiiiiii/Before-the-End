@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _popupCanvas
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4114004631819610524, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -64,8 +68,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Non-Level Node
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7400556059099282465, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+    - {fileID: 1247669692518542938, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
