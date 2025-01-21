@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static NodeConnectionData;
 
 public class LevelSelectControls : MonoBehaviour
 {
@@ -59,9 +60,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void UpInput(InputAction.CallbackContext context)
     {
-        if (_currNode.UpNode is not null)
+        TravelNode newNode = _currNode.GetConnection(Direction.Up);
+        if (newNode is not null)
         {
-            ConfirmMove(ref _currNode.UpNode);
+            ConfirmMove(ref newNode);
         }
         else
         {
@@ -76,9 +78,10 @@ public class LevelSelectControls : MonoBehaviour
     {
         _flipper.SetScaleX(-1); // face right (whether move occurs or not)
 
-        if (_currNode.RightNode is not null)
+        TravelNode newNode = _currNode.GetConnection(Direction.Right);
+        if (newNode is not null)
         {
-            ConfirmMove(ref _currNode.RightNode);
+            ConfirmMove(ref newNode);
         }
         else
         {
@@ -91,9 +94,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void DownInput(InputAction.CallbackContext context)
     {
-        if (_currNode.DownNode is not null)
+        TravelNode newNode = _currNode.GetConnection(Direction.Down);
+        if (newNode is not null)
         {
-            ConfirmMove(ref _currNode.DownNode);
+            ConfirmMove(ref newNode);
         }
         else
         {
@@ -108,9 +112,10 @@ public class LevelSelectControls : MonoBehaviour
     {
         _flipper.SetScaleX(1); // face left (whether move occurs or not)
 
-        if (_currNode.LeftNode is not null)
+        TravelNode newNode = _currNode.GetConnection(Direction.Left);
+        if (newNode is not null)
         {
-            ConfirmMove(ref _currNode.LeftNode);
+            ConfirmMove(ref newNode);
         }
         else
         {

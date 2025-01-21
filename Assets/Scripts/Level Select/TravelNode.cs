@@ -9,14 +9,7 @@ public class TravelNode : MonoBehaviour
     public string LevelName = "None";
 
     [Header("Adjacent Nodes")]
-    [Tooltip("Connecting node in up direction.")]
-    public TravelNode UpNode = null;
-    [Tooltip("Connecting node in right direction.")]
-    public TravelNode RightNode = null;
-    [Tooltip("Connecting node in down direction.")]
-    public TravelNode DownNode = null;
-    [Tooltip("Connecting node in left direction.")]
-    public TravelNode LeftNode = null;
+    public NodeConnectionData[] NodeConnections;
 
     /// <summary>
     /// Rounds the nearest integer position of the current node.
@@ -25,6 +18,27 @@ public class TravelNode : MonoBehaviour
     public Vector2Int GetTravelPos()
     {
         return new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+    }
+
+    /// <summary>
+    /// Returns traversable node found in given direction.
+    /// The node must exist AND be unlocked, otherwise null is returned.
+    /// </summary>
+    public TravelNode GetConnection(NodeConnectionData.Direction dir)
+    {
+        foreach (NodeConnectionData node in NodeConnections)
+        {
+            if (node.Dir == dir)
+            {
+                if (node.Unlocked)
+                    return node.Node;
+                else
+                    return null; // found node is still locked
+            }
+        }
+
+        // no connection in that direction found
+        return null;
     }
 
     #region Popup
