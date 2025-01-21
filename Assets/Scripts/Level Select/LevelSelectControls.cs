@@ -49,6 +49,8 @@ public class LevelSelectControls : MonoBehaviour
     private Mover _playerMover;
     [SerializeField, Tooltip("Current TravelNode that the player is located at.")]
     private TravelNode _currNode;
+    [SerializeField, Tooltip("Used to visually flip player in accordance to left/right movements.")]
+    SpriteFlipper _flipper;
 
     /// <summary>
     /// Traverse player towards the upward connecting travel node, if it exists.
@@ -70,6 +72,8 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void RightInput(InputAction.CallbackContext context)
     {
+        _flipper.SetScaleX(-1); // face right (whether move occurs or not)
+
         if (_currNode.RightNode is not null)
         {
             ConfirmMove(ref _currNode.RightNode);
@@ -100,6 +104,8 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void LeftInput(InputAction.CallbackContext context)
     {
+        _flipper.SetScaleX(1); // face left (whether move occurs or not)
+
         if (_currNode.LeftNode is not null)
         {
             ConfirmMove(ref _currNode.LeftNode);
@@ -124,7 +130,7 @@ public class LevelSelectControls : MonoBehaviour
     }
     #endregion
 
-    #region PAUSE
+    #region Pause
     /// <summary>
     /// Interfaces with the game manager to toggle the pause state of the game
     /// </summary>
