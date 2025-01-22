@@ -378,7 +378,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7762709759773842026}
-  - component: {fileID: 8780341898135274518}
+  - component: {fileID: 4729695920170137320}
+  - component: {fileID: 7486475298594217010}
   m_Layer: 0
   m_Name: Scene Transitions Handler
   m_TagString: Untagged
@@ -403,7 +404,20 @@ Transform:
   - {fileID: 5553042372415477494}
   m_Father: {fileID: 8996031916588424038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8780341898135274518
+--- !u!114 &4729695920170137320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7011774959170266829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anim: {fileID: 7486475298594217010}
+--- !u!95 &7486475298594217010
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
