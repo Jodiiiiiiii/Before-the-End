@@ -3835,7 +3835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1298566526783971195, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_text
-      value: Ability
+      value: Ability/ Select
       objectReference: {fileID: 0}
     - target: {fileID: 3738688507013804631, guid: 6e5c243232087634b8990b6657a07006, type: 3}
       propertyPath: m_Pivot.x

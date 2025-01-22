@@ -25,6 +25,8 @@ public class LevelSelectControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Down").started += DownInput;
         _actions.actionMaps[0].FindAction("Left").started += LeftInput;
         _actions.actionMaps[0].FindAction("Right").started += RightInput;
+        // enter level
+        _actions.actionMaps[0].FindAction("Ability").started += TryEnterLevel;
         // pause
         _actions.actionMaps[0].FindAction("Pause").started += PauseToggle;
 
@@ -38,7 +40,8 @@ public class LevelSelectControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Down").started -= DownInput;
         _actions.actionMaps[0].FindAction("Left").started -= LeftInput;
         _actions.actionMaps[0].FindAction("Right").started -= RightInput;
-
+        // enter level
+        _actions.actionMaps[0].FindAction("Ability").started -= TryEnterLevel;
         // pause
         _actions.actionMaps[0].FindAction("Pause").started -= PauseToggle;
 
@@ -118,6 +121,16 @@ public class LevelSelectControls : MonoBehaviour
         {
             // TODO: feedback for no node connection (player shake + negative feedback SFX?)
         }
+    }
+    #endregion
+
+    #region
+    /// <summary>
+    /// Attempt to enter the level associated with the current node
+    /// </summary>
+    private void TryEnterLevel(InputAction.CallbackContext context)
+    {
+        // load scene here
     }
     #endregion
 
