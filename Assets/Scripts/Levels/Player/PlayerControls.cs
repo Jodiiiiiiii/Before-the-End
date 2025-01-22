@@ -752,4 +752,25 @@ public class PlayerControls : MonoBehaviour
         UndoHandler.SaveFrame();
     }
     #endregion
+
+    #region SCENE TRANSITION
+    [Header("Scene Transitions")]
+    [SerializeField, Tooltip("Used to call scene transitions with animations.")]
+    private SceneTransitionHandler _transitionHandler;
+    [SerializeField, Tooltip("Scene name of level select.")]
+    private string _levelSelectSceneName;
+
+    /// <summary>
+    /// Handles logging of current level as complete.
+    /// </summary>
+    public void ReturnToLevelSelect(bool levelComplete)
+    {
+        // save level complete state
+        //if (levelComplete)
+            //GameManager.Instance.Function....
+
+        // laod scene
+        _transitionHandler.LoadScene(_levelSelectSceneName);
+    }
+    #endregion
 }

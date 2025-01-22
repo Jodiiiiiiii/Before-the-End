@@ -93,7 +93,7 @@ public static class PlayerMoveChecks
                 case ObjectType.Tree:
                     return; // CANNOT move into trees
                 case ObjectType.Clock:
-                    TryMoveIntoClock(playerMover, moveDir);
+                    player.ReturnToLevelSelect(true);
                     // action attempt is complete (and the entire level!)
                     return;
                 case ObjectType.Fire:
@@ -368,20 +368,6 @@ public static class PlayerMoveChecks
 
         // finalize player move
         ConfirmPlayerMove(playerMover, exitPos, otherTunnel.transform.parent);
-    }
-
-    /// <summary>
-    /// confirms movement of the player and then handles loads out of current level scene.
-    /// </summary>
-    private static void TryMoveIntoClock(Mover playerMover, Vector2Int moveDir)
-    {
-        // confirm move FIRST
-        ConfirmPlayerMove(playerMover, moveDir);
-
-        // then make call for transitioning level
-        // TODO: will be replaced instead later with:
-        // 1. updating completed level state in game manager
-        // 2. transition BACK to level select at pos. indicated by current compelted level
     }
     #endregion
 

@@ -2912,6 +2912,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2409662555902960329, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
   m_PrefabInstance: {fileID: 992908761}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &992908763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729695920170137320, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+  m_PrefabInstance: {fileID: 992908761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &998328588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187160108185091652, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
@@ -5432,6 +5443,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
+      propertyPath: _transitionHandler
+      value: 
+      objectReference: {fileID: 992908763}
+    - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: _dinoTypes.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -7534,6 +7549,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 661457121}
+    - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 768216918}
     - targetCorrespondingSourceObject: {fileID: 5187160108185091652, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 888178439}
@@ -7570,9 +7588,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5187160108185091652, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1226321840}
-    - targetCorrespondingSourceObject: {fileID: 5187160108185091652, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 768216918}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
 --- !u!1001 &2138505423
@@ -7705,7 +7720,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 998328588}
+    m_TransformParent: {fileID: 1710384175}
     m_Modifications:
     - target: {fileID: 1753591017060406446, guid: 7a319832e01efff4ca63e0eb6d884d66, type: 3}
       propertyPath: m_LocalPosition.x
