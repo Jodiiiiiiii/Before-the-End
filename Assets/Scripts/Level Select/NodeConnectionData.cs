@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stores all data pertinent to a node connection, as used primarily by TravelNode.cs and LevelSelectControls.cs
+/// </summary>
 [System.Serializable]
 public class NodeConnectionData
 {

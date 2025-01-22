@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static NodeConnectionData;
 
+/// <summary>
+/// Handles all player controls in level select scene.
+/// Controls include movement along preset level paths, entering a level, and pausing the game.
+/// </summary>
 public class LevelSelectControls : MonoBehaviour
 {
     private void Start()

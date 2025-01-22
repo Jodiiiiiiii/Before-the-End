@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static NodeConnectionData;
 
+/// <summary>
+/// Manages data and state pertaining to a level or non-level node for player level navigation.
+/// </summary>
 public class TravelNode : MonoBehaviour
 {
     [Header("Configuration")]

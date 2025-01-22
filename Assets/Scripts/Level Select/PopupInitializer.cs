@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using static PlayerControls;
 
+/// <summary>
+/// Handles initial configuration of display name and dino list on level node popups.
+/// </summary>
 public class PopupInitializer : MonoBehaviour
 {
     [Header("Configuration")]
