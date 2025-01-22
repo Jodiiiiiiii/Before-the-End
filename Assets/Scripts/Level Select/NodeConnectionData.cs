@@ -15,5 +15,6 @@ public class NodeConnectionData
 
     public TravelNode Node;
     public Direction Dir;
+    [HideInInspector]
     public bool Unlocked;
 }

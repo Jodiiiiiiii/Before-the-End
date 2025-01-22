@@ -16,6 +16,34 @@ PrefabInstance:
       propertyPath: _popupCanvas
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _obstructionIndicators.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _obstructionIndicators.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _obstructionIndicators.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _obstructionIndicators.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4114004631819610524, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -77,6 +105,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7400556059099282465, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
     - {fileID: 1247669692518542938, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+    - {fileID: 4475433593356999801, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static NodeConnectionData;
 
 public class TravelNode : MonoBehaviour
 {
@@ -9,7 +10,106 @@ public class TravelNode : MonoBehaviour
     public string SceneName = "None";
 
     [Header("Adjacent Nodes")]
+    [Tooltip("Data for adjacent node connections of the current node.")]
     public NodeConnectionData[] NodeConnections;
+    [SerializeField, Tooltip("Level number of current level; OR (for non-level nodes) list of all adjacent level numbers.")]
+    private int[] _levelNums;
+
+    [Header("Obstruction Indicators")]
+    [SerializeField, Tooltip("Game objects to enable when there is a blocked connection on an accessible node. Provided in up-right-down-left order.")]
+    private GameObject[] _obstructionIndicators;
+
+    private void Awake()
+    {
+        // unlocking only needs to occur in start since the states will not change without the player leaving and re-entering the scene
+
+        // determine locked/unlocked connections
+        bool isUnlocked = false;
+        foreach (int num in _levelNums)
+        {
+            if (GameManager.Instance.SaveData.LevelsComplete[num])
+            {
+                isUnlocked = true;
+                break;
+            }
+        }
+
+        // unlock all connections (IN BOTH DIRECTIONS)
+        if (isUnlocked)
+        {
+            foreach (NodeConnectionData connection in NodeConnections)
+            {
+                // unlock current connection
+                connection.Unlocked = true;
+
+                // unlock connection back as well
+                TravelNode otherNode = connection.Node;
+                foreach (NodeConnectionData otherConnection in otherNode.NodeConnections)
+                {
+                    if (otherConnection.Node == this)
+                    {
+                        otherConnection.Unlocked = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void Start()
+    {
+        // skip processing for non-level nodes - they CANNOT have obstruction indicators
+        if (SceneName == "None")
+            return;
+
+        // dynamically toggle blocked indicators
+        // must be in start so it happens after ALL unlock state determinations
+
+        // determine if we need to check for enabling barricades
+        bool isAccessible = false;
+        foreach (NodeConnectionData connection in NodeConnections)
+        {
+            if (connection.Unlocked)
+            {
+                isAccessible = true;
+                break;
+            }
+        }
+
+        // check each direction for a locked connection since as least one is unlocked (i.e. node is accessible)
+        if (isAccessible)
+        {
+            foreach (NodeConnectionData connection in NodeConnections)
+            {
+                if (!connection.Unlocked)
+                {
+                    EnableObstruction(connection.Dir);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Enables the obstruction in the provided direction.
+    /// </summary>
+    private void EnableObstruction(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Up:
+                _obstructionIndicators[0].SetActive(true);
+                break;
+            case Direction.Right:
+                _obstructionIndicators[1].SetActive(true);
+                break;
+            case Direction.Down:
+                _obstructionIndicators[2].SetActive(true);
+                break;
+            case Direction.Left:
+                _obstructionIndicators[3].SetActive(true);
+                break;
+        }
+    }
 
     /// <summary>
     /// Rounds the nearest integer position of the current node.
@@ -24,14 +124,14 @@ public class TravelNode : MonoBehaviour
     /// Returns traversable node found in given direction.
     /// The node must exist AND be unlocked, otherwise null is returned.
     /// </summary>
-    public TravelNode GetConnection(NodeConnectionData.Direction dir)
+    public NodeConnectionData GetConnection(NodeConnectionData.Direction dir)
     {
         foreach (NodeConnectionData node in NodeConnections)
         {
             if (node.Dir == dir)
             {
                 if (node.Unlocked)
-                    return node.Node;
+                    return node;
                 else
                     return null; // found node is still locked
             }

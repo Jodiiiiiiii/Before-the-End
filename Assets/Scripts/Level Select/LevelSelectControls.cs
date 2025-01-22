@@ -60,15 +60,7 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void UpInput(InputAction.CallbackContext context)
     {
-        TravelNode newNode = _currNode.GetConnection(Direction.Up);
-        if (newNode is not null)
-        {
-            ConfirmMove(ref newNode);
-        }
-        else
-        {
-            // TODO: feedback for no node connection (player shake + negative feedback SFX?)
-        }
+        TryMove(Direction.Up);
     }
 
     /// <summary>
@@ -78,15 +70,7 @@ public class LevelSelectControls : MonoBehaviour
     {
         _flipper.SetScaleX(-1); // face right (whether move occurs or not)
 
-        TravelNode newNode = _currNode.GetConnection(Direction.Right);
-        if (newNode is not null)
-        {
-            ConfirmMove(ref newNode);
-        }
-        else
-        {
-            // TODO: feedback for no node connection (player shake + negative feedback SFX?)
-        }
+        TryMove(Direction.Right);
     }
 
     /// <summary>
@@ -94,15 +78,7 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void DownInput(InputAction.CallbackContext context)
     {
-        TravelNode newNode = _currNode.GetConnection(Direction.Down);
-        if (newNode is not null)
-        {
-            ConfirmMove(ref newNode);
-        }
-        else
-        {
-            // TODO: feedback for no node connection (player shake + negative feedback SFX?)
-        }
+        TryMove(Direction.Down);
     }
 
     /// <summary>
@@ -112,32 +88,36 @@ public class LevelSelectControls : MonoBehaviour
     {
         _flipper.SetScaleX(1); // face left (whether move occurs or not)
 
-        TravelNode newNode = _currNode.GetConnection(Direction.Left);
-        if (newNode is not null)
-        {
-            ConfirmMove(ref newNode);
-        }
-        else
-        {
-            // TODO: feedback for no node connection (player shake + negative feedback SFX?)
-        }
+        TryMove(Direction.Left);
     }
 
     /// <summary>
     /// Confirms movement and updating of current node of the player on successful move action.
     /// </summary>
-    private void ConfirmMove(ref TravelNode newNode)
+    private void TryMove(Direction dir)
     {
-        // move player to new node pos
-        Vector2Int newPos = newNode.GetTravelPos();
-        _playerMover.SetGlobalGoal(newPos.x, newPos.y);
+        NodeConnectionData connection = _currNode.GetConnection(dir);
+        
+        // check for able to travel
+        if (connection is not null && connection.Unlocked)
+        {
+            TravelNode newNode = connection.Node;
 
-        // update popups
-        _currNode.DisablePopup();
-        newNode.EnablePopup();
+            // move player to new node pos
+            Vector2Int newPos = newNode.GetTravelPos();
+            _playerMover.SetGlobalGoal(newPos.x, newPos.y);
 
-        // update current node
-        _currNode = newNode;
+            // update popups
+            _currNode.DisablePopup();
+            newNode.EnablePopup();
+
+            // update current node
+            _currNode = newNode;
+        }
+        else
+        {
+            // TODO: feedback for no node connection (player shake + negative feedback SFX?)
+        }
     }
     #endregion
 

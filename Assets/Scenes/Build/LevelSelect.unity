@@ -692,6 +692,14 @@ PrefabInstance:
       value: Tutorial4
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -713,11 +721,11 @@ PrefabInstance:
       objectReference: {fileID: 372049079}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
@@ -765,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-4
+      value: Level Node 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -813,6 +821,14 @@ PrefabInstance:
       value: TrikeTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -834,11 +850,11 @@ PrefabInstance:
       objectReference: {fileID: 1451651024}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
@@ -894,7 +910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-8
+      value: Level Node 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1017,6 +1033,38 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 151432199}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1042,19 +1090,19 @@ PrefabInstance:
       objectReference: {fileID: 151432199}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[2].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node 7/8
+      value: Non-Level Node 4/6/7
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1181,6 +1229,14 @@ PrefabInstance:
       value: Tutorial5
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1206,15 +1262,15 @@ PrefabInstance:
       objectReference: {fileID: 642669329}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[2].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
@@ -1262,7 +1318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-5
+      value: Level Node 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1302,6 +1358,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 673651633}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1319,15 +1391,15 @@ PrefabInstance:
       objectReference: {fileID: 673651633}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node 5/6
+      value: Non-Level Node 4/5
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1415,6 +1487,14 @@ PrefabInstance:
       value: SpinoTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1436,11 +1516,11 @@ PrefabInstance:
       objectReference: {fileID: 983395831}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
@@ -1496,7 +1576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-6
+      value: Level Node 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1532,6 +1612,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1902359180}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1545,11 +1641,11 @@ PrefabInstance:
       objectReference: {fileID: 1902359180}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node
+      value: Non-Level Node 6
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1674,6 +1770,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 673651633}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1683,11 +1799,11 @@ PrefabInstance:
       objectReference: {fileID: 673651633}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node
+      value: Non-Level Node 5
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1837,6 +1953,38 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 309363164}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[1]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[2]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1858,15 +2006,15 @@ PrefabInstance:
       objectReference: {fileID: 309363164}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node 5
+      value: Non-Level Node 4/6/7
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2043,6 +2191,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 151432199}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2056,11 +2220,11 @@ PrefabInstance:
       objectReference: {fileID: 151432199}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node
+      value: Non-Level Node 7
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2164,6 +2328,14 @@ PrefabInstance:
       value: Tutorial3
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2185,11 +2357,11 @@ PrefabInstance:
       objectReference: {fileID: 2086385722}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311452921437437916, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2445,7 +2617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-3
+      value: Level Node 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2509,6 +2681,14 @@ PrefabInstance:
       value: Tutorial2
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2526,11 +2706,11 @@ PrefabInstance:
       objectReference: {fileID: 9218127008739580264}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311452921437437916, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2782,7 +2962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-2
+      value: Level Node 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2830,6 +3010,14 @@ PrefabInstance:
       value: AnkyTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2847,11 +3035,11 @@ PrefabInstance:
       objectReference: {fileID: 678478089}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
@@ -2907,7 +3095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-7
+      value: Level Node 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3721,6 +3909,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 105353150}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -3738,15 +3942,15 @@ PrefabInstance:
       objectReference: {fileID: 105353150}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node 3/4
+      value: Non-Level Node 2/3
       objectReference: {fileID: 0}
     - target: {fileID: 7758317732673633119, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6272,6 +6476,18 @@ PrefabInstance:
       value: Tutorial1
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _levelNums.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -6285,7 +6501,7 @@ PrefabInstance:
       objectReference: {fileID: 1511257101}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1311452921437437916, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6545,7 +6761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8544362338240310089, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_Name
-      value: Level Node 0-1
+      value: Level Node 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6665,6 +6881,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1495742581}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: LevelNums.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
+      propertyPath: _levelNums.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -6686,15 +6918,15 @@ PrefabInstance:
       objectReference: {fileID: 1495742581}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[1].Unlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4862262160442634837, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_Name
-      value: Non-Level Node 2/3
+      value: Non-Level Node 1/2
       objectReference: {fileID: 0}
     - target: {fileID: 5028754625820534929, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: m_AnchorMax.y

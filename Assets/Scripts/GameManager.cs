@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
 
         // Progression data - saved via .json file
 
+        public bool[] LevelsComplete;
+
         // ----------------------------------------------- \\
         // TODO: add new progression data types here
         // ----------------------------------------------- \\
@@ -125,7 +127,13 @@ public class GameManager : MonoBehaviour
         // ----------------------------------------------- \\
 
         // default progression data (overriden in next step if possible)
-        ResetProgressionData();
+        newSaveData.LevelsComplete = new bool[128]; // all false by default
+        for (int i = 0; i < newSaveData.LevelsComplete.Length; i++)
+            newSaveData.LevelsComplete[i] = false;
+
+        // ----------------------------------------------- \\
+        // TODO: add new level progression default data values here
+        // ----------------------------------------------- \\
 
         // Read progression data
         string path = Application.persistentDataPath + "\\ProgressionData.json";
@@ -138,17 +146,6 @@ public class GameManager : MonoBehaviour
 
         // Apply read/initialized data to instance
         Instance.SaveData = newSaveData;
-    }
-
-    /// <summary>
-    /// Resets values of progression data
-    /// Used to create new save as well as during initialization of save data.
-    /// </summary>
-    private void ResetProgressionData()
-    {
-        // ----------------------------------------------- \\
-        // TODO: add new level progression default data values here
-        // ----------------------------------------------- \\
     }
 
     private void OnApplicationQuit()
