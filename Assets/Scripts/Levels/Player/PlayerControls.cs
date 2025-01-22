@@ -763,11 +763,9 @@ public class PlayerControls : MonoBehaviour
     /// <summary>
     /// Handles logging of current level as complete.
     /// </summary>
-    public void ReturnToLevelSelect(bool levelComplete)
+    public void LevelComplete()
     {
-        // save level complete state
-        //if (levelComplete)
-            //GameManager.Instance.Function....
+        //GameManager.Instance.Function....
 
         // laod scene
         _transitionHandler.LoadScene(_levelSelectSceneName);

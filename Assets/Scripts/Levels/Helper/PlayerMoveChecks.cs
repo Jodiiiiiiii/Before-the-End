@@ -93,7 +93,7 @@ public static class PlayerMoveChecks
                 case ObjectType.Tree:
                     return; // CANNOT move into trees
                 case ObjectType.Clock:
-                    player.ReturnToLevelSelect(true);
+                    player.LevelComplete();
                     // action attempt is complete (and the entire level!)
                     return;
                 case ObjectType.Fire:
