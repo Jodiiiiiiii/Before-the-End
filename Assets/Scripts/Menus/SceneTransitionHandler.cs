@@ -17,7 +17,7 @@ public class SceneTransitionHandler : MonoBehaviour
     /// <summary>
     /// Function that should be used to activate any scene transition in the game.
     /// </summary>
-    public void TransitionScene(string sceneName)
+    public void LoadScene(string sceneName)
     {
         _anim.Play("TransitionOut");
 

@@ -128,13 +128,17 @@ public class LevelSelectControls : MonoBehaviour
     }
     #endregion
 
-    #region
+    #region Enter Level
+    [Header("Scene Transitions")]
+    [SerializeField, Tooltip("Used to call animations of scene transitions.")]
+    private SceneTransitionHandler _transitionHandler;
+
     /// <summary>
     /// Attempt to enter the level associated with the current node
     /// </summary>
     private void TryEnterLevel(InputAction.CallbackContext context)
     {
-        // load scene here
+        _transitionHandler.LoadScene(_currNode.SceneName);
     }
     #endregion
 

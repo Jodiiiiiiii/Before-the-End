@@ -689,7 +689,7 @@ PrefabInstance:
       objectReference: {fileID: 372049079}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: SceneName
-      value: Tutorial4
+      value: 3_Tutorial4
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: LevelNums.Array.data[0]
@@ -2325,7 +2325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: SceneName
-      value: Tutorial3
+      value: 2_Tutorial3
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: LevelNums.Array.data[0]
@@ -2678,7 +2678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: SceneName
-      value: Tutorial2
+      value: 1_Tutorial2
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: LevelNums.Array.data[0]
@@ -2983,6 +2983,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2453320d68287b049a892fb2356fc452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1613814602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729695920170137320, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+  m_PrefabInstance: {fileID: 992908761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1902359178
@@ -4347,6 +4358,7 @@ MonoBehaviour:
   _playerMover: {fileID: 2876304825643128892}
   _currNode: {fileID: 1996334704}
   _flipper: {fileID: 5858793504035880505}
+  _transitionHandler: {fileID: 1613814602}
 --- !u!1839735485 &5235677624215402494
 Tilemap:
   m_ObjectHideFlags: 0
@@ -6473,7 +6485,7 @@ PrefabInstance:
       objectReference: {fileID: 1511257101}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: SceneName
-      value: Tutorial1
+      value: 0_Tutorial1
       objectReference: {fileID: 0}
     - target: {fileID: 590486036910698944, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: LevelNums.Array.size

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Build/LevelSelect.unity
+    guid: 3e77d9a23bb2b2f41a7915800bb8afa6
+  - enabled: 1
     path: Assets/Scenes/Build/Tutorial/0_Tutorial1.unity
     guid: 9a3faada8d587e04eab8d455f751c17b
   - enabled: 1
@@ -17,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Tutorial/3_Tutorial4.unity
     guid: d297fa3b8cf00e94680be44fd95e0d93
-  - enabled: 1
-    path: Assets/Scenes/Build/Tutorial/DemoEnd.unity
-    guid: 86ab036def4c12a479a428fea02c9bc5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
