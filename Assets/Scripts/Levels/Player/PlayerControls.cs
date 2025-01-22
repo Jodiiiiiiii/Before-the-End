@@ -765,7 +765,8 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     public void LevelComplete()
     {
-        //GameManager.Instance.Function....
+        // mark level as complete for progression
+        GameManager.Instance.LevelComplete();
 
         // laod scene
         _transitionHandler.LoadScene(_levelSelectSceneName);

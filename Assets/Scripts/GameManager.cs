@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         // Progression data - saved via .json file
 
         public bool[] LevelsComplete;
+        public int CurrLevel;
 
         // ----------------------------------------------- \\
         // TODO: add new progression data types here
@@ -130,6 +131,7 @@ public class GameManager : MonoBehaviour
         newSaveData.LevelsComplete = new bool[128]; // all false by default
         for (int i = 0; i < newSaveData.LevelsComplete.Length; i++)
             newSaveData.LevelsComplete[i] = false;
+        newSaveData.CurrLevel = 0; // first level
 
         // ----------------------------------------------- \\
         // TODO: add new level progression default data values here
@@ -197,6 +199,18 @@ public class GameManager : MonoBehaviour
     public float GetSfxVolume()
     {
         return math.remap(0, 200, 0, 1, SaveData.SfxVolume);
+    }
+
+    /// <summary>
+    /// Marks the currently selected level as complete for progression.
+    /// </summary>
+    public void LevelComplete()
+    {
+        // avoid editor case of saving -1 from being on a non-level node
+        if (SaveData.CurrLevel == -1)
+            return;
+
+        SaveData.LevelsComplete[SaveData.CurrLevel] = true;
     }
     #endregion
 

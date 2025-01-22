@@ -15,8 +15,8 @@ public class TravelNode : MonoBehaviour
     [Header("Adjacent Nodes")]
     [Tooltip("Data for adjacent node connections of the current node.")]
     public NodeConnectionData[] NodeConnections;
-    [SerializeField, Tooltip("Level number of current level; OR (for non-level nodes) list of all adjacent level numbers.")]
-    private int[] _levelNums;
+    [Tooltip("Level number of current level; OR (for non-level nodes) list of all adjacent level numbers.")]
+    public int[] LevelNums;
 
     [Header("Visuals")]
     [SerializeField, Tooltip("Game objects to enable when there is a blocked connection on an accessible node. Provided in up-right-down-left order.")]
@@ -28,11 +28,15 @@ public class TravelNode : MonoBehaviour
 
     private void Awake()
     {
+        // Configuration verification: must have associated level index
+        if (LevelNums.Length < 1)
+            throw new System.Exception("Each travel node MUST have at least one associated level.");
+
         // unlocking only needs to occur in start since the states will not change without the player leaving and re-entering the scene
 
         // determine locked/unlocked connections
         bool isUnlocked = false;
-        foreach (int num in _levelNums)
+        foreach (int num in LevelNums)
         {
             if (GameManager.Instance.SaveData.LevelsComplete[num])
             {

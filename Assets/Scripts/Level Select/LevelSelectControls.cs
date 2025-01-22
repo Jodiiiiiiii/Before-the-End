@@ -120,6 +120,12 @@ public class LevelSelectControls : MonoBehaviour
 
             // update current node
             _currNode = newNode;
+
+            // update currently selected level in game manager (used to track level completion)
+            if (_currNode.SceneName == "None")
+                GameManager.Instance.SaveData.CurrLevel = -1;
+            else
+                GameManager.Instance.SaveData.CurrLevel = _currNode.LevelNums[0];
         }
         else
         {
