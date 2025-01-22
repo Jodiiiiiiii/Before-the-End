@@ -4390,6 +4390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7435191660324703702, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: _transitionHandler
+      value: 
+      objectReference: {fileID: 992908762}
     - target: {fileID: 8754600255387812405, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
       propertyPath: m_Camera
       value: 
@@ -6405,6 +6409,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+--- !u!114 &992908762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729695920170137320, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+  m_PrefabInstance: {fileID: 992908761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1178479074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7329,6 +7344,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
+      propertyPath: _transitionHandler
+      value: 
+      objectReference: {fileID: 992908762}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

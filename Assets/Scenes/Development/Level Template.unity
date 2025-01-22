@@ -220,6 +220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7435191660324703702, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: _transitionHandler
+      value: 
+      objectReference: {fileID: 992908763}
     - target: {fileID: 8754600255387812405, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
       propertyPath: m_Camera
       value: 
@@ -291,6 +295,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2409662555902960329, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
   m_PrefabInstance: {fileID: 992908761}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &992908763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729695920170137320, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+  m_PrefabInstance: {fileID: 992908761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1061816107
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +543,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
+      propertyPath: _transitionHandler
+      value: 
+      objectReference: {fileID: 992908763}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2160,23 +2179,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2042704036}
-    - targetCorrespondingSourceObject: {fileID: 5187160108185091652, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8290478495261618438, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 768216918}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
---- !u!4 &2137323045 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5187160108185091652, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
-  m_PrefabInstance: {fileID: 2137323044}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3026521909847300198
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2137323045}
+    m_TransformParent: {fileID: 1710384175}
     m_Modifications:
     - target: {fileID: 1753591017060406446, guid: 7a319832e01efff4ca63e0eb6d884d66, type: 3}
       propertyPath: m_LocalPosition.x
