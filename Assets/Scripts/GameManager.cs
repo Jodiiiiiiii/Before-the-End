@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     /// <summary>
     /// Resets Single Scene Data, happens at the start of each new scene.
     /// For example, ensures that pause state is always false at the start of a new scene
@@ -63,11 +68,20 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public class PersistentData
     {
+        // Options data - saved via PlayerPrefs
         public int MasterVolume;    // 0 to 200
         public int MusicVolume;     // 0 to 200
         public int SfxVolume;       // 0 to 200
 
-        // TODO: add level progression data here
+        // ----------------------------------------------- \\
+        // TODO: add new options data types here
+        // ----------------------------------------------- \\
+
+        // Progression data - saved via .json file
+
+        // ----------------------------------------------- \\
+        // TODO: add new progression data types here
+        // ----------------------------------------------- \\
     }
 
     // private stored save data
@@ -106,26 +120,40 @@ public class GameManager : MonoBehaviour
         newSaveData.MusicVolume = PlayerPrefs.GetInt("musicVolume", 100);
         newSaveData.SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
 
-        // TODO: add level progression loading here
+        // ----------------------------------------------- \\
+        // TODO: add new options default data values here
+        // ----------------------------------------------- \\
 
-        /*****************************************************************
-        // JSON functionality. To be replaced with PlayerPrefs
+        // default progression data (overriden in next step if possible)
+        ResetProgressionData();
 
-        string path = Application.persistentDataPath + "\\savedata.json";
+        // Read progression data
+        string path = Application.persistentDataPath + "\\ProgressionData.json";
         if (File.Exists(path))
         {
             // read json file into data object
             string json = File.ReadAllText(path);
             newSaveData = JsonUtility.FromJson<PersistentData>(json);
         }
-        *****************************************************************/
 
         // Apply read/initialized data to instance
         Instance.SaveData = newSaveData;
     }
 
+    /// <summary>
+    /// Resets values of progression data
+    /// Used to create new save as well as during initialization of save data.
+    /// </summary>
+    private void ResetProgressionData()
+    {
+        // ----------------------------------------------- \\
+        // TODO: add new level progression default data values here
+        // ----------------------------------------------- \\
+    }
+
     private void OnApplicationQuit()
     {
+        // OPTIONS DATA - PlayerPrefs
         // save controls rebindings
         string rebindsJson = InputSystem.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebindsJson);
@@ -135,16 +163,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("musicVolume", SaveData.MusicVolume);
         PlayerPrefs.SetInt("sfxVolume", SaveData.SfxVolume);
 
-        // TODO: add level progression saving here
+        // ----------------------------------------------- \\
+        // TODO: add save statements for new options data types
+        // ----------------------------------------------- \\
 
         PlayerPrefs.Save();
 
-        /*****************************************************************
-        // JSON functionality. To be replaced with PlayerPrefs
-
+        // PROGRESSION DATA - .json file
         string json = JsonUtility.ToJson(SaveData);
-        File.WriteAllText(Application.persistentDataPath + "\\savedata.json", json);
-        *****************************************************************/
+        File.WriteAllText(Application.persistentDataPath + "\\ProgressionData.json", json);
     }
 
     #region Save Data Getters/Setters
