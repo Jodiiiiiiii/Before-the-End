@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseCanvas : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class PauseCanvas : MonoBehaviour
     private GameObject _pauseMenu;
     [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus")]
     private GameObject _optionsMenu;
+
+    [Header("Scene Transitions")]
+    [SerializeField, Tooltip("Used to transition back to level select.")]
+    private string _levelSelectName;
+    [SerializeField, Tooltip("Used to transition back to start menu.")]
+    private string _startMenuName;
+    [SerializeField, Tooltip("Used to make actual scene transition calls.")]
+    private SceneTransitionHandler _transitionHandler;
 
     private void OnEnable()
     {
@@ -67,11 +76,18 @@ public class PauseCanvas : MonoBehaviour
         _optionsMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// In a level: returns to level select
+    /// In level select: returns to start menu
+    /// </summary>
     public void Exit()
     {
-        // TODO: when in level -> go to level select
+        // TODO: special case for pausing in main menu?
 
-        // TODO: when in level select -> go to start menu
+        if (SceneManager.GetActiveScene().name == _levelSelectName)
+            _transitionHandler.LoadScene(_startMenuName);
+        else // level scene
+            _transitionHandler.LoadScene(_levelSelectName);
     }
     #endregion
 

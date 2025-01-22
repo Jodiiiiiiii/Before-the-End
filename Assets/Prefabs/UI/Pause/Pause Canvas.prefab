@@ -2060,6 +2060,9 @@ MonoBehaviour:
   _canvas: {fileID: 8754600255387812405}
   _pauseMenu: {fileID: 9139063164739659380}
   _optionsMenu: {fileID: 624576544016908618}
+  _levelSelectName: LevelSelect
+  _startMenuName: StartMenu
+  _transitionHandler: {fileID: 0}
   _controlsMenu: {fileID: 3829653157667896259}
   _audioMenu: {fileID: 7146022108345378666}
   _controlsButtonSprite: {fileID: 8582590376970601207}
