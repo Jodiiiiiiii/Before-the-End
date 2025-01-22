@@ -145,4 +145,16 @@ public class Mover : MonoBehaviour
         Vector2 currLocalPos = new Vector2(transform.localPosition.x, transform.localPosition.y);
         return currLocalPos == _localGridPos;
     }
+
+    /// <summary>
+    /// Mover instantly snaps to set goal ignoring any smoothness.
+    /// Useful for special cases and initialization at scene start.
+    /// </summary>
+    public void SnapToGoal()
+    {
+        Vector3 snapPos = transform.localPosition;
+        snapPos.x = _localGridPos.x;
+        snapPos.y = _localGridPos.y;
+        transform.localPosition = snapPos;
+    }
 }

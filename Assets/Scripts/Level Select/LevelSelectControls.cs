@@ -10,11 +10,24 @@ using static NodeConnectionData;
 /// </summary>
 public class LevelSelectControls : MonoBehaviour
 {
-    private void Start()
-    {
-        // configure starting node whenever entering scene based on save data of current node/level - rather than using scene as default
+    [Header("Initialization")]
+    [SerializeField, Tooltip("Used to retrieve list of nodes and find the one of the correct index.")]
+    private GameObject _levelWeb;
 
-        // also handle enabling first node popup by default here
+    private void Awake()
+    {        
+        // move player to current saved level node instantly
+        TravelNode[] nodes = _levelWeb.GetComponentsInChildren<TravelNode>();
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            if (nodes[i].LevelNums.Length == 1 && nodes[i].LevelNums[0] == GameManager.Instance.SaveData.CurrLevel)
+            {
+                ConfirmMove(ref nodes[i], true);
+                break;
+            }
+        }
+
+        // TODO: also set camera to instantly snap to the start zone as well
     }
 
     #region Controls Bindings
@@ -108,29 +121,37 @@ public class LevelSelectControls : MonoBehaviour
         // check for able to travel
         if (connection is not null && connection.Unlocked)
         {
-            TravelNode newNode = connection.Node;
-
-            // move player to new node pos
-            Vector2Int newPos = newNode.GetTravelPos();
-            _playerMover.SetGlobalGoal(newPos.x, newPos.y);
-
-            // update popups
-            _currNode.DisablePopup();
-            newNode.EnablePopup();
-
-            // update current node
-            _currNode = newNode;
-
-            // update currently selected level in game manager (used to track level completion)
-            if (_currNode.SceneName == "None")
-                GameManager.Instance.SaveData.CurrLevel = -1;
-            else
-                GameManager.Instance.SaveData.CurrLevel = _currNode.LevelNums[0];
+            ConfirmMove(ref connection.Node);
         }
         else
         {
             // TODO: feedback for no node connection (player shake + negative feedback SFX?)
         }
+    }
+
+    /// <summary>
+    /// Once logic has been done to determine a move can happen, this function will then do all the corresponding functionality
+    /// </summary>
+    private void ConfirmMove(ref TravelNode newNode, bool isInstant = false)
+    {
+        // move player to new node pos
+        Vector2Int newPos = newNode.GetTravelPos();
+        _playerMover.SetGlobalGoal(newPos.x, newPos.y);
+        if (isInstant)
+            _playerMover.SnapToGoal();
+
+        // update popups
+        _currNode.DisablePopup();
+        newNode.EnablePopup();
+
+        // update current node
+        _currNode = newNode;
+
+        // update currently selected level in game manager (used to track level completion)
+        if (_currNode.SceneName == "None")
+            GameManager.Instance.SaveData.CurrLevel = -1;
+        else
+            GameManager.Instance.SaveData.CurrLevel = _currNode.LevelNums[0];
     }
     #endregion
 
