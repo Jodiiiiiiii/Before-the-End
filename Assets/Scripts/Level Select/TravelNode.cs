@@ -15,9 +15,13 @@ public class TravelNode : MonoBehaviour
     [SerializeField, Tooltip("Level number of current level; OR (for non-level nodes) list of all adjacent level numbers.")]
     private int[] _levelNums;
 
-    [Header("Obstruction Indicators")]
+    [Header("Visuals")]
     [SerializeField, Tooltip("Game objects to enable when there is a blocked connection on an accessible node. Provided in up-right-down-left order.")]
     private GameObject[] _obstructionIndicators;
+    [SerializeField, Tooltip("Used to swap the sprite to a completed variant.")]
+    private SpriteRenderer _renderer;
+    [SerializeField, Tooltip("Sprite variant for completed level.")]
+    private Sprite _completedSprite;
 
     private void Awake()
     {
@@ -29,6 +33,10 @@ public class TravelNode : MonoBehaviour
         {
             if (GameManager.Instance.SaveData.LevelsComplete[num])
             {
+                // update icon of node sprite (level nodes only)
+                if (SceneName != "None")
+                    _renderer.sprite = _completedSprite;
+
                 isUnlocked = true;
                 break;
             }

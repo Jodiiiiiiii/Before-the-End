@@ -1487,6 +1487,8 @@ MonoBehaviour:
   - {fileID: 863492653316017800}
   - {fileID: 3577543400265079981}
   - {fileID: 2843461071322055687}
+  _renderer: {fileID: 4114004631819610524}
+  _completedSprite: {fileID: 1469549118, guid: a04bdbe5b6ee29342821590eb09cd501, type: 3}
   _canvasFader: {fileID: 2717178348290595516}
   _alphaChangeRate: 2.5
   _fadeInDelay: 0.3
