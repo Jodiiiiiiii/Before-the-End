@@ -26,8 +26,6 @@ public class LevelSelectControls : MonoBehaviour
                 break;
             }
         }
-
-        // TODO: also set camera to instantly snap to the start zone as well
     }
 
     #region Controls Bindings
@@ -147,10 +145,8 @@ public class LevelSelectControls : MonoBehaviour
         // update current node
         _currNode = newNode;
 
-        // update currently selected level in game manager (used to track level completion)
-        if (_currNode.SceneName == "None")
-            GameManager.Instance.SaveData.CurrLevel = -1;
-        else
+        // update currently selected level in game manager (used to track level completion) - only update on actual level nodes
+        if (_currNode.SceneName != "None")
             GameManager.Instance.SaveData.CurrLevel = _currNode.LevelNums[0];
     }
     #endregion
