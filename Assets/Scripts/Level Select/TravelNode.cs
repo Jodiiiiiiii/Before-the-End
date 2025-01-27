@@ -90,6 +90,18 @@ public class TravelNode : MonoBehaviour
                 break;
             }
         }
+        // Special Case: first level is ALWAYS accessible
+        if (!isAccessible)
+        {
+            foreach (int i in LevelNums)
+            {
+                if (i == 0)
+                {
+                    isAccessible = true;
+                    break;
+                }
+            }
+        }
 
         // check each direction for a locked connection since as least one is unlocked (i.e. node is accessible)
         if (isAccessible)
