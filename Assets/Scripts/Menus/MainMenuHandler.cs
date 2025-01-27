@@ -26,6 +26,8 @@ public class MainMenuHandler : MonoBehaviour
     [Header("New Game Functionality")]
     [SerializeField, Tooltip("Used to enable/disable resume button based on whether there is a save to resume.")]
     private GameObject _resumeButton;
+    [SerializeField, Tooltip("Enabled if new game would clear save data.")]
+    private GameObject _newGameConfirmation;
 
     private void Awake()
     {
@@ -46,7 +48,7 @@ public class MainMenuHandler : MonoBehaviour
         // overriding previous save -> confirmation popup
         if (GameManager.Instance.SaveData.NewGameStarted)
         {
-            // CONFIRMATION POPUP
+            _newGameConfirmation.SetActive(true);
         }
         // no save data being overriden
         else
@@ -109,6 +111,27 @@ public class MainMenuHandler : MonoBehaviour
     {
         _creditsContainer.SetActive(false);
         _mainMenuContainer.SetActive(true);
+    }
+    #endregion
+
+    #region New Game Confirmation
+    /// <summary>
+    /// Loads new game without any stipulations, this is the confirmation function.
+    /// </summary>
+    public void ConfirmNewGame()
+    {
+        GameManager.Instance.ResetProgressionData(); // new progression data
+        GameManager.Instance.SaveData.NewGameStarted = true;
+        _transitionHandler.LoadScene(_levelSelectSceneName);
+    }
+
+    /// <summary>
+    /// Cancels the confirmation popup for creating a new game.
+    /// Can be used by other buttons to ensure popup is closed.
+    /// </summary>
+    public void AbortNewGame()
+    {
+        _newGameConfirmation.SetActive(false);
     }
     #endregion
 }
