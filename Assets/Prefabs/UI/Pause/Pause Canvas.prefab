@@ -2057,11 +2057,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a0e1c26ad63814fa48450d5f25f1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bypassPause: 0
   _canvas: {fileID: 8754600255387812405}
   _pauseMenu: {fileID: 9139063164739659380}
   _optionsMenu: {fileID: 624576544016908618}
   _levelSelectName: LevelSelect
-  _startMenuName: StartMenu
+  _startMenuName: MainMenu
   _transitionHandler: {fileID: 0}
   _controlsMenu: {fileID: 3829653157667896259}
   _audioMenu: {fileID: 7146022108345378666}
