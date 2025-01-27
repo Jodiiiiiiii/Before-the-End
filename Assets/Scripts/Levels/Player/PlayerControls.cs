@@ -97,21 +97,21 @@ public class PlayerControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Right").started -= RightInput;
         _actions.actionMaps[0].FindAction("Right").canceled -= RightInput;
         // remove undo bindings
-        _actions.actionMaps[0].FindAction("Undo").started += Undo;
-        _actions.actionMaps[0].FindAction("Undo").canceled += Undo;
+        _actions.actionMaps[0].FindAction("Undo").started -= Undo;
+        _actions.actionMaps[0].FindAction("Undo").canceled -= Undo;
         // remove ability toggle binding
-        _actions.actionMaps[0].FindAction("Ability").started += ToggleAbilityActive;
+        _actions.actionMaps[0].FindAction("Ability").started -= ToggleAbilityActive;
         // remove type cycle bindings
-        _actions.actionMaps[0].FindAction("CycleLeft").started += CycleLeft;
-        _actions.actionMaps[0].FindAction("CycleRight").started += CycleRight;
+        _actions.actionMaps[0].FindAction("CycleLeft").started -= CycleLeft;
+        _actions.actionMaps[0].FindAction("CycleRight").started -= CycleRight;
         // remove swap bindings
-        _actions.actionMaps[0].FindAction("Swap1").started += Swap1;
-        _actions.actionMaps[0].FindAction("Swap2").started += Swap2;
-        _actions.actionMaps[0].FindAction("Swap3").started += Swap3;
-        _actions.actionMaps[0].FindAction("Swap4").started += Swap4;
-        _actions.actionMaps[0].FindAction("Swap5").started += Swap5;
-        _actions.actionMaps[0].FindAction("Swap6").started += Swap6;
-        _actions.actionMaps[0].FindAction("Swap7").started += Swap7;
+        _actions.actionMaps[0].FindAction("Swap1").started -= Swap1;
+        _actions.actionMaps[0].FindAction("Swap2").started -= Swap2;
+        _actions.actionMaps[0].FindAction("Swap3").started -= Swap3;
+        _actions.actionMaps[0].FindAction("Swap4").started -= Swap4;
+        _actions.actionMaps[0].FindAction("Swap5").started -= Swap5;
+        _actions.actionMaps[0].FindAction("Swap6").started -= Swap6;
+        _actions.actionMaps[0].FindAction("Swap7").started -= Swap7;
         // remove pause binding
         _actions.actionMaps[0].FindAction("Pause").started -= PauseToggle;
 
