@@ -161,7 +161,9 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void TryEnterLevel(InputAction.CallbackContext context)
     {
-        _transitionHandler.LoadScene(_currNode.SceneName);
+        // only able to enter level from actual level nodes
+        if (_currNode.SceneName != "None")
+            _transitionHandler.LoadScene(_currNode.SceneName);
     }
     #endregion
 
