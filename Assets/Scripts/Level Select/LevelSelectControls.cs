@@ -78,6 +78,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void UpInput(InputAction.CallbackContext context)
     {
+        // controls disabled during scene exit
+        if (_isTransitionStart)
+            return;
+
         TryMove(Direction.Up);
     }
 
@@ -86,6 +90,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void RightInput(InputAction.CallbackContext context)
     {
+        // controls disabled during scene exit
+        if (_isTransitionStart)
+            return;
+
         _flipper.SetScaleX(-1); // face right (whether move occurs or not)
 
         TryMove(Direction.Right);
@@ -96,6 +104,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void DownInput(InputAction.CallbackContext context)
     {
+        // controls disabled during scene exit
+        if (_isTransitionStart)
+            return;
+
         TryMove(Direction.Down);
     }
 
@@ -104,6 +116,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void LeftInput(InputAction.CallbackContext context)
     {
+        // controls disabled during scene exit
+        if (_isTransitionStart)
+            return;
+
         _flipper.SetScaleX(1); // face left (whether move occurs or not)
 
         TryMove(Direction.Left);
@@ -156,6 +172,8 @@ public class LevelSelectControls : MonoBehaviour
     [SerializeField, Tooltip("Used to call animations of scene transitions.")]
     private SceneTransitionHandler _transitionHandler;
 
+    private bool _isTransitionStart = false;
+
     /// <summary>
     /// Attempt to enter the level associated with the current node
     /// </summary>
@@ -163,7 +181,10 @@ public class LevelSelectControls : MonoBehaviour
     {
         // only able to enter level from actual level nodes
         if (_currNode.SceneName != "None")
+        {
+            _isTransitionStart = true;
             _transitionHandler.LoadScene(_currNode.SceneName);
+        }
     }
     #endregion
 
@@ -173,6 +194,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void PauseToggle(InputAction.CallbackContext context)
     {
+        // controls disabled during scene exit
+        if (_isTransitionStart)
+            return;
+
         // flip paused state
         GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
     }
