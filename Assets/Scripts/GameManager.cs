@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
 
         // Progression data - saved via .json file
 
+        public bool NewGameStarted;
         public bool[] LevelsComplete;
         public int CurrLevel;
 
@@ -128,6 +129,9 @@ public class GameManager : MonoBehaviour
         // ----------------------------------------------- \\
 
         // default progression data (overriden in next step if possible)
+        // new save data
+        newSaveData.NewGameStarted = false;
+        // level data
         newSaveData.LevelsComplete = new bool[128]; // all false by default
         for (int i = 0; i < newSaveData.LevelsComplete.Length; i++)
             newSaveData.LevelsComplete[i] = false;

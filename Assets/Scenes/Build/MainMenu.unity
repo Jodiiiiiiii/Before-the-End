@@ -831,10 +831,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 126327763}
+  - component: {fileID: 126327764}
   - component: {fileID: 126327762}
   - component: {fileID: 126327761}
   - component: {fileID: 126327760}
-  - component: {fileID: 126327764}
   m_Layer: 5
   m_Name: Main Menu (Canvas)
   m_TagString: Untagged
@@ -940,6 +940,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuContainer: {fileID: 1550426015}
   _creditsContainer: {fileID: 1380967899}
+  _transitionHandler: {fileID: 1160866969}
+  _levelSelectSceneName: LevelSelect
+  _resumeButton: {fileID: 1508104742}
 --- !u!1 &230350059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,6 +2036,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+--- !u!114 &1160866969 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729695920170137320, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+  m_PrefabInstance: {fileID: 1160866968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1172254223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,7 +2413,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1508104745}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 126327764}
+        m_TargetAssemblyTypeName: MainMenuHandler, Assembly-CSharp
+        m_MethodName: ResumeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1508104745
 MonoBehaviour:
   m_ObjectHideFlags: 0

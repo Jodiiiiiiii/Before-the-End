@@ -11,14 +11,28 @@ using UnityEditor;
 /// </summary>
 public class MainMenuHandler : MonoBehaviour
 {
+    [Header("Credits Navigation")]
     [SerializeField, Tooltip("Enabled/Disabled to swap between main menu and credits.")]
     private GameObject _mainMenuContainer;
     [SerializeField, Tooltip("Enabled/Disabled to swap between main menu and credits.")]
     private GameObject _creditsContainer;
 
+    [Header("Scene Transitions")]
+    [SerializeField, Tooltip("Used to make calls to smooth scene transitions.")]
+    private SceneTransitionHandler _transitionHandler;
+    [SerializeField, Tooltip("Scene name of level select scene.")]
+    private string _levelSelectSceneName;
+
+    [Header("New Game Functionality")]
+    [SerializeField, Tooltip("Used to enable/disable resume button based on whether there is a save to resume.")]
+    private GameObject _resumeButton;
+
     private void Awake()
     {
-        // configure whether resume button shows up at all
+        if (!GameManager.Instance.SaveData.NewGameStarted)
+        {
+            _resumeButton.SetActive(false);
+        }
     }
 
     #region Main Menu Buttons
@@ -27,9 +41,13 @@ public class MainMenuHandler : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Resume Button Functionality.
+    /// Loads level select scene.
+    /// </summary>
     public void ResumeButton()
     {
-
+        _transitionHandler.LoadScene(_levelSelectSceneName);
     }
 
     /// <summary>
