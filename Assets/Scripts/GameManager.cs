@@ -116,8 +116,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void InitializeSaveData()
     {
+        ResetProgressionData();
+
         // initialize and load save data
-        PersistentData newSaveData = new PersistentData();
+        PersistentData newSaveData = Instance.SaveData; // retrieves default initialization data
         
         // Read save data from PlayerPrefs (or assign default values)
         newSaveData.MasterVolume = PlayerPrefs.GetInt("masterVolume", 100);
@@ -126,19 +128,6 @@ public class GameManager : MonoBehaviour
 
         // ----------------------------------------------- \\
         // TODO: add new options default data values here
-        // ----------------------------------------------- \\
-
-        // default progression data (overriden in next step if possible)
-        // new save data
-        newSaveData.NewGameStarted = false;
-        // level data
-        newSaveData.LevelsComplete = new bool[128]; // all false by default
-        for (int i = 0; i < newSaveData.LevelsComplete.Length; i++)
-            newSaveData.LevelsComplete[i] = false;
-        newSaveData.CurrLevel = 0; // first level
-
-        // ----------------------------------------------- \\
-        // TODO: add new level progression default data values here
         // ----------------------------------------------- \\
 
         // Read progression data
@@ -151,6 +140,33 @@ public class GameManager : MonoBehaviour
         }
 
         // Apply read/initialized data to instance
+        Instance.SaveData = newSaveData;
+    }
+
+    /// <summary>
+    /// Clears progression data saved in ProgressionData.json.
+    /// Also used when initializing data before reading from .json.
+    /// </summary>
+    public void ResetProgressionData()
+    {
+        PersistentData newSaveData = new PersistentData();
+
+        // default progression data 
+        // new save data
+        newSaveData.NewGameStarted = false;
+
+        // level complete
+        newSaveData.LevelsComplete = new bool[128]; // all false by default
+        for (int i = 0; i < newSaveData.LevelsComplete.Length; i++)
+            newSaveData.LevelsComplete[i] = false;
+
+        // tacking current level
+        newSaveData.CurrLevel = 0; // first level = 0
+
+        // ----------------------------------------------- \\
+        // TODO: add new level progression default data values here
+        // ----------------------------------------------- \\
+
         Instance.SaveData = newSaveData;
     }
 

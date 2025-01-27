@@ -29,6 +29,7 @@ public class MainMenuHandler : MonoBehaviour
 
     private void Awake()
     {
+        // Only show resume button if there is save data to resume with
         if (!GameManager.Instance.SaveData.NewGameStarted)
         {
             _resumeButton.SetActive(false);
@@ -36,9 +37,24 @@ public class MainMenuHandler : MonoBehaviour
     }
 
     #region Main Menu Buttons
+    /// <summary>
+    /// Functionality for New Game Button.
+    /// Either loads level select on new save (if no save data present) OR shows confirmation popup before overwriting save
+    /// </summary>
     public void NewGameButton()
     {
-
+        // overriding previous save -> confirmation popup
+        if (GameManager.Instance.SaveData.NewGameStarted)
+        {
+            // CONFIRMATION POPUP
+        }
+        // no save data being overriden
+        else
+        {
+            GameManager.Instance.ResetProgressionData(); // new progression data
+            GameManager.Instance.SaveData.NewGameStarted = true;
+            _transitionHandler.LoadScene(_levelSelectSceneName);
+        }
     }
 
     /// <summary>
