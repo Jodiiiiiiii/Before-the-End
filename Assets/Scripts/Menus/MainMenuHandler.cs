@@ -22,6 +22,8 @@ public class MainMenuHandler : MonoBehaviour
     private SceneTransitionHandler _transitionHandler;
     [SerializeField, Tooltip("Scene name of level select scene.")]
     private string _levelSelectSceneName;
+    [SerializeField, Tooltip("Scene name of the first level. Bypass level select on new game.")]
+    private string _firstLevelName;
 
     [Header("New Game Functionality")]
     [SerializeField, Tooltip("Used to enable/disable resume button based on whether there is a save to resume.")]
@@ -55,7 +57,7 @@ public class MainMenuHandler : MonoBehaviour
         {
             GameManager.Instance.ResetProgressionData(); // new progression data
             GameManager.Instance.SaveData.NewGameStarted = true;
-            _transitionHandler.LoadScene(_levelSelectSceneName);
+            _transitionHandler.LoadScene(_firstLevelName);
         }
     }
 
@@ -122,7 +124,7 @@ public class MainMenuHandler : MonoBehaviour
     {
         GameManager.Instance.ResetProgressionData(); // new progression data
         GameManager.Instance.SaveData.NewGameStarted = true;
-        _transitionHandler.LoadScene(_levelSelectSceneName);
+        _transitionHandler.LoadScene(_firstLevelName);
     }
 
     /// <summary>
