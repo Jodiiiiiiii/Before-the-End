@@ -86,8 +86,6 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void Exit()
     {
-        // TODO: special case for pausing in main menu?
-
         if (SceneManager.GetActiveScene().name == _levelSelectName)
             _transitionHandler.LoadScene(_startMenuName);
         else // level scene
