@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PauseCanvas : MonoBehaviour
 {
+    [Header("Configuration")]
+    [SerializeField, Tooltip("Allows bypassing the pause menu, which is useful in the main menu.")]
+    private bool _bypassPause = false;
+
     [Header("Pause Navigation")]
     [SerializeField, Tooltip("Used to disable/enable the entire canvas based on pause state.")]
     private Canvas _canvas;
@@ -34,7 +38,7 @@ public class PauseCanvas : MonoBehaviour
         _canvas.enabled = GameManager.Instance.IsPaused;
 
         // ensure pausing always opens up to pause menu, not options.
-        if(_canvas.enabled == false)
+        if(_canvas.enabled == false && !_bypassPause)
         {
             // pause menu by default when you pause, not options
             _pauseMenu.SetActive(true);

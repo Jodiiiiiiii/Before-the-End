@@ -27,9 +27,14 @@ public class MainMenuHandler : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Options Button Functionality.
+    /// Opens Controls/Audio options, skipping the pause menu segment of the Pause Canvas.
+    /// </summary>
     public void OptionsButton()
     {
-
+        // Modified Pause Canvas is able to enable itself when this is toggled on
+        GameManager.Instance.IsPaused = true;
     }
 
     public void CreditsButton()
