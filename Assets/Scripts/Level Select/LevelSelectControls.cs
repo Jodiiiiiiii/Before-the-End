@@ -179,6 +179,10 @@ public class LevelSelectControls : MonoBehaviour
     /// </summary>
     private void TryEnterLevel(InputAction.CallbackContext context)
     {
+        // controls disabled during scene exit
+        if (_isTransitionStart)
+            return;
+
         // only able to enter level from actual level nodes
         if (_currNode.SceneName != "None")
         {
