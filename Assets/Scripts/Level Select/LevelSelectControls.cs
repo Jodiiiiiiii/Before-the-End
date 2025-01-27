@@ -79,7 +79,7 @@ public class LevelSelectControls : MonoBehaviour
     private void UpInput(InputAction.CallbackContext context)
     {
         // controls disabled during scene exit
-        if (_isTransitionStart)
+        if (_isTransitionStart || GameManager.Instance.IsPaused)
             return;
 
         TryMove(Direction.Up);
@@ -91,7 +91,7 @@ public class LevelSelectControls : MonoBehaviour
     private void RightInput(InputAction.CallbackContext context)
     {
         // controls disabled during scene exit
-        if (_isTransitionStart)
+        if (_isTransitionStart || GameManager.Instance.IsPaused)
             return;
 
         _flipper.SetScaleX(-1); // face right (whether move occurs or not)
@@ -105,7 +105,7 @@ public class LevelSelectControls : MonoBehaviour
     private void DownInput(InputAction.CallbackContext context)
     {
         // controls disabled during scene exit
-        if (_isTransitionStart)
+        if (_isTransitionStart || GameManager.Instance.IsPaused)
             return;
 
         TryMove(Direction.Down);
@@ -117,7 +117,7 @@ public class LevelSelectControls : MonoBehaviour
     private void LeftInput(InputAction.CallbackContext context)
     {
         // controls disabled during scene exit
-        if (_isTransitionStart)
+        if (_isTransitionStart || GameManager.Instance.IsPaused)
             return;
 
         _flipper.SetScaleX(1); // face left (whether move occurs or not)
@@ -180,7 +180,7 @@ public class LevelSelectControls : MonoBehaviour
     private void TryEnterLevel(InputAction.CallbackContext context)
     {
         // controls disabled during scene exit
-        if (_isTransitionStart)
+        if (_isTransitionStart || GameManager.Instance.IsPaused)
             return;
 
         // only able to enter level from actual level nodes
