@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f226c7af27881d479ce4d0b515f119d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeAlpha: 0.6
+  _fadeAlpha: 0.3
   _groundTilemap: {fileID: 5435309297470922063}
   _borderTilemap: {fileID: 8686729978615951121}
 --- !u!1 &2623548167786307539
