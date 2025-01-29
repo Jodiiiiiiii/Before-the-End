@@ -15816,42 +15816,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 265521883554253122, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1221234610195463981, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 27.753998
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955506386519010156, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3460390770478813183, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7064104461709248872, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7428090090025047461, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
       propertyPath: m_Name
       value: Pause Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7428090090025047461, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7435191660324703702, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
       propertyPath: _transitionHandler
       value: 
       objectReference: {fileID: 5052045216575518512}
-    - target: {fileID: 8754600255387812405, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1026023522}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
