@@ -170,6 +170,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FadePanels"",
+                    ""type"": ""Button"",
+                    ""id"": ""4eadef89-023d-4302-9892-6b1e91746fdb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -511,6 +520,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6e39333-249f-4f12-898b-8bfb012062c7"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FadePanels"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0734f6ef-5424-4a7d-9d4f-8187937d73a1"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""FadePanels"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1114,6 +1145,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Swap6 = m_Player.FindAction("Swap6", throwIfNotFound: true);
         m_Player_Swap7 = m_Player.FindAction("Swap7", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_FadePanels = m_Player.FindAction("FadePanels", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1209,6 +1241,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Swap6;
     private readonly InputAction m_Player_Swap7;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_FadePanels;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1229,6 +1262,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Swap6 => m_Wrapper.m_Player_Swap6;
         public InputAction @Swap7 => m_Wrapper.m_Player_Swap7;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @FadePanels => m_Wrapper.m_Player_FadePanels;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1286,6 +1320,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @FadePanels.started += instance.OnFadePanels;
+            @FadePanels.performed += instance.OnFadePanels;
+            @FadePanels.canceled += instance.OnFadePanels;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1338,6 +1375,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @FadePanels.started -= instance.OnFadePanels;
+            @FadePanels.performed -= instance.OnFadePanels;
+            @FadePanels.canceled -= instance.OnFadePanels;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1536,6 +1576,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSwap6(InputAction.CallbackContext context);
         void OnSwap7(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnFadePanels(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

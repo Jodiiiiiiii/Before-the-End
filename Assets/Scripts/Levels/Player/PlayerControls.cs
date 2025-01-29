@@ -82,6 +82,10 @@ public class PlayerControls : MonoBehaviour
         // pause
         _actions.actionMaps[0].FindAction("Pause").started += PauseToggle;
 
+        // fading panels
+        _actions.actionMaps[0].FindAction("FadePanels").started += FadePanels;
+        _actions.actionMaps[0].FindAction("FadePanels").canceled += FadePanels;
+
         _actions.actionMaps[0].Enable();
     }
 
@@ -114,6 +118,9 @@ public class PlayerControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Swap7").started -= Swap7;
         // remove pause binding
         _actions.actionMaps[0].FindAction("Pause").started -= PauseToggle;
+        // remove fading panels binding
+        _actions.actionMaps[0].FindAction("FadePanels").started -= FadePanels;
+        _actions.actionMaps[0].FindAction("FadePanels").canceled -= FadePanels;
 
         // disable player actions altogether
         _actions.actionMaps[0].Disable();
@@ -650,6 +657,21 @@ public class PlayerControls : MonoBehaviour
         // also cancel ability preparing so the UI stops blinking
         _isPreparingAbility = false;
         _abilityIndicator.SetAbilityActive(false);
+    }
+    #endregion
+
+    #region PANEL FADING
+    /// <summary>
+    /// Handles updating fade panels variable in game manager based on press and release of key binding.
+    /// </summary>
+    private void FadePanels(InputAction.CallbackContext context)
+    {
+        // start panel fade
+        if (context.started)
+            GameManager.Instance.IsFading = true;
+        // end panel fade
+        else if (context.canceled)
+            GameManager.Instance.IsFading = false;
     }
     #endregion
 

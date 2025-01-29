@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     #region SINGLE SCENE DATA
     public bool IsPaused = false;
+    public bool IsFading = false;
 
     private void OnEnable()
     {
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         IsPaused = false;
+        IsFading = false;
     }
     #endregion
 
