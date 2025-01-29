@@ -116,6 +116,14 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2323026133807904452, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: _renderers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323026133807904452, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: _renderers.Array.data[5]
+      value: 
+      objectReference: {fileID: 8208553708107446715}
     - target: {fileID: 2443076598783411197, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Sprite
       value: 

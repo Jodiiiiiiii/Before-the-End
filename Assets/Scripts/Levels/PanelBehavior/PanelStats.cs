@@ -58,4 +58,12 @@ public class PanelStats : MonoBehaviour
         // therefore, must be within bounds
         return true;
     }
+
+    /// <summary>
+    /// Returns whether the current panel is the main panel or a subpanel.
+    /// </summary>
+    public bool IsMainPanel()
+    {
+        return _isMainPanel;
+    }
 }
