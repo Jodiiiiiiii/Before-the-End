@@ -15,8 +15,6 @@ public class FadePanel : MonoBehaviour
     [Header("References")]
     [SerializeField, Tooltip("Used to fade the ground tilemap.")]
     private Tilemap _groundTilemap;
-    [SerializeField, Tooltip("Used to fade the border tilemap.")]
-    private Tilemap _borderTilemap;
 
     private bool _isFaded = false;
 
@@ -47,9 +45,5 @@ public class FadePanel : MonoBehaviour
         newColor = _groundTilemap.color;
         newColor.a = _isFaded ? _fadeAlpha : 1f;
         _groundTilemap.color = newColor;
-        // border tilemap
-        newColor = _borderTilemap.color;
-        newColor.a = _isFaded ? _fadeAlpha : 1f;
-        _borderTilemap.color = newColor;
     }
 }
