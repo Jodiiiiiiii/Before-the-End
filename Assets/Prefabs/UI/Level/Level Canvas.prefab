@@ -182,10 +182,10 @@ MonoBehaviour:
   - {fileID: -1812381768, guid: c11439d20d5bbb143a6faf87219bd8ec, type: 3}
   - {fileID: -503337098, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
   - {fileID: 54393391, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
-  - {fileID: -1584332002, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
-  - {fileID: 1447686760, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
   - {fileID: 1927601058, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
   - {fileID: -2050789821, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
+  - {fileID: -1584332002, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
+  - {fileID: 1447686760, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
   - {fileID: -816541181, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
   - {fileID: 1107487041, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
 --- !u!1001 &1174837904486304838
@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1927601058, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
+      objectReference: {fileID: -1584332002, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1071,7 +1071,7 @@ PrefabInstance:
     - target: {fileID: 6794477625718598224, guid: 7389e07ea6014d449abb085db800dfac, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1584332002, guid: 12a3ef6d9b2d2364d8ef71a81f255bb8, type: 3}
+      objectReference: {fileID: 1927601058, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
