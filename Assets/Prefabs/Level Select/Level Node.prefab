@@ -144,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 438883050683455736}
   - component: {fileID: 8876318848474394325}
+  - component: {fileID: 5641558222858547762}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -218,6 +219,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5641558222858547762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863492653316017800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAnimated: 1
+  _sprites:
+  - {fileID: -1523328516, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  - {fileID: -361557782, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  _renderer: {fileID: 8876318848474394325}
+  _img: {fileID: 0}
 --- !u!1 &1100462097563778403
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2266415971337312097}
   - component: {fileID: 5695370497820789111}
+  - component: {fileID: 4740813721840575844}
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
@@ -629,6 +649,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4740813721840575844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902263260117908383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAnimated: 1
+  _sprites:
+  - {fileID: -1523328516, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  - {fileID: -361557782, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  _renderer: {fileID: 5695370497820789111}
+  _img: {fileID: 0}
 --- !u!1 &1914808832670645928
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8419641465769913063}
   - component: {fileID: 6357459742151635279}
+  - component: {fileID: 4645452692850714850}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -936,6 +975,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4645452692850714850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843461071322055687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAnimated: 1
+  _sprites:
+  - {fileID: -1523328516, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  - {fileID: -361557782, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  _renderer: {fileID: 6357459742151635279}
+  _img: {fileID: 0}
 --- !u!1 &3577543400265079981
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +1003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5758889590602906818}
   - component: {fileID: 164698357834462744}
+  - component: {fileID: 8782345043864665781}
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
@@ -1020,6 +1078,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8782345043864665781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577543400265079981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAnimated: 1
+  _sprites:
+  - {fileID: -1523328516, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  - {fileID: -361557782, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+  _renderer: {fileID: 164698357834462744}
+  _img: {fileID: 0}
 --- !u!1 &3789278985634952894
 GameObject:
   m_ObjectHideFlags: 0
