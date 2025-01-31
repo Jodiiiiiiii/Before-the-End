@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Anky (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -332999555, guid: c11439d20d5bbb143a6faf87219bd8ec, type: 3}
   - {fileID: -1812381768, guid: c11439d20d5bbb143a6faf87219bd8ec, type: 3}
+  - {fileID: -332999555, guid: c11439d20d5bbb143a6faf87219bd8ec, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2
   m_AnimationStartTime: 0.5

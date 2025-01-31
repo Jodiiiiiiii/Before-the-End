@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CompyPair (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: 1604211149, guid: e077bd4f3c03e5f41a9edd3a7579f2e4, type: 3}
   - {fileID: 1854352751, guid: e077bd4f3c03e5f41a9edd3a7579f2e4, type: 3}
+  - {fileID: 1604211149, guid: e077bd4f3c03e5f41a9edd3a7579f2e4, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2
   m_AnimationStartTime: 0.5

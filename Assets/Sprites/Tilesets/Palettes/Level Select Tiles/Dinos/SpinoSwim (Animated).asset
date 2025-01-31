@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SpinoSwim (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -1712943470, guid: 1f2e8e4f2ba3cf94da45abdbc3ac8a5d, type: 3}
   - {fileID: -284413339, guid: 1f2e8e4f2ba3cf94da45abdbc3ac8a5d, type: 3}
+  - {fileID: -1712943470, guid: 1f2e8e4f2ba3cf94da45abdbc3ac8a5d, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2
   m_AnimationStartTime: 0.5

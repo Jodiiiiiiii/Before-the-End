@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Ptera (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: 1927601058, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
   - {fileID: -2050789821, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
+  - {fileID: 1927601058, guid: f63178b2b3aac0e448153e8643a06742, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2
   m_AnimationStartTime: 0.5

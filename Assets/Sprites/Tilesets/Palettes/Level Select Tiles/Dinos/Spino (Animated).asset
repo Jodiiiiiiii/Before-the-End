@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spino (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -503337098, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
+  - {fileID: 54393391, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
   - {fileID: -503337098, guid: 07f5f6901b250c34db1719a8ff985f60, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2

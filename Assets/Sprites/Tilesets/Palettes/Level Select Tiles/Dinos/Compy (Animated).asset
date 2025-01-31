@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Compy (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -816541181, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
   - {fileID: 1107487041, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
+  - {fileID: -816541181, guid: 5b995c6ee5f8323479d04f2207d0c997, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2
   m_AnimationStartTime: 0.5

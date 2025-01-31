@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Trike (Animated)
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: 1834596240, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
   - {fileID: 553733346, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
+  - {fileID: 1834596240, guid: 6fea8f2b48fb2024aab7676ac2231c6a, type: 3}
   m_MinSpeed: 2
   m_MaxSpeed: 2
   m_AnimationStartTime: 0.5
