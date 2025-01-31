@@ -34,48 +34,16 @@ public class AnimationManager : MonoBehaviour
     #endregion
 
     #region Animation Counter
-    private const float TIME_PER_FRAME = 0.5f;
-
-    private float _timer = 0f;
+    public static float TIME_PER_FRAME = 0.5f;
 
     private int _frameNum = 0;
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    /// <summary>
-    /// Resets animation frame tracking data so every scene always starts out exactly the same.
-    /// </summary>
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        _frameNum = 0;
-        _timer = 0f;
-    }
 
     // Update is called once per frame
     void Update()
     {
-        // frame end time check
-        if (_timer > TIME_PER_FRAME)
-        {
-            // reset timer
-            _timer = 0f;
-
-            // flip frame num
-            if (_frameNum == 0)
-                _frameNum = 1;
-            else
-                _frameNum = 0;
-        }
-
-        _timer += Time.deltaTime;
+        // frame number as 0 or 1
+        // handling it this way instead of a timer prevents animation timer drift based on frame rate (important to sync with tilemap animations)
+        _frameNum = Mathf.RoundToInt(Time.timeSinceLevelLoad / TIME_PER_FRAME) % 2;
     }
 
     /// <summary>
