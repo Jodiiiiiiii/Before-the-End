@@ -681,7 +681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8413427665390995059}
   - component: {fileID: 4482554591919950253}
-  - component: {fileID: 3118713353252489268}
+  - component: {fileID: 4956220946276342421}
   m_Layer: 0
   m_Name: Quantum Particle
   m_TagString: Untagged
@@ -756,24 +756,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3118713353252489268
-Animator:
-  serializedVersion: 5
+--- !u!114 &4956220946276342421
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7417001617649512533}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c06671b06624e2640b1cfd14ff1e12cd, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAnimated: 1
+  _sprites:
+  - {fileID: -1462904418, guid: 8c5422c163afcb642acb7556be878b13, type: 3}
+  - {fileID: -399707924, guid: 8c5422c163afcb642acb7556be878b13, type: 3}
+  _renderer: {fileID: 4482554591919950253}
+  _img: {fileID: 0}
