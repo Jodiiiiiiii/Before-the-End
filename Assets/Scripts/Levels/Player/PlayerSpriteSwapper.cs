@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static PlayerControls;
 
+/// <summary>
+/// Handles toggling the player between different sprite sets for each different dinosaur type, dynamically matching PlayerControls dino type.
+/// </summary>
 public class PlayerSpriteSwapper : MonoBehaviour
 {
     private const float SPRITE_SHRINK = 0;
@@ -15,25 +18,26 @@ public class PlayerSpriteSwapper : MonoBehaviour
     private SpriteFlipper _flipper;
     [SerializeField, Tooltip("Used to actually update player sprite")]
     private SpriteRenderer _renderer;
+    [SerializeField, Tooltip("Used to set sprites for two-frame animations.")]
+    private TwoFrameAnimator _animator;
 
     [Header("Sprites")]
-    [SerializeField, Tooltip("sprites for stegosaurus")]
-    private Sprite[] _stegoSprites;
-    [SerializeField, Tooltip("sprites for triceratops")]
-    private Sprite[] _trikeSprites;
-    [SerializeField, Tooltip("sprites for ankylosaurus")]
-    private Sprite[] _ankySprites;
-    [SerializeField, Tooltip("sprites for spinosaurus")]
-    private Sprite[] _spinoSprites;
-    [SerializeField, Tooltip("sprites for pteranodon")]
-    private Sprite[] _pteraSprites;
-    [SerializeField, Tooltip("sprites for pyroraptor")]
-    private Sprite[] _pyroSprites;
-    [SerializeField, Tooltip("sprites for compsagnathus")]
-    private Sprite[] _compySprites;
+    [SerializeField, Tooltip("list of all STANDARD dino sprites; ordered in pairs in order: stego, trike, anky, spino, ptera, raptor, compy.")]
+    private Sprite[] _dinoSprites;
+    [SerializeField, Tooltip("Two sprites for spino swimming variant.")]
+    private Sprite[] _spinoSwimSprites;
+    [SerializeField, Tooltip("Two sprites for compy half variant.")]
+    private Sprite[] _compyHalfSprites;
 
     private DinoType _spriteType;
     private bool _requiresFlip = false;
+
+    private void Awake()
+    {
+        // Precondition: proper amount of sprites
+        if (_dinoSprites.Length != 14 || _spinoSwimSprites.Length != 2 || _compyHalfSprites.Length != 2)
+            throw new System.Exception("There must be 14 dino sprites, 2 spino swim sprites, AND 2 compy half sprites");
+    }
 
     private void Start()
     {
@@ -43,6 +47,7 @@ public class PlayerSpriteSwapper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool visualChangeNeeded = false;
         // Calls to sprite flipper. update when there is a change
         if (_spriteType != _playerControls.GetCurrDinoType() || _requiresFlip)
         {
@@ -55,6 +60,7 @@ public class PlayerSpriteSwapper : MonoBehaviour
                 _spriteType = _playerControls.GetCurrDinoType();
                 // ensure it no longer requires flip
                 _requiresFlip = false;
+                visualChangeNeeded = true;
             }
             else // sprite should be shrinking if not yet at fully shrunk
                 _flipper.SetScaleY((int)SPRITE_SHRINK);
@@ -62,37 +68,45 @@ public class PlayerSpriteSwapper : MonoBehaviour
         // ensures player NEVER gets stuck at scale 0 (invisible)
         else if (_flipper.GetCurrentScaleY() != SPRITE_NORMAL)
             _flipper.SetScaleY((int)SPRITE_NORMAL);
-       
-            
+
+        // only check for sprite updates if a change actually occurred
+        if (!visualChangeNeeded)
+            return;
         // actually update the sprite when _spriteType is updated
         switch (_spriteType)
         {
             case DinoType.Stego:
-                _renderer.sprite = _stegoSprites[0]; // currently not animated, just use 0
+                _animator.UpdateSprites(_dinoSprites[0], _dinoSprites[1]); // basic 2-frame animation
                 break;
             case DinoType.Trike:
-                _renderer.sprite = _trikeSprites[0]; // currently not animated, just use 0
+                _animator.UpdateSprites(_dinoSprites[2], _dinoSprites[3]); // basic 2-frame animation
                 break;
             case DinoType.Anky:
-                _renderer.sprite = _ankySprites[0]; // currently not animated, just use 0
+                _animator.UpdateSprites(_dinoSprites[4], _dinoSprites[5]); // basic 2-frame animation
                 break;
             case DinoType.Spino:
                 // show EITHER grounded, or swimming variant
                 if (!_playerControls.IsSwimming)
-                    _renderer.sprite = _spinoSprites[0]; // currently not animated, just use 0
+                    _animator.UpdateSprites(_dinoSprites[6], _dinoSprites[7]); // basic 2-frame animation
                 else
-                    _renderer.sprite = _spinoSprites[3];
+                    _animator.UpdateSprites(_spinoSwimSprites[0], _spinoSwimSprites[1]); // spino swimming variant
                 break;
             case DinoType.Ptera:
-                _renderer.sprite = _pteraSprites[0]; // currently not animated, just use 0
+                _animator.UpdateSprites(_dinoSprites[8], _dinoSprites[9]); // basic 2-frame animation
                 break;
             case DinoType.Pyro:
-                _renderer.sprite = _pyroSprites[0]; // currently not animated, just use 0
+                _animator.UpdateSprites(_dinoSprites[10], _dinoSprites[11]); // basic 2-frame animation
                 break;
             case DinoType.Compy:
-                _renderer.sprite = _compySprites[0]; // currently not animated, just use 0
+                // show either full compy pack, or half compy pack variant
+                if (!_playerControls.IsCompySplit())
+                    _animator.UpdateSprites(_dinoSprites[12], _dinoSprites[13]); // basic 2-frame animation
+                else
+                    _animator.UpdateSprites(_compyHalfSprites[0], _compyHalfSprites[1]); // compy half variant
                 break;
         }
+        // ensure swap occurs instantly as necessary
+        _animator.UpdateVisuals();
     }
 
     /// <summary>

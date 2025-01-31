@@ -737,6 +737,15 @@ public class PlayerControls : MonoBehaviour
         // destroy reference since it has been collected
         _compyReference.ObjData.IsDisabled = true;
 
+        // visually flip player sprite - only flip if current dino is compy, otherwise it looks weird
+        if (_dinoTypes[_currDino] == DinoType.Compy)
+        {
+            PlayerSpriteSwapper flipper = GetComponentInChildren<PlayerSpriteSwapper>();
+            if (flipper is null)
+                throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+            flipper.RequireFlip();
+        }
+
         // does not save frame here since frame saving is handled where player movement is handled
     }
 
@@ -772,6 +781,29 @@ public class PlayerControls : MonoBehaviour
 
         // swapping counts as an action so frame must be saved
         UndoHandler.SaveFrame();
+    }
+
+    /// <summary>
+    /// Returns whether or not the compy is currently split between two pairs.
+    /// </summary>
+    public bool IsCompySplit()
+    {
+        int compyIndex = -1;
+        for (int i = 0; i < _dinoTypes.Length; i++)
+        {
+            if (_dinoTypes[i] == DinoType.Compy)
+            {
+                compyIndex = i;
+                break;
+            }
+        }
+
+        // compy is NOT split since there is no compy ability in play
+        if (compyIndex == -1)
+            return false;
+
+        // true split state only if current compy charges are -1
+        return _dinoCharges[compyIndex] == -1;
     }
     #endregion
 

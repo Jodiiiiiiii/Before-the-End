@@ -9,6 +9,8 @@ using UnityEngine.UI;
 /// </summary>
 public class TwoFrameAnimator : MonoBehaviour
 {
+    [SerializeField, Tooltip("Whether the current sprite is being animated")]
+    public bool IsAnimated = true;
     [SerializeField, Tooltip("Sprites to swap between for the two-frame animation.")]
     private Sprite[] _sprites;
 
@@ -30,21 +32,22 @@ public class TwoFrameAnimator : MonoBehaviour
         if (((!_renderer ? 0 : 1) + (!_img ? 0 : 1)) != 1)
             throw new System.Exception("TwoFrameAnimator MUST have EITHER a linked Image or SpriteRenderer component. Not neither or both.");
 
-        UpdateSprite();
+        if (IsAnimated)
+            UpdateVisuals();
     }
 
     // Update is called once per frame
     void Update()
     {
         // check for updating sprite
-        if (_currFrame != AnimationManager.Instance.GetFrameNum())
-            UpdateSprite();
+        if (IsAnimated && _currFrame != AnimationManager.Instance.GetFrameNum())
+            UpdateVisuals();
     }
 
     /// <summary>
     /// Fetches current frame number and swaps sprite accordingly.
     /// </summary>
-    private void UpdateSprite()
+    public void UpdateVisuals()
     {
         _currFrame = AnimationManager.Instance.GetFrameNum();
         if (!_renderer)

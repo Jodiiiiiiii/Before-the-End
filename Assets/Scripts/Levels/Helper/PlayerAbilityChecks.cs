@@ -270,6 +270,12 @@ public static class PlayerAbilityChecks
             if (adjacentObj is not null && VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y) &&
                 adjacentObj.ObjData.ObjType == ObjectType.Water && !adjacentObj.ObjData.WaterHasLog && !adjacentObj.ObjData.WaterHasRock)
             {
+                // visually flip player sprite
+                PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+                if (flipper is null)
+                    throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+                flipper.RequireFlip();
+
                 // swim!
                 player.IsSwimming = true;
 
@@ -308,6 +314,12 @@ public static class PlayerAbilityChecks
                     // college compy before handling motion
                     player.CollectCompy();
                 }
+
+                // visually flip player sprite
+                PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+                if (flipper is null)
+                    throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+                flipper.RequireFlip();
 
                 // set facing direction
                 FaceDirection(player, dir);
@@ -549,6 +561,12 @@ public static class PlayerAbilityChecks
 
             return;
         }
+
+        // visually flip player sprite
+        PlayerSpriteSwapper flipper = player.GetComponentInChildren<PlayerSpriteSwapper>();
+        if (flipper is null)
+            throw new Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+        flipper.RequireFlip();
 
         // set facing direction
         FaceDirection(player, dir);
