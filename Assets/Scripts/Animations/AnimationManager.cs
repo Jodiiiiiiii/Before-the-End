@@ -43,7 +43,9 @@ public class AnimationManager : MonoBehaviour
     {
         // frame number as 0 or 1
         // handling it this way instead of a timer prevents animation timer drift based on frame rate (important to sync with tilemap animations)
-        _frameNum = Mathf.RoundToInt(Time.timeSinceLevelLoad / TIME_PER_FRAME) % 2;
+        // one frame of delay ensures that AnimationManager is in sync with animated tiles
+        if (Time.timeSinceLevelLoad > TIME_PER_FRAME)
+            _frameNum = Mathf.RoundToInt((Time.timeSinceLevelLoad - TIME_PER_FRAME) / TIME_PER_FRAME) % 2;
     }
 
     /// <summary>
