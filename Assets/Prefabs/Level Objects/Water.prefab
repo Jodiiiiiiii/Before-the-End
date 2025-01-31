@@ -9,9 +9,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2144170477780618955, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144170477780618955, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2144170477780618955, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6360ff95a2360e14f81025061234c9af, type: 3}
+      objectReference: {fileID: 1941265526, guid: 6360ff95a2360e14f81025061234c9af, type: 3}
+    - target: {fileID: 2144170477780618955, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4281857284185798206, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Name
       value: Water

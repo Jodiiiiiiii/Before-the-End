@@ -136,6 +136,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree
       objectReference: {fileID: 0}
+    - target: {fileID: 5412454214512777860, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5824489155988496214, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -187,6 +191,14 @@ PrefabInstance:
     - target: {fileID: 8521049556433384751, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948711340952755212, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948711340952755212, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: IsAnimated
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

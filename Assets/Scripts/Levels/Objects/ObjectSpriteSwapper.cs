@@ -15,6 +15,8 @@ public class ObjectSpriteSwapper : MonoBehaviour
     private SpriteFlipper _flipper;
     [SerializeField, Tooltip("Used to actually update player sprite")]
     private SpriteRenderer _renderer;
+    [SerializeField, Tooltip("Used to change sprites and toggle two frame animator.")]
+    private TwoFrameAnimator _animator;
 
     [Header("Quantum")]
     [SerializeField, Tooltip("game object containing animated particle sprite")]
@@ -40,85 +42,186 @@ public class ObjectSpriteSwapper : MonoBehaviour
     [SerializeField, Tooltip("sprites for compy")]
     private Sprite[] _compySprites;
 
-    private Sprite _goalSprite;
     private bool _requiresFlip = false;
-    private bool _isCoroutineActive = false;
+    private ObjectType _currObjectType;
+    private ObjectData _currObjectData;
+
+    private void Awake()
+    {
+        // Precondition: all sprites are the correct lengths
+        if (_logSprites.Length != 3)
+            throw new System.Exception("There MUST be 3 log sprites (normal, burning two-frame).");
+        if (_waterSprites.Length != 6)
+            throw new System.Exception("There MUST be 6 water sprites (normal two-frame, log two-frame, rock two-frame).");
+        if (_rockSprites.Length != 1)
+            throw new System.Exception("There MUST be 1 rock sprite (normal).");
+        if (_bushSprites.Length != 3)
+            throw new System.Exception("There MUST be 3 bush sprites (normal, burning two-frame).");
+        if (_tunnelSprites.Length != 6)
+            throw new System.Exception("There MUST be 5 tunnel sprites (normal, numbered 1-5).");
+        if (_clockSprites.Length != 2)
+            throw new System.Exception("There MUST be 2 clock sprites (normal two-frame).");
+        if (_fireSprites.Length != 2)
+            throw new System.Exception("There MUST be 2 fire sprites (normal two-frame).");
+        if (_voidSprites.Length != 2)
+            throw new System.Exception("There MUST be 2 void sprites (normal two-frame).");
+        if (_compySprites.Length != 2)
+            throw new System.Exception("There MUST be 2 compy pair sprites (normal two-frame).");
+    }
 
     private void Start()
     {
-        _goalSprite = _renderer.sprite;
+        _currObjectType = _objState.ObjData.ObjType;
+        _currObjectData = _objState.ObjData;
+        UpdateSprites();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // actually update the goal sprite
-        if (_objState.ObjData.IsDisabled) // disabled = no sprite
+        CheckForChange();
+
+        // Update quantum particles to match actual quantum state
+        if (_quantumParticles.activeInHierarchy != _objState.IsQuantum())
+            _quantumParticles.SetActive(_objState.IsQuantum());
+
+        // update state for next check
+        _currObjectData = _objState.ObjData;
+    }
+
+    /// <summary>
+    /// Handles flipping, sprite swapping, and interfacing with the TwoFrameAnimator.
+    /// </summary>
+    public void CheckForChange()
+    {
+        bool visualChangeNeeded = false;
+        // Calls to sprite flipper. update when there is a change - only swap on object change
+        if (_currObjectType != _objState.ObjData.ObjType || _requiresFlip || _objState.ObjData.IsDisabled)
         {
-            // no sprite
-            _goalSprite = null;
-            // disable quantum particles (gone)
-            _quantumParticles.SetActive(false);
-        }
-        else
-        {
-            // set sprite properly based on object type and its type-specific data states
-            switch (_objState.ObjData.ObjType)
+            // EXIT: Ready to restore sprite to normal
+            if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
             {
-                case ObjectType.Log:
-                    if (_objState.ObjData.IsOnFire)
-                        _goalSprite = _logSprites[1]; // fire variant (no animations yet)
-                    else
-                        _goalSprite = _logSprites[0]; // normal variant (no animations yet)
-                    break;
-                case ObjectType.Water:
-                    // check based on water state
-                    if (_objState.ObjData.WaterHasLog)
-                        _goalSprite = _waterSprites[1];
-                    else if (_objState.ObjData.WaterHasRock)
-                        _goalSprite = _waterSprites[2];
-                    else
-                        _goalSprite = _waterSprites[0];
-                    break;
-                case ObjectType.Rock:
-                    _goalSprite = _rockSprites[0]; // no animations, just use 0
-                    break;
-                case ObjectType.Bush:
-                    if (_objState.ObjData.IsOnFire)
-                        _goalSprite = _bushSprites[1]; // fire variant (no animations yet)
-                    else
-                        _goalSprite = _bushSprites[0]; // normal variant (no animations yet)
-                    break;
-                case ObjectType.Tunnel:
-                    // set goal sprite to numbered tunnel based on tunnel index
-                    _goalSprite = _tunnelSprites[_objState.ObjData.TunnelIndex];
-                    break;
-                case ObjectType.Tree:
-                    // tree state will never change
-                    break;
-                case ObjectType.Clock:
-                    // needs to handle higher frame rate?
-                    break;
-                case ObjectType.Fire:
-                    _goalSprite = _fireSprites[0]; // no animations currently, just use 0
-                    break;
-                case ObjectType.Void:
-                    _goalSprite = _voidSprites[0]; // no animations currently, just use 0
-                    break;
-                case ObjectType.Compy:
-                    _goalSprite = _compySprites[0]; // no animations currently, just use 0
-                    break;
+                // sprite disable check if disabled object
+                if (_objState.ObjData.IsDisabled)
+                {
+                    _animator.IsAnimated = false;
+                    _renderer.sprite = null;
+                }
+                else // normal behavior
+                {
+                    // flip back to base scale
+                    _flipper.SetScaleY((int)SPRITE_NORMAL);
+                    // ensure sprite update occurs below
+                    _currObjectType = _objState.ObjData.ObjType;
+                    // ensure it no longer requires flip
+                    _requiresFlip = false;
+                    visualChangeNeeded = true;
+                }
             }
-
-            // Update quantum particles to match actual quantum state
-            if (_quantumParticles.activeInHierarchy != _objState.IsQuantum())
-                _quantumParticles.SetActive(_objState.IsQuantum());
+            else // sprite should be shrinking if not yet at fully shrunk
+                _flipper.SetScaleY((int)SPRITE_SHRINK);
         }
+        else // sprite should be shrinking if not yet at fully shrunk
+            _flipper.SetScaleY((int)SPRITE_NORMAL);
 
-        // call flipping coroutine ONLY if it is not already running
-        // AND there is either a sprite change that needs to happen or it requires a flip
-        if (!_isCoroutineActive && (_renderer.sprite != _goalSprite || _requiresFlip))
-            StartCoroutine(FlipEffect());
+        // only check for sprite updates if a change actually occurred
+        // ALSO: there must be no change in any object data to skip update check (imported for example for water becoming a submerged log)
+        if (!visualChangeNeeded && _currObjectData.Equals(_objState.ObjData))
+            return;
+        UpdateSprites();
+    }
+
+    private void UpdateSprites()
+    {
+        // set sprite properly based on object type and its type-specific data states
+        switch (_currObjectType)
+        {
+            case ObjectType.Log:
+                if (_objState.ObjData.IsOnFire) // fire variant (animated)
+                {
+                    _animator.IsAnimated = true;
+                    _animator.UpdateSprites(_logSprites[1], _logSprites[2]);
+                    _animator.UpdateVisuals();
+                }
+                else // normal logs (static)
+                {
+                    _animator.IsAnimated = false;
+                    _renderer.sprite = _logSprites[0]; // normal variant
+                }
+                break;
+            case ObjectType.Water:
+                // check based on water state
+                if (_objState.ObjData.WaterHasLog) // submerged log variant (animated)
+                {
+                    _animator.IsAnimated = true;
+                    _animator.UpdateSprites(_waterSprites[2], _waterSprites[3]);
+                    _animator.UpdateVisuals();
+                }
+                else if (_objState.ObjData.WaterHasRock) // submerged rock variant (animated)
+                {
+                    _animator.IsAnimated = true;
+                    _animator.UpdateSprites(_waterSprites[4], _waterSprites[5]);
+                    _animator.UpdateVisuals();
+                }
+                else // normal water (animated)
+                {
+                    _animator.IsAnimated = true;
+                    _animator.UpdateSprites(_waterSprites[0], _waterSprites[1]);
+                    _animator.UpdateVisuals();
+                }
+                break;
+            case ObjectType.Rock:
+                // normal rock - no animations
+                _animator.IsAnimated = false;
+                _renderer.sprite = _rockSprites[0];
+                break;
+            case ObjectType.Bush:
+                if (_objState.ObjData.IsOnFire) // on fire variant (animated)
+                {
+                    _animator.IsAnimated = true;
+                    _animator.UpdateSprites(_bushSprites[1], _bushSprites[2]);
+                    _animator.UpdateVisuals();
+                }
+                else // normal bush (static)
+                {
+                    _animator.IsAnimated = false;
+                    _renderer.sprite = _bushSprites[0];
+                }
+                break;
+            case ObjectType.Tunnel:
+                // normal tunnel (static)
+                // set goal sprite to numbered tunnel based on tunnel index
+                _animator.IsAnimated = false;
+                _renderer.sprite = _tunnelSprites[_objState.ObjData.TunnelIndex];
+                break;
+            case ObjectType.Tree:
+                // tree state will never change - and trees do not use this script
+                break;
+            case ObjectType.Clock:
+                // normal clock (animated)
+                _animator.IsAnimated = true;
+                _animator.UpdateSprites(_clockSprites[0], _clockSprites[1]);
+                _animator.UpdateVisuals();
+                break;
+            case ObjectType.Fire:
+                // normal fire (animated)
+                _animator.IsAnimated = true;
+                _animator.UpdateSprites(_fireSprites[0], _fireSprites[1]);
+                _animator.UpdateVisuals();
+                break;
+            case ObjectType.Void:
+                // normal void (animated)
+                _animator.IsAnimated = true;
+                _animator.UpdateSprites(_voidSprites[0], _voidSprites[1]);
+                _animator.UpdateVisuals();
+                break;
+            case ObjectType.Compy:
+                // normal compy pair (animated)
+                _animator.IsAnimated = true;
+                _animator.UpdateSprites(_compySprites[0], _compySprites[1]);
+                _animator.UpdateVisuals();
+                break;
+        }
     }
 
     /// <summary>
@@ -128,33 +231,5 @@ public class ObjectSpriteSwapper : MonoBehaviour
     public void RequireFlip()
     {
         _requiresFlip = true;
-    }
-
-    IEnumerator FlipEffect()
-    {
-        _isCoroutineActive = true;
-
-        // Calls to sprite flipper. update when there is a change
-        while (_renderer.sprite != _goalSprite || _requiresFlip)
-        {
-            // EXIT: Ready to restore sprite to normal
-            if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
-            {
-                // flip back to base scale
-                _flipper.SetScaleY((int)SPRITE_NORMAL);
-
-                // make sure flipping conditions are set to false
-                _renderer.sprite = _goalSprite;
-                _requiresFlip = false;
-            }
-            else // sprite should be shrinking if not yet at fully shrunk
-                _flipper.SetScaleY((int)SPRITE_SHRINK);    
-
-            yield return null;
-        }
-        // ensures object NEVER gets stuck at scale 0 (invisible)
-        _flipper.SetScaleY((int)SPRITE_NORMAL);
-
-        _isCoroutineActive = false;
     }
 }

@@ -56,5 +56,3 @@ public struct ObjectData
             && TunnelIndex == other.TunnelIndex;
     }
 }
-
-
