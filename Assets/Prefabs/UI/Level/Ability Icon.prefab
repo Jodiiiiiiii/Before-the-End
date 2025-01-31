@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsCurrent: 0
   _borderImage: {fileID: 6749015837089358478}
-  _dinoAnimator: {fileID: 3983562328114174015}
+  _dinoAnimator: {fileID: 0}
   _chargesText: {fileID: 464400444941002068}
   _chargesObject: {fileID: 657141050597592358}
   _borderSprites:
@@ -229,8 +229,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2037667747016844215}
   - component: {fileID: 5892652817082484627}
+  - component: {fileID: 1943398166870674631}
   - component: {fileID: 6794477625718598224}
-  - component: {fileID: 3983562328114174015}
   m_Layer: 5
   m_Name: Dino Icon
   m_TagString: Untagged
@@ -265,6 +265,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7011188827940150239}
   m_CullTransparentMesh: 1
+--- !u!114 &1943398166870674631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7011188827940150239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 1776261479, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
+  - {fileID: -125612406, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
+  _renderer: {fileID: 0}
+  _img: {fileID: 6794477625718598224}
 --- !u!114 &6794477625718598224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,27 +312,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &3983562328114174015
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7011188827940150239}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 694712f5b4504d540941bf30bbf7b2ab, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8737461828066396328
 GameObject:
   m_ObjectHideFlags: 0

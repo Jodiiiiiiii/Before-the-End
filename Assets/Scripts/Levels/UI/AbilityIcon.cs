@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Handles updates to an individual ability icon's border sprite and charges text.
+/// </summary>
 public class AbilityIcon : MonoBehaviour
 {
     [HideInInspector]
@@ -12,8 +15,6 @@ public class AbilityIcon : MonoBehaviour
     [Header("Components")]
     [SerializeField, Tooltip("Used for updating border sprite.")]
     private Image _borderImage;
-    [SerializeField, Tooltip("Used for updating indicator sprite.")]
-    private Animator _dinoAnimator;
     [SerializeField, Tooltip("Used for updating charges counter.")]
     private TextMeshProUGUI _chargesText;
     [SerializeField, Tooltip("Used for disabling charges counter when you have infinite charges.")]
@@ -31,14 +32,6 @@ public class AbilityIcon : MonoBehaviour
             _borderImage.sprite = _borderSprites[1];
         else
             _borderImage.sprite = _borderSprites[0];
-    }
-
-    /// <summary>
-    /// Sets animation to the provided dinosaur name
-    /// </summary>
-    public void SetAnimation(string name)
-    {
-        _dinoAnimator.Play(name);
     }
 
     /// <summary>
