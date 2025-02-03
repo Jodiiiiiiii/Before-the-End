@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 2144170477780618955, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1523328516, guid: 9c1346cdd369f9145b7518c350ed4020, type: 3}
+      objectReference: {fileID: 1953512984, guid: 0143c524e4f869e43835917913945403, type: 3}
     - target: {fileID: 4281857284185798206, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: m_Name
       value: Clock
