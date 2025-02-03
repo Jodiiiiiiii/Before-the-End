@@ -151,48 +151,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: QuantumParticle_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df0daf85165430c4392fbfa3faadd435
-      internalID: 1220122592
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: QuantumParticle_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 247380c70566e7148b4277f4ef412ce0
-      internalID: 591072012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -206,8 +164,6 @@ TextureImporter:
     nameFileIdTable:
       QuantumParticle_0: -1462904418
       QuantumParticle_1: -399707924
-      QuantumParticle_2: 1220122592
-      QuantumParticle_3: 591072012
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
