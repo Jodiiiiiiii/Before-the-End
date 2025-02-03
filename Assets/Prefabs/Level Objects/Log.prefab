@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c129988d2aa104fa2eb98fa3c03263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeAlpha: 0.4
+  _fadeAlpha: 0.2
   _renderers:
   - {fileID: 2144170477780618955}
   - {fileID: 8359171613382481238}
