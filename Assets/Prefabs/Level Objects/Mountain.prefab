@@ -48,9 +48,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5016727540450099072, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
+      propertyPath: _renderers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5016727540450099072, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
+      propertyPath: _renderers.Array.data[6]
+      value: 
+      objectReference: {fileID: 3340059055988081578}
     - target: {fileID: 6831892912485433210, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_Name
-      value: Moutain Variant
+      value: Mountain
       objectReference: {fileID: 0}
     - target: {fileID: 8208553708107446715, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_Sprite
@@ -65,3 +73,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
+--- !u!212 &3340059055988081578 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8208553708107446715, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
+  m_PrefabInstance: {fileID: 6895259624552446481}
+  m_PrefabAsset: {fileID: 0}
