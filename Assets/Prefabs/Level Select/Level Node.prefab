@@ -1354,7 +1354,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -359592997, guid: a04bdbe5b6ee29342821590eb09cd501, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56e05d2ac8827f84fb5994a6218df44f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1564,7 +1564,7 @@ MonoBehaviour:
   - {fileID: 3577543400265079981}
   - {fileID: 2843461071322055687}
   _renderer: {fileID: 4114004631819610524}
-  _completedSprite: {fileID: 1469549118, guid: a04bdbe5b6ee29342821590eb09cd501, type: 3}
+  _completedSprite: {fileID: 21300000, guid: 6e5f4324ffe8fc94bae5638badbbef95, type: 3}
   _canvasFader: {fileID: 2717178348290595516}
   _alphaChangeRate: 2.5
   _fadeInDelay: 0.3
