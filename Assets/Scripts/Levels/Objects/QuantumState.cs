@@ -23,15 +23,23 @@ public class QuantumState : MonoBehaviour
     [Header("Quantum State")]
     [SerializeField, Tooltip("used to call sprite flip when quantum objects are randomized.")]
     private ObjectSpriteSwapper _spriteSwapper;
-
+    [SerializeField, Tooltip("used to set the object as quantum by default")]
     private bool _isQuantum = false;
+
     // Stores objectState, and whether the quantum object is visible
     private static List<QuantumState> _quantumObjects;
 
-    private void Start()
+    private void Awake()
     {
         // ensure quantum objects properly reset between different levels
         _quantumObjects = new List<QuantumState>();
+    }
+
+    private void Start()
+    {
+        // for intial isQuantum state
+        if (_isQuantum)
+            SetQuantum(true);
     }
 
     public bool IsQuantum()
