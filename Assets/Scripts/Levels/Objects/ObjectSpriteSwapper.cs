@@ -82,7 +82,9 @@ public class ObjectSpriteSwapper : MonoBehaviour
         CheckForChange();
 
         // Update quantum particles to match actual quantum state
-        if (_quantumParticles.activeInHierarchy != _objState.IsQuantum())
+        if (_objState.ObjData.IsDisabled)
+            _quantumParticles.SetActive(false); // do NOT show quantum particles for a destroyed object
+        else if (_quantumParticles.activeInHierarchy != _objState.IsQuantum())
             _quantumParticles.SetActive(_objState.IsQuantum());
 
         // update state for next check
