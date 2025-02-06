@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6895259624552446481
+--- !u!1001 &6566056096716688578
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4347916681193450823, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4347916681193450823, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 4347916681193450823, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_LocalPosition.z
@@ -50,16 +50,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6831892912485433210, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_Name
-      value: Mountain
+      value: Burned Tree Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8208553708107446715, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1761577095, guid: 0001a3241ff8cc24988b66bee414454f, type: 3}
+      objectReference: {fileID: 1926601088, guid: 86a463a8756fce14693915b2c8562f66, type: 3}
     - target: {fileID: 8674613874128684943, guid: 5f95ea9236c36f4488945f398082f456, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1708699549, guid: 0001a3241ff8cc24988b66bee414454f, type: 3}
+      objectReference: {fileID: -1992487812, guid: 86a463a8756fce14693915b2c8562f66, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
