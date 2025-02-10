@@ -6103,7 +6103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5174239036298729176, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       propertyPath: m_Name
-      value: Main Panel (1)
+      value: Main Panel
       objectReference: {fileID: 0}
     - target: {fileID: 5235677624240803057, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       propertyPath: m_TileAssetArray.Array.data[6].m_Data
