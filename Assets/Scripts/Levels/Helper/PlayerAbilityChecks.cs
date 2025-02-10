@@ -70,7 +70,8 @@ public static class PlayerAbilityChecks
             // set facing direction
             FaceDirection(player, dir);
             // decrement charges
-            player.UseAbilityCharge();
+            if (adjacentObj.IsQuantum()) // consume charge ONLY if an object was marked as quantum, not if it was unmarked
+                player.UseAbilityCharge();
             // action successful (save undo frame)
             UndoHandler.SaveFrame();
             return;
