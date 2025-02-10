@@ -15,8 +15,8 @@ public class TravelNode : MonoBehaviour
     [Header("Adjacent Nodes")]
     [Tooltip("Data for adjacent node connections of the current node.")]
     public NodeConnectionData[] NodeConnections;
-    [Tooltip("Level number of current level; OR (for non-level nodes) list of all adjacent level numbers.")]
-    public int[] LevelNums;
+    [Tooltip("Level name of current level; OR (for non-level nodes) list of all adjacent level names.")]
+    public string[] LevelIdentifiers;
 
     [Header("Visuals")]
     [SerializeField, Tooltip("Game objects to enable when there is a blocked connection on an accessible node. Provided in up-right-down-left order.")]
@@ -29,16 +29,16 @@ public class TravelNode : MonoBehaviour
     private void Awake()
     {
         // Configuration verification: must have associated level index
-        if (LevelNums.Length < 1)
+        if (LevelIdentifiers.Length < 1)
             throw new System.Exception("Each travel node MUST have at least one associated level.");
 
         // unlocking only needs to occur in start since the states will not change without the player leaving and re-entering the scene
 
         // determine locked/unlocked connections
         bool isUnlocked = false;
-        foreach (int num in LevelNums)
+        foreach (string name in LevelIdentifiers)
         {
-            if (GameManager.Instance.SaveData.LevelsComplete[num])
+            if (GameManager.Instance.SaveData.LevelsComplete.Contains(name))
             {
                 // update icon of node sprite (level nodes only)
                 if (SceneName != "None")
@@ -93,9 +93,9 @@ public class TravelNode : MonoBehaviour
         // Special Case: first level is ALWAYS accessible
         if (!isAccessible)
         {
-            foreach (int i in LevelNums)
+            foreach (string i in LevelIdentifiers)
             {
-                if (i == 0)
+                if (i.Equals("Tut0"))
                 {
                     isAccessible = true;
                     break;
@@ -225,6 +225,29 @@ public class TravelNode : MonoBehaviour
             _canvasFader.alpha -= _alphaChangeRate * Time.deltaTime;
             if (_canvasFader.alpha < 0) _canvasFader.alpha = 0;
         }
+    }
+    #endregion
+
+    #region
+    private void OnEnable()
+    {
+        if (LevelIdentifiers.Length == 1)
+            CheatsControls.UnlockLevels += CheatUnlockThisLevel;
+    }
+
+    private void OnDisable()
+    {
+        if (LevelIdentifiers.Length == 1)
+            CheatsControls.UnlockLevels -= CheatUnlockThisLevel;
+    }
+
+    /// <summary>
+    /// Only add level if it has not already been completed.
+    /// </summary>
+    private void CheatUnlockThisLevel()
+    {
+        if (!GameManager.Instance.SaveData.LevelsComplete.Contains(LevelIdentifiers[0]))
+            GameManager.Instance.SaveData.LevelsComplete.Add(LevelIdentifiers[0]);
     }
     #endregion
 }

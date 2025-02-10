@@ -20,7 +20,7 @@ public class LevelSelectControls : MonoBehaviour
         TravelNode[] nodes = _levelWeb.GetComponentsInChildren<TravelNode>();
         for (int i = 0; i < nodes.Length; i++)
         {
-            if (nodes[i].LevelNums.Length == 1 && nodes[i].LevelNums[0] == GameManager.Instance.SaveData.CurrLevel)
+            if (nodes[i].LevelIdentifiers.Length == 1 && nodes[i].LevelIdentifiers[0] == GameManager.Instance.SaveData.CurrLevel)
             {
                 ConfirmMove(ref nodes[i], true);
                 break;
@@ -163,7 +163,7 @@ public class LevelSelectControls : MonoBehaviour
 
         // update currently selected level in game manager (used to track level completion) - only update on actual level nodes
         if (_currNode.SceneName != "None")
-            GameManager.Instance.SaveData.CurrLevel = _currNode.LevelNums[0];
+            GameManager.Instance.SaveData.CurrLevel = _currNode.LevelIdentifiers[0];
     }
     #endregion
 

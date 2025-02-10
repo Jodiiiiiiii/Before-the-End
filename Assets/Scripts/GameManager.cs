@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
         // Progression data - saved via .json file
 
         public bool NewGameStarted;
-        public bool[] LevelsComplete;
-        public int CurrLevel;
+        public List<string> LevelsComplete;
+        public string CurrLevel;
 
         // ----------------------------------------------- \\
         // TODO: add new progression data types here
@@ -158,12 +158,10 @@ public class GameManager : MonoBehaviour
         newSaveData.NewGameStarted = false;
 
         // level complete
-        newSaveData.LevelsComplete = new bool[128]; // all false by default
-        for (int i = 0; i < newSaveData.LevelsComplete.Length; i++)
-            newSaveData.LevelsComplete[i] = false;
+        newSaveData.LevelsComplete = new List<string>(); // empty by default
 
         // tacking current level
-        newSaveData.CurrLevel = 0; // first level = 0
+        newSaveData.CurrLevel = "Tut0"; // first level
 
         // ----------------------------------------------- \\
         // TODO: add new level progression default data values here
@@ -228,11 +226,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LevelComplete()
     {
-        // avoid editor case of saving -1 from being on a non-level node
-        if (SaveData.CurrLevel == -1)
+        // avoid editor case of saving invalid level name assignment to save data (but prevent crash in editor)
+        if (SaveData.CurrLevel is null)
             return;
 
-        SaveData.LevelsComplete[SaveData.CurrLevel] = true;
+        // only add level to complete levels if it has not already been completed
+        if (!SaveData.LevelsComplete.Contains(SaveData.CurrLevel))
+            SaveData.LevelsComplete.Add(SaveData.CurrLevel);
     }
     #endregion
 

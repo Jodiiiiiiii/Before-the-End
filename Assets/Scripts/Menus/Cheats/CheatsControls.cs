@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class CheatsControls : MonoBehaviour
 {
+    public delegate void UnlockLevelsCheat();
+    public static event UnlockLevelsCheat UnlockLevels;
+
     [SerializeField, Tooltip("Used to reload the scene.")]
     private SceneTransitionHandler _transitionHandler;
 
@@ -17,9 +21,17 @@ public class CheatsControls : MonoBehaviour
     /// </summary>
     public void UnlockAllLevels()
     {
-        // set all levels to complete
-        for (int i = 0; i < GameManager.Instance.SaveData.LevelsComplete.Length; i++)
-            GameManager.Instance.SaveData.LevelsComplete[i] = true;
+        UnlockLevels?.Invoke();
+
+        StartCoroutine(ReloadAfterDelay());
+    }
+
+    /// <summary>
+    /// Used to guarantee all levels are properly unlocked BEFORE reloading
+    /// </summary>
+    public IEnumerator ReloadAfterDelay()
+    {
+        yield return new WaitForSeconds(0.25f);
 
         // reload current scene
         _transitionHandler.LoadScene(SceneManager.GetActiveScene().name);

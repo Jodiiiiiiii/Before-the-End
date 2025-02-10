@@ -954,7 +954,7 @@ MonoBehaviour:
   _creditsContainer: {fileID: 1380967899}
   _transitionHandler: {fileID: 1160866969}
   _levelSelectSceneName: LevelSelect
-  _firstLevelName: 0_Tutorial1
+  _firstLevelName: Tutorial0
   _resumeButton: {fileID: 1508104742}
   _newGameConfirmation: {fileID: 2102710119}
 --- !u!1 &230350059
