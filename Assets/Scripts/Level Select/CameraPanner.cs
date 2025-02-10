@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls when the camera moves to an adjacent region by tracking the position of the player in level select.
+/// </summary>
 public class CameraPanner : MonoBehaviour
 {
     [Header("Zone Configuration")]
@@ -28,11 +31,19 @@ public class CameraPanner : MonoBehaviour
     {
         // snap camera to player's starting zone at start
         // player is set to position in Awake, so this works here
-
+        UpdateCameraPos(true);
     }
 
     // Update is called once per frame
     void Update()
+    {
+        UpdateCameraPos();
+    }
+
+    /// <summary>
+    /// Checks for player in a different region and pans the camera over accordingly.
+    /// </summary>
+    private void UpdateCameraPos(bool snapInstant = false)
     {
         bool changeOccurred = false;
         // check left bound
@@ -67,5 +78,9 @@ public class CameraPanner : MonoBehaviour
         // prevents setting mover every frame
         if (changeOccurred)
             _mover.SetGlobalGoal(_width * _currZoneX, _height * _currZoneY);
+
+        // snap if applicable
+        if (snapInstant)
+            _mover.SnapToGoal();
     }
 }
