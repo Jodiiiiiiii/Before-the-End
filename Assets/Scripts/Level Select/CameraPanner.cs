@@ -29,8 +29,13 @@ public class CameraPanner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // snap camera to player's starting zone at start
         // player is set to position in Awake, so this works here
+        // configure initial zone to match player start spot
+        Vector2 startPos = _player.transform.position;
+        _currZoneX = Mathf.RoundToInt(startPos.x / _width);
+        _currZoneY = Mathf.RoundToInt(startPos.y / _height);
+
+        // snap camera to player's starting zone at start
         UpdateCameraPos(true);
     }
 
@@ -76,7 +81,7 @@ public class CameraPanner : MonoBehaviour
         }
 
         // prevents setting mover every frame
-        if (changeOccurred)
+        if (changeOccurred || snapInstant)
             _mover.SetGlobalGoal(_width * _currZoneX, _height * _currZoneY);
 
         // snap if applicable
