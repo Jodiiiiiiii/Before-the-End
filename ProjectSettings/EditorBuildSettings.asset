@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Mountain/Mountain2.unity
     guid: fb399c8bf9d9c9f42bf878be4ebe21fe
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Mountain/Mountain3.unity
+    guid: a31182cb9799ab541b3f1b30729e2b70
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
