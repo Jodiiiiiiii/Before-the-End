@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Tutorial/Tutorial6.unity
     guid: aab0ab7b0f9615b4c87b84c953ca6210
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Mountain/Mountain2.unity
+    guid: fb399c8bf9d9c9f42bf878be4ebe21fe
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
