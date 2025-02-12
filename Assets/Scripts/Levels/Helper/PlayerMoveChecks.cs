@@ -93,6 +93,10 @@ public static class PlayerMoveChecks
                 case ObjectType.Tree:
                     return; // CANNOT move into trees
                 case ObjectType.Clock:
+                    // player moves into object, which is vertically shrunk to 0 (destroyed)
+                    adjacentObj.ObjData.IsDisabled = true;
+                    ConfirmPlayerMove(player, playerMover, moveDir);
+
                     player.LevelComplete();
                     // action attempt is complete (and the entire level!)
                     return;
