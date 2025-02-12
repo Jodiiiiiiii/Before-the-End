@@ -83,7 +83,6 @@ public class UndoPlayer : UndoHandler
             // instant snapping - occurs for between panels OR multi-tile movement
             if (oldParent != newParent || Vector2Int.Distance(oldPos, newPos) > 1.1f) // slightly above 1 for deadband safety
             {
-                Debug.Log("Big move");
                 _mover.SnapToGoal();
 
                 // also visually flip to avoid jarring nature of instantaneous move
