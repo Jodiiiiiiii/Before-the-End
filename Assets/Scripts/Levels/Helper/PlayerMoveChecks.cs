@@ -59,7 +59,7 @@ public static class PlayerMoveChecks
             // SWIMMING CHECK: do swimming version of move checks instead of standard move checks below?
             if (player.IsSwimming)
             {
-                TrySwimmingMove(playerMover, moveDir, adjacentObj);
+                TrySwimmingMove(player, playerMover, moveDir, adjacentObj);
                 return;
             }
 
@@ -67,7 +67,7 @@ public static class PlayerMoveChecks
             if (adjacentObj is null)
             {
                 // Move action complete -> no obstruction
-                ConfirmPlayerMove(playerMover, moveDir);
+                ConfirmPlayerMove(player, playerMover, moveDir);
                 return;
             }
 
@@ -75,11 +75,11 @@ public static class PlayerMoveChecks
             switch(adjacentObj.ObjData.ObjType)
             {
                 case ObjectType.Log:
-                    TryMoveIntoLog(playerMover, moveDir);
+                    TryMoveIntoLog(player, playerMover, moveDir);
                     // action attempt is complete whether move happened or not
                     return;
                 case ObjectType.Water:
-                    TryMoveIntoWater(playerMover, moveDir, adjacentObj);
+                    TryMoveIntoWater(player, playerMover, moveDir, adjacentObj);
                     // action attempt is complete whether move happened or not
                     return;
                 case ObjectType.Rock:
@@ -87,7 +87,7 @@ public static class PlayerMoveChecks
                 case ObjectType.Bush:
                     return; // CANNOT move into bushes
                 case ObjectType.Tunnel:
-                    TryMoveIntoTunnel(playerMover, moveDir, adjacentObj);
+                    TryMoveIntoTunnel(player, playerMover, moveDir, adjacentObj);
                     // action attempt is complete whether move happened or not
                     return;
                 case ObjectType.Tree:
@@ -103,7 +103,7 @@ public static class PlayerMoveChecks
                 case ObjectType.Compy:
                     // can ALWAYS move into compy
                     player.CollectCompy();
-                    ConfirmPlayerMove(playerMover, moveDir);
+                    ConfirmPlayerMove(player, playerMover, moveDir);
                     // action attempt is complete (and the entire level)
                     return;
             }
@@ -192,7 +192,7 @@ public static class PlayerMoveChecks
     /// Attempts to move within water to other water tiles that are not obstructed by contained rocks or logs.
     /// If attempting to move into a submerged log, then it will attempt to push it in series.
     /// </summary>
-    private static void TrySwimmingMove(Mover playerMover, Vector2Int moveDir, QuantumState adjacentObj)
+    private static void TrySwimmingMove(PlayerControls player, Mover playerMover, Vector2Int moveDir, QuantumState adjacentObj)
     {
         // REQUIREMENT: there MUST be a tile and it MUST be water
         if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Water)
@@ -206,7 +206,7 @@ public static class PlayerMoveChecks
         if (!adjacentObj.ObjData.WaterHasLog)
         {
             // Move action complete -> no obstruction
-            ConfirmPlayerMove(playerMover, moveDir);
+            ConfirmPlayerMove(player, playerMover, moveDir);
             return;
         }
         // Pushable submerged logs?
@@ -274,7 +274,7 @@ public static class PlayerMoveChecks
             }
 
             // confirm movement of player
-            ConfirmPlayerMove(playerMover, moveDir);
+            ConfirmPlayerMove(player, playerMover, moveDir);
             return;
         }
     }
@@ -282,23 +282,23 @@ public static class PlayerMoveChecks
     /// <summary>
     /// Attempts to push logs in series, moving the player.
     /// </summary>
-    private static void TryMoveIntoLog(Mover playerMover, Vector2Int moveDir)
+    private static void TryMoveIntoLog(PlayerControls player, Mover playerMover, Vector2Int moveDir)
     {
         // push logs as possible
         if (PushLogsInSeries(playerMover, playerMover.GetGlobalGridPos() + moveDir, moveDir))
-            ConfirmPlayerMove(playerMover, moveDir); // move if logs were actually pushed
+            ConfirmPlayerMove(player, playerMover, moveDir); // move if logs were actually pushed
     }
 
     /// <summary>
     /// Attempts to move onto water tile. Only possible if water has a log or a rock in it.
     /// </summary>
-    private static void TryMoveIntoWater(Mover playerMover, Vector2Int moveDir, QuantumState adjacentWater)
+    private static void TryMoveIntoWater(PlayerControls player, Mover playerMover, Vector2Int moveDir, QuantumState adjacentWater)
     {
         // allow movement if water has an object in it
         if (adjacentWater.ObjData.WaterHasLog || adjacentWater.ObjData.WaterHasRock)
         {
             // Move action complete
-            ConfirmPlayerMove(playerMover, moveDir);
+            ConfirmPlayerMove(player, playerMover, moveDir);
             return;
         }
     }
@@ -306,7 +306,7 @@ public static class PlayerMoveChecks
     /// <summary>
     /// Attempts to move into tunnel. Only possible if moving up into tunnel and other tunnel is visible and clear of obstructions.
     /// </summary>
-    private static void TryMoveIntoTunnel(Mover playerMover, Vector2Int moveDir, QuantumState adjacentTunnel)
+    private static void TryMoveIntoTunnel(PlayerControls player, Mover playerMover, Vector2Int moveDir, QuantumState adjacentTunnel)
     {
         // PRECONDITION REQUIREMENTS
 
@@ -367,7 +367,7 @@ public static class PlayerMoveChecks
         spriteSwapper.RequireFlip();
 
         // finalize player move
-        ConfirmPlayerMove(playerMover, exitPos, otherTunnel.transform.parent);
+        ConfirmPlayerMove(player, playerMover, exitPos, otherTunnel.transform.parent);
     }
     #endregion
 
@@ -376,7 +376,7 @@ public static class PlayerMoveChecks
     /// Contains all necessary functions when player move is confirmed
     /// Handles potential log sinking (on curr position), player movement, and saving an undo frame.
     /// </summary>
-    public static void ConfirmPlayerMove(Mover objMover, Vector2Int moveDir)
+    public static void ConfirmPlayerMove(PlayerControls playerControls, Mover objMover, Vector2Int moveDir)
     {
         // LOG SINKING (when player leaves floating log)
         Vector2Int currPos = objMover.GetGlobalGridPos();
@@ -387,6 +387,9 @@ public static class PlayerMoveChecks
         // move player
         objMover.Increment(moveDir);
 
+        // compy pair position update
+        playerControls.SnapInactiveCompyToPlayer();
+
         // completed player movement action
         UndoHandler.SaveFrame();
     }
@@ -396,7 +399,7 @@ public static class PlayerMoveChecks
     /// Handles potential log sinking (on curr position), player movement, parent transform changing, and undo frame.
     /// Use null newParent if no parent reassignment is taking place (i.e. raptor & pteranodon abilities).
     /// </summary>
-    public static void ConfirmPlayerMove(Mover mover, Vector2Int movePos, Transform newParent)
+    public static void ConfirmPlayerMove(PlayerControls playerControls, Mover mover, Vector2Int movePos, Transform newParent)
     {
         // Check for log sinking before moving through tunnel
         Vector2Int currPlayerPos = mover.GetGlobalGridPos();
@@ -410,6 +413,9 @@ public static class PlayerMoveChecks
 
         // move player to position beneath other tunnel
         mover.SetGlobalGoal(movePos.x, movePos.y);
+
+        // compy pair position update
+        playerControls.SnapInactiveCompyToPlayer();
 
         // completed player movement action
         UndoHandler.SaveFrame();

@@ -283,7 +283,7 @@ public static class PlayerAbilityChecks
                 // set facing direction
                 FaceDirection(player, dir);
                 // move player into water
-                PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
+                PlayerMoveChecks.ConfirmPlayerMove(player, mover, dir);
             }
             else
             {
@@ -327,7 +327,7 @@ public static class PlayerAbilityChecks
                 // decrement charges (only on water exit)
                 player.UseAbilityCharge();
                 // move player out of water
-                PlayerMoveChecks.ConfirmPlayerMove(mover, dir);
+                PlayerMoveChecks.ConfirmPlayerMove(player, mover, dir);
             }
             else
             {
@@ -414,7 +414,7 @@ public static class PlayerAbilityChecks
                 // move player to adjacent panel
                 Transform newParent = SortingOrderHandler.GetPanelOfOrder(topMostIndex).transform.GetChild(1).transform; // 1 = Upper Objects
                 // confirm movement and save
-                PlayerMoveChecks.ConfirmPlayerMove(mover, adjacentPos, newParent);
+                PlayerMoveChecks.ConfirmPlayerMove(player, mover, adjacentPos, newParent);
 
                 return;
             }
@@ -543,7 +543,7 @@ public static class PlayerAbilityChecks
         // decrement charges
         player.UseAbilityCharge();
         // confirm movement (and save undo frame)
-        PlayerMoveChecks.ConfirmPlayerMove(mover, movePos, null);
+        PlayerMoveChecks.ConfirmPlayerMove(player, mover, movePos, null);
 
     }
 

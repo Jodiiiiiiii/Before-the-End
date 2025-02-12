@@ -700,16 +700,11 @@ public class PlayerControls : MonoBehaviour
         compyFlipper.SetScaleX(IsFacingRight() ? _rightScaleX : -_rightScaleX);
 
         // Determine spawn pos
-        Vector2Int spawnPos = _mover.GetGlobalGridPos();
+        Vector2Int spawnPos = _mover.GetGlobalGridPos() + dir;
 
         // Update compy reference position
         if (!_compyReference.TryGetComponent(out Mover compyMover))
             throw new Exception("Compy Prefab/Reference MUST have Mover component.");
-        compyMover.SetGlobalGoal(spawnPos.x, spawnPos.y);
-        compyMover.SnapToGoal(); // avoid weird sliding behavior of compy from where it was previously hidden/disabled
-
-        // make it slide from player to adjacent pos
-        spawnPos = spawnPos + dir;
         compyMover.SetGlobalGoal(spawnPos.x, spawnPos.y);
 
         // enable compy object
@@ -825,6 +820,20 @@ public class PlayerControls : MonoBehaviour
 
         // true split state only if current compy charges are -1
         return _dinoCharges[compyIndex] == -1;
+    }
+
+    /// <summary>
+    /// Ensures compy is position aligned to the player every frame in case it is placed (so that it comes out of the player AND undoes without position weirdness).
+    /// </summary>
+    public void SnapInactiveCompyToPlayer()
+    {
+        // only conduct snapping if compy pair is inactive (not yet placed)
+        if (!IsCompySplit())
+        {
+            Vector2Int playerPos = _mover.GetGlobalGridPos();
+            _compyReference.ObjMover.SetGlobalGoal(playerPos.x, playerPos.y);
+            _compyReference.ObjMover.SnapToGoal();
+        }
     }
     #endregion
 
