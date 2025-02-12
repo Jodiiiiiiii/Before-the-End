@@ -694,6 +694,11 @@ public class PlayerControls : MonoBehaviour
         // ensure compy is moved to the correct panel (same panel as player using ability)
         _compyReference.transform.parent = transform.parent;
 
+        // flip pair to match current facing direction of player
+        if (_compyReference.transform.GetChild(0) is null || !_compyReference.transform.GetChild(0).TryGetComponent(out SpriteFlipper compyFlipper))
+            throw new System.Exception("Invalid Compy Pair Object: MUST have a SpriteFlipper on the first child.");
+        compyFlipper.SetScaleX(IsFacingRight() ? _rightScaleX : -_rightScaleX);
+
         // Determine spawn pos
         Vector2Int spawnPos = _mover.GetGlobalGridPos();
 
@@ -775,16 +780,25 @@ public class PlayerControls : MonoBehaviour
             return;
         }
 
-        // swap positions AND parent transforms
+        // temporary swapping data
         Transform compyParent = _compyReference.transform.parent;
+        if (_compyReference.transform.GetChild(0) is null || !_compyReference.transform.GetChild(0).TryGetComponent(out SpriteFlipper compyFlipper))
+            throw new System.Exception("Invalid Compy Pair Object: MUST have a SpriteFlipper on the first child.");
+        int compyScaleX = compyFlipper.GetGoalScaleX();
+
         // update compy
         _compyReference.transform.parent = transform.parent;
         compyMover.SetGlobalGoal(_mover.GetGlobalGridPos().x, _mover.GetGlobalGridPos().y);
         compyMover.SnapToGoal(); // prevent appearance of swapping/sliding
+        compyFlipper.SetScaleX(IsFacingRight() ? _rightScaleX : -_rightScaleX); // set compy to player facing
+        compyFlipper.SnapToGoal(); // prevent horizontal flipping effect when change occurs
+
         // update player
         transform.parent = compyParent;
         _mover.SetGlobalGoal(compyPos.x, compyPos.y);
         _mover.SnapToGoal(); // prevent appearance of swapping/sliding
+        SetFacingRight(compyScaleX == _rightScaleX); // set player to compy facing
+        _objFlipper.SnapToGoal(); // prevent horizontal flipping effect when change occurs
 
         // swapping counts as an action so frame must be saved
         UndoHandler.SaveFrame();

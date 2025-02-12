@@ -113,4 +113,15 @@ public class SpriteFlipper : MonoBehaviour
     {
         return transform.localScale.y;
     }
+
+    /// <summary>
+    /// Instantly snaps scale to goal scale without smoothing.
+    /// </summary>
+    public void SnapToGoal()
+    {
+        Vector3 snapScale = transform.localScale;
+        snapScale.x = _goalScaleX;
+        snapScale.y = _goalScaleY;
+        transform.localScale = snapScale;
+    }
 }
