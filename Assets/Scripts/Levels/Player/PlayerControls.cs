@@ -695,11 +695,16 @@ public class PlayerControls : MonoBehaviour
         _compyReference.transform.parent = transform.parent;
 
         // Determine spawn pos
-        Vector2Int spawnPos = _mover.GetGlobalGridPos() + dir;
+        Vector2Int spawnPos = _mover.GetGlobalGridPos();
 
         // Update compy reference position
         if (!_compyReference.TryGetComponent(out Mover compyMover))
             throw new Exception("Compy Prefab/Reference MUST have Mover component.");
+        compyMover.SetGlobalGoal(spawnPos.x, spawnPos.y);
+        compyMover.SnapToGoal(); // avoid weird sliding behavior of compy from where it was previously hidden/disabled
+
+        // make it slide from player to adjacent pos
+        spawnPos = spawnPos + dir;
         compyMover.SetGlobalGoal(spawnPos.x, spawnPos.y);
 
         // enable compy object
@@ -775,9 +780,11 @@ public class PlayerControls : MonoBehaviour
         // update compy
         _compyReference.transform.parent = transform.parent;
         compyMover.SetGlobalGoal(_mover.GetGlobalGridPos().x, _mover.GetGlobalGridPos().y);
+        compyMover.SnapToGoal(); // prevent appearance of swapping/sliding
         // update player
         transform.parent = compyParent;
         _mover.SetGlobalGoal(compyPos.x, compyPos.y);
+        _mover.SnapToGoal(); // prevent appearance of swapping/sliding
 
         // swapping counts as an action so frame must be saved
         UndoHandler.SaveFrame();
