@@ -497,6 +497,12 @@ public static class PlayerMoveChecks
                         // make water quantum if log was (transferring state)
                         if (logs[logs.Count - 1].IsQuantum())
                             adjacentObj.SetQuantum(true);
+
+                        // visually flip (smoother appearance)
+                        ObjectSpriteSwapper flipper = adjacentObj.GetComponentInChildren<ObjectSpriteSwapper>();
+                        if (flipper is null)
+                            throw new System.Exception("ALL Level Objects MUST have ObjectSpriteSwapper component on a child object.");
+                        flipper.RequireFlip();
                     }
 
                     // disable last most log in the list (it was pushed into water!)
