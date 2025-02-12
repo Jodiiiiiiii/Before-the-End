@@ -270,11 +270,15 @@ public static class PlayerMoveChecks
                 prevQuantum = currQuantum;
                 prevHasLog = currHasLog;
 
-                // require visual flip for each log
-                ObjectSpriteSwapper flipper = pushList[i].GetComponentInChildren<ObjectSpriteSwapper>();
-                if(flipper is null)
-                    throw new Exception("All level objects MUST have ObjectSpriteSwapper component on a child object.");
-                flipper.RequireFlip();
+                // visually flip ALL logs (ignore the first one which just becomes water
+                if (i > 0)
+                {
+                    ObjectSpriteSwapper flipper = pushList[i].GetComponentInChildren<ObjectSpriteSwapper>();
+                    if (flipper is null)
+                        throw new Exception("All level objects MUST have ObjectSpriteSwapper component on a child object.");
+                    flipper.RequireFlip();
+                }
+
             }
 
             // confirm movement of player
