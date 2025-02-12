@@ -38,6 +38,9 @@ public class PlayerControls : MonoBehaviour
                     // ensure disabled by default
                     _compyReference.ObjData.IsDisabled = true;
 
+                    // ensure player alignment before any move action has occurred 
+                    StartCoroutine(DoInitCompyPosConfigure());
+
                     break;
                 }
             }
@@ -834,6 +837,15 @@ public class PlayerControls : MonoBehaviour
             _compyReference.ObjMover.SetGlobalGoal(playerPos.x, playerPos.y);
             _compyReference.ObjMover.SnapToGoal();
         }
+    }
+
+    /// <summary>
+    /// To be called in start - but the delay ensures that the initial position is accurate to the configured player pos in start of Mover.cs
+    /// </summary>
+    private IEnumerator DoInitCompyPosConfigure()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SnapInactiveCompyToPlayer();
     }
     #endregion
 
