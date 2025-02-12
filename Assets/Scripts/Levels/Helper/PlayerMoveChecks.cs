@@ -271,7 +271,7 @@ public static class PlayerMoveChecks
                 prevHasLog = currHasLog;
 
                 // visually flip ALL logs (ignore the first one which just becomes water
-                if (i > 0)
+                if (i == pushList.Count-1)
                 {
                     ObjectSpriteSwapper flipper = pushList[i].GetComponentInChildren<ObjectSpriteSwapper>();
                     if (flipper is null)
