@@ -64,12 +64,22 @@ public class UndoObject : UndoHandler
             _objState.SetQuantum(newQuantumState);
 
             // Object Data
+            ObjectData oldData = _objState.ObjData;
             ObjectData newObjData = _undoStack.Peek().Item5;
             _objState.ObjData = newObjData;
 
             // instant snapping
             if (_instantSnapPos)
                 _mover.SnapToGoal();
+
+            // visually flip if any component of object data changed
+            if (!oldData.Equals(newObjData))
+            {
+                ObjectSpriteSwapper flipper = GetComponentInChildren<ObjectSpriteSwapper>();
+                if (flipper is null)
+                    throw new System.Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+                flipper.RequireFlip();
+            }
         }
     }
 }
