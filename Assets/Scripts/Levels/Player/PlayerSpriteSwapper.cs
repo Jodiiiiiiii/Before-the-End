@@ -32,6 +32,10 @@ public class PlayerSpriteSwapper : MonoBehaviour
     private DinoType _spriteType;
     private bool _requiresFlip = false;
 
+    // edge case state checking
+    private bool _isSwimming = false;
+    private bool _isCompySplit = false;
+
     private void Awake()
     {
         // Precondition: proper amount of sprites
@@ -69,6 +73,9 @@ public class PlayerSpriteSwapper : MonoBehaviour
         else if (_flipper.GetCurrentScaleY() != SPRITE_NORMAL)
             _flipper.SetScaleY((int)SPRITE_NORMAL);
 
+        if (_playerControls.IsSwimming != _isSwimming || _playerControls.IsCompySplit() != _isCompySplit)
+            visualChangeNeeded = true;
+
         // only check for sprite updates if a change actually occurred
         if (!visualChangeNeeded)
             return;
@@ -87,9 +94,15 @@ public class PlayerSpriteSwapper : MonoBehaviour
             case DinoType.Spino:
                 // show EITHER grounded, or swimming variant
                 if (!_playerControls.IsSwimming)
+                {
                     _animator.UpdateSprites(_dinoSprites[6], _dinoSprites[7]); // basic 2-frame animation
+                    _isSwimming = false;
+                }
                 else
+                {
                     _animator.UpdateSprites(_spinoSwimSprites[0], _spinoSwimSprites[1]); // spino swimming variant
+                    _isSwimming = true;
+                }
                 break;
             case DinoType.Ptera:
                 _animator.UpdateSprites(_dinoSprites[8], _dinoSprites[9]); // basic 2-frame animation
@@ -100,9 +113,15 @@ public class PlayerSpriteSwapper : MonoBehaviour
             case DinoType.Compy:
                 // show either full compy pack, or half compy pack variant
                 if (!_playerControls.IsCompySplit())
+                {
                     _animator.UpdateSprites(_dinoSprites[12], _dinoSprites[13]); // basic 2-frame animation
+                    _isCompySplit = false;
+                }
                 else
+                {
                     _animator.UpdateSprites(_compyHalfSprites[0], _compyHalfSprites[1]); // compy half variant
+                    _isCompySplit = true;
+                }
                 break;
         }
         // ensure swap occurs instantly as necessary
