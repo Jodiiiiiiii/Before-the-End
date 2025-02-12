@@ -837,7 +837,8 @@ public class PlayerControls : MonoBehaviour
     public void SnapInactiveCompyToPlayer()
     {
         // only conduct snapping if compy pair is inactive (not yet placed)
-        if (!IsCompySplit())
+        // it must still exist though!!
+        if (_compyReference is not null && !IsCompySplit())
         {
             Vector2Int playerPos = _mover.GetGlobalGridPos();
             _compyReference.ObjMover.SetGlobalGoal(playerPos.x, playerPos.y);
