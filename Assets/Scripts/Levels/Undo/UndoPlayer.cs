@@ -55,6 +55,7 @@ public class UndoPlayer : UndoHandler
             _undoStack.Pop();
 
             // update actual panel position
+            Vector2Int oldPos = _mover.GetLocalGridPos();
             Vector2Int newPos = _undoStack.Peek().Item2;
             _mover.SetLocalGoal(newPos.x, newPos.y);
 
@@ -71,12 +72,26 @@ public class UndoPlayer : UndoHandler
             _playerControls.SetAbilityCharges(newCharges);
 
             // update parent transform
+            Transform oldParent = _mover.transform.parent;
             Transform newParent = _undoStack.Peek().Item6;
             _mover.transform.parent = newParent;
 
             // update swimming state
             bool newSwimming = _undoStack.Peek().Item7;
             _playerControls.IsSwimming = newSwimming;
+
+            // instant snapping - occurs for between panels OR multi-tile movement
+            if (oldParent != newParent || Vector2Int.Distance(oldPos, newPos) > 1.1f) // slightly above 1 for deadband safety
+            {
+                Debug.Log("Big move");
+                _mover.SnapToGoal();
+
+                // also visually flip to avoid jarring nature of instantaneous move
+                PlayerSpriteSwapper flipper = GetComponentInChildren<PlayerSpriteSwapper>();
+                if (flipper is null)
+                    throw new System.Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+                flipper.RequireFlip();
+            }
         }
     }
 
