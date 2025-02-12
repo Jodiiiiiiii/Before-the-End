@@ -366,6 +366,11 @@ public static class PlayerMoveChecks
             throw new Exception("Player MUST have PlayerSpriteSwapper component.");
         spriteSwapper.RequireFlip();
 
+        // snap to tunnel position so it looks like player moves out of tunnel
+        Vector2Int snapPos = otherTunnel.ObjMover.GetGlobalGridPos();
+        playerMover.SetGlobalGoal(snapPos.x, snapPos.y);
+        playerMover.SnapToGoal();
+
         // finalize player move
         ConfirmPlayerMove(player, playerMover, exitPos, otherTunnel.transform.parent);
     }
