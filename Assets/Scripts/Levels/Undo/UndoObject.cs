@@ -10,6 +10,8 @@ public class UndoObject : UndoHandler
 {
     [SerializeField, Tooltip("Contains all ObjectData and quantum data")]
     private QuantumState _objState;
+    [SerializeField, Tooltip("Whether the object instantly snaps to any undo for a position change - useful for compy pair to avoid weird position sliding.")]
+    private bool _instantSnapPos = false;
 
     // local frame, Grid pos, parent transform, quantum state, ObjectData
     private Stack<(int, Vector2Int, Transform, bool, ObjectData)> _undoStack = new Stack<(int, Vector2Int, Transform, bool, ObjectData)>();
@@ -52,6 +54,8 @@ public class UndoObject : UndoHandler
             // grid pos
             Vector2Int newPos = _undoStack.Peek().Item2;
             _mover.SetLocalGoal(newPos.x, newPos.y);
+            if (_instantSnapPos)
+                _mover.SnapToGoal();
 
             // parent transform
             Transform newParent = _undoStack.Peek().Item3;
