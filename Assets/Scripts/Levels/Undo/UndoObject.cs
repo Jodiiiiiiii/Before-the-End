@@ -54,8 +54,6 @@ public class UndoObject : UndoHandler
             // grid pos
             Vector2Int newPos = _undoStack.Peek().Item2;
             _mover.SetLocalGoal(newPos.x, newPos.y);
-            if (_instantSnapPos)
-                _mover.SnapToGoal();
 
             // parent transform
             Transform newParent = _undoStack.Peek().Item3;
@@ -68,6 +66,10 @@ public class UndoObject : UndoHandler
             // Object Data
             ObjectData newObjData = _undoStack.Peek().Item5;
             _objState.ObjData = newObjData;
+
+            // instant snapping
+            if (_instantSnapPos)
+                _mover.SnapToGoal();
         }
     }
 }
