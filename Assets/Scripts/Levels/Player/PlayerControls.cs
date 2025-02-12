@@ -798,6 +798,12 @@ public class PlayerControls : MonoBehaviour
         SetFacingRight(compyScaleX == _rightScaleX); // set player to compy facing
         _objFlipper.SnapToGoal(); // prevent horizontal flipping effect when change occurs
 
+        // also vertically flip player so it is clear which one the player has become
+        PlayerSpriteSwapper flipper = GetComponentInChildren<PlayerSpriteSwapper>();
+        if (flipper is null)
+            throw new System.Exception("Player must have PlayerSpriteSwapper component on one of its children.");
+        flipper.RequireFlip();
+
         // swapping counts as an action so frame must be saved
         UndoHandler.SaveFrame();
     }
