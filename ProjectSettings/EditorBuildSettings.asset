@@ -62,6 +62,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Swamp/Swamp3.unity
     guid: ec75ae97b47d86541b6ab5ec3be86806
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Swamp Pass/SwampPass0.unity
+    guid: 323201e4f5d876242a7b4ee0a33c2bac
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
