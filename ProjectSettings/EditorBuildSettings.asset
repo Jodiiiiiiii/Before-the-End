@@ -51,6 +51,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels - Timeline 1/Mountain Pass/MountainPass0.unity
     guid: d57438b2536a4d1489ddeea8f7b33cf1
   - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Swamp/Swamp0.unity
+    guid: 7ef00a65f0872684c9f904989a366348
+  - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Swamp/Swamp3.unity
     guid: ec75ae97b47d86541b6ab5ec3be86806
   m_configObjects:
