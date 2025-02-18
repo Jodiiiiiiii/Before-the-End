@@ -68,6 +68,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Lake/Lake0.unity
     guid: 2f5891f277c8a104f9084b6c66699c81
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Lake/Lake1.unity
+    guid: 6833fbdc882c9e0449547a9caff387c6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
