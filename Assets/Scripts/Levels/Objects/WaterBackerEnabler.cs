@@ -12,27 +12,27 @@ public class WaterBackerEnabler : MonoBehaviour
     [SerializeField, Tooltip("Used to disable/enable sprite renderer.")]
     private SpriteRenderer _renderer;
 
-    private bool _isWater;
+    private bool _isWaterBacker;
 
     private void Start()
     {
-        _isWater = _objState.ObjData.ObjType == ObjectType.Water;
-        _renderer.enabled = _isWater;
+        _isWaterBacker = _objState.ObjData.ObjType == ObjectType.Water;
+        _renderer.enabled = _isWaterBacker;
     }
 
     // Update is called once per frame
     void Update()
     {
         // don't set enabled state every frame, so use a local bool buffer
-        if (!_isWater && _objState.ObjData.ObjType == ObjectType.Water)
+        if (!_isWaterBacker && _objState.ObjData.ObjType == ObjectType.Water && (_objState.ObjData.WaterHasLog || _objState.ObjData.WaterHasRock))
         {
             _renderer.enabled = true;
-            _isWater = true;
+            _isWaterBacker = true;
         }
-        else if (_isWater && _objState.ObjData.ObjType != ObjectType.Water)
+        else if (_isWaterBacker && (_objState.ObjData.ObjType != ObjectType.Water || (!_objState.ObjData.WaterHasLog && !_objState.ObjData.WaterHasRock)))
         {
             _renderer.enabled = false;
-            _isWater = false;
+            _isWaterBacker = false;
         }
     }
 }
