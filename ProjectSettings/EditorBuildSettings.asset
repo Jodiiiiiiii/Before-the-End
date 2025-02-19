@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels - Timeline 1/Tutorial/Tutorial6.unity
     guid: aab0ab7b0f9615b4c87b84c953ca6210
   - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Tutorial/Tutorial7.unity
+    guid: 7dbb485047ebf59429a6deddbb82ba20
+  - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Mountain/Mountain0.unity
     guid: e9bde6315ee163b498ff8794bf9ceb69
   - enabled: 1
@@ -74,6 +77,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Lake/Lake2.unity
     guid: f8e2ab26a49170c408b8d6b15e1ba0fa
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Forest/Forest0.unity
+    guid: d3ca52f80ec68c0428576e02be052f49
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Forest/Forest1.unity
+    guid: 9fdfb6fda581baf4aa66b1103f03663f
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Forest/Forest2.unity
+    guid: 6295280a76656814ba60ffb4c7e85a0d
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Forest/Forest3.unity
+    guid: 01e9221286e30e744b58f1d852dfeb04
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
