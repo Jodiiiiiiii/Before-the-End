@@ -16871,6 +16871,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 923519282}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _displayName
+      value: A Daunting Horizon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -22011,6 +22015,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 644349904}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _displayName
+      value: In Deep Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -24354,6 +24362,10 @@ PrefabInstance:
       propertyPath: NodeConnections.Array.data[1].Node
       value: 
       objectReference: {fileID: 394707468}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _displayName
+      value: Lost at Sea
+      objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
       value: 3
