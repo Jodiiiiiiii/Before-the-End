@@ -89,6 +89,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels - Timeline 1/Forest/Forest1.unity
     guid: 01e9221286e30e744b58f1d852dfeb04
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Beach/Beach0.unity
+    guid: 5f090f4c71a718b4f9c911ecf8990b54
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Beach/Beach1.unity
+    guid: 35eaa8aa0916bbf40a8fa4acffdc23ed
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels - Timeline 1/Beach/Beach2.unity
+    guid: bdeb342f309fe2f41ac3212e4de3679c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
