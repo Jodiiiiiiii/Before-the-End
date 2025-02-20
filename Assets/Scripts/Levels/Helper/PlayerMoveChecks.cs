@@ -264,7 +264,14 @@ public static class PlayerMoveChecks
                 bool currQuantum = pushList[i].IsQuantum();
                 bool currHasLog = pushList[i].ObjData.WaterHasLog;
 
-                pushList[i].SetQuantum(prevQuantum);
+                // for last element (empty water) - take quantum of previous log OR of current water
+                // i.e. pushing log into quantum water creates a quantum submerged log (better internal consistency of rules)
+                if (i == pushList.Count - 1)
+                    pushList[i].SetQuantum(pushList[i].IsQuantum() || prevQuantum);
+                // normal behavior for all other logs (just transfer the previous state)
+                else
+                    pushList[i].SetQuantum(prevQuantum);
+
                 pushList[i].ObjData.WaterHasLog = prevHasLog;
 
                 prevQuantum = currQuantum;
