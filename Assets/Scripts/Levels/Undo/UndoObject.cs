@@ -73,7 +73,8 @@ public class UndoObject : UndoHandler
                 _mover.SnapToGoal();
 
             // visually flip if any component of object data changed
-            if (!oldData.DataEquals(newObjData))
+            // ignore tunnel ref change since that is only really a change on the other object
+            if (!oldData.DataEqualsExceptTunnelRef(newObjData))
             {
                 ObjectSpriteSwapper flipper = GetComponentInChildren<ObjectSpriteSwapper>();
                 if (flipper is null)

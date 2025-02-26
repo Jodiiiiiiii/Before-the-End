@@ -57,6 +57,20 @@ public struct ObjectData
     }
 
     /// <summary>
+    /// Identical to DataEquals, except ignores the OtherTUnnel QuantumState reference.
+    /// This is useful for visual sprite swapping since this is the only data value that should NOT cause a visual flip.
+    /// </summary>
+    public bool DataEqualsExceptTunnelRef(ObjectData other)
+    {
+        return ObjType == other.ObjType
+            && IsDisabled == other.IsDisabled
+            && IsOnFire == other.IsOnFire
+            && WaterHasLog == other.WaterHasLog
+            && WaterHasRock == other.WaterHasRock
+            && TunnelIndex == other.TunnelIndex;
+    }
+
+    /// <summary>
     /// Basically a copy constructor to copy by value and not reference.
     /// </summary>
     public ObjectData CopyOf()

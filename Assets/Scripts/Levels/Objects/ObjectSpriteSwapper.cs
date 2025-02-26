@@ -108,13 +108,12 @@ public class ObjectSpriteSwapper : MonoBehaviour
         // (2) object data has changed! - the main one
         // (2) object just became disabled - stays shrunk (only half the flip) - part of object data changing
         // (3) manually flip call was made
-        if (!_currObjectData.DataEquals(_objState.ObjData) || _requiresFlip)
+        if (!_currObjectData.DataEqualsExceptTunnelRef(_objState.ObjData) || _requiresFlip)
         {
-            Debug.Log("PERFORMANCE");
             // ensure only one flip is occuring at once
             StopCoroutine(FlipThenUpdate());
             StartCoroutine(FlipThenUpdate());
-
+            
             // ensure call is only made once
             _requiresFlip = false;
         }
@@ -136,8 +135,6 @@ public class ObjectSpriteSwapper : MonoBehaviour
 
         while (true)
         {
-            if(!_objState.ObjData.IsDisabled)
-                Debug.Log(_flipper.GetCurrentScaleY());
             // EXIT: Ready to restore sprite to normal
             if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
             {
