@@ -657,6 +657,9 @@ public class PlayerControls : MonoBehaviour
         // flip paused state
         GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
 
+        // cancel fading so it requires a new press after unpausing to re-fade
+        GameManager.Instance.IsFading = false;
+
         // also cancel ability preparing so the UI stops blinking
         _isPreparingAbility = false;
         _abilityIndicator.SetAbilityActive(false);
@@ -669,6 +672,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void FadePanels(InputAction.CallbackContext context)
     {
+        // Skip input processing when paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
         // start panel fade
         if (context.started)
             GameManager.Instance.IsFading = true;
