@@ -16,6 +16,7 @@ public class TreeFader : MonoBehaviour
     private float _fadeAlpha;
 
     private static Mover _playerMover = null;
+    private bool _isPanelFading = false;
 
     private void Awake()
     {
@@ -35,6 +36,20 @@ public class TreeFader : MonoBehaviour
     {
         // ensure proper state at start of scene
         CheckAtEndOfFrame();
+    }
+
+    private void Update()
+    {
+        // ensures this functionality still takes priority over any changes to the top fader that are caused by FadeLevelObject.cs
+        if (_isPanelFading != GameManager.Instance.IsFading)
+        {
+            _isPanelFading = GameManager.Instance.IsFading;
+
+            // ensure state updates at end of frame after fade RELEASE
+            // for fade press, they SHOULD be overriden to faded, only restore normal behavior on release
+            if (!_isPanelFading)
+                CheckAtEndOfFrame();
+        }
     }
 
     private void OnEnable()
