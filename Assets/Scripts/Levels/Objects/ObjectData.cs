@@ -44,7 +44,7 @@ public struct ObjectData
     /// <summary>
     /// Returns true if ALL component data elements are equal between the two ObjectData instances.
     /// </summary>
-    public bool Equals(ObjectData other)
+    public bool DataEquals(ObjectData other)
     {
         // most time/data efficient way to compare (avoids byte comparisons of default Object.Equals(Object).)
         return ObjType == other.ObjType
@@ -54,5 +54,21 @@ public struct ObjectData
             && WaterHasRock == other.WaterHasRock
             && OtherTunnel == other.OtherTunnel
             && TunnelIndex == other.TunnelIndex;
+    }
+
+    /// <summary>
+    /// Basically a copy constructor to copy by value and not reference.
+    /// </summary>
+    public ObjectData CopyOf()
+    {
+        ObjectData newCopy = new ObjectData();
+        newCopy.ObjType = ObjType;
+        newCopy.IsDisabled = IsDisabled;
+        newCopy.IsOnFire = IsOnFire;
+        newCopy.WaterHasLog = WaterHasLog;
+        newCopy.WaterHasRock = WaterHasRock;
+        newCopy.OtherTunnel = OtherTunnel;
+        newCopy.TunnelIndex = TunnelIndex;
+        return newCopy;
     }
 }

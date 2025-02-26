@@ -36,7 +36,7 @@ public class UndoObject : UndoHandler
 
         // push to stack if change occurred
         // ALSO always save state if quantum (to prevent object type re-jumbling while undoing)
-        if (oldPos != newPos || newParent != oldParent || newQuantumState != oldQuantumState || !newObjData.Equals(oldObjData))
+        if (oldPos != newPos || newParent != oldParent || newQuantumState != oldQuantumState || !newObjData.DataEquals(oldObjData))
         {
             _undoStack.Push((_localFrame, newPos, newParent, newQuantumState, newObjData));
         }
@@ -73,7 +73,7 @@ public class UndoObject : UndoHandler
                 _mover.SnapToGoal();
 
             // visually flip if any component of object data changed
-            if (!oldData.Equals(newObjData))
+            if (!oldData.DataEquals(newObjData))
             {
                 ObjectSpriteSwapper flipper = GetComponentInChildren<ObjectSpriteSwapper>();
                 if (flipper is null)

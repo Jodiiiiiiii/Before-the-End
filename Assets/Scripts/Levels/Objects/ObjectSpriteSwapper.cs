@@ -43,8 +43,12 @@ public class ObjectSpriteSwapper : MonoBehaviour
     private Sprite[] _compySprites;
 
     private bool _requiresFlip = false;
-    private ObjectType _currObjectType;
     private ObjectData _currObjectData;
+
+    private Sprite _sprite1Queue = null;
+    private Sprite _sprite2Queue = null;
+
+    private bool _isActiveCoroutine = false;
 
     private void Awake()
     {
@@ -71,15 +75,19 @@ public class ObjectSpriteSwapper : MonoBehaviour
 
     private void Start()
     {
-        _currObjectType = _objState.ObjData.ObjType;
         _currObjectData = _objState.ObjData;
-        UpdateSprites();
+
+        // ensure correct initial configuration
+        UpdateQueuedSprites();
+        MatchObjectToQueue();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckForChange();
+        UpdateQueuedSprites();
+
+        CheckForChangeToFlip();
 
         // Update quantum particles to match actual quantum state
         if (_objState.ObjData.IsDisabled)
@@ -88,141 +96,181 @@ public class ObjectSpriteSwapper : MonoBehaviour
             _quantumParticles.SetActive(_objState.IsQuantum());
 
         // update state for next check
-        _currObjectData = _objState.ObjData;
+        _currObjectData = _objState.ObjData.CopyOf();
     }
 
     /// <summary>
     /// Handles flipping, sprite swapping, and interfacing with the TwoFrameAnimator.
     /// </summary>
-    public void CheckForChange()
+    public void CheckForChangeToFlip()
     {
-        bool visualChangeNeeded = false;
-        // Calls to sprite flipper. update when there is a change - only swap on object change
-        if (_currObjectType != _objState.ObjData.ObjType || _requiresFlip || _objState.ObjData.IsDisabled)
+        // Calls to sprite flipper. Flips, then updates when:
+        // (2) object data has changed! - the main one
+        // (2) object just became disabled - stays shrunk (only half the flip) - part of object data changing
+        // (3) manually flip call was made
+        if (!_currObjectData.DataEquals(_objState.ObjData) || _requiresFlip)
         {
+            Debug.Log("PERFORMANCE");
+            // ensure only one flip is occuring at once
+            StopCoroutine(FlipThenUpdate());
+            StartCoroutine(FlipThenUpdate());
+
+            // ensure call is only made once
+            _requiresFlip = false;
+        }
+        // disabled objects become shrunk
+        else if (!_isActiveCoroutine && _currObjectData.IsDisabled)
+            _flipper.SetScaleY((int)SPRITE_SHRINK);
+        // non-disabled objects become un-shrunk
+        else if (!_isActiveCoroutine)
+            _flipper.SetScaleY((int)SPRITE_NORMAL);
+    }
+
+    /// <summary>
+    /// Conducts flip over time, shrinking, then sprite swapping, then growing back to main size.
+    /// Disabled objects never exit this loop unless they are re-enabled.
+    /// </summary>
+    private IEnumerator FlipThenUpdate()
+    {
+        _isActiveCoroutine = true;
+
+        while (true)
+        {
+            if(!_objState.ObjData.IsDisabled)
+                Debug.Log(_flipper.GetCurrentScaleY());
             // EXIT: Ready to restore sprite to normal
             if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
             {
-                // sprite disable check if disabled object
-                if (_objState.ObjData.IsDisabled)
-                {
-                    _animator.IsAnimated = false;
-                    _renderer.sprite = null;
-                }
-                else // normal behavior
-                {
-                    // flip back to base scale
-                    _flipper.SetScaleY((int)SPRITE_NORMAL);
-                    // ensure sprite update occurs below
-                    _currObjectType = _objState.ObjData.ObjType;
-                    // ensure it no longer requires flip
-                    _requiresFlip = false;
-                    visualChangeNeeded = true;
-                }
+                MatchObjectToQueue();
+
+                break; // end while loop, sprite has been shrinked and then swapped
             }
             else // sprite should be shrinking if not yet at fully shrunk
+            {
                 _flipper.SetScaleY((int)SPRITE_SHRINK);
-        }
-        else // sprite should be shrinking if not yet at fully shrunk
-            _flipper.SetScaleY((int)SPRITE_NORMAL);
+            }
 
-        // only check for sprite updates if a change actually occurred
-        // ALSO: there must be no change in any object data to skip update check (imported for example for water becoming a submerged log)
-        if (!visualChangeNeeded && _currObjectData.Equals(_objState.ObjData))
-            return;
-        UpdateSprites();
+            yield return null;
+        }
+
+        _isActiveCoroutine = false;
     }
 
-    private void UpdateSprites()
+    private void UpdateQueuedSprites()
     {
+        // disabled objects get no sprites
+        if (_currObjectData.IsDisabled)
+        {
+            _sprite1Queue = null;
+            _sprite2Queue = null;
+        }
+
         // set sprite properly based on object type and its type-specific data states
-        switch (_currObjectType)
+        switch (_currObjectData.ObjType)
         {
             case ObjectType.Log:
                 if (_objState.ObjData.IsOnFire) // fire variant (animated)
                 {
-                    _animator.IsAnimated = true;
-                    _animator.UpdateSprites(_logSprites[1], _logSprites[2]);
-                    _animator.UpdateVisuals();
+                    _sprite1Queue = _logSprites[1];
+                    _sprite2Queue = _logSprites[2];
                 }
                 else // normal logs (static)
                 {
-                    _animator.IsAnimated = false;
-                    _renderer.sprite = _logSprites[0]; // normal variant
+                    _sprite1Queue = _logSprites[0];
+                    _sprite2Queue = null;
                 }
                 break;
             case ObjectType.Water:
                 // check based on water state
                 if (_objState.ObjData.WaterHasLog) // submerged log variant (animated)
                 {
-                    _animator.IsAnimated = true;
-                    _animator.UpdateSprites(_waterSprites[2], _waterSprites[3]);
-                    _animator.UpdateVisuals();
+                    _sprite1Queue = _waterSprites[2];
+                    _sprite2Queue = _waterSprites[3];
                 }
                 else if (_objState.ObjData.WaterHasRock) // submerged rock variant (animated)
                 {
-                    _animator.IsAnimated = true;
-                    _animator.UpdateSprites(_waterSprites[4], _waterSprites[5]);
-                    _animator.UpdateVisuals();
+                    _sprite1Queue = _waterSprites[4];
+                    _sprite2Queue = _waterSprites[5];
                 }
                 else // normal water (animated)
                 {
-                    _animator.IsAnimated = true;
-                    _animator.UpdateSprites(_waterSprites[0], _waterSprites[1]);
-                    _animator.UpdateVisuals();
+                    _sprite1Queue = _waterSprites[0];
+                    _sprite2Queue = _waterSprites[1];
                 }
                 break;
             case ObjectType.Rock:
                 // normal rock - no animations
-                _animator.IsAnimated = false;
-                _renderer.sprite = _rockSprites[0];
+                _sprite1Queue = _rockSprites[0];
+                _sprite2Queue = null;
                 break;
             case ObjectType.Bush:
                 if (_objState.ObjData.IsOnFire) // on fire variant (animated)
                 {
-                    _animator.IsAnimated = true;
-                    _animator.UpdateSprites(_bushSprites[1], _bushSprites[2]);
-                    _animator.UpdateVisuals();
+                    _sprite1Queue = _bushSprites[1];
+                    _sprite2Queue = _bushSprites[2];
                 }
                 else // normal bush (static)
                 {
-                    _animator.IsAnimated = false;
-                    _renderer.sprite = _bushSprites[0];
+                    _sprite1Queue = _bushSprites[0];
+                    _sprite2Queue = null;
                 }
                 break;
             case ObjectType.Tunnel:
                 // normal tunnel (static)
                 // set goal sprite to numbered tunnel based on tunnel index
-                _animator.IsAnimated = false;
-                _renderer.sprite = _tunnelSprites[_objState.ObjData.TunnelIndex];
+                _sprite1Queue = _tunnelSprites[_objState.ObjData.TunnelIndex];
+                _sprite2Queue = null;
                 break;
             case ObjectType.Tree:
                 // tree state will never change - and trees do not use this script
                 break;
             case ObjectType.Clock:
                 // normal clock (animated)
-                _animator.IsAnimated = true;
-                _animator.UpdateSprites(_clockSprites[0], _clockSprites[1]);
-                _animator.UpdateVisuals();
+                _sprite1Queue = _clockSprites[0];
+                _sprite2Queue = _clockSprites[1];
                 break;
             case ObjectType.Fire:
                 // normal fire (animated)
-                _animator.IsAnimated = true;
-                _animator.UpdateSprites(_fireSprites[0], _fireSprites[1]);
-                _animator.UpdateVisuals();
+                _sprite1Queue = _fireSprites[0];
+                _sprite2Queue = _fireSprites[1];
                 break;
             case ObjectType.Void:
                 // normal void (animated)
-                _animator.IsAnimated = true;
-                _animator.UpdateSprites(_voidSprites[0], _voidSprites[1]);
-                _animator.UpdateVisuals();
+                _sprite1Queue = _voidSprites[0];
+                _sprite2Queue = _voidSprites[1];
                 break;
             case ObjectType.Compy:
                 // normal compy pair (animated)
-                _animator.IsAnimated = true;
-                _animator.UpdateSprites(_compySprites[0], _compySprites[1]);
-                _animator.UpdateVisuals();
+                _sprite1Queue = _compySprites[0];
+                _sprite2Queue = _compySprites[1];
                 break;
+        }
+    }
+
+    /// <summary>
+    /// Ensures sprites of the object match the queued sprites.
+    /// Handles cases for static or 2-frame animated sprite states.
+    /// </summary>
+    private void MatchObjectToQueue()
+    {
+        // static sprite swap
+        if (_sprite1Queue is not null && _sprite2Queue is null)
+        {
+            _animator.IsAnimated = false;
+            _renderer.sprite = _sprite1Queue;
+        }
+        // animated sprite swap
+        else if (_sprite1Queue is not null && _sprite2Queue is not null)
+        {
+            _animator.IsAnimated = true;
+            _animator.UpdateSprites(_sprite1Queue, _sprite2Queue);
+            _animator.UpdateVisuals();
+        }
+        // disabled state
+        else if (_sprite1Queue is null && _sprite2Queue is null)
+        {
+            _animator.IsAnimated = false;
+            _renderer.sprite = null;
         }
     }
 
