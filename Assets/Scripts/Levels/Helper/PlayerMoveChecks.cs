@@ -59,7 +59,7 @@ public static class PlayerMoveChecks
             // SWIMMING CHECK: do swimming version of move checks instead of standard move checks below?
             if (player.IsSwimming)
             {
-                TrySwimmingMove(player, playerMover, moveDir, adjacentObj);
+                TrySwimmingMove(player, playerMover, moveDir);
                 return;
             }
 
@@ -196,8 +196,14 @@ public static class PlayerMoveChecks
     /// Attempts to move within water to other water tiles that are not obstructed by contained rocks or logs.
     /// If attempting to move into a submerged log, then it will attempt to push it in series.
     /// </summary>
-    private static void TrySwimmingMove(PlayerControls player, Mover playerMover, Vector2Int moveDir, QuantumState adjacentObj)
+    private static void TrySwimmingMove(PlayerControls player, Mover playerMover, Vector2Int moveDir)
     {
+        // fetch first water object
+        Vector2Int currPos = playerMover.GetGlobalGridPos();
+        Vector2Int targetPos = currPos + moveDir;
+        QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(playerMover, targetPos.x, targetPos.y, true);
+        QuantumState adjacentTopObj = VisibilityChecks.GetObjectAtPos(playerMover, targetPos.x, targetPos.y, false);
+
         // REQUIREMENT: there MUST be a tile and it MUST be water
         if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Water)
             return;
@@ -221,13 +227,19 @@ public static class PlayerMoveChecks
             // generate list of all logs to be pushed by the potential player move
             List<QuantumState> pushList = new List<QuantumState>();
             pushList.Add(adjacentObj);
+            
+            // top list contains all logs and compy pair objects that are pushed on top of some log being pushed
+            List<QuantumState> topObjList = new List<QuantumState>();
+            if (adjacentObj != adjacentTopObj)
+                topObjList.Add(adjacentTopObj);
 
             // Find all logs in a series
             bool currIsLog = true;
             while (currIsLog)
             {
                 adjacentPos += moveDir;
-                adjacentObj = VisibilityChecks.GetObjectAtPos(playerMover, adjacentPos.x, adjacentPos.y);
+                adjacentObj = VisibilityChecks.GetObjectAtPos(playerMover, adjacentPos.x, adjacentPos.y, true); // fetch lower object (in case of object on top)
+                adjacentTopObj = VisibilityChecks.GetObjectAtPos(playerMover, adjacentPos.x, adjacentPos.y, false); // fetch lower object (in case of object on top)
 
                 // REQUIREMENT: not pushing submerged log into panel
                 if (!VisibilityChecks.IsVisible(playerMover.gameObject, adjacentPos.x, adjacentPos.y))
@@ -250,7 +262,10 @@ public static class PlayerMoveChecks
 
                     currIsLog = false;
                 }
-                    
+
+                // add top objects to list
+                if (adjacentObj != adjacentTopObj)
+                    topObjList.Add(adjacentTopObj);
             }
 
             // if we have gotten this far, the logs can be all pushed, AND the player can move
@@ -286,6 +301,12 @@ public static class PlayerMoveChecks
                     flipper.RequireFlip();
                 }
 
+            }
+
+            // push top objects accordingly (logs and compy)
+            for (int i = 0; i < topObjList.Count; i++)
+            {
+                topObjList[i].ObjMover.Increment(moveDir);
             }
 
             // confirm movement of player
