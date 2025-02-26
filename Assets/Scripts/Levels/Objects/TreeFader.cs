@@ -87,9 +87,11 @@ public class TreeFader : MonoBehaviour
         // skip object/player detection if tree top is not even visible currently
         if (!VisibilityChecks.IsVisible(_mover.gameObject, checkPos.x, checkPos.y))
         {
-            Color tempCol = _treeTopSprite.color;
-            tempCol.a = 1;
-            _treeTopSprite.color = tempCol;
+            // keep whatever fade/non-fade state it had - this ensures proper behavior with covering BOTH faded and non-faded trees
+
+            // ONE EDGE CASE: if an object starts (1) BEHIND a tree and (2) ALSO BEHIND a panel
+            // in this case, it takes one action frame once it has been revealed to have correct behavior for the rest of the level (including when undoing back to the start)
+            // this case is acceptable as it is very niche and likely to be avoided regardless due to puzzle designing strategies
 
             return;
         }
