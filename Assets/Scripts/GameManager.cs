@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
                 // loaded here so it always happens at the start and not after rebindings are needed
                 string rebindsJson = PlayerPrefs.GetString("rebinds");
                 InputSystem.actions.LoadBindingOverridesFromJson(rebindsJson);
+
+                // ensure default values are loaded/read on start NO MATTER WHAT
+                // important for editor since the actual json data is never read in a level scene which interferes with playerPref initialization
+                _instance.InitializeSaveData();
             }
             // return new/existing instance
             return _instance;
@@ -66,28 +70,21 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region SAVE DATA
+    // Options data
+    // stored separately because it uses PlayerPrefs and does not interface through json at all which the entire PersistentData class does
+    public int MasterVolume;    // 0 to 200
+    public int MusicVolume;     // 0 to 200
+    public int SfxVolume;       // 0 to 200
+
     // save data (saved between sessions)
     [System.Serializable]
     public class PersistentData
     {
-        // Options data - saved via PlayerPrefs
-        public int MasterVolume;    // 0 to 200
-        public int MusicVolume;     // 0 to 200
-        public int SfxVolume;       // 0 to 200
-
-        // ----------------------------------------------- \\
-        // TODO: add new options data types here
-        // ----------------------------------------------- \\
-
         // Progression data - saved via .json file
 
         public bool NewGameStarted;
         public List<string> LevelsComplete;
         public string CurrLevel;
-
-        // ----------------------------------------------- \\
-        // TODO: add new progression data types here
-        // ----------------------------------------------- \\
     }
 
     // private stored save data
@@ -124,13 +121,9 @@ public class GameManager : MonoBehaviour
         PersistentData newSaveData = Instance.SaveData; // retrieves default initialization data
         
         // Read save data from PlayerPrefs (or assign default values)
-        newSaveData.MasterVolume = PlayerPrefs.GetInt("masterVolume", 100);
-        newSaveData.MusicVolume = PlayerPrefs.GetInt("musicVolume", 100);
-        newSaveData.SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
-
-        // ----------------------------------------------- \\
-        // TODO: add new options default data values here
-        // ----------------------------------------------- \\
+        MasterVolume = PlayerPrefs.GetInt("masterVolume", 100);
+        MusicVolume = PlayerPrefs.GetInt("musicVolume", 100);
+        SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
 
         // Read progression data
         string path = Application.persistentDataPath + "\\ProgressionData.json";
@@ -163,10 +156,6 @@ public class GameManager : MonoBehaviour
         // tacking current level
         newSaveData.CurrLevel = "Tut0"; // first level
 
-        // ----------------------------------------------- \\
-        // TODO: add new level progression default data values here
-        // ----------------------------------------------- \\
-
         Instance.SaveData = newSaveData;
     }
 
@@ -178,9 +167,9 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("rebinds", rebindsJson);
 
         // Store save data in PlayerPrefs
-        PlayerPrefs.SetInt("masterVolume", SaveData.MasterVolume);
-        PlayerPrefs.SetInt("musicVolume", SaveData.MusicVolume);
-        PlayerPrefs.SetInt("sfxVolume", SaveData.SfxVolume);
+        PlayerPrefs.SetInt("masterVolume", MasterVolume);
+        PlayerPrefs.SetInt("musicVolume", MusicVolume);
+        PlayerPrefs.SetInt("sfxVolume", SfxVolume);
 
         // ----------------------------------------------- \\
         // TODO: add save statements for new options data types
@@ -200,7 +189,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float GetMasterVolume()
     {
-        return math.remap(0, 200, 0, 1, SaveData.MasterVolume);
+        return math.remap(0, 200, 0, 1, MasterVolume);
     }
 
     /// <summary>
@@ -209,7 +198,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float GetMusicVolume()
     {
-        return math.remap(0, 200, 0, 1, SaveData.MusicVolume);
+        return math.remap(0, 200, 0, 1, MusicVolume) * GetMasterVolume();
     }
 
     /// <summary>
@@ -218,7 +207,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float GetSfxVolume()
     {
-        return math.remap(0, 200, 0, 1, SaveData.SfxVolume);
+        return math.remap(0, 200, 0, 1, SfxVolume) * GetMasterVolume();
     }
 
     /// <summary>

@@ -85,11 +85,11 @@ public class VolumeSlider : MonoBehaviour
     private void UpdateVolume(int newVolume)
     {
         if (_isMasterVolume)
-            GameManager.Instance.SaveData.MasterVolume = newVolume;
+            GameManager.Instance.MasterVolume = newVolume;
         if (_isMusicVolume)
-            GameManager.Instance.SaveData.MusicVolume = newVolume;
+            GameManager.Instance.MusicVolume = newVolume;
         if (_isSfxVolume)
-            GameManager.Instance.SaveData.SfxVolume = newVolume;
+            GameManager.Instance.SfxVolume = newVolume;
     }
 
     /// <summary>
@@ -99,11 +99,11 @@ public class VolumeSlider : MonoBehaviour
     private int GetVolume()
     {
         if (_isMasterVolume)
-            return GameManager.Instance.SaveData.MasterVolume;
+            return GameManager.Instance.MasterVolume;
         if (_isMusicVolume)
-            return GameManager.Instance.SaveData.MusicVolume;
+            return GameManager.Instance.MusicVolume;
         if (_isSfxVolume)
-            return GameManager.Instance.SaveData.SfxVolume;
+            return GameManager.Instance.SfxVolume;
 
         throw new System.Exception("Improper Usage of Volume Slider. Must be configured to a specific volume type.");
     }
