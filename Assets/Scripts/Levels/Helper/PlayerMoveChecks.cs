@@ -381,6 +381,13 @@ public static class PlayerMoveChecks
             throw new Exception("Player MUST have PlayerSpriteSwapper component.");
         spriteSwapper.RequireFlip();
 
+        // LOG SINKING (when player leaves floating log)
+        // MUST CHECK THIS HERE (instead of in ConfirmPlayerMove) DUE TO TUNNEL SNAPPING BEHAVIOR
+        Vector2Int currPos = playerMover.GetGlobalGridPos();
+        QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(playerMover, currPos.x, currPos.y);
+        if (logSinkCheck is not null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+            logSinkCheck.ObjData.WaterHasLog = false;
+
         // snap to tunnel position so it looks like player moves out of tunnel
         Vector2Int snapPos = otherTunnel.ObjMover.GetGlobalGridPos();
         playerMover.SetGlobalGoal(snapPos.x, snapPos.y);
