@@ -8,20 +8,19 @@ using UnityEngine;
 public class UndoFireSpreadHandler : UndoHandler
 {
     // local frame, list of fire bushes
-    private Stack<(int, QuantumState[])> _undoStack =
-        new Stack<(int, QuantumState[])>();
+    private Stack<(int, (QuantumState, int)[])> _undoStack = new Stack<(int, (QuantumState, int)[])>();
 
     protected override void SaveStackFrame()
     {
         // retrieve new values
-        QuantumState[] newFireBushes = FireSpreadHandler.GetFireBushes();
+        (QuantumState, int)[] newFireBushes = FireSpreadHandler.GetFireBushes();
 
         // No need to compare if new frame is FIRST frame
         if (_undoStack.Count == 0)
             _undoStack.Push((_localFrame, newFireBushes));
 
         // Compare old values to current
-        QuantumState[] oldFireBushes = _undoStack.Peek().Item2;
+        (QuantumState, int)[] oldFireBushes = _undoStack.Peek().Item2;
 
         // update stack ONLY if any change in THIS object has actually occurred
         if (!ListsEqual(newFireBushes, oldFireBushes))
@@ -40,7 +39,7 @@ public class UndoFireSpreadHandler : UndoHandler
             _undoStack.Pop();
 
             // update fire bushes list
-            QuantumState[] newFireBushes = _undoStack.Peek().Item2;
+            (QuantumState, int)[] newFireBushes = _undoStack.Peek().Item2;
             FireSpreadHandler.SetFireBushes(newFireBushes);
         }
     }
@@ -48,7 +47,7 @@ public class UndoFireSpreadHandler : UndoHandler
     /// <summary>
     /// Returns true on if both lists are the same size AND contain the same element references.
     /// </summary>
-    private bool ListsEqual(QuantumState[] list1, QuantumState[] list2)
+    private bool ListsEqual((QuantumState, int)[] list1, (QuantumState, int)[] list2)
     {
         // compare lengths
         if (list1.Length != list2.Length)
@@ -57,7 +56,7 @@ public class UndoFireSpreadHandler : UndoHandler
         // compare individual elements
         for (int i = 0; i < list1.Length; i++)
         {
-            if (list1[i] != list2[i])
+            if (list1[i].Item1 != list2[i].Item1 || list1[i].Item2 != list2[i].Item2)
                 return false;
         }
 
