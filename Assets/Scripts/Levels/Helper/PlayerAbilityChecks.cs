@@ -79,6 +79,7 @@ public static class PlayerAbilityChecks
         else
         {
             // play ability failure effect
+            AbilityFailureVFXManager.PlayFailureVFX(abilityPos);
 
             return;
         }
