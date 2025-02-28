@@ -338,6 +338,8 @@ public static class PlayerAbilityChecks
         }
     }
 
+    private const int MAX_PTERA_TILES = 3; // max tiles that the pteranodon can traverse in a single fly action
+
     /// <summary>
     /// Attempts to relocate player to a different panel at the position next to the player.
     /// Requires there to be no obstructions (no object OR submerged log/rock)
@@ -362,7 +364,7 @@ public static class PlayerAbilityChecks
             }
 
             // Check for not enough charges
-            if (tilesToMove > player.GetCurrAbilityCharge())
+            if (tilesToMove > MAX_PTERA_TILES)
             {
                 // TODO: ability failure effect at adjacentPos
 
@@ -408,9 +410,8 @@ public static class PlayerAbilityChecks
 
                 // set facing direction
                 FaceDirection(player, dir);
-                // decrement charges (one charge per tile moved)
-                for (int i = 0; i < tilesToMove; i++)
-                    player.UseAbilityCharge();
+                // decrement charges (one charge per fly regardless of distance)
+                player.UseAbilityCharge();
                 // move player to adjacent panel
                 Transform newParent = SortingOrderHandler.GetPanelOfOrder(topMostIndex).transform.GetChild(1).transform; // 1 = Upper Objects
                 // confirm movement and save
