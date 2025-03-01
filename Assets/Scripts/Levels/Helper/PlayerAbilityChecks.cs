@@ -101,7 +101,8 @@ public static class PlayerAbilityChecks
         if (adjacentObj is null || !VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y)
             || (adjacentObj.ObjData.ObjType != ObjectType.Log && adjacentObj.ObjData.ObjType != ObjectType.Rock))
         {
-            // TODO: failure effect at adjacent tile
+            // failure effect at adjacent tile
+            AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
             return;
         }
@@ -134,7 +135,12 @@ public static class PlayerAbilityChecks
 
                 // Check for rock's obstruction by higher-ordered panel
                 if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
+                {
+                    // failure effect on object which cannot be pushed due to higher order panel
+                    AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
+
                     return; // obstruction to rock = NO PUSH/ACTION
+                }
 
                 // check for object at next position
                 adjacentObj = VisibilityChecks.GetObjectAtPos(mover, adjacentPos.x, adjacentPos.y);
@@ -162,7 +168,8 @@ public static class PlayerAbilityChecks
                 }
                 else // obstructed by bush/tallBush/Tunnel/etc.
                 {
-                    // TODO: failure effect on object which cannot be pushed at end of chain
+                    // failure effect on object which cannot be pushed at end of chain
+                    AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                     return; // obstruction to rock = NO PUSH/ACTION
                 }
