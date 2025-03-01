@@ -368,18 +368,20 @@ public static class PlayerAbilityChecks
         {
             adjacentPos += dir;
 
-            // Check for flying outside of main panel
-            if(!mainPanel.IsPosInBounds(adjacentPos.x, adjacentPos.y))
+            // Check for not enough charges
+            if (tilesToMove > MAX_PTERA_TILES)
             {
-                // TODO: ability failure effect at adjacentPos (or one less dir of it so its not out of bounds?)
+                // ability failure effect at adjacentPos - not able to find landable position
+                AbilityFailureVFXManager.PlayFailureVFX(adjacentPos - dir); // subtract one so it shows issue on the FINAL possible traversable tile, not one extra away
 
                 return;
             }
 
-            // Check for not enough charges
-            if (tilesToMove > MAX_PTERA_TILES)
+            // Check for flying outside of main panel
+            if (!mainPanel.IsPosInBounds(adjacentPos.x, adjacentPos.y))
             {
-                // TODO: ability failure effect at adjacentPos
+                // ability failure effect at adjacentPos (or one less dir of it so its not out of bounds?)
+                AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                 return;
             }
