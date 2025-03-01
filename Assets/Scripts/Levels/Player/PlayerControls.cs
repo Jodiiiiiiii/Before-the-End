@@ -470,7 +470,11 @@ public class PlayerControls : MonoBehaviour
 
         // must have remaining ability uses to prepare to use ability
         if (_dinoCharges[_currDino] == 0)
+        {
+            AbilityFailureVFXManager.PlayFailureVFX(_mover.GetGlobalGridPos());
+
             return;
+        }
 
         // Compy Swapping: unique case that doesn't use preparing indicator
         if (_dinoTypes[_currDino] == DinoType.Compy && _dinoCharges[_currDino] == -1)
