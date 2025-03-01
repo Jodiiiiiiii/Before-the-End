@@ -298,7 +298,8 @@ public static class PlayerAbilityChecks
             }
             else
             {
-                // TODO: failure effect at adjacent tile
+                // failure effect at adjacent tile - there must be viable water adjacent to player
+                AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                 return;
             }
@@ -342,7 +343,8 @@ public static class PlayerAbilityChecks
             }
             else
             {
-                // TODO: failure effect at adjacent tile
+                // failure effect at adjacent tile - must be viable non-water tile to exit water
+                AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                 return;
             }
