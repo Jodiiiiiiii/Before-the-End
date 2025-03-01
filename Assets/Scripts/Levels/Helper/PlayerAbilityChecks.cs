@@ -226,7 +226,8 @@ public static class PlayerAbilityChecks
         // REQUIREMENT: adjacent object must be present AND visible.
         if (adjacentObj is null || !VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
         {
-            // TODO: failure effect at adjacent tile
+            // failure effect at adjacent tile
+            AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
             return;
         }
@@ -246,7 +247,9 @@ public static class PlayerAbilityChecks
         // invalid adjacent object type
         else
         {
-            // TODO: failure effect at adjacent tile 
+            // failure effect at adjacent tile - can only destroy rock
+            AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
+
             return;
         }
 
