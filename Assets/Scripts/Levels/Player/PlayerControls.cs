@@ -780,7 +780,8 @@ public class PlayerControls : MonoBehaviour
         Vector2Int compyPos = compyMover.GetGlobalGridPos();
         if (!VisibilityChecks.IsVisible(_compyReference.gameObject, compyPos.x, compyPos.y))
         {
-            // TODO: failure effect at location of obstructed compy (compyPos)
+            // failure effect at location of obstructed compy (compyPos)
+            AbilityFailureVFXManager.PlayFailureVFX(compyPos);
 
             return;
         }

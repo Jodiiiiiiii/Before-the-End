@@ -579,7 +579,8 @@ public static class PlayerAbilityChecks
         if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y)
             || !(adjacentObj is null || (adjacentObj.ObjData.ObjType == ObjectType.Water && (adjacentObj.ObjData.WaterHasLog || adjacentObj.ObjData.WaterHasRock))))
         {
-            // TODO: failure effect at adjacent tile
+            // failure effect at adjacent tile - invalid placement position
+            AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
             return;
         }
