@@ -463,7 +463,8 @@ public static class PlayerAbilityChecks
         if (adjacentObj is null || !VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y)
             || adjacentObj.ObjData.ObjType != ObjectType.Bush)
         {
-            // TODO: failure effect at adjacent tile
+            // failure effect at adjacent tile
+            AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
             return;
         }
@@ -481,8 +482,9 @@ public static class PlayerAbilityChecks
             // Check for next position's obstruction by higher-ordered panel
             if (!VisibilityChecks.IsVisible(player, adjacentPos.x, adjacentPos.y))
             {
-                // TODO: failure effect indicating the position with the panel obstruction
+                // failure effect indicating the position with the panel obstruction
                 // (may need an additional check to see if it is in bounds of main panel)
+                AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                 return; // panel obstruction -> CANNOT MOVE
             }
@@ -502,7 +504,8 @@ public static class PlayerAbilityChecks
                     currIsBush = false;
                 else // otherwise action fails
                 {
-                    // TODO: failure effect at position of the water (latest adjacentPos)
+                    // failure effect at position of the water (latest adjacentPos)
+                    AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                     return;
                 }
@@ -514,7 +517,8 @@ public static class PlayerAbilityChecks
                     currIsBush = false;
                 else // otherwise action fails
                 {
-                    // TODO: failure effect at position of FIRST adjacent log (latest adjacentPos)
+                    // failure effect at position of FIRST adjacent log (latest adjacentPos)
+                    AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                     return;
                 }
@@ -528,7 +532,8 @@ public static class PlayerAbilityChecks
             }
             else // obstructed by non-pushable object
             {
-                // TODO: failure effect at obstruction (latest adjacentPos)
+                // failure effect at obstruction (latest adjacentPos)
+                AbilityFailureVFXManager.PlayFailureVFX(adjacentPos);
 
                 return;
             }
