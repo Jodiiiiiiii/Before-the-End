@@ -13,10 +13,12 @@ public class PauseCanvas : MonoBehaviour
     [Header("Pause Navigation")]
     [SerializeField, Tooltip("Used to disable/enable the entire canvas based on pause state.")]
     private Canvas _canvas;
-    [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus")]
+    [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus.")]
     private GameObject _pauseMenu;
-    [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus")]
+    [SerializeField, Tooltip("Enabled/disabled when switching between pause and options menus.")]
     private GameObject _optionsMenu;
+    [SerializeField, Tooltip("Enabled/disabled when switching between pause and help book menus.")]
+    private GameObject _helpMenu;
 
     [Header("Scene Transitions")]
     [SerializeField, Tooltip("Used to transition back to level select.")]
@@ -43,6 +45,7 @@ public class PauseCanvas : MonoBehaviour
             // pause menu by default when you pause, not options
             _pauseMenu.SetActive(true);
             _optionsMenu.SetActive(false);
+            _helpMenu.SetActive(false);
 
             // controls is default menu for options
             _controlsMenu.SetActive(true);
@@ -72,12 +75,23 @@ public class PauseCanvas : MonoBehaviour
     }
 
     /// <summary>
+    /// Opens the help book menu (from the pause menu).
+    /// </summary>
+    public void ToHelp()
+    {
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _helpMenu.SetActive(true);
+    }
+
+    /// <summary>
     /// Opens the options menu (from the pause menu).
     /// </summary>
     public void ToOptions()
     {
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(true);
+        _helpMenu.SetActive(false);
     }
 
     /// <summary>
@@ -113,6 +127,7 @@ public class PauseCanvas : MonoBehaviour
     {
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
+        _helpMenu.SetActive(false);
 
         // controls is default menu for options
         _controlsMenu.SetActive(true);
