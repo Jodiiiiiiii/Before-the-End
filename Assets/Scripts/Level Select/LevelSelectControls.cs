@@ -44,6 +44,7 @@ public class LevelSelectControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Ability").started += TryEnterLevel;
         // pause
         _actions.actionMaps[0].FindAction("Pause").started += PauseToggle;
+        //_actions.actionMaps[0].FindAction("Help").started += PauseToggle;
 
         _actions.actionMaps[0].Enable();
     }
@@ -59,6 +60,7 @@ public class LevelSelectControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Ability").started -= TryEnterLevel;
         // pause
         _actions.actionMaps[0].FindAction("Pause").started -= PauseToggle;
+        //_actions.actionMaps[0].FindAction("Help").started -= PauseToggle;
 
         _actions.actionMaps[0].Disable();
     }

@@ -84,6 +84,7 @@ public class PlayerControls : MonoBehaviour
 
         // pause
         _actions.actionMaps[0].FindAction("Pause").started += PauseToggle;
+        //_actions.actionMaps[0].FindAction("Help").started += PauseToggle;
 
         // fading panels
         _actions.actionMaps[0].FindAction("FadePanels").started += FadePanels;
@@ -121,6 +122,7 @@ public class PlayerControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("Swap7").started -= Swap7;
         // remove pause binding
         _actions.actionMaps[0].FindAction("Pause").started -= PauseToggle;
+        //_actions.actionMaps[0].FindAction("Help").started -= PauseToggle;
         // remove fading panels binding
         _actions.actionMaps[0].FindAction("FadePanels").started -= FadePanels;
         _actions.actionMaps[0].FindAction("FadePanels").canceled -= FadePanels;

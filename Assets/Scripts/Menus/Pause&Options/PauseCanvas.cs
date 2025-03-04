@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PauseCanvas : MonoBehaviour
 {
@@ -28,10 +29,22 @@ public class PauseCanvas : MonoBehaviour
     [SerializeField, Tooltip("Used to make actual scene transition calls.")]
     private SceneTransitionHandler _transitionHandler;
 
+    private InputActionAsset _actions;
+
     private void OnEnable()
     {
         // necessary to make sure controls data is loaded before initialization
         _canvas.enabled = GameManager.Instance.IsPaused;
+
+        _actions = InputSystem.actions;
+        if (!_bypassPause)
+            _actions.actionMaps[0].FindAction("Help").started += context => ToHelp();
+    }
+
+    private void OnDisable()
+    {
+        if (!_bypassPause)
+        _actions.actionMaps[0].FindAction("Help").started -= context => ToHelp();
     }
 
     // Update is called once per frame
@@ -76,12 +89,26 @@ public class PauseCanvas : MonoBehaviour
 
     /// <summary>
     /// Opens the help book menu (from the pause menu).
+    /// Also called on hotkey press for help binding.
+    /// Handles both opening and closing (for hotkey press) - bypassing pause menu entirely.
     /// </summary>
     public void ToHelp()
     {
-        _pauseMenu.SetActive(false);
-        _optionsMenu.SetActive(false);
-        _helpMenu.SetActive(true);
+        // close help menu
+        if (_helpMenu.activeInHierarchy)
+        {
+            Unpause();
+        }
+        //  open help menu
+        else
+        {
+            // ensure paused before navigating to help (allows opening help directly and skipping pause menu)
+            GameManager.Instance.IsPaused = true;
+
+            _pauseMenu.SetActive(false);
+            _optionsMenu.SetActive(false);
+            _helpMenu.SetActive(true);
+        }
     }
 
     /// <summary>
