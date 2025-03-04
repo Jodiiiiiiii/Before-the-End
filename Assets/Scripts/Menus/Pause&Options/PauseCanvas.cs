@@ -38,13 +38,35 @@ public class PauseCanvas : MonoBehaviour
 
         _actions = InputSystem.actions;
         if (!_bypassPause)
-            _actions.actionMaps[0].FindAction("Help").started += context => ToHelp();
+            _actions.actionMaps[0].FindAction("Help").started += ToggleHelp;
     }
 
     private void OnDisable()
     {
         if (!_bypassPause)
-        _actions.actionMaps[0].FindAction("Help").started -= context => ToHelp();
+        _actions.actionMaps[0].FindAction("Help").started -= ToggleHelp;
+    }
+
+
+    /// <summary>
+    /// Called on hotkey press for help binding.
+    /// Handles both opening and closing (for hotkey press) - bypassing pause menu entirely.
+    /// </summary>
+    private void ToggleHelp(InputAction.CallbackContext context)
+    {
+        // close help menu
+        if (_helpMenu.activeInHierarchy)
+        {
+            Unpause();
+        }
+        //  open help menu
+        else
+        {
+            // ensure paused before navigating to help (allows opening help directly and skipping pause menu)
+            GameManager.Instance.IsPaused = true;
+
+            ToHelp();
+        }
     }
 
     // Update is called once per frame
@@ -89,26 +111,12 @@ public class PauseCanvas : MonoBehaviour
 
     /// <summary>
     /// Opens the help book menu (from the pause menu).
-    /// Also called on hotkey press for help binding.
-    /// Handles both opening and closing (for hotkey press) - bypassing pause menu entirely.
     /// </summary>
     public void ToHelp()
     {
-        // close help menu
-        if (_helpMenu.activeInHierarchy)
-        {
-            Unpause();
-        }
-        //  open help menu
-        else
-        {
-            // ensure paused before navigating to help (allows opening help directly and skipping pause menu)
-            GameManager.Instance.IsPaused = true;
-
-            _pauseMenu.SetActive(false);
-            _optionsMenu.SetActive(false);
-            _helpMenu.SetActive(true);
-        }
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _helpMenu.SetActive(true);
     }
 
     /// <summary>
