@@ -14,7 +14,7 @@ public class LevelSelectControls : MonoBehaviour
     [SerializeField, Tooltip("Used to retrieve list of nodes and find the one of the correct index.")]
     private GameObject _levelWeb;
 
-    private void Awake()
+    private void Start()
     {        
         // move player to current saved level node instantly
         TravelNode[] nodes = _levelWeb.GetComponentsInChildren<TravelNode>();
@@ -165,7 +165,9 @@ public class LevelSelectControls : MonoBehaviour
 
         // update currently selected level in game manager (used to track level completion) - only update on actual level nodes
         if (_currNode.SceneName != "None")
+        {
             GameManager.Instance.SaveData.CurrLevel = _currNode.LevelIdentifiers[0];
+        }
     }
     #endregion
 
@@ -188,6 +190,17 @@ public class LevelSelectControls : MonoBehaviour
         // only able to enter level from actual level nodes
         if (_currNode.SceneName != "None")
         {
+            // update help strings data for the current level
+            string[] helpStrings = _currNode.GetHelpStrings();
+            foreach (string helpStr in helpStrings)
+            {
+                if (!GameManager.Instance.SaveData.HelpUnlocks.Contains(helpStr))
+                {
+                    GameManager.Instance.SaveData.HelpUnlocks.Add(helpStr);
+                    GameManager.Instance.SaveData.NewHelpUnlocks.Add(helpStr);
+                }
+            }
+
             _isTransitionStart = true;
             _transitionHandler.LoadScene(_currNode.SceneName);
         }

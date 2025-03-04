@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: None
   NodeConnections: []
-  LevelNums: 
+  LevelIdentifiers: []
   _obstructionIndicators:
   - {fileID: 1902263260117908383}
   - {fileID: 863492653316017800}
@@ -1543,6 +1543,7 @@ MonoBehaviour:
   - {fileID: 2843461071322055687}
   _renderer: {fileID: 4114004631819610524}
   _completedSprite: {fileID: 21300000, guid: 56e05d2ac8827f84fb5994a6218df44f, type: 3}
+  _popupInit: {fileID: 3724202148841202171}
   _canvasFader: {fileID: 2717178348290595516}
   _alphaChangeRate: 2.5
   _fadeInDelay: 0.3
@@ -1560,6 +1561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: 
   _dinos: 
+  _additionalHelpUnlocks: []
   _title: {fileID: 2695857133690521231}
   _layoutGroup: {fileID: 1520419811484717161}
   _stego: {fileID: 1424991898012875221}

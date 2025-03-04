@@ -14,6 +14,8 @@ public class PopupInitializer : MonoBehaviour
     private string _displayName;
     [SerializeField, Tooltip("Dinos to show in level popup.")]
     private DinoType[] _dinos;
+    [SerializeField, Tooltip("Additional help unlock strings associated with the current level.")]
+    private string[] _additionalHelpUnlocks;
 
     [Header("References")]
     [SerializeField, Tooltip("Used to set level name")]
@@ -36,7 +38,7 @@ public class PopupInitializer : MonoBehaviour
     private GameObject _compy;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _title.text = _displayName;
 
@@ -76,5 +78,20 @@ public class PopupInitializer : MonoBehaviour
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// Returns list of help strings based on special strings for this level, and dino types of this level.
+    /// </summary>
+    public string[] GetHelpStrings()
+    {
+        string[] helpStrings = new string[_dinos.Length + _additionalHelpUnlocks.Length];
+
+        for (int i = 0; i < _dinos.Length; i++)
+            helpStrings[i] = _dinos[i].ToString();
+        for (int i = 0; i < _additionalHelpUnlocks.Length; i++)
+            helpStrings[i + _dinos.Length] = _additionalHelpUnlocks[i];
+
+        return helpStrings;
     }
 }

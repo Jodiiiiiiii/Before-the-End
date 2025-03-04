@@ -26,6 +26,10 @@ public class TravelNode : MonoBehaviour
     [SerializeField, Tooltip("Sprite variant for completed level.")]
     private Sprite _completedSprite;
 
+    [Header("Help Configuration")]
+    [SerializeField, Tooltip("Used to access data for help strings.")]
+    private PopupInitializer _popupInit;
+
     private void Awake()
     {
         // Configuration verification: must have associated level index
@@ -168,6 +172,16 @@ public class TravelNode : MonoBehaviour
         return null;
     }
 
+    #region Help Strings
+    /// <summary>
+    /// Returns list of help strings based on special strings for this level, and dino types of this level. 
+    /// </summary>
+    public string[] GetHelpStrings()
+    {
+        return _popupInit.GetHelpStrings();
+    }
+    #endregion
+
     #region Popup
     [Header("Popup")]
     [SerializeField, Tooltip("Used to fade popup canvas in and out smoothly.")]
@@ -228,7 +242,7 @@ public class TravelNode : MonoBehaviour
     }
     #endregion
 
-    #region
+    #region CHEATS
     private void OnEnable()
     {
         if (LevelIdentifiers.Length == 1)

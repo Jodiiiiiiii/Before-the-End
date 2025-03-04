@@ -83,8 +83,12 @@ public class GameManager : MonoBehaviour
         // Progression data - saved via .json file
 
         public bool NewGameStarted;
+
         public List<string> LevelsComplete;
         public string CurrLevel;
+
+        public List<string> HelpUnlocks;
+        public List<string> NewHelpUnlocks;
     }
 
     // private stored save data
@@ -153,8 +157,14 @@ public class GameManager : MonoBehaviour
         // level complete
         newSaveData.LevelsComplete = new List<string>(); // empty by default
 
-        // tacking current level
+        // tracking current level
         newSaveData.CurrLevel = "Tut0"; // first level
+
+        // help unlocks for help book
+        newSaveData.HelpUnlocks = new List<string>(); // empty by default
+        newSaveData.HelpUnlocks.Add("Move"); // first level unlock
+        newSaveData.NewHelpUnlocks = new List<string>(); // empty if no new mechanics
+        newSaveData.NewHelpUnlocks.Add("Move");
 
         Instance.SaveData = newSaveData;
     }
@@ -170,10 +180,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("masterVolume", MasterVolume);
         PlayerPrefs.SetInt("musicVolume", MusicVolume);
         PlayerPrefs.SetInt("sfxVolume", SfxVolume);
-
-        // ----------------------------------------------- \\
-        // TODO: add save statements for new options data types
-        // ----------------------------------------------- \\
 
         PlayerPrefs.Save();
 
