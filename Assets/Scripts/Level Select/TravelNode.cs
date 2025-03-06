@@ -262,6 +262,16 @@ public class TravelNode : MonoBehaviour
     {
         if (!GameManager.Instance.SaveData.LevelsComplete.Contains(LevelIdentifiers[0]))
             GameManager.Instance.SaveData.LevelsComplete.Add(LevelIdentifiers[0]);
+
+        /*string[] helpStrings = GetHelpStrings();
+        foreach (string helpStr in helpStrings)
+        {
+            if (!GameManager.Instance.SaveData.HelpUnlocks.Contains(helpStr))
+            {
+                GameManager.Instance.SaveData.HelpUnlocks.Add(helpStr);
+                GameManager.Instance.SaveData.HelpNotif = true;
+            }
+        }*/
     }
     #endregion
 }
