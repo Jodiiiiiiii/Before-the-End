@@ -9,6 +9,14 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneTransitionHandler : MonoBehaviour
 {
+    public static bool IsTransitioningOut = false;
+
+    private void Start()
+    {
+        // always reset to false in new scene
+        IsTransitioningOut = false;
+    }
+
     [SerializeField, Tooltip("Used to trigger animations for scene enter/exit")]
     private Animator _anim;
 
@@ -19,6 +27,12 @@ public class SceneTransitionHandler : MonoBehaviour
     /// </summary>
     public void LoadScene(string sceneName)
     {
+        // do not permit any cases of loading a new scene when the LoadScene call has already been made elsewhere
+        if (IsTransitioningOut)
+            return;
+
+        IsTransitioningOut = true;
+
         _anim.Play("TransitionOut");
 
         StartCoroutine(DoTransition(sceneName));

@@ -54,6 +54,10 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     private void ToggleHelp(InputAction.CallbackContext context)
     {
+        // no opening pause menu while in scene transition
+        if (SceneTransitionHandler.IsTransitioningOut)
+            return;
+
         // close help menu
         if (_helpMenu.activeInHierarchy)
         {

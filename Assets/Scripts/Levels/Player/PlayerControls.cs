@@ -253,7 +253,7 @@ public class PlayerControls : MonoBehaviour
     private void HandlePlayerMovement()
     {
         // Don't process movement inputs while paused (they can still be queued though)
-        if (GameManager.Instance.IsPaused)
+        if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
         // Process most recent move input (if any)
@@ -408,8 +408,8 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void SwapToIndex(int index)
     {
-        // Skip input processing when paused
-        if (GameManager.Instance.IsPaused)
+        // Skip input processing when paused / transitioning
+        if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
         // CANNOT swap dino type while swimming (must leave water first)
@@ -466,8 +466,8 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void ToggleAbilityActive(InputAction.CallbackContext context)
     {
-        // Skip input processing when paused
-        if (GameManager.Instance.IsPaused)
+        // Skip input processing when paused or transitioning
+        if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
         // must have remaining ability uses to prepare to use ability
@@ -499,8 +499,8 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void AttemptAbility(Vector2Int dir)
     {
-        // Don't use ability while paused
-        if (GameManager.Instance.IsPaused)
+        // Don't use ability while paused or transitioning
+        if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
         // ensure player has charges remaining
@@ -611,7 +611,7 @@ public class PlayerControls : MonoBehaviour
             _isUndoing = true;
 
             // Skip undo operation (but still save undoing state in case of unpause)
-            if (GameManager.Instance.IsPaused)
+            if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
                 return;
 
             // cancel ability preparation
@@ -634,8 +634,8 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void HandleHoldingUndo()
     {
-        // Don't undo while paused
-        if (GameManager.Instance.IsPaused)
+        // Don't undo while paused or transitioning
+        if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
         // Undo is being held 
@@ -660,6 +660,10 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void PauseToggle(InputAction.CallbackContext context)
     {
+        // no pause controls while transitioning
+        if (SceneTransitionHandler.IsTransitioningOut)
+            return;
+
         // flip paused state
         GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
 
@@ -678,8 +682,8 @@ public class PlayerControls : MonoBehaviour
     /// </summary>
     private void FadePanels(InputAction.CallbackContext context)
     {
-        // Skip input processing when paused
-        if (GameManager.Instance.IsPaused)
+        // Skip input processing when paused or transitioning
+        if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
         // start panel fade

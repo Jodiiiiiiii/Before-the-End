@@ -585,6 +585,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8346710079916494617}
     m_Modifications:
+    - target: {fileID: 2586855417949435040, guid: e216c4847a7c91343bcbd11d27f73fda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100228162380606426, guid: e216c4847a7c91343bcbd11d27f73fda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427795628184766523, guid: e216c4847a7c91343bcbd11d27f73fda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345327354636689921, guid: e216c4847a7c91343bcbd11d27f73fda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8365506323951551503, guid: e216c4847a7c91343bcbd11d27f73fda, type: 3}
       propertyPath: m_Name
       value: Help Notification
