@@ -25309,11 +25309,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.data[0]
       value: Stego
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _additionalHelpUnlocks.Array.data[1]
+      value: Ability
       objectReference: {fileID: 0}
     - target: {fileID: 6792133256481055299, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_LocalPosition.x

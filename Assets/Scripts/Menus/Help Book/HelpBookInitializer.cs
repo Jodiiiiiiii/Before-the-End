@@ -21,7 +21,15 @@ public class HelpBookInitializer : MonoBehaviour
     private void OnEnable()
     {
         // reset scroll to top
-        _scroll.verticalNormalizedPosition = 1;
+        StartCoroutine(DoScrollToTopAfterDelay());
+
+        // ensures all elements have populated the help book before trying to center to top (on scene start)
+        IEnumerator DoScrollToTopAfterDelay()
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            _scroll.verticalNormalizedPosition = 1;
+        }
     }
 
     private void Awake()
