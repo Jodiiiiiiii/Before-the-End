@@ -14,7 +14,7 @@ public class LevelSelectControls : MonoBehaviour
     [SerializeField, Tooltip("Used to retrieve list of nodes and find the one of the correct index.")]
     private GameObject _levelWeb;
 
-    private void Start()
+    private void Awake()
     {        
         // move player to current saved level node instantly
         TravelNode[] nodes = _levelWeb.GetComponentsInChildren<TravelNode>();
