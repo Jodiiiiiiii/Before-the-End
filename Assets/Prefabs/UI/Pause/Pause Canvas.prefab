@@ -5510,8 +5510,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7411277620829479628}
   m_HandleRect: {fileID: 2069413596405727564}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.33333334
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9400,6 +9400,7 @@ MonoBehaviour:
   - Fire
   - Fire
   - Void
+  _scroll: {fileID: 6778877834379252612}
 --- !u!1 &3132833693859926519
 GameObject:
   m_ObjectHideFlags: 0

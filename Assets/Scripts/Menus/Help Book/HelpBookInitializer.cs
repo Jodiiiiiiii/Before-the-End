@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Handles initialization of help book cards to determine which cards show in any given scene.
@@ -12,6 +13,16 @@ public class HelpBookInitializer : MonoBehaviour
     private GameObject[] _helpPanels;
     [SerializeField, Tooltip("Used to determine if panels are unlocked.")]
     private string[] _helpStrings;
+
+    [Header("Scroll View")]
+    [SerializeField, Tooltip("Used to align scroll back to top whenever help book is opened.")]
+    private ScrollRect _scroll;
+
+    private void OnEnable()
+    {
+        // reset scroll to top
+        _scroll.verticalNormalizedPosition = 1;
+    }
 
     private void Awake()
     {
