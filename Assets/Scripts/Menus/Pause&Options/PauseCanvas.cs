@@ -114,6 +114,9 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void ToHelp()
     {
+        // clear help notification on opening help book
+        GameManager.Instance.SaveData.HelpNotif = false;
+
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(false);
         _helpMenu.SetActive(true);
