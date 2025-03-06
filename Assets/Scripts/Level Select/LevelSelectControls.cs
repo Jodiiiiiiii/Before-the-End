@@ -197,7 +197,7 @@ public class LevelSelectControls : MonoBehaviour
                 if (!GameManager.Instance.SaveData.HelpUnlocks.Contains(helpStr))
                 {
                     GameManager.Instance.SaveData.HelpUnlocks.Add(helpStr);
-                    GameManager.Instance.SaveData.NewHelpUnlocks.Add(helpStr);
+                    GameManager.Instance.SaveData.HelpNotif = true;
                 }
             }
 

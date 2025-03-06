@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         public string CurrLevel;
 
         public List<string> HelpUnlocks;
-        public List<string> NewHelpUnlocks;
+        public bool HelpNotif;
     }
 
     // private stored save data
@@ -163,8 +163,7 @@ public class GameManager : MonoBehaviour
         // help unlocks for help book
         newSaveData.HelpUnlocks = new List<string>(); // empty by default
         newSaveData.HelpUnlocks.Add("Move"); // first level unlock
-        newSaveData.NewHelpUnlocks = new List<string>(); // empty if no new mechanics
-        newSaveData.NewHelpUnlocks.Add("Move");
+        newSaveData.HelpNotif = true; // move panel is unlocked by default
 
         Instance.SaveData = newSaveData;
     }
