@@ -57,8 +57,10 @@ public static class PlayerAbilityChecks
         QuantumState adjacentObj = VisibilityChecks.GetObjectAtPos(mover, abilityPos.x, abilityPos.y);
 
         // object present and visible
+        // CANNOT unmark quantum objects
         // CANNOT mark certain objects as quantum: clock, compy, void
         if (adjacentObj is not null && VisibilityChecks.IsVisible(player, abilityPos.x, abilityPos.y)
+            && !adjacentObj.IsQuantum()
             && adjacentObj.ObjData.ObjType != ObjectType.Clock 
             && adjacentObj.ObjData.ObjType != ObjectType.Compy 
             && adjacentObj.ObjData.ObjType != ObjectType.Void
@@ -70,7 +72,7 @@ public static class PlayerAbilityChecks
             // set facing direction
             FaceDirection(player, dir);
             // decrement charges
-            if (adjacentObj.IsQuantum()) // consume charge ONLY if an object was marked as quantum, not if it was unmarked
+            if (adjacentObj.IsQuantum()) // consume charge ONLY if an object was marked as quantum, not if it was unmarked - this is redundant now
                 player.UseAbilityCharge();
             // action successful (save undo frame)
             UndoHandler.SaveFrame();
