@@ -39,11 +39,44 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial7.unity
     guid: 7dbb485047ebf59429a6deddbb82ba20
   - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial0.unity
+    guid: 4e2b05df97e1e3c41963c2f2bb889538
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial1.unity
+    guid: 312cdbddf56d97a4bb63b0707dfea3a1
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial2.unity
+    guid: 08a56f6db479b4e47a274cf72fbb77b5
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial3.unity
+    guid: dc04b12d7a30a734d905d6d4887cb4d1
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial4.unity
+    guid: 44f6906fcc6d9744caeba8358ff1b99c
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial5.unity
+    guid: 440a73498a67c5b4287e01e14f55f107
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial6.unity
+    guid: 86d59a3dff8b0d84e83e2770a03c11ba
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Tutorial/2-Tutorial7.unity
+    guid: 5a007852ebd72814ab10bf36705cf7a4
+  - enabled: 1
     path: Assets/Scenes/Build/Levels/Mountain/1-Mountain0.unity
     guid: e9bde6315ee163b498ff8794bf9ceb69
   - enabled: 1
-    path: Assets/Scenes/Build/Levels/Mountain/2-Mountain3.unity
-    guid: fb399c8bf9d9c9f42bf878be4ebe21fe
+    path: Assets/Scenes/Build/Levels/Mountain/1-Mountain1.unity
+    guid: 00003cb077e815c409df6bb134cf1079
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Mountain/1-Mountain2.unity
+    guid: 4ff52e3b1c367384ba73670b66a761de
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Mountain/1-Mountain3.unity
+    guid: a9b92841ca96abf4c9c381f2304ebdb1
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Mountain/2-Mountain0.unity
+    guid: a0a8d3f9d651d5843bc4f1edeef8f776
   - enabled: 1
     path: Assets/Scenes/Build/Levels/Mountain/2-Mountain1.unity
     guid: bead4c50481cc254cb41c5958e5e6a80
@@ -51,10 +84,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels/Mountain/2-Mountain2.unity
     guid: a31182cb9799ab541b3f1b30729e2b70
   - enabled: 1
-    path: Assets/Scenes/Build/Levels/MountainPass/1-MountainPass0.unity
-    guid: 9e8820d6610b9794e8cab79d648fd824
+    path: Assets/Scenes/Build/Levels/Mountain/2-Mountain3.unity
+    guid: fb399c8bf9d9c9f42bf878be4ebe21fe
   - enabled: 1
     path: Assets/Scenes/Build/Levels/MountainPass/2-MountainPass0.unity
+    guid: 9e8820d6610b9794e8cab79d648fd824
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/MountainPass/1-MountainPass0.unity
     guid: d57438b2536a4d1489ddeea8f7b33cf1
   - enabled: 1
     path: Assets/Scenes/Build/Levels/Swamp/1-Swamp0.unity
