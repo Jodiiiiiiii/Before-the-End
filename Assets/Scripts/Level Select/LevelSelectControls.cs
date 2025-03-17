@@ -199,7 +199,9 @@ public class LevelSelectControls : MonoBehaviour
                 }
             }
 
-            _transitionHandler.LoadScene(_currNode.SceneName);
+            // TODO: make this load the proper scene based on which timeline the current level select scene is
+            // this way, no node configuration should need to be made differently between the two level select scenes
+            _transitionHandler.LoadScene("1-" + _currNode.SceneName);
         }
     }
     #endregion
