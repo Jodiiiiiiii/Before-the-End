@@ -15,28 +15,28 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Cutscenes/Cutscene_Vision.unity
     guid: 810496ee8d42de645b1a7322c7fc248d
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial0.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial0.unity
     guid: 9a3faada8d587e04eab8d455f751c17b
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial1.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial1.unity
     guid: add8467206a068346a5e235f85ac8b96
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial2.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial2.unity
     guid: 33202e3fd565d8b40836cb50b085cd14
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial3.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial3.unity
     guid: d50d2d601502ef248a9855634a79dc3d
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial4.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial4.unity
     guid: d297fa3b8cf00e94680be44fd95e0d93
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial5.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial5.unity
     guid: a5d7919359e25b544918c8187ced5f91
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial6.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial6.unity
     guid: aab0ab7b0f9615b4c87b84c953ca6210
   - enabled: 1
-    path: Assets/Scenes/Build/Levels - ORIGINAL/Tutorial/Tutorial7.unity
+    path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial7.unity
     guid: 7dbb485047ebf59429a6deddbb82ba20
   - enabled: 1
     path: Assets/Scenes/Build/Levels/Mountain/1-Mountain0.unity
