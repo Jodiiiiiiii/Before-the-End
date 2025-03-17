@@ -3210,6 +3210,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1710384175}
     m_Modifications:
+    - target: {fileID: 971204388626239623, guid: daaec87311ba1c94593c65af94afd591, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2200611998239514671, guid: daaec87311ba1c94593c65af94afd591, type: 3}
+      propertyPath: _isQuantum
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3630184246456681681, guid: daaec87311ba1c94593c65af94afd591, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -4952,6 +4960,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5570586127214880961, guid: 5a0aa40eea4381941a7c9302e67d72c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036196245980761151, guid: 5a0aa40eea4381941a7c9302e67d72c2, type: 3}
+      propertyPath: _isQuantum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238731859618938007, guid: 5a0aa40eea4381941a7c9302e67d72c2, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6890,7 +6906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: _dinoCharges.Array.data[0]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: _dinoCharges.Array.data[1]
