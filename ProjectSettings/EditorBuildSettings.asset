@@ -174,13 +174,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels - ORIGINAL/Beach/Beach2.unity
     guid: bdeb342f309fe2f41ac3212e4de3679c
   - enabled: 1
-    path: Assets/Scenes/Build/Levels/Valley/Valley0.unity
+    path: Assets/Scenes/Build/Levels/Valley/1-Valley0.unity
     guid: b1db9fecee54e9d409b6accc72f7a7e0
   - enabled: 1
-    path: Assets/Scenes/Build/Levels/Valley/Valley1.unity
+    path: Assets/Scenes/Build/Levels/Valley/2-Valley1.unity
     guid: f1f71e05810094b4c9e829a5aa07f053
   - enabled: 1
-    path: Assets/Scenes/Build/Levels/Valley/Valley2.unity
+    path: Assets/Scenes/Build/Levels/Valley/2-Valley2.unity
     guid: 5e3648196d9e40d4dbac6c29d99946fd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
