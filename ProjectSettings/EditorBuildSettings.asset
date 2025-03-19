@@ -123,11 +123,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels/SwampPass/2-SwampPass0.unity
     guid: b88518173ef24c14f8df860cfb2b24c5
   - enabled: 1
+    path: Assets/Scenes/Build/Levels/Lake/1-Lake0.unity
+    guid: 52524729e8e3ffe45916f66c7d601d34
+  - enabled: 1
     path: Assets/Scenes/Build/Levels/Lake/1-Lake1.unity
     guid: 2f5891f277c8a104f9084b6c66699c81
   - enabled: 1
+    path: Assets/Scenes/Build/Levels/Lake/1-Lake2.unity
+    guid: 7a6109189aa655c4490e1ea19e714098
+  - enabled: 1
     path: Assets/Scenes/Build/Levels/Lake/2-Lake0.unity
     guid: 6833fbdc882c9e0449547a9caff387c6
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Lake/2-Lake1.unity
+    guid: a9e4989be656d5349b9cf755ba7857d3
   - enabled: 1
     path: Assets/Scenes/Build/Levels/Lake/2-Lake2.unity
     guid: f8e2ab26a49170c408b8d6b15e1ba0fa
