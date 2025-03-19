@@ -32,7 +32,8 @@ public class QuantumState : MonoBehaviour
     private void Awake()
     {
         // ensure quantum objects properly reset between different levels
-        _quantumObjects = new List<QuantumState>();
+        if (ObjData.ObjType != ObjectType.Compy) // prevent later enabling of compy pair from clearing quantum objects that are present on action 0
+            _quantumObjects = new List<QuantumState>();
     }
 
     private void Start()
@@ -90,7 +91,6 @@ public class QuantumState : MonoBehaviour
 
             _quantumObjects.Add(this);
         }
-
         else // removing quantum state
         {
             // remove quantum object from list (if possible)
