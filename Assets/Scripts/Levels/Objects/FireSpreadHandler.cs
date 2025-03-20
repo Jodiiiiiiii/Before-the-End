@@ -22,20 +22,19 @@ public class FireSpreadHandler : MonoBehaviour
         // update for each stored fire bush
         for (int i = _fireBushes.Count - 1; i >=0; i--)
         {
+            // skip over burning bushes that are currently hidden
+            if (!_fireBushes[i].Item1.TryGetComponent(out Mover bushMover))
+                throw new System.Exception("All level objects MUST have Mover component.");
+            Vector2Int posToCheck = bushMover.GetGlobalGridPos();
+            if (!VisibilityChecks.IsVisible(_fireBushes[i].Item1.gameObject, posToCheck.x, posToCheck.y))
+                continue;
+
             // tick each burning bush by one action
             _fireBushes[i] = (_fireBushes[i].Item1, _fireBushes[i].Item2 + 1);
 
             // Only spread fire after a certain number of actions have happened
             if (_fireBushes[i].Item2 >= ACTIONS_TILL_SPREAD)
             {
-                if (!_fireBushes[i].Item1.TryGetComponent(out Mover bushMover))
-                    throw new System.Exception("All level objects MUST have Mover component.");
-
-                // skip over burning bushes that are currently hidden
-                Vector2Int posToCheck = bushMover.GetGlobalGridPos();
-                if (!VisibilityChecks.IsVisible(_fireBushes[i].Item1.gameObject, posToCheck.x, posToCheck.y))
-                    continue;
-
                 // retrieve object in each of four directions
                 QuantumState[] checks = new QuantumState[4];
                 posToCheck = bushMover.GetGlobalGridPos() + Vector2Int.up;
