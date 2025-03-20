@@ -37,7 +37,7 @@ public class QuantumState : MonoBehaviour
 
         // self-initialize burning bushes that are present on level start
         if (ObjData.ObjType == ObjectType.Bush && ObjData.IsOnFire)
-            FireSpreadHandler.AddFireBush(this);
+            FireSpreadHandler.AddFireBushDirect(this);
     }
 
     private void Start()

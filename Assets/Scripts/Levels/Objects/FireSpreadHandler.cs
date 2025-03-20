@@ -95,17 +95,26 @@ public class FireSpreadHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Replaces oldBush with newBush in the fire bushes list.
+    /// Directly adds fire bush to fire bush list.
+    /// This bypasses the addQueue and is useful specifically for initialization of fire bushes that start in the scene.
+    /// </summary>
+    public static void AddFireBushDirect(QuantumState newBush)
+    {
+        _fireBushes.Add((newBush, 0));
+    }
+
+    /// <summary>
+    /// Replaces one bush with another in the fire bushes list (and add queue).
     /// Used when quantum swapping a fire bush with another object (otherwise the random other object would continue burning INSTEAD of the fire bush)
     /// </summary>
-    public static void SwapFireBush(QuantumState oldBush, QuantumState newBush)
+    public static void SwapFireBush(QuantumState bush1, QuantumState bush2)
     {
         // replace old bush with new bush in FireBushes
         for(int i = 0; i < _fireBushes.Count; i++)
         {
-            if (_fireBushes[i].Item1 == oldBush)
+            if (_fireBushes[i].Item1 == bush1)
             {
-                _fireBushes[i] = (newBush, _fireBushes[i].Item2);
+                _fireBushes[i] = (bush2, _fireBushes[i].Item2);
                 return;
             }
         }
@@ -113,9 +122,9 @@ public class FireSpreadHandler : MonoBehaviour
         // replace old bush with new bush in queue list - otherwise a potential edge case?
         for (int i = 0; i < _addQueue.Count; i++)
         {
-            if (_addQueue[i] == oldBush)
+            if (_addQueue[i] == bush1)
             {
-                _addQueue[i] = newBush;
+                _addQueue[i] = bush2;
                 return;
             }
         }
