@@ -34,6 +34,10 @@ public class QuantumState : MonoBehaviour
         // ensure quantum objects properly reset between different levels
         if (ObjData.ObjType != ObjectType.Compy) // prevent later enabling of compy pair from clearing quantum objects that are present on action 0
             _quantumObjects = new List<QuantumState>();
+
+        // self-initialize burning bushes that are present on level start
+        if (ObjData.ObjType == ObjectType.Bush && ObjData.IsOnFire)
+            FireSpreadHandler.AddFireBush(this);
     }
 
     private void Start()
