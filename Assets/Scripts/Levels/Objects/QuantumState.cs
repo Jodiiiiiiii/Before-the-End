@@ -214,6 +214,12 @@ public class QuantumState : MonoBehaviour
             if (hiddenList[k].ObjData.ObjType == ObjectType.Tunnel)
                 hiddenList[k].ObjData.OtherTunnel.ObjData.OtherTunnel = hiddenList[k];
 
+            // Properly swap fire bush states even within the fire spread handler
+            if (hiddenList[k].ObjData.ObjType == ObjectType.Bush && hiddenList[k].ObjData.IsOnFire)
+                FireSpreadHandler.SwapFireBush(hiddenList[n], hiddenList[k]);
+            if (hiddenList[n].ObjData.ObjType == ObjectType.Bush && hiddenList[n].ObjData.IsOnFire)
+                FireSpreadHandler.SwapFireBush(hiddenList[k], hiddenList[n]);
+
             // assign object to correct layer (upper vs lower objects)
             // does not require position adjustments because these parent changes are always between lower/upper objects on the SAME PANEL
 

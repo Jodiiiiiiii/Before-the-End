@@ -95,6 +95,36 @@ public class FireSpreadHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// Replaces oldBush with newBush in the fire bushes list.
+    /// Used when quantum swapping a fire bush with another object (otherwise the random other object would continue burning INSTEAD of the fire bush)
+    /// </summary>
+    public static void SwapFireBush(QuantumState oldBush, QuantumState newBush)
+    {
+        // replace old bush with new bush in FireBushes
+        for(int i = 0; i < _fireBushes.Count; i++)
+        {
+            if (_fireBushes[i].Item1 == oldBush)
+            {
+                _fireBushes[i] = (newBush, _fireBushes[i].Item2);
+                return;
+            }
+        }
+
+        // replace old bush with new bush in queue list - otherwise a potential edge case?
+        for (int i = 0; i < _addQueue.Count; i++)
+        {
+            if (_addQueue[i] == oldBush)
+            {
+                _addQueue[i] = newBush;
+                return;
+            }
+        }
+
+        // if we got this far, no oldBush was found, which is incorrect use of the function
+        throw new System.Exception("Invalid use of SwapFireBush: oldBush reference not found in fire bush list OR queue list.");
+    }
+
+    /// <summary>
     /// Returns a copy of the fire bush list (to avoid undo issues with reference to list).
     /// </summary>
     public static (QuantumState, int)[] GetFireBushes()
