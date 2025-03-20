@@ -200,6 +200,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Build/Levels/Beach/2-Beach2.unity
     guid: bdeb342f309fe2f41ac3212e4de3679c
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Wasteland/1-Wasteland0.unity
+    guid: c047b3bd221e58c44bf02dd362f2c402
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Wasteland/1-Wasteland1.unity
+    guid: bfa4fdd9a812d844ea00282bc4d3d9c7
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Wasteland/2-Wasteland0.unity
+    guid: 4ceda61ed6ba8924e92283e71b9ccbf7
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Wasteland/2-Wasteland1.unity
+    guid: 432da1f7c8d9f744c942ec7c7223d756
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643d8fefc77746c4f9f4819c4ed67813, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e322d56f733920c4ebde4766104ed6eb, type: 3}
