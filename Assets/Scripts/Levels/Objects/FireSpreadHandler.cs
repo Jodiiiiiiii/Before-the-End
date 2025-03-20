@@ -119,16 +119,6 @@ public class FireSpreadHandler : MonoBehaviour
             }
         }
 
-        // replace old bush with new bush in queue list - otherwise a potential edge case?
-        for (int i = 0; i < _addQueue.Count; i++)
-        {
-            if (_addQueue[i] == bush1)
-            {
-                _addQueue[i] = bush2;
-                return;
-            }
-        }
-
         // if we got this far, no oldBush was found, which is incorrect use of the function
         throw new System.Exception("Invalid use of SwapFireBush: oldBush reference not found in fire bush list OR queue list.");
     }
