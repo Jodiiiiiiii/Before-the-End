@@ -183,6 +183,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Levels/Valley/2-Valley2.unity
     guid: 5e3648196d9e40d4dbac6c29d99946fd
   - enabled: 1
+    path: Assets/Scenes/Build/Levels/Beach/1-Beach0.unity
+    guid: e61556a6cd979eb44bbca7c8ec696088
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Beach/1-Beach1.unity
+    guid: eafcb5d5c016ba14a9493790266b14ea
+  - enabled: 1
+    path: Assets/Scenes/Build/Levels/Beach/1-Beach2.unity
+    guid: 187a4d4c35c8eb74981ea034cb193670
+  - enabled: 1
     path: Assets/Scenes/Build/Levels/Beach/2-Beach0.unity
     guid: 5f090f4c71a718b4f9c911ecf8990b54
   - enabled: 1
