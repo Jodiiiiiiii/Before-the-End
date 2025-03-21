@@ -24738,6 +24738,22 @@ PrefabInstance:
       propertyPath: _displayName
       value: The End
       objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _dinos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _dinos.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _dinos.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _dinos.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6792133256481055299, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 53
