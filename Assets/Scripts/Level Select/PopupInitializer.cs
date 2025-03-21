@@ -22,6 +22,8 @@ public class PopupInitializer : MonoBehaviour
     private TextMeshProUGUI _title;
     [SerializeField, Tooltip("Used to change spacing of layout group.")]
     private Beardy.GridLayoutGroup _layoutGroup;
+    [SerializeField, Tooltip("Used to change number of rows when there are exactly 4 dinos.")]
+    private RectTransform _rect;
     [SerializeField, Tooltip("Used to activate/deactivate stego.")]
     private GameObject _stego;
     [SerializeField, Tooltip("Used to activate/deactivate stego.")]
@@ -45,6 +47,10 @@ public class PopupInitializer : MonoBehaviour
         // center align when only one row
         if (_dinos.Length <= 3)
             _layoutGroup.childAlignment = TextAnchor.MiddleCenter;
+
+        // two rows of two for when there are four dinos
+        if (_dinos.Length == 4)
+            _rect.sizeDelta = new Vector2(50, _rect.sizeDelta.y);
 
         // enable stego if nothing else in list
         if (_dinos.Length == 0)
