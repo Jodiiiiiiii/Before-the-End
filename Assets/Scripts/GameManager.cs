@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
         public bool NewGameStarted;
 
         public List<string> LevelsComplete;
+
+        public int CurrTimeline;
         public string CurrLevel;
 
         public List<string> HelpUnlocks;
@@ -159,6 +161,7 @@ public class GameManager : MonoBehaviour
 
         // tracking current level
         newSaveData.CurrLevel = "Tut0"; // first level
+        newSaveData.CurrTimeline = 1; // timeline 1
 
         // help unlocks for help book
         newSaveData.HelpUnlocks = new List<string>(); // empty by default
