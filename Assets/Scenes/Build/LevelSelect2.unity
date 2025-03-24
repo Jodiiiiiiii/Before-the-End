@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Swamped
+      value: Unwavering
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -18411,7 +18411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Visions of the Future
+      value: What Else Can Change?
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.size
@@ -18620,7 +18620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Stones Unturned
+      value: Turning New Stones
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -18987,7 +18987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Rooted in Place
+      value: Return to Your Roots
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -25292,7 +25292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Aimless Drifting
+      value: Drifting with Purpose
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -25584,7 +25584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: The End
+      value: The Inevitable End
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -26162,7 +26162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Trapped Within
+      value: Entangled Fate
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.size
@@ -26375,7 +26375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A Daunting Horizon
+      value: A Hopeful Horizon
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -27062,7 +27062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: ...or the Trees
+      value: ...and Around the Trees
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -27275,7 +27275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Muddy Vision
+      value: Through the Haze
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -27788,7 +27788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Vale of Tears
+      value: Elysian Fields
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -28810,7 +28810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A Sinking Feeling
+      value: Steadily Downstream
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -29286,7 +29286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Clear as Mud
+      value: Watertight Plan
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -30333,7 +30333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Darkening Canopy
+      value: Light Through the Canopy
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -31781,7 +31781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Drowned in Regret
+      value: One Deep Breath
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -32002,7 +32002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Deep in a Thicket
+      value: A Clearing Up Ahead
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -32465,7 +32465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A Slippery Slope
+      value: On Sure Footing
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -32719,7 +32719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: ...And a Hard Place
+      value: ...Rather Than Charybdis
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -33033,7 +33033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Between a Rock...
+      value: Choosing Scylla...
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -33246,7 +33246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Burning Bridges
+      value: With a Dying Breath
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -33475,7 +33475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A Thin Chance
+      value: Many Possibilities
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -34387,7 +34387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: In Deep Water
+      value: Shallow's Embrace
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -35914,7 +35914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Still Bogged Down
+      value: Lifted Up
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -36123,7 +36123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Cold Plunge
+      value: A Leap of Faith
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -36344,7 +36344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Valley of Death
+      value: A Gentle Descent
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -36645,7 +36645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Where To?
+      value: But Things Have Changed
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -46000,7 +46000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A Stick-y Situation
+      value: A Similar Place
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -46741,7 +46741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: All Up in Flames
+      value: Swan Song
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -47134,7 +47134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Can't See the Forest...
+      value: In the Forest..
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -47491,7 +47491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Lost at Sea
+      value: Beauty of the Sea
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -47821,7 +47821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Rock Bottom
+      value: A Bump in the Road
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -48143,7 +48143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: The Forseen Fire
+      value: The Fire Remains
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -48767,7 +48767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A Rocky Road Ahead
+      value: A Solid Path Forward
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -48988,7 +48988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: Wallow in the Mire
+      value: Wading the Mire
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _dinos.Array.size
@@ -92679,7 +92679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _displayName
-      value: A First Step
+      value: A Second Chance
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.size
