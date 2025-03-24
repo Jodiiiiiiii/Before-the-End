@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static NodeConnectionData;
 
 /// <summary>
@@ -199,9 +200,13 @@ public class LevelSelectControls : MonoBehaviour
                 }
             }
 
-            // TODO: make this load the proper scene based on which timeline the current level select scene is
             // this way, no node configuration should need to be made differently between the two level select scenes
-            _transitionHandler.LoadScene("1-" + _currNode.SceneName);
+            if (SceneManager.GetActiveScene().name == "LevelSelect1")
+                _transitionHandler.LoadScene("1-" + _currNode.SceneName);
+            else if (SceneManager.GetActiveScene().name == "LevelSelect2")
+                _transitionHandler.LoadScene("2-" + _currNode.SceneName);
+            else
+                throw new System.Exception("Level Nodes can ONLY be used in LevelSelect1 and LevelSelect2 scenes.");
         }
     }
     #endregion
