@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
         public List<string> LevelsComplete;
 
         public bool isSecondTimeline;
+        public bool isSecondTimelineUnlock; // used to determine if timeline navigation node shows in timeline 1
         public string CurrLevel;
 
         public List<string> HelpUnlocks;
@@ -162,6 +163,7 @@ public class GameManager : MonoBehaviour
         // tracking current level
         newSaveData.CurrLevel = "Tut0"; // first level
         newSaveData.isSecondTimeline = false; // timeline 1
+        newSaveData.isSecondTimelineUnlock = false; // locked by default
 
         // help unlocks for help book
         newSaveData.HelpUnlocks = new List<string>(); // empty by default

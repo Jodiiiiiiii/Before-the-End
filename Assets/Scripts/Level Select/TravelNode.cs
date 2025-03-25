@@ -35,7 +35,26 @@ public class TravelNode : MonoBehaviour
     {
         // SPECIAL NODE: timeline traversal - ignores configuration (handled by other nodes)
         if (SceneName == "LevelSelect")
+        {
+            // disable timeline traversal node if timeline 2 was never unlocked yet
+            if (SceneManager.GetActiveScene().name == "LevelSelect1" && !GameManager.Instance.SaveData.isSecondTimelineUnlock)
+            {
+                // disable connectiong node/connection
+                NodeConnectionData adjNode = NodeConnections[0];
+                foreach (NodeConnectionData otherConnection in adjNode.Node.NodeConnections)
+                {
+                    // sever connection to this node altogeher
+                    // setting to null still works based on how GetConnection(dir) function is set up
+                    if (otherConnection.Node == this)
+                        otherConnection.Node = null;
+                }
+
+                // disable timeline traversal node
+                gameObject.SetActive(false);
+            }
+
             return;
+        }
 
         // Configuration verification: must have associated level index
         if (LevelIdentifiers.Length < 1)
@@ -77,6 +96,8 @@ public class TravelNode : MonoBehaviour
 
                 // unlock connection back as well
                 TravelNode otherNode = connection.Node;
+                if (otherNode is null) // if encountering the disabled special node, skip and process the next node in the list
+                    continue;
                 foreach (NodeConnectionData otherConnection in otherNode.NodeConnections)
                 {
                     if (otherConnection.Node == this)
@@ -176,7 +197,7 @@ public class TravelNode : MonoBehaviour
         {
             if (node.Dir == dir)
             {
-                if (node.Unlocked)
+                if (node.Node is not null && node.Unlocked)
                     return node;
                 else
                     return null; // found node is still locked

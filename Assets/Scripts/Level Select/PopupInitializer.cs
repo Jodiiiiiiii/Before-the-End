@@ -52,10 +52,6 @@ public class PopupInitializer : MonoBehaviour
         if (_dinos.Length == 4)
             _rect.sizeDelta = new Vector2(50, _rect.sizeDelta.y);
 
-        // enable stego if nothing else in list
-        if (_dinos.Length == 0)
-            _stego.SetActive(true);
-
         // enable dino for each dino in list
         foreach (DinoType dino in _dinos)
         {
