@@ -142,7 +142,7 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void Exit()
     {
-        if (SceneManager.GetActiveScene().name == _levelSelectName)
+        if (SceneManager.GetActiveScene().name == _levelSelectName + "1" || SceneManager.GetActiveScene().name == _levelSelectName + "2")
             _transitionHandler.LoadScene(_startMenuName);
         else // level scene
             _transitionHandler.LoadScene(_levelSelectName);
