@@ -489,6 +489,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 364722618715569614, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364722618715569614, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364722618715569614, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 364722618715569614, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 485485603601533454, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -662,6 +678,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2868898714371986899, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452321079514920487, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452321079514920487, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452321079514920487, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452321079514920487, guid: 2accb28334224224a802ab0ee02a3703, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -954,7 +986,7 @@ MonoBehaviour:
   _creditsContainer: {fileID: 1380967899}
   _transitionHandler: {fileID: 1160866969}
   _levelSelectSceneName: LevelSelect
-  _firstLevelName: Tutorial0
+  _firstLevelName: 1-Tutorial0
   _resumeButton: {fileID: 1508104742}
   _newGameConfirmation: {fileID: 2102710119}
 --- !u!1 &230350059

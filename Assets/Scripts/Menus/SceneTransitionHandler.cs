@@ -35,7 +35,11 @@ public class SceneTransitionHandler : MonoBehaviour
 
         _anim.Play("TransitionOut");
 
-        StartCoroutine(DoTransition(sceneName));
+        // dynamically load correct level select scene if loading into level select
+        if (sceneName == "LevelSelect")
+            StartCoroutine(DoTransition(sceneName + (GameManager.Instance.SaveData.isSecondTimeline ? 2 : 1)));
+        else
+            StartCoroutine(DoTransition(sceneName));
     }
 
     /// <summary>
