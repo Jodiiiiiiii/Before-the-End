@@ -13,6 +13,15 @@ public class HourglassCounter : MonoBehaviour
 
     private void Awake()
     {
-        _counterText.text = "" + GameManager.Instance.SaveData.LevelsComplete.Count;
+        // only track newer saved level identifiers (ignoring old format if they persist in save data)
+        int count = 0;
+        foreach (string str in GameManager.Instance.SaveData.LevelsComplete)
+        {
+            char[] arr = str.ToCharArray();
+            if (arr.Length > 1 && (arr[0] == '1' || arr[0] == '2') && arr[1] == '-')
+                count++;
+        }
+
+        _counterText.text = "" + count;
     }
 }
