@@ -33,6 +33,10 @@ public class TravelNode : MonoBehaviour
 
     private void Awake()
     {
+        // SPECIAL NODE: timeline traversal - ignores configuration (handled by other nodes)
+        if (SceneName == "LevelSelect")
+            return;
+
         // Configuration verification: must have associated level index
         if (LevelIdentifiers.Length < 1)
             throw new System.Exception("Each travel node MUST have at least one associated level.");
@@ -88,7 +92,8 @@ public class TravelNode : MonoBehaviour
     private void Start()
     {
         // skip processing for non-level nodes - they CANNOT have obstruction indicators
-        if (SceneName == "None")
+        // timeline navigation node also cannot have obstruction indicator
+        if (SceneName == "None" || SceneName == "LevelSelect")
             return;
 
         // dynamically toggle blocked indicators

@@ -186,6 +186,22 @@ public class LevelSelectControls : MonoBehaviour
         if (SceneTransitionHandler.IsTransitioningOut || GameManager.Instance.IsPaused)
             return;
 
+        // SPECIAL CASE: timeline traversal node - flips current timeline and loads
+        if (_currNode.SceneName == "LevelSelect")
+        {
+            // flip current saved timeline
+            if (SceneManager.GetActiveScene().name == "LevelSelect1")
+                GameManager.Instance.SaveData.isSecondTimeline = true;
+            else if (SceneManager.GetActiveScene().name == "LevelSelect2")
+                GameManager.Instance.SaveData.isSecondTimeline = false;
+            else
+                throw new System.Exception("Level Nodes can ONLY be used in LevelSelect1 and LevelSelect2 scenes.");
+
+            // load other level select scene
+            _transitionHandler.LoadScene("LevelSelect");
+            return;
+        }
+
         // only able to enter level from actual level nodes
         if (_currNode.SceneName != "None")
         {
