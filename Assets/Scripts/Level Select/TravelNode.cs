@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static NodeConnectionData;
 
 /// <summary>
@@ -36,13 +37,22 @@ public class TravelNode : MonoBehaviour
         if (LevelIdentifiers.Length < 1)
             throw new System.Exception("Each travel node MUST have at least one associated level.");
 
+        // Fetch level select timelineNum
+        string timelineNum;
+        if (SceneManager.GetActiveScene().name == "LevelSelect1")
+            timelineNum = "1-";
+        else if (SceneManager.GetActiveScene().name == "LevelSelect2")
+            timelineNum = "2-";
+        else
+            throw new System.Exception("Can Only use TravelNode.cs in level select scenes");
+
         // unlocking only needs to occur in start since the states will not change without the player leaving and re-entering the scene
 
         // determine locked/unlocked connections
         bool isUnlocked = false;
         foreach (string name in LevelIdentifiers)
         {
-            if (GameManager.Instance.SaveData.LevelsComplete.Contains(name))
+            if (GameManager.Instance.SaveData.LevelsComplete.Contains(timelineNum + name))
             {
                 // update icon of node sprite (level nodes only)
                 if (SceneName != "None")
@@ -260,8 +270,17 @@ public class TravelNode : MonoBehaviour
     /// </summary>
     private void CheatUnlockThisLevel()
     {
-        if (!GameManager.Instance.SaveData.LevelsComplete.Contains(LevelIdentifiers[0]))
-            GameManager.Instance.SaveData.LevelsComplete.Add(LevelIdentifiers[0]);
+        // Fetch level select timelineNum
+        string timelineNum;
+        if (SceneManager.GetActiveScene().name == "LevelSelect1")
+            timelineNum = "1-";
+        else if (SceneManager.GetActiveScene().name == "LevelSelect2")
+            timelineNum = "2-";
+        else
+            throw new System.Exception("Can Only use TravelNode.cs in level select scenes");
+
+        if (!GameManager.Instance.SaveData.LevelsComplete.Contains(timelineNum + LevelIdentifiers[0]))
+            GameManager.Instance.SaveData.LevelsComplete.Add(timelineNum + LevelIdentifiers[0]);
 
         /*string[] helpStrings = GetHelpStrings();
         foreach (string helpStr in helpStrings)

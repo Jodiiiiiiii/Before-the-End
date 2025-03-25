@@ -228,8 +228,9 @@ public class GameManager : MonoBehaviour
             return;
 
         // only add level to complete levels if it has not already been completed
-        if (!SaveData.LevelsComplete.Contains(SaveData.CurrLevel))
-            SaveData.LevelsComplete.Add(SaveData.CurrLevel);
+        string levelIdentifier = (SaveData.isSecondTimeline ? "2-" : "1-") + SaveData.CurrLevel;
+        if (!SaveData.LevelsComplete.Contains(levelIdentifier))
+            SaveData.LevelsComplete.Add(levelIdentifier);
     }
     #endregion
 
