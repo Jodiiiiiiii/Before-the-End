@@ -49275,6 +49275,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2655966778748869242, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 559882170, guid: ab7c498bb7041c54e95ed2d5594f642b, type: 3}
+    - target: {fileID: 2655966778748869242, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 558600387, guid: ab7c498bb7041c54e95ed2d5594f642b, type: 3}
     - target: {fileID: 3662053895787393004, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -49335,6 +49343,10 @@ PrefabInstance:
       propertyPath: _additionalHelpUnlocks.Array.data[1]
       value: Undo
       objectReference: {fileID: 0}
+    - target: {fileID: 4114004631819610524, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 559882170, guid: ab7c498bb7041c54e95ed2d5594f642b, type: 3}
     - target: {fileID: 5336955307579243440, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
