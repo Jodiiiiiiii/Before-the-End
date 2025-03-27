@@ -22,6 +22,8 @@ public class TravelNode : MonoBehaviour
     [Header("Visuals")]
     [SerializeField, Tooltip("Game objects to enable when there is a blocked connection on an accessible node. Provided in up-right-down-left order.")]
     private GameObject[] _obstructionIndicators;
+    [SerializeField, Tooltip("Used to disable animation for completed node.")]
+    private TwoFrameAnimator _anim;
     [SerializeField, Tooltip("Used to swap the sprite to a completed variant.")]
     private SpriteRenderer _renderer;
     [SerializeField, Tooltip("Sprite variant for completed level.")]
@@ -79,7 +81,10 @@ public class TravelNode : MonoBehaviour
             {
                 // update icon of node sprite (level nodes only)
                 if (SceneName != "None")
+                {
+                    _anim.IsAnimated = false;
                     _renderer.sprite = _completedSprite;
+                }
 
                 isUnlocked = true;
                 break;
