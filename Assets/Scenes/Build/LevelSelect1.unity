@@ -36778,7 +36778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.data[0]
@@ -36787,6 +36787,10 @@ PrefabInstance:
     - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: _additionalHelpUnlocks.Array.data[1]
       value: Fade
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724202148841202171, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
+      propertyPath: _additionalHelpUnlocks.Array.data[2]
+      value: Tunnel
       objectReference: {fileID: 0}
     - target: {fileID: 5336955307579243440, guid: acebcc514e2e3574bbd38eefba42a65d, type: 3}
       propertyPath: m_AnchorMax.y

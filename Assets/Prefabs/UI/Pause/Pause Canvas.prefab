@@ -7461,8 +7461,8 @@ RectTransform:
   - {fileID: 2805259597588374401}
   - {fileID: 488370440748757214}
   - {fileID: 3328098328092435169}
-  - {fileID: 6547079351897017068}
   - {fileID: 6540233616356381302}
+  - {fileID: 6547079351897017068}
   - {fileID: 768387577592631247}
   - {fileID: 6526165571107685064}
   - {fileID: 5345996155097847606}
@@ -10904,6 +10904,7 @@ MonoBehaviour:
   - {fileID: 3155711122044345585}
   - {fileID: 37244335856650424}
   - {fileID: 4188894817725603911}
+  - {fileID: 3108806522452146263}
   - {fileID: 507251924589358773}
   - {fileID: 7693276011046771062}
   - {fileID: 105397333531508154}
@@ -10911,18 +10912,20 @@ MonoBehaviour:
   - {fileID: 8152326716258445240}
   - {fileID: 3530916619580897975}
   - {fileID: 8526916350961609410}
-  - {fileID: 8137142098919598334}
-  - {fileID: 7596184808899978864}
-  - {fileID: 6782981881359929537}
   - {fileID: 95876954330360616}
   - {fileID: 6526082121795570753}
   - {fileID: 3644827280457531596}
+  - {fileID: 892747330703272741}
+  - {fileID: 8137142098919598334}
+  - {fileID: 7596184808899978864}
+  - {fileID: 6782981881359929537}
   _helpStrings:
   - Move
   - Log
   - Undo
   - Panel
   - Fade
+  - Tunnel
   - Quantum
   - Ability
   - StegoQuant
@@ -10930,12 +10933,13 @@ MonoBehaviour:
   - Trike
   - Anky
   - Spino
-  - Pyro
-  - Ptery
-  - Compy
   - Fire
   - Fire
   - Void
+  - Entangle
+  - Pyro
+  - Ptera
+  - Compy
   _scroll: {fileID: 6778877834379252612}
 --- !u!1 &3132833693859926519
 GameObject:
@@ -13644,7 +13648,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quantum objects hidden beneath panels randomly swap when revealed.
+  m_text: Quantum objects hidden beneath panels randomly swap (between each other)
+    when revealed.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
@@ -17336,7 +17341,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Split pack into two halves. Swap which half is being controlled.
+  m_text: Split pack into two halves. Then swap between which half is being controlled.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
