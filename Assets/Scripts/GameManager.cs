@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
             {
                 // create new game manager object
                 GameObject newManager = new();
-                newManager.name = "Game Manager";
+                newManager.name = "[Game Manager]";
                 newManager.AddComponent<GameManager>();
                 DontDestroyOnLoad(newManager);
                 _instance = newManager.GetComponent<GameManager>();
