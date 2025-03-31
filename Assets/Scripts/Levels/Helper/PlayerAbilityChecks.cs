@@ -264,6 +264,10 @@ public static class PlayerAbilityChecks
 
         // decrement charges
         player.UseAbilityCharge();
+
+        // SFX
+        AudioManager.Instance.PlayAnkyAbility();
+
         // action successful (save undo frame)
         UndoHandler.SaveFrame();
         return;
