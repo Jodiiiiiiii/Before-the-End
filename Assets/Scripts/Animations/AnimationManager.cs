@@ -22,7 +22,7 @@ public class AnimationManager : MonoBehaviour
             {
                 // create new game manager object
                 GameObject newManager = new();
-                newManager.name = "Animation Manager";
+                newManager.name = "[Animation Manager]";
                 newManager.AddComponent<AnimationManager>();
                 DontDestroyOnLoad(newManager);
                 _instance = newManager.GetComponent<AnimationManager>();

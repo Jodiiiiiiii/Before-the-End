@@ -139,6 +139,9 @@ public class LevelSelectControls : MonoBehaviour
         if (connection is not null && connection.Unlocked)
         {
             ConfirmMove(ref connection.Node);
+
+            // SFX: level select move
+            AudioManager.Instance.PlayLevelSelectMove();
         }
         else
         {

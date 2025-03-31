@@ -21,9 +21,13 @@ public class AudioManager : MonoBehaviour
                 // create new game manager object
                 GameObject newManager = new();
                 newManager.name = "[Audio Manager]";
-                newManager.AddComponent<AudioManager>();
                 DontDestroyOnLoad(newManager);
+                newManager.AddComponent<AudioManager>();
                 _instance = newManager.GetComponent<AudioManager>();
+
+                // add audio source
+                newManager.AddComponent<AudioSource>();
+                _instance._source = newManager.GetComponent<AudioSource>();
 
                 // ensure all audio files are loaded from resources
                 _instance.LoadAudioUI();
@@ -34,6 +38,8 @@ public class AudioManager : MonoBehaviour
             return _instance;
         }
     }
+
+    private AudioSource _source;
 
     #region User Interface
     /// <summary>
@@ -46,12 +52,23 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region Level Select
+    private AudioClip[] _levelSelectSteps;
+
     /// <summary>
     /// Loads all level select audio files directly from resources.
     /// </summary>
     private void LoadAudioLevelSelect()
     {
+        _levelSelectSteps = new AudioClip[4];
+        _levelSelectSteps[0] = Resources.Load<AudioClip>("SFX/Step1");
+        _levelSelectSteps[1] = Resources.Load<AudioClip>("SFX/Step2");
+        _levelSelectSteps[2] = Resources.Load<AudioClip>("SFX/Step3");
+        _levelSelectSteps[3] = Resources.Load<AudioClip>("SFX/Step4");
+    }
 
+    public void PlayLevelSelectMove()
+    {
+        _source.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)]);
     }
     #endregion
 
