@@ -186,7 +186,7 @@ public static class PlayerMoveChecks
                         UndoHandler.SaveFrame();
 
                         // play push SFX
-                        AudioManager.Instance.PlayPush();
+                        AudioManager.Instance.PlayPushPanel();
 
                         return;
                     }
@@ -330,7 +330,12 @@ public static class PlayerMoveChecks
     {
         // push logs as possible
         if (PushLogsInSeries(playerMover, playerMover.GetGlobalGridPos() + moveDir, moveDir))
+        {
+            // push log audio
+            AudioManager.Instance.PlayPushLog();
+
             ConfirmPlayerMove(player, playerMover, moveDir); // move if logs were actually pushed
+        }
     }
 
     /// <summary>

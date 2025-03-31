@@ -74,6 +74,7 @@ public class AudioManager : MonoBehaviour
 
     #region Levels
     private AudioClip[] _panelPush;
+    private AudioClip[] _logPush;
 
     /// <summary>
     /// Loads all level audio files directly from resources.
@@ -84,11 +85,21 @@ public class AudioManager : MonoBehaviour
         _panelPush[0] = Resources.Load<AudioClip>("SFX/Push1");
         _panelPush[1] = Resources.Load<AudioClip>("SFX/Push2");
         _panelPush[2] = Resources.Load<AudioClip>("SFX/Push3");
+
+        _logPush = new AudioClip[3];
+        _logPush[0] = Resources.Load<AudioClip>("SFX/LogPush1");
+        _logPush[1] = Resources.Load<AudioClip>("SFX/LogPush2");
+        _logPush[2] = Resources.Load<AudioClip>("SFX/LogPush3");
     }
 
-    public void PlayPush()
+    public void PlayPushPanel()
     {
         _source.PlayOneShot(_panelPush[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayPushLog()
+    {
+        _source.PlayOneShot(_logPush[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
