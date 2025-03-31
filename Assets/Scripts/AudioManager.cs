@@ -79,6 +79,8 @@ public class AudioManager : MonoBehaviour
 
     private AudioClip _stegoAbility;
     private AudioClip _ankyAbility;
+    private AudioClip _spinoEnter;
+    private AudioClip _spinoExit;
     private AudioClip _pteraAbility;
     private AudioClip _pyroAbility;
     private AudioClip _compyAbility;
@@ -106,6 +108,8 @@ public class AudioManager : MonoBehaviour
 
         _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
         _ankyAbility = Resources.Load<AudioClip>("SFX/Anky");
+        _spinoEnter = Resources.Load<AudioClip>("SFX/SpinoEnter");
+        _spinoExit = Resources.Load<AudioClip>("SFX/SpinoExit");
         _pteraAbility = Resources.Load<AudioClip>("SFX/Ptera");
         _pyroAbility = Resources.Load<AudioClip>("SFX/Pyro");
         _compyAbility = Resources.Load<AudioClip>("SFX/Compy");
@@ -135,6 +139,16 @@ public class AudioManager : MonoBehaviour
     public void PlayAnkyAbility()
     {
         _source.PlayOneShot(_ankyAbility, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlaySpinoEnter()
+    {
+        _source.PlayOneShot(_spinoEnter, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlaySpinoExit()
+    {
+        _source.PlayOneShot(_spinoExit, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayPteraAbility()

@@ -303,6 +303,10 @@ public static class PlayerAbilityChecks
 
                 // set facing direction
                 FaceDirection(player, dir);
+
+                // enter water SFX
+                AudioManager.Instance.PlaySpinoEnter();
+
                 // move player into water
                 PlayerMoveChecks.ConfirmPlayerMove(player, mover, dir);
             }
@@ -348,6 +352,10 @@ public static class PlayerAbilityChecks
                 FaceDirection(player, dir);
                 // decrement charges (only on water exit)
                 player.UseAbilityCharge();
+
+                // play exit water SFX
+                AudioManager.Instance.PlaySpinoExit();
+
                 // move player out of water
                 PlayerMoveChecks.ConfirmPlayerMove(player, mover, dir);
             }
