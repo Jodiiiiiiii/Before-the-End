@@ -37,7 +37,7 @@ public class VolumeSlider : MonoBehaviour
             throw new System.Exception("Incorrect configuration of VolumeSlider. Must only be for ONE volume type");
 
         // set slider and input field to loaded value
-        _volumeSlider.SetValueWithoutNotify(math.remap(0, 200, 0, 1, GetVolume()));
+        _volumeSlider.SetValueWithoutNotify(math.remap(0, 100, 0, 1, GetVolume()));
         _volumeInput.SetTextWithoutNotify(GetVolume().ToString());
     }
 
@@ -48,9 +48,9 @@ public class VolumeSlider : MonoBehaviour
     public void SliderUpdate()
     {
         // read input from slider
-        int intVolume = Mathf.RoundToInt(_volumeSlider.value * 200);
+        int intVolume = Mathf.RoundToInt(_volumeSlider.value * 100);
 
-        // display text as a percent (0% to 200%)
+        // display text as a percent (0% to 100%)
         _volumeInput.text = intVolume.ToString();
 
         UpdateVolume(intVolume);
@@ -65,15 +65,15 @@ public class VolumeSlider : MonoBehaviour
         // read input from input field
         int intVolume = Mathf.RoundToInt(int.Parse(_volumeInput.text));
         // clamp input to valid range
-        if (intVolume > 200)
+        if (intVolume > 100)
         {
-            intVolume = 200;
-            _volumeInput.text = "200";
+            intVolume = 100;
+            _volumeInput.text = "100";
         }
         if (intVolume < 0) intVolume = 0;
 
         // remap from 0% to 200% volume to standard 0 to 1 range
-        _volumeSlider.value = math.remap(0, 200, 0, 1, intVolume);
+        _volumeSlider.value = math.remap(0, 100, 0, 1, intVolume);
 
         UpdateVolume(intVolume);
     }
@@ -113,8 +113,17 @@ public class VolumeSlider : MonoBehaviour
     /// </summary>
     public void ResetDefault()
     {
-        _volumeSlider.SetValueWithoutNotify(0.5f);
-        _volumeInput.SetTextWithoutNotify("100");
-        UpdateVolume(100);
+        if (_isMasterVolume)
+        {
+            _volumeSlider.SetValueWithoutNotify(0.8f);
+            _volumeInput.SetTextWithoutNotify("80");
+            UpdateVolume(80);
+        }
+        else
+        {
+            _volumeSlider.SetValueWithoutNotify(1f);
+            _volumeInput.SetTextWithoutNotify("100");
+            UpdateVolume(100);
+        }
     }
 }

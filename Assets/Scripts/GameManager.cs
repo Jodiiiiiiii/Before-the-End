@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         PersistentData newSaveData = Instance.SaveData; // retrieves default initialization data
         
         // Read save data from PlayerPrefs (or assign default values)
-        MasterVolume = PlayerPrefs.GetInt("masterVolume", 100);
+        MasterVolume = PlayerPrefs.GetInt("masterVolume", 80);
         MusicVolume = PlayerPrefs.GetInt("musicVolume", 100);
         SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
 
@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float GetMasterVolume()
     {
-        return math.remap(0, 200, 0, 1, MasterVolume);
+        return math.remap(0, 100, 0, 1, MasterVolume);
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float GetMusicVolume()
     {
-        return math.remap(0, 200, 0, 1, MusicVolume) * GetMasterVolume();
+        return math.remap(0, 100, 0, 1, MusicVolume) * GetMasterVolume();
     }
 
     /// <summary>
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float GetSfxVolume()
     {
-        return math.remap(0, 200, 0, 1, SfxVolume) * GetMasterVolume();
+        return math.remap(0, 100, 0, 1, SfxVolume) * GetMasterVolume();
     }
 
     /// <summary>
