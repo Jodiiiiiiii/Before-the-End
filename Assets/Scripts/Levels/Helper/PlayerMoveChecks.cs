@@ -68,6 +68,10 @@ public static class PlayerMoveChecks
             {
                 // Move action complete -> no obstruction
                 ConfirmPlayerMove(player, playerMover, moveDir);
+
+                // move audio
+                AudioManager.Instance.PlayMove();
+
                 return;
             }
 
@@ -335,6 +339,10 @@ public static class PlayerMoveChecks
         {
             // Move action complete
             ConfirmPlayerMove(player, playerMover, moveDir);
+
+            // move audio
+            AudioManager.Instance.PlayMove();
+
             return;
         }
     }
@@ -413,6 +421,9 @@ public static class PlayerMoveChecks
         Vector2Int snapPos = otherTunnel.ObjMover.GetGlobalGridPos();
         playerMover.SetGlobalGoal(snapPos.x, snapPos.y);
         playerMover.SnapToGoal();
+
+        // move audio
+        AudioManager.Instance.PlayMove();
 
         // finalize player move
         ConfirmPlayerMove(player, playerMover, exitPos, otherTunnel.transform.parent);

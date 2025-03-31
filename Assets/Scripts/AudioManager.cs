@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
         _levelSelectSteps[3] = Resources.Load<AudioClip>("SFX/Step4");
     }
 
-    public void PlayLevelSelectMove()
+    public void PlayMove()
     {
         _source.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
     }
