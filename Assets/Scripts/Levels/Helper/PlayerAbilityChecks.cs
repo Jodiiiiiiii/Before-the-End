@@ -74,6 +74,10 @@ public static class PlayerAbilityChecks
             // decrement charges
             if (adjacentObj.IsQuantum()) // consume charge ONLY if an object was marked as quantum, not if it was unmarked - this is redundant now
                 player.UseAbilityCharge();
+
+            // SFX
+            AudioManager.Instance.PlayStegoAbility();
+
             // action successful (save undo frame)
             UndoHandler.SaveFrame();
             return;

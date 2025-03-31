@@ -76,6 +76,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip[] _panelPush;
     private AudioClip[] _logPush;
     private AudioClip[] _swapDino;
+    private AudioClip _stegoAbility;
 
     /// <summary>
     /// Loads all level audio files directly from resources.
@@ -96,6 +97,8 @@ public class AudioManager : MonoBehaviour
         _swapDino[0] = Resources.Load<AudioClip>("SFX/Swap1");
         _swapDino[1] = Resources.Load<AudioClip>("SFX/Swap2");
         _swapDino[2] = Resources.Load<AudioClip>("SFX/Swap3");
+
+        _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
     }
 
     public void PlayPushPanel()
@@ -111,6 +114,11 @@ public class AudioManager : MonoBehaviour
     public void PlaySwap()
     {
         _source.PlayOneShot(_swapDino[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayStegoAbility()
+    {
+        _source.PlayOneShot(_stegoAbility, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
