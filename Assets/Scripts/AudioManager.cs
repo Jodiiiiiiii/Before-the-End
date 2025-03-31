@@ -68,7 +68,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayLevelSelectMove()
     {
-        _source.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)]);
+        _source.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
