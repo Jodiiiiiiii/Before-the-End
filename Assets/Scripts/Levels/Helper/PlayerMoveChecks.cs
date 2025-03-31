@@ -184,6 +184,10 @@ public static class PlayerMoveChecks
                         panelMover.Increment(moveDir);
                         // action fully completed
                         UndoHandler.SaveFrame();
+
+                        // play push SFX
+                        AudioManager.Instance.PlayPush();
+
                         return;
                     }
                 }
