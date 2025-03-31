@@ -420,6 +420,9 @@ public class PlayerControls : MonoBehaviour
         if (_isUndoing)
             return;
 
+        // swap SFX
+        AudioManager.Instance.PlaySwap();
+
         // update index
         _currDino = index;
 
