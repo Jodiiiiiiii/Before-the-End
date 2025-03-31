@@ -223,6 +223,9 @@ public static class PlayerMoveChecks
         // no obstruction! (empty water)
         if (!adjacentObj.ObjData.WaterHasLog)
         {
+            // swim SFX
+            AudioManager.Instance.PlaySwim();
+
             // Move action complete -> no obstruction
             ConfirmPlayerMove(player, playerMover, moveDir);
             return;
@@ -316,6 +319,9 @@ public static class PlayerMoveChecks
             {
                 topObjList[i].ObjMover.Increment(moveDir);
             }
+
+            // play swim SFX
+            AudioManager.Instance.PlaySwim();
 
             // confirm movement of player
             ConfirmPlayerMove(player, playerMover, moveDir);
