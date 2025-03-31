@@ -79,6 +79,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioClip _stegoAbility;
     private AudioClip _ankyAbility;
+    private AudioClip _pteraAbility;
 
     /// <summary>
     /// Loads all level audio files directly from resources.
@@ -102,6 +103,7 @@ public class AudioManager : MonoBehaviour
 
         _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
         _ankyAbility = Resources.Load<AudioClip>("SFX/Anky");
+        _pteraAbility = Resources.Load<AudioClip>("SFX/Ptera");
     }
 
     public void PlayPushPanel()
@@ -127,6 +129,11 @@ public class AudioManager : MonoBehaviour
     public void PlayAnkyAbility()
     {
         _source.PlayOneShot(_ankyAbility, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayPteraAbility()
+    {
+        _source.PlayOneShot(_pteraAbility, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 

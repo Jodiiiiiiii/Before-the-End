@@ -439,6 +439,10 @@ public static class PlayerAbilityChecks
                 player.UseAbilityCharge();
                 // move player to adjacent panel
                 Transform newParent = SortingOrderHandler.GetPanelOfOrder(topMostIndex).transform.GetChild(1).transform; // 1 = Upper Objects
+
+                // SFX
+                AudioManager.Instance.PlayPteraAbility();
+
                 // confirm movement and save
                 PlayerMoveChecks.ConfirmPlayerMove(player, mover, adjacentPos, newParent);
 
