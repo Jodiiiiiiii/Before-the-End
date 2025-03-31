@@ -577,6 +577,10 @@ public static class PlayerAbilityChecks
         FaceDirection(player, dir);
         // decrement charges
         player.UseAbilityCharge();
+
+        // SFX
+        AudioManager.Instance.PlayPyroAbility();
+
         // confirm movement (and save undo frame)
         PlayerMoveChecks.ConfirmPlayerMove(player, mover, movePos, null);
 
@@ -610,6 +614,9 @@ public static class PlayerAbilityChecks
 
         // if we got this far, compy can be placed. this function handles undo frame saving.
         player.SpawnCompy(dir);
+
+        // SFX
+        AudioManager.Instance.PlayCompyAbility();
 
         // this is the end of a player action, so save
         UndoHandler.SaveFrame();

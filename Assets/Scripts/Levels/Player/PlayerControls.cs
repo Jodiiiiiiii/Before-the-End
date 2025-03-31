@@ -825,6 +825,9 @@ public class PlayerControls : MonoBehaviour
             throw new System.Exception("Player must have PlayerSpriteSwapper component on one of its children.");
         flipper.RequireFlip();
 
+        // SFX - re-use swap SFX for swapping between compy pairs
+        AudioManager.Instance.PlayCompySwap();
+
         // swapping counts as an action so frame must be saved
         UndoHandler.SaveFrame();
     }

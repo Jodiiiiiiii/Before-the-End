@@ -80,6 +80,9 @@ public class AudioManager : MonoBehaviour
     private AudioClip _stegoAbility;
     private AudioClip _ankyAbility;
     private AudioClip _pteraAbility;
+    private AudioClip _pyroAbility;
+    private AudioClip _compyAbility;
+    private AudioClip _compySwap;
 
     /// <summary>
     /// Loads all level audio files directly from resources.
@@ -104,6 +107,9 @@ public class AudioManager : MonoBehaviour
         _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
         _ankyAbility = Resources.Load<AudioClip>("SFX/Anky");
         _pteraAbility = Resources.Load<AudioClip>("SFX/Ptera");
+        _pyroAbility = Resources.Load<AudioClip>("SFX/Pyro");
+        _compyAbility = Resources.Load<AudioClip>("SFX/Compy");
+        _compySwap = Resources.Load<AudioClip>("SFX/CompyShort");
     }
 
     public void PlayPushPanel()
@@ -134,6 +140,21 @@ public class AudioManager : MonoBehaviour
     public void PlayPteraAbility()
     {
         _source.PlayOneShot(_pteraAbility, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayPyroAbility()
+    {
+        _source.PlayOneShot(_pyroAbility, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayCompyAbility()
+    {
+        _source.PlayOneShot(_compyAbility, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayCompySwap()
+    {
+        _source.PlayOneShot(_compySwap, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
