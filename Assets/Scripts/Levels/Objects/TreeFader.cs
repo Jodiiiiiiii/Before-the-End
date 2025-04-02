@@ -10,12 +10,15 @@ public class TreeFader : MonoBehaviour
 {
     [SerializeField, Tooltip("Used to get position of current object.")]
     private Mover _mover;
+    [SerializeField, Tooltip("Base sprite used to compare alpha values to account for panel fading cross-cases.")]
+    private SpriteRenderer _baseSprite;
     [SerializeField, Tooltip("Sprite to make faded when object/player is behind it.")]
     private SpriteRenderer _treeTopSprite;
     [SerializeField, Tooltip("Alpha level of faded tree top sprite.")]
     private float _fadeAlpha;
 
     private static Mover _playerMover = null;
+    private bool _isTreeTopFading = false;
     private bool _isPanelFading = false;
 
     private void Awake()
@@ -84,6 +87,8 @@ public class TreeFader : MonoBehaviour
         // position of tree top
         Vector2Int checkPos = _mover.GetGlobalGridPos() + Vector2Int.up;
 
+        // Update tree top fade STATE ----------
+
         // skip object/player detection if tree top is not even visible currently
         if (!VisibilityChecks.IsVisible(_mover.gameObject, checkPos.x, checkPos.y))
         {
@@ -95,26 +100,53 @@ public class TreeFader : MonoBehaviour
 
             return;
         }
-
-        // check for object behind tree top
-        QuantumState foundObj = VisibilityChecks.GetObjectAtPos(_mover, checkPos.x, checkPos.y);
-
-        // set to faded if
-        // (1) there is an obstructed object; but the object is NOT another tree
-        // (2) the player is obstructed by the tree
-        Color col = _treeTopSprite.color;
-        if ((foundObj is not null && foundObj.ObjData.ObjType != ObjectType.Tree)
-            || _playerMover.GetGlobalGridPos().Equals(checkPos))
-        {
-            col.a = _fadeAlpha;
-            _treeTopSprite.color = col;
-        }
-        // set to default (not faded)
         else
         {
-            col.a = 1;
+            // check for object behind tree top
+            QuantumState foundObj = VisibilityChecks.GetObjectAtPos(_mover, checkPos.x, checkPos.y);
+
+            // set to faded if
+            // (1) there is an obstructed object; but the object is NOT another tree
+            // (2) the player is obstructed by the tree
+            
+            if ((foundObj is not null && foundObj.ObjData.ObjType != ObjectType.Tree)
+                || _playerMover.GetGlobalGridPos().Equals(checkPos))
+            {
+                _isTreeTopFading = true;
+            }
+            // set to default (not faded)
+            else
+            {
+                _isTreeTopFading = false;
+            }
+        }
+
+        // Update ALPHA VALUE ----------------
+
+        Color col = _treeTopSprite.color;
+        // if object faded due to panel fading
+        if (_baseSprite.color.a < 1f)
+        {
+            // match fade state of object itself
+            col.a = _baseSprite.color.a;
             _treeTopSprite.color = col;
-        }   
+        }
+        // otherwise fade entirely based on tree top fading logic above
+        else
+        {
+            // something behind it
+            if (_isTreeTopFading)
+            {
+                col.a = _fadeAlpha;
+                _treeTopSprite.color = col;
+            }
+            // normal state
+            else
+            {
+                col.a = 1;
+                _treeTopSprite.color = col;
+            }
+        }
     }
 
     private void OnDestroy()

@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mover: {fileID: 7117162860134246226}
+  _baseSprite: {fileID: 8674613874128684943}
   _treeTopSprite: {fileID: 8208553708107446715}
   _fadeAlpha: 0.4
 --- !u!1001 &7323966712190323012
@@ -118,7 +119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2323026133807904452, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: _renderers.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2323026133807904452, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: _renderers.Array.data[6]
@@ -224,3 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2dfe82d4e9b4b84fa4e9e5240222c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &8674613874128684943 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2144170477780618955, guid: dd841003e047a5b478c112805596af7f, type: 3}
+  m_PrefabInstance: {fileID: 7323966712190323012}
+  m_PrefabAsset: {fileID: 0}
