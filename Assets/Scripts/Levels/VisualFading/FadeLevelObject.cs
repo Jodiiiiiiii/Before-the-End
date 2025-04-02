@@ -17,17 +17,15 @@ public class FadeLevelObject : MonoBehaviour
     private SpriteRenderer[] _renderers;
 
     private bool _isFaded = false;
+    private PanelStats _panel;
 
     private void Awake()
     {
         // Precondition: must be part of a panel
+        // ensures panel does not start null
         if (transform.parent is null || transform.parent.parent is null || transform.parent.parent.parent is null
-            || !transform.parent.parent.parent.TryGetComponent(out PanelStats panel))
+            || !transform.parent.parent.parent.TryGetComponent(out _panel))
             throw new System.Exception("Level Objects MUST be a child of Upper Objects OR Lower Objects, and their parent panel must have a PanelStats component.");
-
-        // Destroy FadeLevelObject component if it is on the main panel (should NOT fade)
-        if (panel.IsMainPanel())
-            Destroy(this);
     }
 
     // Start is called before the first frame update
@@ -49,6 +47,16 @@ public class FadeLevelObject : MonoBehaviour
     /// </summary>
     private void UpdateFadeState()
     {
+        // ensure current stored panel is updated!
+        // only calls TryGetComponent if the parent panel changes (this should happen infrequently only due to quantum entanglement swaps)
+        if (transform.parent is null || transform.parent.parent is null || transform.parent.parent.parent is null)
+            throw new System.Exception("Level Objects MUST always be a child of Upper Objects OR Lower Objects within a panel");
+        if (_panel.transform != transform.parent.parent.parent)
+        {
+            if (!transform.parent.parent.parent.TryGetComponent(out _panel))
+                throw new System.Exception("Level Object's containing parent MUST have a PanelStats component");
+        }
+
         // fetch new fading state
         _isFaded = GameManager.Instance.IsFading;
 
@@ -57,7 +65,7 @@ public class FadeLevelObject : MonoBehaviour
         foreach (SpriteRenderer renderer in _renderers)
         {
             newColor = renderer.color;
-            newColor.a = _isFaded ? _fadeAlpha : 1f;
+            newColor.a = _isFaded && !_panel.IsMainPanel() ? _fadeAlpha : 1f;
             renderer.color = newColor;
         }
     }
