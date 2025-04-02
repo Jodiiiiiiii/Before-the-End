@@ -96,8 +96,6 @@ public class TreeFader : MonoBehaviour
             // ONE EDGE CASE: if an object starts (1) BEHIND a tree and (2) ALSO BEHIND a panel
             // in this case, it takes one action frame once it has been revealed to have correct behavior for the rest of the level (including when undoing back to the start)
             // this case is acceptable as it is very niche and likely to be avoided regardless due to puzzle designing strategies
-
-            return;
         }
         else
         {
