@@ -116,4 +116,10 @@ public class TreeFader : MonoBehaviour
             _treeTopSprite.color = col;
         }   
     }
+
+    private void OnDestroy()
+    {
+        // ensures proper tree fading behavior even between multiple level scenes in a single session
+        _playerMover = null;
+    }
 }
