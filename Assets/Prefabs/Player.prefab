@@ -367,7 +367,7 @@ MonoBehaviour:
   _dinoCharges: ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
   _abilityIndicator: {fileID: 3435671876989254576}
   _firstUndoDelay: 0.5
-  _undoDelay: 0.1
+  _undoDelay: 0.075
   _compyPrefab: {fileID: 3881061478395697742, guid: 6fa310ad0dba543488f488c99521eab9, type: 3}
   _compyReference: {fileID: 0}
   _transitionHandler: {fileID: 0}
