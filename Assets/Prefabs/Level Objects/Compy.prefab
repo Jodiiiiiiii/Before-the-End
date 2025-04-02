@@ -451,6 +451,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1145445151, guid: 0f993c2cf481aac45925b28a920c7a26, type: 3}
+    - target: {fileID: 2323026133807904452, guid: dd841003e047a5b478c112805596af7f, type: 3}
+      propertyPath: _fadeAlpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4087480735737977805, guid: dd841003e047a5b478c112805596af7f, type: 3}
       propertyPath: _instantSnapPos
       value: 1
