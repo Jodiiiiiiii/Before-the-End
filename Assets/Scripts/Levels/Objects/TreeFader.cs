@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Used to fade out the upper portion of a tree when a level object or the player would be hidden behind it.
@@ -20,6 +21,7 @@ public class TreeFader : MonoBehaviour
     private static Mover _playerMover = null;
     private bool _isTreeTopFading = false;
     private bool _isPanelFading = false;
+    private InputActionAsset _actions;
 
     private void Awake()
     {
@@ -59,12 +61,24 @@ public class TreeFader : MonoBehaviour
     {
         UndoHandler.ActionOccur += CheckAtEndOfFrame;
         UndoHandler.UndoOccur += CheckAtEndOfFrame;
+
+        _actions = InputSystem.actions;
+        _actions.actionMaps[0].FindAction("FadePanels").started += ControlCheck;
+        _actions.actionMaps[0].FindAction("FadePanels").canceled += ControlCheck;
     }
 
     private void OnDisable()
     {
         UndoHandler.ActionOccur -= CheckAtEndOfFrame;
         UndoHandler.UndoOccur -= CheckAtEndOfFrame;
+
+        _actions.actionMaps[0].FindAction("FadePanels").started -= ControlCheck;
+        _actions.actionMaps[0].FindAction("FadePanels").canceled -= ControlCheck;
+    }
+
+    private void ControlCheck(InputAction.CallbackContext context)
+    {
+        CheckAtEndOfFrame();
     }
 
     private void CheckAtEndOfFrame()
