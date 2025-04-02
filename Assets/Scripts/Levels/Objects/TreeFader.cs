@@ -20,7 +20,6 @@ public class TreeFader : MonoBehaviour
 
     private static Mover _playerMover = null;
     private bool _isTreeTopFading = false;
-    private bool _isPanelFading = false;
     private InputActionAsset _actions;
 
     private void Awake()
