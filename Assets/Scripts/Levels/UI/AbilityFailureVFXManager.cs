@@ -29,6 +29,9 @@ public class AbilityFailureVFXManager : MonoBehaviour
 
             // reset queued position
             _queuedPos = new Vector2Int(NULL_X, NULL_Y);
+
+            // play ability fail SFX
+            AudioManager.Instance.PlayAbilityFail();
         }
     }
 

@@ -86,6 +86,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip _fireExtinguish;
     private AudioClip _levelComplete;
 
+    private AudioClip _abilityFail;
     private AudioClip _stegoAbility;
     private AudioClip _ankyAbility;
     private AudioClip _trikeCrush;
@@ -131,6 +132,7 @@ public class AudioManager : MonoBehaviour
         _fireExtinguish = Resources.Load<AudioClip>("SFX/FireExtinguish");
         _levelComplete = Resources.Load<AudioClip>("SFX/LevelComplete");
 
+        _abilityFail = Resources.Load<AudioClip>("SFX/AbilityFail");
         _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
         _ankyAbility = Resources.Load<AudioClip>("SFX/Anky");
         _trikeCrush = Resources.Load<AudioClip>("SFX/LogCrush");
@@ -196,6 +198,11 @@ public class AudioManager : MonoBehaviour
     public void PlayLevelComplete()
     {
         _source.PlayOneShot(_levelComplete, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayAbilityFail()
+    {
+        _source.PlayOneShot(_abilityFail, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayStegoAbility()
