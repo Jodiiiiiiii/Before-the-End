@@ -337,9 +337,6 @@ public static class PlayerMoveChecks
         // push logs as possible
         if (PushLogsInSeries(playerMover, playerMover.GetGlobalGridPos() + moveDir, moveDir))
         {
-            // push log audio
-            AudioManager.Instance.PlayPushLog();
-
             ConfirmPlayerMove(player, playerMover, moveDir); // move if logs were actually pushed
         }
     }
@@ -627,6 +624,9 @@ public static class PlayerMoveChecks
                     throw new Exception("All log objects MUST have an Mover component");
             }
 
+            // Play log push SFX (from movement OR Trike ability)
+            AudioManager.Instance.PlayPushLog();
+
             // indicate logs have been pushed (original adjacentPos is now open)
             return true;
         }
@@ -643,6 +643,9 @@ public static class PlayerMoveChecks
             }
             // crush/disable final log in list
             logs[logs.Count - 1].ObjData.IsDisabled = true;
+
+            // Play crush SFX (Trike Ability ONLY)
+            AudioManager.Instance.PlayTrikeCrush();
 
             // indicate logs have been pushed (original adjacentPos is now open)
             return true;
