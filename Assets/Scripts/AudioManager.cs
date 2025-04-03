@@ -78,6 +78,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip[] _swapDino;
     private AudioClip[] _swim;
 
+    private AudioClip _moveFail;
     private AudioClip _rewind;
     private AudioClip _objSplash;
     private AudioClip _objSink;
@@ -124,6 +125,7 @@ public class AudioManager : MonoBehaviour
         _swim[2] = Resources.Load<AudioClip>("SFX/Swim3");
         _swim[3] = Resources.Load<AudioClip>("SFX/Swim4");
 
+        _moveFail = Resources.Load<AudioClip>("SFX/MoveFail");
         _rewind = Resources.Load<AudioClip>("SFX/Rewind");
         _objSplash = Resources.Load<AudioClip>("SFX/ObjectSplash");
         _objSink = Resources.Load<AudioClip>("SFX/ObjectSink");
@@ -163,6 +165,11 @@ public class AudioManager : MonoBehaviour
     public void PlaySwim()
     {
         _source.PlayOneShot(_swim[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayMoveFail()
+    {
+        _source.PlayOneShot(_moveFail, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayRewind()

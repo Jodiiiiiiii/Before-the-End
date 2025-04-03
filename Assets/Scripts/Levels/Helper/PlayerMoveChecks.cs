@@ -21,10 +21,15 @@ public static class PlayerMoveChecks
 
         Vector2Int currPos = playerMover.GetGlobalGridPos();
         Vector2Int targetPos = currPos + moveDir;
-        
+
         // REQUIREMENT: Player is visible on current panel
         if (!VisibilityChecks.IsVisible(player, currPos.x, currPos.y))
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+
             return;
+        }
 
         // SPRITE FLIPPING
         bool hasFlipped = false;
@@ -87,14 +92,23 @@ public static class PlayerMoveChecks
                     // action attempt is complete whether move happened or not
                     return;
                 case ObjectType.Rock:
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return; // CANNOT move into rocks
                 case ObjectType.Bush:
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return; // CANNOT move into bushes
                 case ObjectType.Tunnel:
                     TryMoveIntoTunnel(player, playerMover, moveDir, adjacentObj);
                     // action attempt is complete whether move happened or not
                     return;
                 case ObjectType.Tree:
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return; // CANNOT move into trees
                 case ObjectType.Clock:
                     // player moves into object, which is vertically shrunk to 0 (destroyed)
@@ -108,6 +122,9 @@ public static class PlayerMoveChecks
                     // action attempt is complete (and the entire level!)
                     return;
                 case ObjectType.Fire:
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return; // CANNOT move into fire
                 case ObjectType.Void:
                     return; // CANNOT move into void
@@ -201,6 +218,10 @@ public static class PlayerMoveChecks
                 break;
             }
         }
+
+        // if we got this far, panel push did NOT occur
+        // play move fail SFX
+        AudioManager.Instance.PlayMoveFail();
     }
 
     /// <summary>
@@ -217,11 +238,21 @@ public static class PlayerMoveChecks
 
         // REQUIREMENT: there MUST be a tile and it MUST be water
         if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Water)
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+
             return;
+        }
 
         // REQUIREMENT: cannot move into submerged rock
         if (adjacentObj.ObjData.WaterHasRock)
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+
             return;
+        }
 
         // no obstruction! (empty water)
         if (!adjacentObj.ObjData.WaterHasLog)
@@ -257,12 +288,22 @@ public static class PlayerMoveChecks
 
                 // REQUIREMENT: not pushing submerged log into panel
                 if (!VisibilityChecks.IsVisible(playerMover.gameObject, adjacentPos.x, adjacentPos.y))
+                {
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return; // obstructed -> cannot move/push
+                }
 
                 // REQUIREMENT: Can ONLY push into adjacent water
                 // REQUIREMENT: Can NOT push into submerged rocks
                 if (adjacentObj is null || adjacentObj.ObjData.ObjType != ObjectType.Water || adjacentObj.ObjData.WaterHasRock)
+                {
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return; // obstructed -> cannot move/push
+                }
 
                 // add another log to list to push, then loop again
                 if (adjacentObj.ObjData.WaterHasLog)
@@ -342,6 +383,11 @@ public static class PlayerMoveChecks
         {
             ConfirmPlayerMove(player, playerMover, moveDir); // move if logs were actually pushed
         }
+        else // fail to move
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+        }
     }
 
     /// <summary>
@@ -360,6 +406,11 @@ public static class PlayerMoveChecks
 
             return;
         }
+        else
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+        }    
     }
 
     /// <summary>
@@ -371,7 +422,12 @@ public static class PlayerMoveChecks
 
         // require the player to be moving UP into the tunnel (other directions are just an obstruction)
         if (moveDir != Vector2Int.up)
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+
             return;
+        }
 
         // retrieve mover component of other tunnel
         QuantumState otherTunnel = adjacentTunnel.ObjData.OtherTunnel;
@@ -381,12 +437,22 @@ public static class PlayerMoveChecks
         // REQUIREMENT: tunnel is visible
         Vector2Int otherTunnelPos = otherTunnelMover.GetGlobalGridPos();
         if (!VisibilityChecks.IsVisible(otherTunnel.gameObject, otherTunnelPos.x, otherTunnelPos.y))
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+
             return;
+        }
 
         // REQUIREMENT: visibility of exit pos
         Vector2Int exitPos = otherTunnelPos + Vector2Int.down;
         if (!VisibilityChecks.IsVisible(otherTunnel.gameObject, exitPos.x, exitPos.y))
+        {
+            // play move fail SFX
+            AudioManager.Instance.PlayMoveFail();
+
             return;
+        }
 
         // REQUIREMENT: exit pos is clear of obstructions (or default to more specific obstruction checks)
         QuantumState exitObj = VisibilityChecks.GetObjectAtPos(otherTunnelMover, exitPos.x, exitPos.y);
@@ -396,13 +462,23 @@ public static class PlayerMoveChecks
             if (exitObj.ObjData.ObjType == ObjectType.Log)
             {
                 if (!PushLogsInSeries(otherTunnelMover, exitPos, Vector2Int.down))
+                {
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return;
+                }
             }
             // water -> must contain submerged log or rock
             else if (exitObj.ObjData.ObjType == ObjectType.Water)
             {
                 if (!exitObj.ObjData.WaterHasLog && !exitObj.ObjData.WaterHasRock)
+                {
+                    // play move fail SFX
+                    AudioManager.Instance.PlayMoveFail();
+
                     return;
+                }
             }
             else if (exitObj.ObjData.ObjType == ObjectType.Compy)
             {
@@ -414,7 +490,12 @@ public static class PlayerMoveChecks
                 // no return since moving into a compy will ALWAYS work
             }
             else // other object -> never traversable
+            {
+                // play move fail SFX
+                AudioManager.Instance.PlayMoveFail();
+
                 return;
+            }
         }
 
         // ALL PRECONDITIONS ARE MET -> player can move
