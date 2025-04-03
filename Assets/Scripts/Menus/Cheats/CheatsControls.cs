@@ -21,6 +21,9 @@ public class CheatsControls : MonoBehaviour
     /// </summary>
     public void UnlockAllLevels()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         // cheats now unlock second timeline
         GameManager.Instance.SaveData.isSecondTimelineUnlock = true;
 

@@ -246,6 +246,9 @@ public class LevelSelectControls : MonoBehaviour
         if (SceneTransitionHandler.IsTransitioningOut)
             return;
 
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         // flip paused state
         GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
     }

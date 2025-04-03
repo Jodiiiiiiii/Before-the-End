@@ -110,6 +110,9 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void Unpause()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         GameManager.Instance.IsPaused = false;
     }
 
@@ -118,6 +121,9 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void ToHelp()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         // clear help notification on opening help book
         GameManager.Instance.SaveData.HelpNotif = false;
 
@@ -131,6 +137,9 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void ToOptions()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(true);
         _helpMenu.SetActive(false);
@@ -170,6 +179,9 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void ToPause()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
         _helpMenu.SetActive(false);
@@ -184,6 +196,10 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void ToControls()
     {
+        // Click UI SFX
+        if (!_controlsMenu.activeSelf) // don't play sound if already on that tab
+            AudioManager.Instance.PlayClickUI();
+
         _controlsMenu.SetActive(true);
         _audioMenu.SetActive(false);
     }
@@ -193,6 +209,10 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void ToAudio()
     {
+        // Click UI SFX
+        if (!_audioMenu.activeSelf) // don't play sound if already on that tab
+            AudioManager.Instance.PlayClickUI();
+
         _controlsMenu.SetActive(false);
         _audioMenu.SetActive(true);
     }
