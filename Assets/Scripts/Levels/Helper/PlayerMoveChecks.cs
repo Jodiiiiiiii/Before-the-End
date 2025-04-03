@@ -561,6 +561,9 @@ public static class PlayerMoveChecks
                         if (flipper is null)
                             throw new System.Exception("ALL Level Objects MUST have ObjectSpriteSwapper component on a child object.");
                         flipper.RequireFlip();
+
+                        // Play water splash sound for log
+                        AudioManager.Instance.PlayObjectSplash();
                     }
 
                     // disable last most log in the list (it was pushed into water!)

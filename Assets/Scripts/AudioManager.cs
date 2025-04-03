@@ -77,6 +77,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip[] _logPush;
     private AudioClip[] _swapDino;
     private AudioClip[] _swim;
+    private AudioClip _objSplash;
 
     private AudioClip _stegoAbility;
     private AudioClip _ankyAbility;
@@ -115,6 +116,8 @@ public class AudioManager : MonoBehaviour
         _swim[2] = Resources.Load<AudioClip>("SFX/Swim3");
         _swim[3] = Resources.Load<AudioClip>("SFX/Swim4");
 
+        _objSplash = Resources.Load<AudioClip>("SFX/ObjectSplash");
+
         _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
         _ankyAbility = Resources.Load<AudioClip>("SFX/Anky");
         _trikeCrush = Resources.Load<AudioClip>("SFX/LogCrush");
@@ -145,6 +148,11 @@ public class AudioManager : MonoBehaviour
     public void PlaySwim()
     {
         _source.PlayOneShot(_swim[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayObjectSplash()
+    {
+        _source.PlayOneShot(_objSplash, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayStegoAbility()

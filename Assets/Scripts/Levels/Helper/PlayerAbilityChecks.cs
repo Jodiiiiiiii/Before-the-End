@@ -203,6 +203,9 @@ public static class PlayerAbilityChecks
                             adjacentObj.SetQuantum(true);
 
                         rock.ObjData.IsDisabled = true;
+
+                        // Play water splash sound for rock
+                        AudioManager.Instance.PlayObjectSplash();
                     }
                 }
                 else
