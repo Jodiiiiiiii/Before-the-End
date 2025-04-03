@@ -427,7 +427,12 @@ public static class PlayerMoveChecks
         Vector2Int currPos = playerMover.GetGlobalGridPos();
         QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(playerMover, currPos.x, currPos.y);
         if (logSinkCheck is not null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+        {
             logSinkCheck.ObjData.WaterHasLog = false;
+
+            // play log sink SFX
+            AudioManager.Instance.PlayObjectSink();
+        }
 
         // snap to tunnel position so it looks like player moves out of tunnel
         Vector2Int snapPos = otherTunnel.ObjMover.GetGlobalGridPos();
@@ -453,7 +458,12 @@ public static class PlayerMoveChecks
         Vector2Int currPos = objMover.GetGlobalGridPos();
         QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(objMover, currPos.x, currPos.y);
         if (logSinkCheck is not null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+        {
             logSinkCheck.ObjData.WaterHasLog = false;
+
+            // play log sink SFX
+            AudioManager.Instance.PlayObjectSink();
+        }
 
         // move player
         objMover.Increment(moveDir);
@@ -476,7 +486,12 @@ public static class PlayerMoveChecks
         Vector2Int currPlayerPos = mover.GetGlobalGridPos();
         QuantumState logSinkCheck = VisibilityChecks.GetObjectAtPos(mover, currPlayerPos.x, currPlayerPos.y);
         if (logSinkCheck != null && logSinkCheck.ObjData.ObjType == ObjectType.Water && logSinkCheck.ObjData.WaterHasLog)
+        {
             logSinkCheck.ObjData.WaterHasLog = false;
+
+            // play log sink SFX
+            AudioManager.Instance.PlayObjectSink();
+        }
 
         // move player to panel of the other tunnel (reassign to new parent transform)
         if(newParent is not null)
