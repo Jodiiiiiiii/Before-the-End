@@ -145,7 +145,8 @@ public class LevelSelectControls : MonoBehaviour
         }
         else
         {
-            // TODO: feedback for no node connection (player shake + negative feedback SFX?)
+            // Move Fail SFX
+            AudioManager.Instance.PlayMoveFail();
         }
     }
 
