@@ -101,6 +101,9 @@ public static class PlayerMoveChecks
                     adjacentObj.ObjData.IsDisabled = true;
                     ConfirmPlayerMove(player, playerMover, moveDir);
 
+                    // level complete SFX
+                    AudioManager.Instance.PlayLevelComplete();
+
                     player.LevelComplete();
                     // action attempt is complete (and the entire level!)
                     return;
