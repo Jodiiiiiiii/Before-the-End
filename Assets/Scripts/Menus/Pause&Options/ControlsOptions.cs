@@ -16,6 +16,8 @@ public class ControlsOptions : MonoBehaviour
 
     private InputActionRebindingExtensions.RebindingOperation _rebind;
 
+    bool skipResetSound = false;
+
     private void OnEnable()
     {
         // set initial configuration of all text elements
@@ -33,6 +35,9 @@ public class ControlsOptions : MonoBehaviour
     /// </summary>
     public void RemapButtonClicked(int controlToRemap)
     {
+        // play UI Click SFX
+        AudioManager.Instance.PlayClickUI();
+
         RemapOperation(controlToRemap, false);
     }
 
@@ -41,6 +46,9 @@ public class ControlsOptions : MonoBehaviour
     /// </summary>
     public void AltRemapButtonClicked(int controlToRemap)
     {
+        // play UI Click SFX
+        AudioManager.Instance.PlayClickUI();
+
         RemapOperation(controlToRemap, true);
     }
 
@@ -50,6 +58,10 @@ public class ControlsOptions : MonoBehaviour
     /// </summary>
     public void ResetControl(int controlToReset)
     {
+        // play UI Click SFX
+        if (!skipResetSound)
+            AudioManager.Instance.PlayClickUI();
+
         string actionToReset = _actionReferences[controlToReset].action.name;
 
         // restore default behavior
@@ -80,9 +92,17 @@ public class ControlsOptions : MonoBehaviour
     /// </summary>
     public void ResetAllControls()
     {
+        // play UI Click SFX
+        AudioManager.Instance.PlayClickUI();
+
+        // ensure sound only plays ONCE
+        skipResetSound = true;
+
         // iterate through all controls to reset
         for (int i = 0; i < _actionReferences.Length; i++)
             ResetControl(i);
+
+        skipResetSound = false;
     }
 
     /// <summary>
@@ -119,6 +139,9 @@ public class ControlsOptions : MonoBehaviour
     /// </summary>
     private void RemoveBinding(int controlToUnbind, bool isAlt)
     {
+        // play UI Click SFX
+        AudioManager.Instance.PlayClickUI();
+
         string actionToUnbind = _actionReferences[controlToUnbind].action.name;
 
         //_actionReferences[controlToUnbind].action.RemoveBindingOverride(isAlt ? 1 : 0);
@@ -158,6 +181,9 @@ public class ControlsOptions : MonoBehaviour
         }
         else // valid binding
         {
+            // play UI Click SFX
+            AudioManager.Instance.PlayClickUI();
+
             // Update text
             if (isAlt) // alt binding
             {
