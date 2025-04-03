@@ -213,6 +213,10 @@ public static class PlayerAbilityChecks
             FaceDirection(player, dir);
             // decrement charges
             player.UseAbilityCharge();
+
+            // play rock push SFX
+            AudioManager.Instance.PlayTrikePush();
+
             // action successful (save undo frame)
             UndoHandler.SaveFrame();
             return;
