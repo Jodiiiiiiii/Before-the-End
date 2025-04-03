@@ -78,6 +78,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip[] _swapDino;
     private AudioClip[] _swim;
 
+    private AudioClip _rewind;
     private AudioClip _objSplash;
     private AudioClip _objSink;
     private AudioClip _fireIgnite;
@@ -122,6 +123,7 @@ public class AudioManager : MonoBehaviour
         _swim[2] = Resources.Load<AudioClip>("SFX/Swim3");
         _swim[3] = Resources.Load<AudioClip>("SFX/Swim4");
 
+        _rewind = Resources.Load<AudioClip>("SFX/Rewind");
         _objSplash = Resources.Load<AudioClip>("SFX/ObjectSplash");
         _objSink = Resources.Load<AudioClip>("SFX/ObjectSink");
         _fireIgnite = Resources.Load<AudioClip>("SFX/FireIgnite");
@@ -159,6 +161,11 @@ public class AudioManager : MonoBehaviour
     public void PlaySwim()
     {
         _source.PlayOneShot(_swim[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayRewind()
+    {
+        _source.PlayOneShot(_rewind, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayObjectSplash()

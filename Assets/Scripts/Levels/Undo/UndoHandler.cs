@@ -27,8 +27,13 @@ public abstract class UndoHandler : MonoBehaviour
 
     public static void UndoFrame()
     {
-        if(_globalFrame > 0)
+        if (_globalFrame > 0)
+        {
             _globalFrame--;
+
+            // undo SFX - only play on actual undo not just on attempt
+            AudioManager.Instance.PlayRewind();
+        }
 
         UndoOccur?.Invoke();
     }
