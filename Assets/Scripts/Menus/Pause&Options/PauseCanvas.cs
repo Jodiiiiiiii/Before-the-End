@@ -142,6 +142,9 @@ public class PauseCanvas : MonoBehaviour
     /// </summary>
     public void Exit()
     {
+        // level exit SFX
+        AudioManager.Instance.PlayLevelExit();
+
         if (SceneManager.GetActiveScene().name == _levelSelectName + "1" || SceneManager.GetActiveScene().name == _levelSelectName + "2")
             _transitionHandler.LoadScene(_startMenuName);
         else // level scene

@@ -54,6 +54,9 @@ public class AudioManager : MonoBehaviour
     #region Level Select
     private AudioClip[] _levelSelectSteps;
 
+    private AudioClip _levelEnter;
+    private AudioClip _levelExit;
+
     /// <summary>
     /// Loads all level select audio files directly from resources.
     /// </summary>
@@ -64,11 +67,24 @@ public class AudioManager : MonoBehaviour
         _levelSelectSteps[1] = Resources.Load<AudioClip>("SFX/Step2");
         _levelSelectSteps[2] = Resources.Load<AudioClip>("SFX/Step3");
         _levelSelectSteps[3] = Resources.Load<AudioClip>("SFX/Step4");
+
+        _levelEnter = Resources.Load<AudioClip>("SFX/LevelEnter");
+        _levelExit = Resources.Load<AudioClip>("SFX/LevelExit");
     }
 
     public void PlayMove()
     {
         _source.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayLevelEnter()
+    {
+        _source.PlayOneShot(_levelEnter, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayLevelExit()
+    {
+        _source.PlayOneShot(_levelExit, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
@@ -262,6 +278,5 @@ public class AudioManager : MonoBehaviour
         _source.PlayOneShot(_compySwap, GameManager.Instance.GetSfxVolume());
     }
     #endregion
-
 
 }

@@ -55,6 +55,9 @@ public class MainMenuHandler : MonoBehaviour
         // no save data being overriden
         else
         {
+            // level enter SFX
+            AudioManager.Instance.PlayLevelEnter();
+
             GameManager.Instance.ResetProgressionData(); // new progression data
             GameManager.Instance.SaveData.NewGameStarted = true;
             _transitionHandler.LoadScene(_firstLevelName);
@@ -67,6 +70,9 @@ public class MainMenuHandler : MonoBehaviour
     /// </summary>
     public void ResumeButton()
     {
+        // level enter SFX
+        AudioManager.Instance.PlayLevelEnter();
+
         _transitionHandler.LoadScene(_levelSelectSceneName);
     }
 
@@ -122,6 +128,9 @@ public class MainMenuHandler : MonoBehaviour
     /// </summary>
     public void ConfirmNewGame()
     {
+        // level enter SFX
+        AudioManager.Instance.PlayLevelEnter();
+
         GameManager.Instance.ResetProgressionData(); // new progression data
         GameManager.Instance.SaveData.NewGameStarted = true;
         _transitionHandler.LoadScene(_firstLevelName);

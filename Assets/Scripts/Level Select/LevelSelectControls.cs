@@ -200,6 +200,9 @@ public class LevelSelectControls : MonoBehaviour
             else
                 throw new System.Exception("Level Nodes can ONLY be used in LevelSelect1 and LevelSelect2 scenes.");
 
+            // level enter SFX
+            AudioManager.Instance.PlayLevelEnter();
+
             // load other level select scene
             _transitionHandler.LoadScene("LevelSelect");
             return;
@@ -218,6 +221,9 @@ public class LevelSelectControls : MonoBehaviour
                     GameManager.Instance.SaveData.HelpNotif = true;
                 }
             }
+
+            // level enter SFX
+            AudioManager.Instance.PlayLevelEnter();
 
             // this way, no node configuration should need to be made differently between the two level select scenes
             if (SceneManager.GetActiveScene().name == "LevelSelect1")
