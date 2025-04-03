@@ -54,6 +54,9 @@ public class VolumeSlider : MonoBehaviour
         _volumeInput.text = intVolume.ToString();
 
         UpdateVolume(intVolume);
+
+        // play UI Click SFX
+        AudioManager.Instance.PlayChangeSliderUI();
     }
 
     /// <summary>
@@ -76,6 +79,10 @@ public class VolumeSlider : MonoBehaviour
         _volumeSlider.value = math.remap(0, 100, 0, 1, intVolume);
 
         UpdateVolume(intVolume);
+
+        // play UI Click SFX
+        // placed at the end so it uses the UPDATED SFX level
+        AudioManager.Instance.PlayClickUI();
     }
 
     /// <summary>

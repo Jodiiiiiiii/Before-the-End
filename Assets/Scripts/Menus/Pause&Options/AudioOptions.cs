@@ -15,6 +15,9 @@ public class AudioOptions : MonoBehaviour
     /// </summary>
     public void RestoreDefaultAudio()
     {
+        // play UI Click SFX
+        AudioManager.Instance.PlayClickUI();
+
         foreach (VolumeSlider slider in _sliders)
             slider.ResetDefault();
     }
