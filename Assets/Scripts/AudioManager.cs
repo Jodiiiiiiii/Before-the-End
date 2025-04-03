@@ -80,6 +80,8 @@ public class AudioManager : MonoBehaviour
 
     private AudioClip _objSplash;
     private AudioClip _objSink;
+    private AudioClip _fireIgnite;
+    private AudioClip _fireSpread;
 
     private AudioClip _stegoAbility;
     private AudioClip _ankyAbility;
@@ -120,6 +122,8 @@ public class AudioManager : MonoBehaviour
 
         _objSplash = Resources.Load<AudioClip>("SFX/ObjectSplash");
         _objSink = Resources.Load<AudioClip>("SFX/ObjectSink");
+        _fireIgnite = Resources.Load<AudioClip>("SFX/FireIgnite");
+        _fireSpread = Resources.Load<AudioClip>("SFX/FireSpread");
 
         _stegoAbility = Resources.Load<AudioClip>("SFX/Stego");
         _ankyAbility = Resources.Load<AudioClip>("SFX/Anky");
@@ -161,6 +165,16 @@ public class AudioManager : MonoBehaviour
     public void PlayObjectSink()
     {
         _source.PlayOneShot(_objSink, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayFireIgnite()
+    {
+        _source.PlayOneShot(_fireIgnite, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayFireSpread()
+    {
+        _source.PlayOneShot(_fireSpread, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayStegoAbility()

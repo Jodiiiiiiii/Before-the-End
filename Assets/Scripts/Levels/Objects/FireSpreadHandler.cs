@@ -65,6 +65,9 @@ public class FireSpreadHandler : MonoBehaviour
                     {
                         check.ObjData.IsOnFire = true;
                         _fireBushes.Add((check, 0));
+
+                        // play fire spread - bush has been lit BY ANOTHER BUSH (more subtle sound)
+                        AudioManager.Instance.PlayFireSpread();
                     }
                 }
             }
@@ -82,6 +85,10 @@ public class FireSpreadHandler : MonoBehaviour
         {
             _fireBushes.Add((_addQueue[i], 0));
             _addQueue.RemoveAt(i);
+
+            // play fire ignite SFX - bush has been lit
+            // handling sound here ensures each log-lit bush plays SFX once
+            AudioManager.Instance.PlayFireIgnite();
         }
     }
 

@@ -603,6 +603,9 @@ public static class PlayerMoveChecks
                     adjacentObj.ObjData.IsDisabled = true;
                     // light log on fire
                     logs[logs.Count - 1].ObjData.IsOnFire = true;
+
+                    // play fire ignite SFX - log has been lit
+                    AudioManager.Instance.PlayFireIgnite();
                 }
             }
             else if (adjacentObj.ObjData.ObjType == ObjectType.Bush)
