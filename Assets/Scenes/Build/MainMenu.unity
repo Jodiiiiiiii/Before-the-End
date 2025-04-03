@@ -220,7 +220,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 126327764}
         m_TargetAssemblyTypeName: MainMenuHandler, Assembly-CSharp
-        m_MethodName: AbortNewGame
+        m_MethodName: AbortQuiet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3673,7 +3673,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 126327764}
         m_TargetAssemblyTypeName: MainMenuHandler, Assembly-CSharp
-        m_MethodName: AbortNewGame
+        m_MethodName: AbortQuiet
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

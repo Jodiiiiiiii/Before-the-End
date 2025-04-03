@@ -57,6 +57,8 @@ public class AudioManager : MonoBehaviour
     private AudioClip _levelEnter;
     private AudioClip _levelExit;
 
+    private AudioClip _clickUI;
+
     /// <summary>
     /// Loads all level select audio files directly from resources.
     /// </summary>
@@ -70,6 +72,8 @@ public class AudioManager : MonoBehaviour
 
         _levelEnter = Resources.Load<AudioClip>("SFX/LevelEnter");
         _levelExit = Resources.Load<AudioClip>("SFX/LevelExit");
+
+        _clickUI = Resources.Load<AudioClip>("SFX/ClickUI");
     }
 
     public void PlayMove()
@@ -85,6 +89,11 @@ public class AudioManager : MonoBehaviour
     public void PlayLevelExit()
     {
         _source.PlayOneShot(_levelExit, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayClickUI()
+    {
+        _source.PlayOneShot(_clickUI, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 

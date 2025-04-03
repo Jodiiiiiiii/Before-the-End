@@ -50,6 +50,9 @@ public class MainMenuHandler : MonoBehaviour
         // overriding previous save -> confirmation popup
         if (GameManager.Instance.SaveData.NewGameStarted)
         {
+            // Click UI SFX
+            AudioManager.Instance.PlayClickUI();
+
             _newGameConfirmation.SetActive(true);
         }
         // no save data being overriden
@@ -82,6 +85,9 @@ public class MainMenuHandler : MonoBehaviour
     /// </summary>
     public void OptionsButton()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         // Modified Pause Canvas is able to enable itself when this is toggled on
         GameManager.Instance.IsPaused = true;
     }
@@ -92,6 +98,9 @@ public class MainMenuHandler : MonoBehaviour
     /// </summary>
     public void CreditsButton()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         _creditsContainer.SetActive(true);
         _mainMenuContainer.SetActive(false);
     }
@@ -117,6 +126,9 @@ public class MainMenuHandler : MonoBehaviour
     /// </summary>
     public void BackButton()
     {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
         _creditsContainer.SetActive(false);
         _mainMenuContainer.SetActive(true);
     }
@@ -141,6 +153,14 @@ public class MainMenuHandler : MonoBehaviour
     /// Can be used by other buttons to ensure popup is closed.
     /// </summary>
     public void AbortNewGame()
+    {
+        // Click UI SFX
+        AudioManager.Instance.PlayClickUI();
+
+        _newGameConfirmation.SetActive(false);
+    }
+
+    public void AbortQuiet()
     {
         _newGameConfirmation.SetActive(false);
     }
