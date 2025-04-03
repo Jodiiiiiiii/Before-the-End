@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Handles initialization of help book cards to determine which cards show in any given scene.
@@ -47,4 +48,15 @@ public class HelpBookInitializer : MonoBehaviour
                 _helpPanels[i].SetActive(false);
         }
     }
+
+    #region SFX
+    /// <summary>
+    /// Plays SFX sound related to the slider usage
+    /// </summary>
+    public void SliderSound()
+    {
+        if (!Mouse.current.leftButton.isPressed)
+            AudioManager.Instance.PlayChangeSliderUI();
+    }
+    #endregion
 }
