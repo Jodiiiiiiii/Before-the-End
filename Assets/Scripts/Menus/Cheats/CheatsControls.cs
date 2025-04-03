@@ -21,6 +21,9 @@ public class CheatsControls : MonoBehaviour
     /// </summary>
     public void UnlockAllLevels()
     {
+        // cheats now unlock second timeline
+        GameManager.Instance.SaveData.isSecondTimelineUnlock = true;
+
         UnlockLevels?.Invoke();
 
         StartCoroutine(ReloadAfterDelay());
