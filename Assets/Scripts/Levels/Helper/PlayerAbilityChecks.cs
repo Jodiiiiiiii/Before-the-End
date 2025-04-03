@@ -163,6 +163,9 @@ public static class PlayerAbilityChecks
 
                     // extinguish fire
                     adjacentObj.ObjData.IsDisabled = true;
+
+                    // extignuish fire SFX
+                    AudioManager.Instance.PlayFireExtinguish();
                 }
                 else if (adjacentObj.ObjData.ObjType == ObjectType.Log)
                 {
