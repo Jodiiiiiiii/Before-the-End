@@ -50,11 +50,26 @@ public class AudioManager : MonoBehaviour
     private AudioClip _startMusic;
 
     private AudioClip _plainsAmbient;
+    private AudioClip _mountainsAmbient;
+    private AudioClip _forestAmbient;
+    private AudioClip _swampAmbient;
+    private AudioClip _lakeAmbient;
+    private AudioClip _valleyAmbient;
+    private AudioClip _beachAmbient;
+    private AudioClip _fireAmbient;
 
     private void LoadMusic()
     {
         _startMusic = Resources.Load<AudioClip>("Music/StartTrack");
+
         _plainsAmbient = Resources.Load<AudioClip>("Music/PlainsAmbient");
+        _mountainsAmbient = Resources.Load<AudioClip>("Music/MountainAmbient");
+        _forestAmbient = Resources.Load<AudioClip>("Music/ForestAmbient");
+        _swampAmbient = Resources.Load<AudioClip>("Music/SwampAmbient");
+        _lakeAmbient = Resources.Load<AudioClip>("Music/LakeAmbient");
+        _valleyAmbient = Resources.Load<AudioClip>("Music/ValleyAmbient");
+        _beachAmbient = Resources.Load<AudioClip>("Music/BeachAmbient");
+        _fireAmbient = Resources.Load<AudioClip>("Music/FireAmbient");
     }
 
     /// <summary>
@@ -74,6 +89,41 @@ public class AudioManager : MonoBehaviour
     public void QueuePlainsAmbient()
     {
         QueueTrack(_plainsAmbient);
+    }
+
+    public void QueueMountainsAmbient()
+    {
+        QueueTrack(_mountainsAmbient);
+    }
+
+    public void QueueForestAmbient()
+    {
+        QueueTrack(_forestAmbient);
+    }
+
+    public void QueueSwampAmbient()
+    {
+        QueueTrack(_swampAmbient);
+    }
+
+    public void QueueLakeAmbient()
+    {
+        QueueTrack(_lakeAmbient);
+    }
+
+    public void QueueValleyAmbient()
+    {
+        QueueTrack(_valleyAmbient);
+    }
+
+    public void QueueBeachAmbient()
+    {
+        QueueTrack(_beachAmbient);
+    }
+
+    public void QueueFireAmbient()
+    {
+        QueueTrack(_fireAmbient);
     }
 
     private const float VOLUME_CHANGE_RATE = 1.25f;  // rate at which volume fades & increases back when switching track

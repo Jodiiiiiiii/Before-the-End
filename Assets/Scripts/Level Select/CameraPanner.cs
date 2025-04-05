@@ -88,6 +88,23 @@ public class CameraPanner : MonoBehaviour
         if (snapInstant)
             _mover.SnapToGoal();
 
-        AudioManager.Instance.QueuePlainsAmbient();
+        // Handle queueing ambient audio per-zone
+        if (_currZoneX == 0 && _currZoneY == 0)
+            AudioManager.Instance.QueuePlainsAmbient();
+        else if ((_currZoneX == 0 || _currZoneX == -1) && _currZoneY == 1)
+            AudioManager.Instance.QueueMountainsAmbient();
+        else if ((_currZoneX == 0 || _currZoneX == -1) && _currZoneY == -1)
+            AudioManager.Instance.QueueSwampAmbient();
+        else if (_currZoneX == -1 && _currZoneY == 0)
+            AudioManager.Instance.QueueLakeAmbient();
+        else if (_currZoneX == 1 && _currZoneY == 1)
+            AudioManager.Instance.QueueValleyAmbient();
+        else if (_currZoneX == 1 && _currZoneY == 0)
+            AudioManager.Instance.QueueForestAmbient();
+        else if (_currZoneX == 1 && _currZoneY == -1)
+            AudioManager.Instance.QueueBeachAmbient();
+        else if (_currZoneX == 2 || _currZoneX == 3)
+            AudioManager.Instance.QueueFireAmbient();
+
     }
 }
