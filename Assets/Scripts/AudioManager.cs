@@ -25,12 +25,16 @@ public class AudioManager : MonoBehaviour
                 newManager.AddComponent<AudioManager>();
                 _instance = newManager.GetComponent<AudioManager>();
 
-                // add audio source
-                newManager.AddComponent<AudioSource>();
-                _instance._source = newManager.GetComponent<AudioSource>();
+                // add audio source - Music
+                _instance._musicSource = newManager.AddComponent<AudioSource>();
+                _instance._musicSource.volume = GameManager.Instance.GetMusicVolume();
+                _instance._musicSource.loop = true;
+                // add audio source - SFX
+                _instance._sfxSource = newManager.AddComponent<AudioSource>();
 
+                // load music files
+                _instance.LoadMusic();
                 // ensure all audio files are loaded from resources
-                _instance.LoadAudioUI();
                 _instance.LoadAudioLevelSelect();
                 _instance.LoadAudioLevels();
             }
@@ -39,15 +43,73 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private AudioSource _source;
+    private AudioSource _musicSource;
+    private AudioSource _sfxSource;
 
-    #region User Interface
-    /// <summary>
-    /// Loads all UI audio files directly from resources.
-    /// </summary>
-    private void LoadAudioUI()
+    #region Music
+    private AudioClip _startMusic;
+
+    private AudioClip _plainsAmbient;
+
+    private void LoadMusic()
     {
+        _startMusic = Resources.Load<AudioClip>("Music/StartTrack");
+        _plainsAmbient = Resources.Load<AudioClip>("Music/PlainsAmbient");
+    }
 
+    /// <summary>
+    /// Queues new track, but does NOTHING if that track is already playing
+    /// </summary>
+    private void QueueTrack(AudioClip track)
+    {
+        if (_currTrack != track)
+            _queueTrack = track;
+    }
+
+    public void QueueStartMusic()
+    {
+        QueueTrack(_startMusic);
+    }
+
+    public void QueuePlainsAmbient()
+    {
+        QueueTrack(_plainsAmbient);
+    }
+
+    private const float VOLUME_CHANGE_RATE = 1.25f;  // rate at which volume fades & increases back when switching track
+
+    // for queuing track change and managing current music / ambient track
+    private AudioClip _queueTrack = null;
+    private AudioClip _currTrack = null;
+
+    private void Update()
+    {
+        // transition out to new queued track
+        if (_queueTrack is not null)
+        {
+            // slowly decrement volume down
+            _musicSource.volume -= VOLUME_CHANGE_RATE * Time.deltaTime;
+
+            if (_musicSource.volume <= 0)
+            {
+                // switch track
+                _musicSource.volume = 0;
+                _musicSource.clip = _queueTrack;
+                _musicSource.Play(); // start playing new looping track
+
+                // clear queue
+                _currTrack = _queueTrack;
+                _queueTrack = null;
+            }
+        }
+        // standard track looping behavior
+        else
+        {
+            // ensure at full volume
+            _musicSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
+            if (_musicSource.volume > GameManager.Instance.GetMusicVolume())
+                _musicSource.volume = GameManager.Instance.GetMusicVolume();
+        }
     }
     #endregion
 
@@ -80,27 +142,27 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMove()
     {
-        _source.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_levelSelectSteps[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayLevelEnter()
     {
-        _source.PlayOneShot(_levelEnter, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_levelEnter, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayLevelExit()
     {
-        _source.PlayOneShot(_levelExit, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_levelExit, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayClickUI()
     {
-        _source.PlayOneShot(_clickUI, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_clickUI, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayChangeSliderUI()
     {
-        _source.PlayOneShot(_changeSliderUI, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_changeSliderUI, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
@@ -181,117 +243,117 @@ public class AudioManager : MonoBehaviour
 
     public void PlayPushPanel()
     {
-        _source.PlayOneShot(_panelPush[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_panelPush[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayPushLog()
     {
-        _source.PlayOneShot(_logPush[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_logPush[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
     }
 
     public void PlaySwap()
     {
-        _source.PlayOneShot(_swapDino[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_swapDino[Random.Range(0, 3)], GameManager.Instance.GetSfxVolume());
     }
 
     public void PlaySwim()
     {
-        _source.PlayOneShot(_swim[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_swim[Random.Range(0, 4)], GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayMoveFail()
     {
-        _source.PlayOneShot(_moveFail, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_moveFail, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayRewind()
     {
-        _source.PlayOneShot(_rewind, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_rewind, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayObjectSplash()
     {
-        _source.PlayOneShot(_objSplash, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_objSplash, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayObjectSink()
     {
-        _source.PlayOneShot(_objSink, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_objSink, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayFireIgnite()
     {
-        _source.PlayOneShot(_fireIgnite, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_fireIgnite, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayFireSpread()
     {
-        _source.PlayOneShot(_fireSpread, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_fireSpread, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayFireExtinguish()
     {
-        _source.PlayOneShot(_fireExtinguish, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_fireExtinguish, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayLevelComplete()
     {
-        _source.PlayOneShot(_levelComplete, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_levelComplete, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayAbilityFail()
     {
-        _source.PlayOneShot(_abilityFail, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_abilityFail, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayStegoAbility()
     {
-        _source.PlayOneShot(_stegoAbility, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_stegoAbility, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayAnkyAbility()
     {
-        _source.PlayOneShot(_ankyAbility, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_ankyAbility, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayTrikeCrush()
     {
-        _source.PlayOneShot(_trikeCrush, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_trikeCrush, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayTrikePush()
     {
-        _source.PlayOneShot(_trikePush, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_trikePush, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlaySpinoEnter()
     {
-        _source.PlayOneShot(_spinoEnter, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_spinoEnter, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlaySpinoExit()
     {
-        _source.PlayOneShot(_spinoExit, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_spinoExit, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayPteraAbility()
     {
-        _source.PlayOneShot(_pteraAbility, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_pteraAbility, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayPyroAbility()
     {
-        _source.PlayOneShot(_pyroAbility, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_pyroAbility, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayCompyAbility()
     {
-        _source.PlayOneShot(_compyAbility, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_compyAbility, GameManager.Instance.GetSfxVolume());
     }
 
     public void PlayCompySwap()
     {
-        _source.PlayOneShot(_compySwap, GameManager.Instance.GetSfxVolume());
+        _sfxSource.PlayOneShot(_compySwap, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 

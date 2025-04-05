@@ -38,6 +38,9 @@ public class MainMenuHandler : MonoBehaviour
         {
             _resumeButton.SetActive(false);
         }
+
+        // start menu music
+        AudioManager.Instance.QueueStartMusic();
     }
 
     #region Main Menu Buttons

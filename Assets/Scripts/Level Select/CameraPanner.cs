@@ -87,5 +87,7 @@ public class CameraPanner : MonoBehaviour
         // snap if applicable
         if (snapInstant)
             _mover.SnapToGoal();
+
+        AudioManager.Instance.QueuePlainsAmbient();
     }
 }
