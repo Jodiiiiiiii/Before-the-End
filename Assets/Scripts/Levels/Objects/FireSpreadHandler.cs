@@ -14,6 +14,14 @@ public class FireSpreadHandler : MonoBehaviour
     private static List<(QuantumState, int)> _fireBushes = new();
     private static List<QuantumState> _addQueue = new();
 
+    public static void ResetBushLists()
+    {
+        // ensure lists properly cleared upon entering new level - called from UndoFireSpreadHandler
+        // otherwise there are cases where referencing an object from a previous sceenc an cause a crash.
+        _fireBushes = new();
+        _addQueue = new();
+    }
+
     /// <summary>
     /// Iterates through all flaming bushes, spreading fire, and then destroying them
     /// </summary>

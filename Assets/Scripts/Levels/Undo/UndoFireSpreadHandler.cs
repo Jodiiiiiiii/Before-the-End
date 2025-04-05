@@ -7,6 +7,13 @@ using UnityEngine;
 /// </summary>
 public class UndoFireSpreadHandler : UndoHandler
 {
+    private void Awake()
+    {
+        // ensure lists properly cleared upon entering new level
+        // otherwise there are cases where referencing an object from a previous sceenc an cause a crash.
+        FireSpreadHandler.ResetBushLists();
+    }
+
     // local frame, list of fire bushes
     private Stack<(int, (QuantumState, int)[])> _undoStack = new Stack<(int, (QuantumState, int)[])>();
 
