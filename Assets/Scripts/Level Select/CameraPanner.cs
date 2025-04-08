@@ -37,6 +37,9 @@ public class CameraPanner : MonoBehaviour
 
         // snap camera to player's starting zone at start
         UpdateCameraPos(true);
+
+        // ensure level ambient fire is never playing in level select
+        AudioManager.Instance.DisableAmbientLevelFire();
     }
 
     // Update is called once per frame

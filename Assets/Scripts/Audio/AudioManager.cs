@@ -31,6 +31,8 @@ public class AudioManager : MonoBehaviour
                 _instance._musicSource.loop = true;
                 // add audio source - SFX
                 _instance._sfxSource = newManager.AddComponent<AudioSource>();
+                // add audio source - ambient level fire
+                _instance._levelFireSource = newManager.AddComponent<AudioSource>();
 
                 // load music files
                 _instance.LoadMusic();
@@ -45,6 +47,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource _musicSource;
     private AudioSource _sfxSource;
+    private AudioSource _levelFireSource;
 
     #region Music
     private AudioClip _startMusic;
@@ -76,6 +79,9 @@ public class AudioManager : MonoBehaviour
         _valleyAmbient = Resources.Load<AudioClip>("Music/ValleyAmbient");
         _beachAmbient = Resources.Load<AudioClip>("Music/BeachAmbient");
         _fireAmbient = Resources.Load<AudioClip>("Music/FireAmbient");
+
+        // the only clip this audio source plays
+        _levelFireSource.clip = _fireAmbient;
     }
 
     /// <summary>
@@ -148,6 +154,8 @@ public class AudioManager : MonoBehaviour
     private AudioClip _queueTrack = null;
     private AudioClip _currTrack = null;
 
+    private bool _isAmbientFireLevel = false;
+
     private void Update()
     {
         // transition out to new queued track
@@ -176,6 +184,50 @@ public class AudioManager : MonoBehaviour
             if (_musicSource.volume > GameManager.Instance.GetMusicVolume())
                 _musicSource.volume = GameManager.Instance.GetMusicVolume();
         }
+
+        // AMBIENT LEVEL FIRE ------------------------------------
+        // fire level
+        if (_isAmbientFireLevel)
+        {
+            // ensure at full volume (full volume for ambient level fire is HALF the music volume)
+            _levelFireSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
+            if (_levelFireSource.volume > GameManager.Instance.GetMusicVolume() / 2f)
+                _levelFireSource.volume = GameManager.Instance.GetMusicVolume() / 2f;
+        }
+        // not fire level
+        else
+        {
+            // decrease to no volume, then stop
+            if (_levelFireSource.volume > 0)    // only handles decrease logic if it has not yet been set to 0
+            {
+                _levelFireSource.volume -= VOLUME_CHANGE_RATE * Time.deltaTime;
+                if (_levelFireSource.volume <= 0)
+                {
+                    _levelFireSource.volume = 0f;
+                    _levelFireSource.Stop();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// activates audio source for level ambient fire
+    /// </summary>
+    public void EnableAmbientLevelFire()
+    {
+        _isAmbientFireLevel = true;
+
+        // starts playing ambient - most likely at 0 volume
+        if (!_levelFireSource.isPlaying)            // ensure clip is not restarted if already playing
+            _levelFireSource.Play();
+    }
+
+    /// <summary>
+    /// de-activates audio source for level ambient fire
+    /// </summary>
+    public void DisableAmbientLevelFire()
+    {
+        _isAmbientFireLevel = false;
     }
     #endregion
 
