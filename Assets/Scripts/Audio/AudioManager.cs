@@ -180,20 +180,53 @@ public class AudioManager : MonoBehaviour
         // standard track looping behavior
         else
         {
-            // ensure at full volume
-            _musicSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
-            if (_musicSource.volume > GameManager.Instance.GetMusicVolume())
-                _musicSource.volume = GameManager.Instance.GetMusicVolume();
+            // move towards 25% configured volume during pause
+            if (GameManager.Instance.IsPaused)
+            {
+                if (_musicSource.volume > GameManager.Instance.GetMusicVolume() / 4f)
+                {
+                    _musicSource.volume -= VOLUME_CHANGE_RATE * Time.deltaTime;
+                    if (_musicSource.volume < GameManager.Instance.GetMusicVolume() / 4f)
+                        _musicSource.volume = GameManager.Instance.GetMusicVolume() / 4f;
+                }
+                // increasing to 25% should only occur on instant pause upon loading new track
+                else
+                {
+                    _musicSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
+                    if (_musicSource.volume > GameManager.Instance.GetMusicVolume() / 4f)
+                        _musicSource.volume = GameManager.Instance.GetMusicVolume() / 4f;
+                }
+            }
+            // ensure at full configuredvolume when NOT paused
+            else
+            {
+                // ensure at full volume
+                _musicSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
+                if (_musicSource.volume > GameManager.Instance.GetMusicVolume())
+                    _musicSource.volume = GameManager.Instance.GetMusicVolume();
+            }
         }
 
         // AMBIENT LEVEL FIRE ------------------------------------
         // fire level
         if (_isAmbientFireLevel)
         {
-            // ensure at full volume (full volume for ambient level fire is HALF the music volume)
-            _levelFireSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
-            if (_levelFireSource.volume > GameManager.Instance.GetMusicVolume() / 2f)
-                _levelFireSource.volume = GameManager.Instance.GetMusicVolume() / 2f;
+            // fade out ambient level fire when paused
+            if (GameManager.Instance.IsPaused)
+            {
+                // ensure at full volume (full volume for ambient level fire is HALF the music volume)
+                _levelFireSource.volume -= VOLUME_CHANGE_RATE * Time.deltaTime;
+                if (_levelFireSource.volume <= 0f)
+                    _levelFireSource.volume = 0f;
+            }
+            // standard behavior
+            else
+            {
+                // ensure at full volume (full volume for ambient level fire is HALF the music volume)
+                _levelFireSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
+                if (_levelFireSource.volume > GameManager.Instance.GetMusicVolume() / 2f)
+                    _levelFireSource.volume = GameManager.Instance.GetMusicVolume() / 2f;
+            }
         }
         // not fire level
         else
