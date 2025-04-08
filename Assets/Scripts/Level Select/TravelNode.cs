@@ -310,7 +310,7 @@ public class TravelNode : MonoBehaviour
         else
             throw new System.Exception("Can Only use TravelNode.cs in level select scenes");
 
-        if (!GameManager.Instance.SaveData.LevelsComplete.Contains(timelineNum + LevelIdentifiers[0]))
+        if (!GameManager.Instance.SaveData.LevelsComplete.Contains(timelineNum + LevelIdentifiers[0]) && LevelIdentifiers[0] != "Timeline")
             GameManager.Instance.SaveData.LevelsComplete.Add(timelineNum + LevelIdentifiers[0]);
 
         /*string[] helpStrings = GetHelpStrings();
