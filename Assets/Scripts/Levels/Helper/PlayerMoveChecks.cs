@@ -552,6 +552,9 @@ public static class PlayerMoveChecks
         // move player
         objMover.Increment(moveDir);
 
+        // Move VFX - at player new position
+        MoveVFXManager.PlayMoveVfx(objMover.GetGlobalGridPos());
+
         // compy pair position update
         playerControls.SnapInactiveCompyToPlayer();
 
@@ -576,6 +579,9 @@ public static class PlayerMoveChecks
             // play log sink SFX
             AudioManager.Instance.PlayObjectSink();
         }
+
+        // Move VFX - at player new position
+        MoveVFXManager.PlayMoveVfx(mover.GetGlobalGridPos());
 
         // move player to panel of the other tunnel (reassign to new parent transform)
         if(newParent is not null)

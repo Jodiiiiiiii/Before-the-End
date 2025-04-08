@@ -6947,6 +6947,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4461863178603488737, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5174239036298729176, guid: 17bd45ad8bf4eec4d912870b34578fc9, type: 3}
       propertyPath: m_Name
       value: Main Panel

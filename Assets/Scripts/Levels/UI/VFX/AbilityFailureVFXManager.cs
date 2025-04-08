@@ -12,6 +12,7 @@ public class AbilityFailureVFXManager : MonoBehaviour
 
     private static Vector2Int _queuedPos = new Vector2Int(NULL_X, NULL_Y);
 
+    [Header("Ability Failure")]
     [SerializeField, Tooltip("Used to position the VFX image.")]
     private GameObject _vfxPositioner;
     [SerializeField, Tooltip("Used to play VFX flash animation.")]

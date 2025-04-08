@@ -3543,8 +3543,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5352898952424232784}
   - component: {fileID: 4480451713015622211}
+  - component: {fileID: 8147257884939156853}
   m_Layer: 0
-  m_Name: Ability Failure VFX Manager
+  m_Name: VFX Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3580,3 +3581,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vfxPositioner: {fileID: 3699247209302669457}
   _anim: {fileID: 830745349567899109}
+--- !u!114 &8147257884939156853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015430544493410390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28dad3122b936cf4998d88117b3eeadc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveVfxPrefab: {fileID: 6606138741183262721, guid: 0383f386bc8b03040909240bc53822e8, type: 3}
