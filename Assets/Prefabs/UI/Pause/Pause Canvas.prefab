@@ -1579,7 +1579,7 @@ GameObject:
   - component: {fileID: 2992229579010706542}
   - component: {fileID: 520731567616133327}
   - component: {fileID: 1354264928750048268}
-  - component: {fileID: 6778877834379252612}
+  - component: {fileID: 3071551900818074124}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6778877834379252612
+--- !u!114 &3071551900818074124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1656,24 +1656,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 543500936549320477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 96b2560aa5945024ab4a3f2be84f228e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 82191736373824374}
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 2
-  m_Elasticity: 0.05
-  m_Inertia: 1
+  m_Elasticity: 0.1
+  m_Inertia: 0
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 0.1
   m_Viewport: {fileID: 4467209193542135519}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 2882878542714788076}
-  m_HorizontalScrollbarVisibility: 1
+  m_HorizontalScrollbarVisibility: 0
   m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -3
-  m_VerticalScrollbarSpacing: -3
+  m_HorizontalScrollbarSpacing: 0
+  m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10953,7 +10953,7 @@ MonoBehaviour:
   - Pyro
   - Ptera
   - Compy
-  _scroll: {fileID: 6778877834379252612}
+  _scroll: {fileID: 3071551900818074124}
 --- !u!1 &3132833693859926519
 GameObject:
   m_ObjectHideFlags: 0
