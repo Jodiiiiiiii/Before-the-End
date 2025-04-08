@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         
         // Read save data from PlayerPrefs (or assign default values)
         MasterVolume = PlayerPrefs.GetInt("masterVolume", 80);
-        MusicVolume = PlayerPrefs.GetInt("musicVolume", 100);
+        MusicVolume = PlayerPrefs.GetInt("musicVolume", 80);
         SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
 
         // Read progression data
