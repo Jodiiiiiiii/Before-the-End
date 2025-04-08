@@ -33,6 +33,7 @@ public class AudioManager : MonoBehaviour
                 _instance._sfxSource = newManager.AddComponent<AudioSource>();
                 // add audio source - ambient level fire
                 _instance._levelFireSource = newManager.AddComponent<AudioSource>();
+                _instance._levelFireSource.loop = true;
 
                 // load music files
                 _instance.LoadMusic();
