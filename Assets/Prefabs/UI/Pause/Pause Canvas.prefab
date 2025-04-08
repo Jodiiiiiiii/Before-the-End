@@ -34825,7 +34825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6636924009141825086, guid: b0bb903e2b9ef354bb52eb29771ebc46, type: 3}
       propertyPath: m_text
-      value: Music Volume
+      value: Music / Ambient Volume
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
