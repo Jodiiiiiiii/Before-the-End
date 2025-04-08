@@ -580,15 +580,15 @@ public static class PlayerMoveChecks
             AudioManager.Instance.PlayObjectSink();
         }
 
-        // Move VFX - at player new position
-        MoveVFXManager.PlayMoveVfx(mover.GetGlobalGridPos(), playerControls);
-
         // move player to panel of the other tunnel (reassign to new parent transform)
         if(newParent is not null)
             mover.transform.parent = newParent;
 
         // move player to position beneath other tunnel
         mover.SetGlobalGoal(movePos.x, movePos.y);
+
+        // Move VFX - at player new position
+        MoveVFXManager.PlayMoveVfx(mover.GetGlobalGridPos(), playerControls);
 
         // compy pair position update
         playerControls.SnapInactiveCompyToPlayer();
