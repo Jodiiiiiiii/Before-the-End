@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Allows for static calls for all sound play calls
@@ -181,7 +182,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             // move towards 25% configured volume during pause
-            if (GameManager.Instance.IsPaused)
+            if (GameManager.Instance.IsPaused && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 if (_musicSource.volume > GameManager.Instance.GetMusicVolume() / 4f)
                 {
@@ -212,7 +213,7 @@ public class AudioManager : MonoBehaviour
         if (_isAmbientFireLevel)
         {
             // fade out ambient level fire when paused
-            if (GameManager.Instance.IsPaused)
+            if (GameManager.Instance.IsPaused && SceneManager.GetActiveScene().name != "MainMenu")
             {
                 // ensure at full volume (full volume for ambient level fire is HALF the music volume)
                 _levelFireSource.volume -= VOLUME_CHANGE_RATE * Time.deltaTime;
