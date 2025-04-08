@@ -18,6 +18,12 @@ public class AbilityFailureVFXManager : MonoBehaviour
     [SerializeField, Tooltip("Used to play VFX flash animation.")]
     private Animator _anim;
 
+    private void Start()
+    {
+        // reset appropriately upon entering new level
+        _queuedPos = new Vector2Int(NULL_X, NULL_Y);
+    }
+
     // Update is called once per frame
     void Update()
     {

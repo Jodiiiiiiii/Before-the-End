@@ -14,10 +14,22 @@ public class MoveVFXManager : MonoBehaviour
     private static Vector2Int _queuedPos = new Vector2Int(NULL_X, NULL_Y);
     private static Transform _spawnParent = null;
     private static int _spawnOrder = NULL_X;
+    private static bool _isInWater = false;
+
+    private void Start()
+    {
+        // reset all values appropriately upon entering new level
+        _queuedPos = new Vector2Int(NULL_X, NULL_Y);
+        _spawnParent = null;
+        _spawnOrder = NULL_X;
+        _isInWater = false;
+    }
 
     [Header("Move VFX")]
     [SerializeField, Tooltip("Prefab containing VFX for move action.")]
     private GameObject _moveVfxPrefab;
+    [SerializeField, Tooltip("Alternate sprite for particle to be used for swimming move actions")]
+    private Sprite _waterMoveSprite;
 
     // Update is called once per frame
     void Update()
@@ -29,6 +41,9 @@ public class MoveVFXManager : MonoBehaviour
             // spawn as a child of the same panel the player is in
             GameObject newVFX = Instantiate(_moveVfxPrefab, new Vector3(_queuedPos.x, _queuedPos.y, 0), _moveVfxPrefab.transform.rotation, _spawnParent);
             newVFX.GetComponent<Renderer>().sortingOrder = _spawnOrder;
+            // water particle adjustment
+            if (_isInWater)
+                newVFX.GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, _waterMoveSprite);
 
             // reset queued position
             _queuedPos = new Vector2Int(NULL_X, NULL_Y);
@@ -48,5 +63,8 @@ public class MoveVFXManager : MonoBehaviour
         _spawnParent = player.transform.parent.parent;
 
         _spawnOrder = player.transform.parent.GetComponent<SortingGroup>().sortingOrder - 1;
+
+        // update whether we should be using the 'water' particle'
+        _isInWater = player.IsSwimming;
     }
 }

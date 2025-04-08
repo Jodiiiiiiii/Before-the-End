@@ -3594,3 +3594,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveVfxPrefab: {fileID: 6606138741183262721, guid: 0383f386bc8b03040909240bc53822e8, type: 3}
+  _waterMoveSprite: {fileID: -357081879, guid: e5500e7439cf39b4ebd7807c4973f784, type: 3}
