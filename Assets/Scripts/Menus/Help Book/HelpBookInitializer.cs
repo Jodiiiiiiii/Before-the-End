@@ -27,7 +27,7 @@ public class HelpBookInitializer : MonoBehaviour
         // ensures all elements have populated the help book before trying to center to top (on scene start)
         IEnumerator DoScrollToTopAfterDelay()
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForEndOfFrame();
 
             _scroll.verticalNormalizedPosition = 1;
         }
