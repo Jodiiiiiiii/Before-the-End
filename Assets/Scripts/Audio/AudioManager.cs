@@ -95,6 +95,13 @@ public class AudioManager : MonoBehaviour
             _queueTrack = track;
     }
 
+    public void UnqueueMusic()
+    {
+        // stop music and clear queue
+        _currTrack = null;
+        _queueTrack = null;
+    }
+
     public void QueueStartMusic()
     {
         QueueTrack(_startMusic);
@@ -179,7 +186,7 @@ public class AudioManager : MonoBehaviour
             }
         }
         // standard track looping behavior
-        else
+        else if (_currTrack is not null)
         {
             // move towards 25% configured volume during pause
             if (GameManager.Instance.IsPaused && SceneManager.GetActiveScene().name != "MainMenu")
@@ -205,6 +212,21 @@ public class AudioManager : MonoBehaviour
                 _musicSource.volume += VOLUME_CHANGE_RATE * Time.deltaTime;
                 if (_musicSource.volume > GameManager.Instance.GetMusicVolume())
                     _musicSource.volume = GameManager.Instance.GetMusicVolume();
+            }
+        }
+        // no track to play - or music was stopped
+        else
+        {
+            if (_musicSource.volume > 0)
+            {
+                // decrease volume to zero
+                _musicSource.volume -= VOLUME_CHANGE_RATE * Time.deltaTime;
+                if (_musicSource.volume < 0f)
+                {
+                    _musicSource.volume = 0f;
+                    // also stop track since it has finished fading out
+                    _musicSource.Stop();
+                }
             }
         }
 
@@ -266,7 +288,7 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
-    #region Level Select
+    #region Misc. (Level Select, UI, Cutscenes)
     private AudioClip[] _levelSelectSteps;
 
     private AudioClip _levelEnter;
@@ -274,6 +296,11 @@ public class AudioManager : MonoBehaviour
 
     private AudioClip _clickUI;
     private AudioClip _changeSliderUI;
+
+    private AudioClip _visionStart;
+    private AudioClip _rumble;
+    private AudioClip _asteroid;
+    private AudioClip _breeze;
 
     /// <summary>
     /// Loads all level select audio files directly from resources.
@@ -291,6 +318,11 @@ public class AudioManager : MonoBehaviour
 
         _clickUI = Resources.Load<AudioClip>("SFX/ClickUI");
         _changeSliderUI = Resources.Load<AudioClip>("SFX/ChangeSliderUI");
+
+        _visionStart = Resources.Load<AudioClip>("Cutscene/Vision");
+        _rumble = Resources.Load<AudioClip>("Cutscene/Rumble");
+        _asteroid = Resources.Load<AudioClip>("Cutscene/Asteroid");
+        _breeze = Resources.Load<AudioClip>("Cutscene/Breeze");
     }
 
     public void PlayMove()
@@ -318,6 +350,26 @@ public class AudioManager : MonoBehaviour
         // avoid rapid clicking of slider UI
         if (!_sfxSource.isPlaying)
             _sfxSource.PlayOneShot(_changeSliderUI, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayVisionStart()
+    {
+        _sfxSource.PlayOneShot(_visionStart, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayRumble()
+    {
+        _sfxSource.PlayOneShot(_rumble, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayAsteroidImpact()
+    {
+        _sfxSource.PlayOneShot(_asteroid, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayBreeze()
+    {
+        _sfxSource.PlayOneShot(_breeze, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
