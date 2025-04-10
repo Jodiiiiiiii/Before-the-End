@@ -27,6 +27,9 @@ public class FireSpreadHandler : MonoBehaviour
     /// </summary>
     public static void UpdateFireTick()
     {
+        // to ensure fire bush spread audio only plays once
+        bool hasPlayedSound = false;
+
         // update for each stored fire bush
         for (int i = _fireBushes.Count - 1; i >=0; i--)
         {
@@ -75,7 +78,11 @@ public class FireSpreadHandler : MonoBehaviour
                         _fireBushes.Add((check, 0));
 
                         // play fire spread - bush has been lit BY ANOTHER BUSH (more subtle sound)
-                        AudioManager.Instance.PlayFireSpread();
+                        if (!hasPlayedSound)
+                        {
+                            AudioManager.Instance.PlayFireSpread();
+                            hasPlayedSound = true;
+                        }
                     }
                 }
             }
