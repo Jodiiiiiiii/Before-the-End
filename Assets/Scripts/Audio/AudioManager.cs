@@ -315,7 +315,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlayChangeSliderUI()
     {
-        _sfxSource.PlayOneShot(_changeSliderUI, GameManager.Instance.GetSfxVolume());
+        // avoid rapid clicking of slider UI
+        if (!_sfxSource.isPlaying)
+            _sfxSource.PlayOneShot(_changeSliderUI, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
