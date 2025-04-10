@@ -451,6 +451,12 @@ public class AudioManager : MonoBehaviour
         _sfxSource.PlayOneShot(_fireExtinguish, GameManager.Instance.GetSfxVolume());
     }
 
+    public void PlayBushBurn()
+    {
+        // bush burn should be quieter than extinguish used with rock push
+        _sfxSource.PlayOneShot(_fireExtinguish, GameManager.Instance.GetSfxVolume() / 2f);
+    }
+
     public void PlayLevelComplete()
     {
         _sfxSource.PlayOneShot(_levelComplete, GameManager.Instance.GetSfxVolume());
