@@ -205,6 +205,16 @@ public class PauseCanvas : MonoBehaviour
     }
 
     /// <summary>
+    /// Swaps to Controls options tab WITHOUT ever triggering sound.
+    /// Useful in Start Menu
+    /// </summary>
+    public void ToControlsQuiet()
+    {
+        _controlsMenu.SetActive(true);
+        _audioMenu.SetActive(false);
+    }
+
+    /// <summary>
     /// Shows audio settings and hides all other options.
     /// </summary>
     public void ToAudio()
