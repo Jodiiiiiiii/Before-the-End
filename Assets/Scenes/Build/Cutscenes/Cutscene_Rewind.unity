@@ -12034,6 +12034,7 @@ GameObject:
   - component: {fileID: 1699509924}
   - component: {fileID: 1699509925}
   - component: {fileID: 1699509926}
+  - component: {fileID: 1699509927}
   m_Layer: 0
   m_Name: Animated Cutscene
   m_TagString: Untagged
@@ -12100,6 +12101,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelSelectName: LevelSelect
   _transitionHandler: {fileID: 675960486}
+--- !u!114 &1699509927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699509923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7258da7919b12734abf0ac87f00ed136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anim: {fileID: 1699509925}
 --- !u!1 &1703463870
 GameObject:
   m_ObjectHideFlags: 0

@@ -6722,6 +6722,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 39
+    functionName: PlayCutscenePauseAudio
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 40.333332
     functionName: RemoveFire
     data: 
@@ -6730,7 +6737,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 40.5
-    functionName: PlayAsteroidImpact
+    functionName: PauseCutscene
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -301,6 +301,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip _rumble;
     private AudioClip _asteroid;
     private AudioClip _breeze;
+    private AudioClip _cutscenePause;
 
     /// <summary>
     /// Loads all level select audio files directly from resources.
@@ -323,6 +324,7 @@ public class AudioManager : MonoBehaviour
         _rumble = Resources.Load<AudioClip>("Cutscene/Rumble");
         _asteroid = Resources.Load<AudioClip>("Cutscene/Asteroid");
         _breeze = Resources.Load<AudioClip>("Cutscene/Breeze");
+        _cutscenePause = Resources.Load<AudioClip>("Cutscene/RewindPause");
     }
 
     public void PlayMove()
@@ -370,6 +372,11 @@ public class AudioManager : MonoBehaviour
     public void PlayBreeze()
     {
         _sfxSource.PlayOneShot(_breeze, GameManager.Instance.GetSfxVolume());
+    }
+
+    public void PlayCutscenePause()
+    {
+        _sfxSource.PlayOneShot(_cutscenePause, GameManager.Instance.GetSfxVolume());
     }
     #endregion
 
