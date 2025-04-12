@@ -11578,7 +11578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: But with foreboding of the ending, and an urge to reject,
+  m_text: But with unease towards the ending, and an urge to reject,
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
@@ -11777,7 +11777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 1699509925}
-  _firstUndoDelay: 0.5
+  _firstUndoDelay: 0.3
   _releaseDelay: 0.15
   _undoDelay: 0.15
   _rewindSpeed: 2.5
