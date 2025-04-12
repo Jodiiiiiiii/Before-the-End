@@ -3001,7 +3001,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 74.166664
+    m_StopTime: 73
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -6701,49 +6701,49 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 8.766666
+  - time: 8.483334
     functionName: AddFire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 12
+  - time: 11.716666
     functionName: CutMusic
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 22.166666
+  - time: 21.883333
     functionName: PlayRumble
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 40.5
+  - time: 40.333332
     functionName: RemoveFire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 40.666668
+  - time: 40.5
     functionName: PlayAsteroidImpact
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 47.166668
+  - time: 47
     functionName: PlayBreeze
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 74.166664
+  - time: 73
     functionName: ReturnToLevelSelect
     data: 
     objectReferenceParameter: {fileID: 0}
