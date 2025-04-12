@@ -19,6 +19,17 @@ public class ExitCutscene : MonoBehaviour
         _transitionHandler.LoadScene(_levelSelectName);
     }
 
+    public void RewindCutsceneTransitionOut()
+    {
+        // return to start of second timeline
+        GameManager.Instance.SaveData.CurrLevel = "Tut0";
+        GameManager.Instance.SaveData.isSecondTimeline = true;
+        // unlock free traversal between timelines
+        GameManager.Instance.SaveData.isSecondTimelineUnlock = true;
+
+        ReturnToLevelSelect();
+    }
+
     #region Audio Functions
     public void CutMusic()
     {

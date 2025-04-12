@@ -25,6 +25,13 @@ public class CutsceneRewinder : MonoBehaviour
         _isReady = true;
     }
 
+    public void EndRewindSection()
+    {
+        _isReady = false;
+
+        _anim.speed = 1;
+    }
+
     #region Undo Controls
     private InputActionAsset _actions;
 
@@ -130,9 +137,11 @@ public class CutsceneRewinder : MonoBehaviour
                 return;
 
             // gradually fade OUT of undo state -> return to 0 speed
-            _anim.speed = _anim.speed - (_rewindSpeed * Time.deltaTime / _releaseDelay);
-            if (_anim.speed <= 0)
+            float newSpeed = _anim.speed - (_rewindSpeed * Time.deltaTime / _releaseDelay);
+            if (newSpeed <= 0)
                 _anim.speed = 0;
+            else
+                _anim.speed = newSpeed;
 
             _undoTimer -= Time.deltaTime;
         }
