@@ -9592,6 +9592,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
+      propertyPath: _levelSelectSceneName
+      value: Cutscene_End
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: _dinoCharges.Array.size
       value: 7
       objectReference: {fileID: 0}
