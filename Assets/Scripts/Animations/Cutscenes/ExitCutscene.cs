@@ -27,7 +27,8 @@ public class ExitCutscene : MonoBehaviour
         // unlock free traversal between timelines
         GameManager.Instance.SaveData.isSecondTimelineUnlock = true;
 
-        ReturnToLevelSelect();
+        // load directly to first level of second timeline
+        _transitionHandler.LoadScene("2-Tutorial0");
     }
 
     public void ToCredits()
