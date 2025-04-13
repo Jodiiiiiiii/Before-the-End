@@ -6614,11 +6614,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7036196245980761151, guid: 5a0aa40eea4381941a7c9302e67d72c2, type: 3}
       propertyPath: _isQuantum
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8238731859618938007, guid: 5a0aa40eea4381941a7c9302e67d72c2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
