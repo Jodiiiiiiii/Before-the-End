@@ -11136,7 +11136,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 90
+  - time: 61.416668
+    functionName: PlayBreeze
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 92.416664
     functionName: RewindCutsceneTransitionOut
     data: 
     objectReferenceParameter: {fileID: 0}
