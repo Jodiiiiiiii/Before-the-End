@@ -30,6 +30,12 @@ public class ExitCutscene : MonoBehaviour
         ReturnToLevelSelect();
     }
 
+    public void ToCredits()
+    {
+        // TODO: make it load to credits sequence instead of start menu directly
+        _transitionHandler.LoadScene("MainMenu");
+    }
+
     #region Audio Functions
     public void CutMusic()
     {

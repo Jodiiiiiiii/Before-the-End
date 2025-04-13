@@ -6744,7 +6744,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 73
-    functionName: ReturnToLevelSelect
+    functionName: ToCredits
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
