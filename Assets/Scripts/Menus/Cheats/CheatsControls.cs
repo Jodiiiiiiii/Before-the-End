@@ -25,7 +25,7 @@ public class CheatsControls : MonoBehaviour
         AudioManager.Instance.PlayClickUI();
 
         // cheats now unlock second timeline
-        GameManager.Instance.SaveData.isSecondTimelineUnlock = true;
+        //GameManager.Instance.SaveData.isSecondTimelineUnlock = true;
 
         UnlockLevels?.Invoke();
 
