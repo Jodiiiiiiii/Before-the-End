@@ -30,6 +30,10 @@ public class CutsceneUndoPrompt : MonoBehaviour
 
     private void Update()
     {
+        // necessary since bindings are not able to be read with overrides on start or first frame?
+        // strange bug case but this works
+        _text.text = "Press '" + ReadAction() + "'";
+
         // increase to full opacity
         if (_isShowing && _fader.alpha < 1f)
         {
@@ -48,13 +52,6 @@ public class CutsceneUndoPrompt : MonoBehaviour
     private TextMeshProUGUI _text;
     [SerializeField, Tooltip("Used to read action bindings")]
     private InputActionReference _action;
-
-    private void Start()
-    {
-        // initial text alignment
-        // no need to check in update since controls CANNOT be rebound during cutscene
-        _text.text = "Press '" + ReadAction() + "'";
-    }
 
     /// <summary>
     /// Returns corresponding binding associated with action.
