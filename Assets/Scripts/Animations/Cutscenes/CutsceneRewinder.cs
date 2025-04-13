@@ -60,12 +60,34 @@ public class CutsceneRewinder : MonoBehaviour
     [SerializeField, Tooltip("Speed of rewinding animation. 1 = same speed of initial animation.")]
     private float _rewindSpeed;
 
+    [Header("Undo Prompt")]
+    [SerializeField, Tooltip("Used to fade/unfade undo prompt.")]
+    private CutsceneUndoPrompt _prompt;
+    [SerializeField, Tooltip("Time with no input before popup shows.")]
+    private float _undoPromptDelay;
+
+    private float _popupTimer = 0f;
     private float _undoTimer = 0f;
     private bool _isUndoing = false;
 
     // Update is called once per frame
     void Update()
     {
+        // update whether the prompt should be showing
+        if (_isReady && !_isUndoing)
+        {
+            if (_popupTimer >= _undoPromptDelay)
+                _prompt.EnableUndoPrompt();
+            else
+                _popupTimer += Time.deltaTime;
+        }
+        else
+        {
+            _prompt.DisableUndoPrompt();
+
+            _popupTimer = 0f;
+        }
+
         // Undoing player actions
         HandleHoldingUndo();
     }
