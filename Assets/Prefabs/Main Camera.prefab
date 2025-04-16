@@ -279,7 +279,7 @@ MonoBehaviour:
   listenForWindowChanges: 1
   createCameraForLetterBoxRendering: 1
   findCamerasAutomatically: 1
-  letterBoxCameraColor: {r: 0.13333334, g: 0.10980393, b: 0.10196079, a: 1}
+  letterBoxCameraColor: {r: 0.078431375, g: 0.0627451, b: 0.07450981, a: 1}
   cameras:
   - camera: {fileID: 0}
     anchor: 0
