@@ -33,8 +33,8 @@ public class ExitCutscene : MonoBehaviour
 
     public void ToCredits()
     {
-        // TODO: make it load to credits sequence instead of start menu directly
-        _transitionHandler.LoadScene("MainMenu");
+        // load to end credits
+        _transitionHandler.LoadScene("EndCredits");
     }
 
     #region Audio Functions

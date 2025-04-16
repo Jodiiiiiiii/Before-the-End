@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Author -- \ndjgriffin\\n\nLicense -- \nAttribution NonCommercial 4.0\n\nModifications
-    -- \nNone\n\nAccess -- \nhttps://freesound.org/s/730275/"
+  m_text: "-- Author -- \ndjgriffin\\n\n-- License -- \nAttribution NonCommercial
+    4.0\n\n-- Modifications -- \nNone\n\n-- Access -- \nhttps://freesound.org/s/730275/"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
@@ -2010,7 +2010,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Additional sound effects -- \nAndres Maldonado"
+  m_text: "-- Additional sound effects -- \nAndres Maldonado"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
@@ -2278,8 +2278,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Author -- \nRick Hoppmann\n\nLicense -- \nAttribution 4.0\n\nModifications
-    -- \nNone\n\nAccess -- \nhttps://tinyworlds.itch.io/free-pixel-font-thaleah"
+  m_text: "-- Author -- \nRick Hoppmann\n\n-- License -- \nAttribution 4.0\n\n--
+    Modifications -- \nNone\n\n-- Access -- \nhttps://tinyworlds.itch.io/free-pixel-font-thaleah"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
@@ -3428,8 +3428,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Author -- \nTim Kahn\n\nLicense -- \nAttribution NonCommercial 4.0\n\nModifications
-    -- \nCropped to shorter loop\n\nAccess -- \nhttps://freesound.org/people/tim.kahn/sounds/253770/"
+  m_text: "-- Author -- \nTim Kahn\n\n-- License -- \nAttribution NonCommercial 4.0\n\n--
+    Modifications -- \nCropped to shorter loop\n\n-- Access -- \nhttps://freesound.org/people/tim.kahn/sounds/253770/"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
   m_sharedMaterial: {fileID: -5016192912002786223, guid: 757af98cb92a30144b2ca403890990cc, type: 2}
