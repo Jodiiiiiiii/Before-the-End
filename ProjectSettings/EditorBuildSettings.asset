@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Build/Cutscenes/Cutscene_End.unity
     guid: 7bcf4eaf9f6e5584bbf937b04e2d4b94
   - enabled: 1
+    path: Assets/Scenes/Build/Cutscenes/EndCredits.unity
+    guid: e3c00438e61ce4040af9ae723b04c883
+  - enabled: 1
     path: Assets/Scenes/Build/Levels/Tutorial/1-Tutorial0.unity
     guid: 9a3faada8d587e04eab8d455f751c17b
   - enabled: 1
