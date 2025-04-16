@@ -4976,6 +4976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 266162480}
+  - component: {fileID: 266162482}
   - component: {fileID: 266162479}
   - component: {fileID: 266162478}
   - component: {fileID: 266162477}
@@ -5092,6 +5093,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &266162482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266162476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e5962ac8c7e8b46a14da9a23d681e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transitionHandler: {fileID: 482921932}
+--- !u!114 &482921932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729695920170137320, guid: 59152a8a196c27740815d6328ffa7e9c, type: 3}
+  m_PrefabInstance: {fileID: 741935664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5527501dc1360354795084a2debcea26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &741935664
 PrefabInstance:
   m_ObjectHideFlags: 0

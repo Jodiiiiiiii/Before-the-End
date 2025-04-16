@@ -66,6 +66,8 @@ public class AudioManager : MonoBehaviour
     private AudioClip _beachAmbient;
     private AudioClip _fireAmbient;
 
+    private AudioClip _creditsMusic;
+
     private void LoadMusic()
     {
         _startMusic = Resources.Load<AudioClip>("Music/StartTrack");
@@ -81,6 +83,8 @@ public class AudioManager : MonoBehaviour
         _valleyAmbient = Resources.Load<AudioClip>("Music/ValleyAmbient");
         _beachAmbient = Resources.Load<AudioClip>("Music/BeachAmbient");
         _fireAmbient = Resources.Load<AudioClip>("Music/FireAmbient");
+
+        _creditsMusic = Resources.Load<AudioClip>("Music/CreditsTrack");
 
         // the only clip this audio source plays
         _levelFireSource.clip = _fireAmbient;
@@ -155,6 +159,11 @@ public class AudioManager : MonoBehaviour
     public void QueueFireAmbient()
     {
         QueueTrack(_fireAmbient);
+    }
+
+    public void QueueCreditsMusic()
+    {
+        QueueTrack(_creditsMusic);
     }
 
     private const float VOLUME_CHANGE_RATE = 1.25f;  // rate at which volume fades & increases back when switching track
