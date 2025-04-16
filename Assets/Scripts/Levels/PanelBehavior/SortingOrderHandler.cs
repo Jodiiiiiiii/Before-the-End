@@ -98,7 +98,8 @@ public class SortingOrderHandler : MonoBehaviour
         // update actual sorting orders based on calculated PanelOrders
         // also ensures proper ground/border->lowerObjects->upperObjects layering within each panel
         _groundTilemap.sortingOrder = 3 * PanelOrder;
-        _borderTilemap.sortingOrder = 3 * PanelOrder;
+        // HARD-CODED: main panel has border ordered ABOVE upper objects - to ensure tall objects don't stick out of main panel top
+        _borderTilemap.sortingOrder = PanelOrder == 0 ? 3 : 3 * PanelOrder; 
         _lowerObjectsSortingGroup.sortingOrder = 3 * PanelOrder + 1;
         _upperObjectsSortingGroup.sortingOrder = 3 * PanelOrder + 2;
     }
