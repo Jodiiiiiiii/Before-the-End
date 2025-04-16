@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -134,6 +135,15 @@ public class MainMenuHandler : MonoBehaviour
 
         _creditsContainer.SetActive(false);
         _mainMenuContainer.SetActive(true);
+    }
+
+    /// <summary>
+    /// Plays SFX sound related to the slider usage in credits
+    /// </summary>
+    public void SliderSound()
+    {
+        if (!Mouse.current.leftButton.isPressed)
+            AudioManager.Instance.PlayChangeSliderUI();
     }
     #endregion
 
