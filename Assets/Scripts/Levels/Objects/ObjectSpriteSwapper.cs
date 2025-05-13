@@ -279,4 +279,22 @@ public class ObjectSpriteSwapper : MonoBehaviour
     {
         _requiresFlip = true;
     }
+
+    public void SkipFlip()
+    {
+        // prevent flip from occuring through standard logic
+        _requiresFlip = false;
+        _currObjectData = _objState.ObjData.CopyOf();
+
+        // override update sprite
+        UpdateQueuedSprites();
+        MatchObjectToQueue();
+
+        // ensure canceling of coroutines for smooth flipping
+        StopCoroutine(FlipThenUpdate());
+        _isActiveCoroutine = false;
+
+        // ensure object is max scale
+        _flipper.SetScaleY(1);
+    }
 }

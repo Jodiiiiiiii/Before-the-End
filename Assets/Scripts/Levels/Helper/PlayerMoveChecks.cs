@@ -346,16 +346,16 @@ public static class PlayerMoveChecks
 
                 prevQuantum = currQuantum;
                 prevHasLog = currHasLog;
-
-                // visually flip ALL logs (ignore the first one which just becomes water
-                if (i == pushList.Count-1)
+                
+                // skip flip on first water object cause it looks weird
+                if (i == 0)
                 {
+                    // fetch flipper
                     ObjectSpriteSwapper flipper = pushList[i].GetComponentInChildren<ObjectSpriteSwapper>();
                     if (flipper is null)
                         throw new Exception("All level objects MUST have ObjectSpriteSwapper component on a child object.");
-                    flipper.RequireFlip();
+                    flipper.SkipFlip();
                 }
-
             }
 
             // push top objects accordingly (logs and compy)
