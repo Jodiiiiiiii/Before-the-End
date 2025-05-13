@@ -37,7 +37,7 @@ public class CoastlineEnabler : MonoBehaviour
             throw new System.Exception("ALL Objects MUST be a child of a child of a panel.");
 
         // ensure proper state at start of scene
-        CheckAfterDelay();
+        StartCoroutine(DoCheckAtEndOfFrame());
     }
 
     private void OnEnable()
@@ -54,7 +54,16 @@ public class CoastlineEnabler : MonoBehaviour
 
     private void CheckAfterDelay()
     {
+        StopAllCoroutines();
+
         StartCoroutine(DoCheckAfterDelay());
+    }
+
+    private IEnumerator DoCheckAtEndOfFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        UpdateLogic();
     }
 
     private IEnumerator DoCheckAfterDelay()
