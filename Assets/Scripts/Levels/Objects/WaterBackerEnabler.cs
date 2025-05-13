@@ -24,12 +24,12 @@ public class WaterBackerEnabler : MonoBehaviour
     void Update()
     {
         // don't set enabled state every frame, so use a local bool buffer
-        if (!_isWaterBacker && _objState.ObjData.ObjType == ObjectType.Water && (_objState.ObjData.WaterHasLog || _objState.ObjData.WaterHasRock))
+        if (!_isWaterBacker && _objState.ObjData.ObjType == ObjectType.Water /*&& (_objState.ObjData.WaterHasLog || _objState.ObjData.WaterHasRock)*/)
         {
             _renderer.enabled = true;
             _isWaterBacker = true;
         }
-        else if (_isWaterBacker && (_objState.ObjData.ObjType != ObjectType.Water || (!_objState.ObjData.WaterHasLog && !_objState.ObjData.WaterHasRock)))
+        else if (_isWaterBacker && (_objState.ObjData.ObjType != ObjectType.Water /*|| (!_objState.ObjData.WaterHasLog && !_objState.ObjData.WaterHasRock)*/))
         {
             _renderer.enabled = false;
             _isWaterBacker = false;
