@@ -54,6 +54,7 @@ public class CoastlineEnabler : MonoBehaviour
 
     private void CheckAfterDelay()
     {
+        // prevents desync while quickly undoing
         StopAllCoroutines();
 
         StartCoroutine(DoCheckAfterDelay());
