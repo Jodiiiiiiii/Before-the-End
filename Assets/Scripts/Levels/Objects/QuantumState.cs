@@ -240,7 +240,15 @@ public class QuantumState : MonoBehaviour
 
         // ENSURE VISUAL FLIP (even if no change occurred)
         for (int i = 0; i < hiddenList.Count; i++)
+        {
             hiddenList[i]._spriteSwapper.RequireFlip();
+
+            // ensure quantum entangled objects also ALWAYS flip as well
+            // this extra computation cannot be avoided with flip logic about in entangle logic due to the nature of the randomization algorithm
+            Vector2Int objPos = hiddenList[i].ObjMover.GetGlobalGridPos();
+            QuantumState entangledObj = VisibilityChecks.GetObjectAtPos(hiddenList[i].ObjMover, objPos.x, objPos.y);
+            entangledObj._spriteSwapper.RequireFlip();
+        }
     }
     #endregion
 }
