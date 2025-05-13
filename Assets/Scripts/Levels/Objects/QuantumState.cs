@@ -185,6 +185,7 @@ public class QuantumState : MonoBehaviour
                 entangledObj1.transform.parent = entangledPanelParent.GetChild(1); // assign entangled object to upper objects
 
                 entangledObj1.ObjMover.SetGlobalGoal(obj2Pos.x, obj2Pos.y);
+                entangledObj1.ObjMover.SnapToGoal();
                 entangledObj1._spriteSwapper.RequireFlip();
             }
             if(entangledSwap2)
@@ -194,6 +195,7 @@ public class QuantumState : MonoBehaviour
                 entangledObj2.transform.parent = entangledPanelParent.GetChild(1); // assign entangled object to upper objects
 
                 entangledObj2.ObjMover.SetGlobalGoal(obj1Pos.x, obj1Pos.y);
+                entangledObj1.ObjMover.SnapToGoal();
                 entangledObj2._spriteSwapper.RequireFlip();
             }
 
