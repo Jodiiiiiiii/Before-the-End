@@ -28459,6 +28459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _counterText: {fileID: 1009183144}
+  _completionistColor: {r: 1, g: 0.8352941, b: 0.25490198, a: 1}
 --- !u!1001 &610556341
 PrefabInstance:
   m_ObjectHideFlags: 0

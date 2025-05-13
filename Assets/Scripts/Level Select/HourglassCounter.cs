@@ -10,6 +10,8 @@ public class HourglassCounter : MonoBehaviour
 {
     [SerializeField, Tooltip("Used to update text value on awake.")]
     private TextMeshProUGUI _counterText;
+    [SerializeField, Tooltip("Color to indicate all levels complete.")]
+    private Color _completionistColor;
 
     private void Awake()
     {
@@ -23,5 +25,9 @@ public class HourglassCounter : MonoBehaviour
         }
 
         _counterText.text = "" + count;
+
+        // text color swap at 100% completion of game
+        if (count >= 70)
+            _counterText.color = _completionistColor;
     }
 }
