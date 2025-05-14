@@ -11564,7 +11564,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1294298209}
   - component: {fileID: 1294298211}
-  - component: {fileID: 1294298210}
   m_Layer: 0
   m_Name: Stego
   m_TagString: Untagged
@@ -11587,24 +11586,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1771911692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1294298210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294298208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c6cf7c562aa6fc4f8ca79074229dfd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsAnimated: 1
-  _sprites:
-  - {fileID: 1776261479, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
-  - {fileID: -125612406, guid: 3a67ed58a96bb1740aaa03d902f196ff, type: 3}
-  _renderer: {fileID: 1294298211}
-  _img: {fileID: 0}
 --- !u!212 &1294298211
 SpriteRenderer:
   m_ObjectHideFlags: 0
