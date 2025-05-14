@@ -425,6 +425,10 @@ public class PlayerControls : MonoBehaviour
             return;
         }
 
+        // also cancel ability preparing so the UI stops blinking
+        _isPreparingAbility = false;
+        _abilityIndicator.SetAbilityActive(false);
+
         // swap SFX
         AudioManager.Instance.PlaySwap();
 
