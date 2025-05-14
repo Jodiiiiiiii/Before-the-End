@@ -33,9 +33,9 @@ public abstract class UndoHandler : MonoBehaviour
 
             // undo SFX - only play on actual undo not just on attempt
             AudioManager.Instance.PlayRewind();
-        }
 
-        UndoOccur?.Invoke();
+            UndoOccur?.Invoke();
+        }
     }
 
     [SerializeField, Tooltip("Mover component; handles position changes")] 

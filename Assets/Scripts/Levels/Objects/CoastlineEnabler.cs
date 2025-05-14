@@ -54,8 +54,13 @@ public class CoastlineEnabler : MonoBehaviour
 
     private void CheckAfterDelay()
     {
-        // prevents desync while quickly undoing
-        StopAllCoroutines();
+        // objects NOT on panels can still update while undoing - this prevents desync from quantum swapping
+        // water within panels will NOT continue updating during undo because panel desync issue would otherwise cause misalignment during undo process
+        //
+        // Remaining Issue: quantum swapped objects within panels - this is edge case enough that it is fine.
+        // this bug is too closely tied to the panel desync bug that its better to just mostly solve it as is done here.
+        if (_state.transform.parent.parent.name != "Main Panel")
+            StopAllCoroutines();
 
         StartCoroutine(DoCheckAfterDelay());
     }
