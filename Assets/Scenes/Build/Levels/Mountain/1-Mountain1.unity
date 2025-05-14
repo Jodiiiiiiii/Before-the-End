@@ -806,6 +806,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2493005649026102340, guid: 497846f7eff4b6a43a9638b44afdfeb6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560274317590086892, guid: 497846f7eff4b6a43a9638b44afdfeb6, type: 3}
+      propertyPath: _isQuantum
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9158811200749908527, guid: 497846f7eff4b6a43a9638b44afdfeb6, type: 3}
       propertyPath: m_Name
       value: Water (1)
@@ -7284,7 +7292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: _dinoCharges.Array.data[0]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7912740987181518326, guid: 7c9d498892fb8934f872611769d6f17a, type: 3}
       propertyPath: _dinoCharges.Array.data[1]
