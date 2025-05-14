@@ -412,13 +412,18 @@ public class PlayerControls : MonoBehaviour
         if (GameManager.Instance.IsPaused || SceneTransitionHandler.IsTransitioningOut)
             return;
 
-        // CANNOT swap dino type while swimming (must leave water first)
-        if (IsSwimming)
-            return;
-
         // cannot swap dino type during undo
         if (_isUndoing)
             return;
+
+        // CANNOT swap dino type while swimming (must leave water first)
+        if (IsSwimming)
+        {
+            // indicate that the player cannot swap dino while swimming
+            AbilityFailureVFXManager.PlayFailureVFX(_mover.GetGlobalGridPos());
+
+            return;
+        }
 
         // swap SFX
         AudioManager.Instance.PlaySwap();
