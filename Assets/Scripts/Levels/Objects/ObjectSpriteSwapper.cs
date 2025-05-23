@@ -138,6 +138,10 @@ public class ObjectSpriteSwapper : MonoBehaviour
             // EXIT: Ready to restore sprite to normal
             if (_flipper.GetCurrentScaleY() == SPRITE_SHRINK)
             {
+                // to ensure no frame-perfect desync caused by state changes while at exact shrink scale of 0
+                // THIS IS A POTENTIAL SOLUTION TO THE GHOST OBJECT MISALIGNMENT BUG
+                UpdateQueuedSprites();
+
                 MatchObjectToQueue();
 
                 break; // end while loop, sprite has been shrinked and then swapped
