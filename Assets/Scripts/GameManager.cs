@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
         SfxVolume = PlayerPrefs.GetInt("sfxVolume", 100);
 
         // Read progression data
-        string path = Application.persistentDataPath + "\\ProgressionData.json";
+        string path = Application.persistentDataPath + "/ProgressionData.json";
         if (File.Exists(path))
         {
             // read json file into data object
@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
 
         // PROGRESSION DATA - .json file
         string json = JsonUtility.ToJson(SaveData);
-        File.WriteAllText(Application.persistentDataPath + "\\ProgressionData.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/ProgressionData.json", json);
     }
 
     #region Save Data Getters/Setters
