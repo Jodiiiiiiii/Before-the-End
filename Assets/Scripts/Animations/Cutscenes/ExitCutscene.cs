@@ -15,12 +15,18 @@ public class ExitCutscene : MonoBehaviour
 
     public void ReturnToLevelSelect()
     {
+        // Steam Achievement - Cutscene 1
+        Steamworks.SteamUserStats.SetAchievement("VISION_CUTSCENE");
+
         // does not use scene transitions handler since cutscene already ends at full faded out color
         _transitionHandler.LoadScene(_levelSelectName);
     }
 
     public void RewindCutsceneTransitionOut()
     {
+        // Steam Achievement - Cutscene 2
+        Steamworks.SteamUserStats.SetAchievement("REWIND_CUTSCENE");
+
         // return to start of second timeline
         GameManager.Instance.SaveData.CurrLevel = "Tut0";
         GameManager.Instance.SaveData.isSecondTimeline = true;
@@ -33,6 +39,9 @@ public class ExitCutscene : MonoBehaviour
 
     public void ToCredits()
     {
+        // Steam Achievement - Cutscene 3
+        Steamworks.SteamUserStats.SetAchievement("END_CUTSCENE");
+
         // load to end credits
         _transitionHandler.LoadScene("EndCredits");
     }
