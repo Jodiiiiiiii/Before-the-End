@@ -38899,11 +38899,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: LevelIdentifiers.Array.data[1]
-      value: Val1
+      value: Val0
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: LevelIdentifiers.Array.data[2]
-      value: Val2
+      value: Val1
       objectReference: {fileID: 0}
     - target: {fileID: 4456388825952315612, guid: 977b525d65f693d4eada66c6c7ec566a, type: 3}
       propertyPath: NodeConnections.Array.data[0].Dir
