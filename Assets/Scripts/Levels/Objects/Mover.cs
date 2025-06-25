@@ -37,7 +37,7 @@ public class Mover : MonoBehaviour
         // TODO: May have unusual edge cases when still lerping (not stationary) and panels are moved
         // Determine if there is a discongruence between global/actual global positions (panel dragging)
         Vector2Int actualGlobalPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-        if(IsStationary() && _globalGridPos != actualGlobalPos)
+        if(IsLocalStationary() && _globalGridPos != actualGlobalPos)
         {
             // determine changes
             int xDiff = actualGlobalPos.x - _globalGridPos.x;
@@ -138,9 +138,23 @@ public class Mover : MonoBehaviour
 
     /// <summary>
     /// Indicates if object is exactly at goal position.
-    /// Useful to restrict movement actions until the previous action has complete
+    /// Useful to restrict movement actions until the previous action has complete.
+    /// Requires object to be stationary locally AND globally.
+    /// Used to prevent player movement inputs while positions may be in indeterminate states.
     /// </summary>
     public bool IsStationary()
+    {
+        Vector2 currLocalPos = new Vector2(transform.localPosition.x, transform.localPosition.y);
+        Vector2 currGlobalPos = new Vector2(transform.position.x, transform.position.y);
+        return currLocalPos == _localGridPos && currGlobalPos == _globalGridPos;
+    }
+
+    /// <summary>
+    /// Indicates if an object is exactly stationary relative to its parent (IGNORES GLOBAL POSITION).
+    /// This prevents panels which are being pushed from having their position 'reverted' in the update logic above.
+    /// However, that logic is still necessary for updating the positions of objects WITHIN panels.
+    /// </summary>
+    public bool IsLocalStationary()
     {
         Vector2 currLocalPos = new Vector2(transform.localPosition.x, transform.localPosition.y);
         return currLocalPos == _localGridPos;
