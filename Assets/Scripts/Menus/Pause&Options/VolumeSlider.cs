@@ -120,12 +120,12 @@ public class VolumeSlider : MonoBehaviour
     /// </summary>
     public void ResetDefault()
     {
-        // music volume is at 80% by default
+        // music volume is at 50% by default
         if (_isMusicVolume)
         {
-            _volumeSlider.SetValueWithoutNotify(0.8f);
-            _volumeInput.SetTextWithoutNotify("80");
-            UpdateVolume(80);
+            _volumeSlider.SetValueWithoutNotify(0.5f);
+            _volumeInput.SetTextWithoutNotify("50");
+            UpdateVolume(50);
         }
         // all others at 100% by default
         else
