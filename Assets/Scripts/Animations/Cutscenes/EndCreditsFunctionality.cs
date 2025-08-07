@@ -13,7 +13,7 @@ public class EndCreditsFunctionality : MonoBehaviour
     public void PlayCreditsMusic()
     {
         // queue track
-        AudioManager.Instance.QueueCreditsMusic();
+        AudioManager.Instance.QueueCreditsMusic(false);
     }
 
     public void CutMusic()
