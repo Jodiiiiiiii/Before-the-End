@@ -926,8 +926,11 @@ public class PlayerControls : MonoBehaviour
         if (count >= 70)
         {
             // Steam Achievement - Completionist
-            Steamworks.SteamUserStats.SetAchievement("COMPLETIONIST");
-            Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+            if (SteamManager.Initialized)
+            {
+                Steamworks.SteamUserStats.SetAchievement("COMPLETIONIST");
+                Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+            }
 
             // trying it here instead of in HourglassCounter due to potential issues with granting achievements in start
         }

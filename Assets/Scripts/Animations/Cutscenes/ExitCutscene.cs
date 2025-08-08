@@ -15,9 +15,12 @@ public class ExitCutscene : MonoBehaviour
 
     public void ReturnToLevelSelect()
     {
-        // Steam Achievement - Cutscene 1
-        Steamworks.SteamUserStats.SetAchievement("VISION_CUTSCENE");
-        Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+        if (SteamManager.Initialized)
+        {
+            // Steam Achievement - Cutscene 1
+            Steamworks.SteamUserStats.SetAchievement("VISION_CUTSCENE");
+            Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+        }
 
         // does not use scene transitions handler since cutscene already ends at full faded out color
         _transitionHandler.LoadScene(_levelSelectName);
@@ -25,9 +28,12 @@ public class ExitCutscene : MonoBehaviour
 
     public void RewindCutsceneTransitionOut()
     {
-        // Steam Achievement - Cutscene 2
-        Steamworks.SteamUserStats.SetAchievement("REWIND_CUTSCENE");
-        Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+        if (SteamManager.Initialized)
+        {
+            // Steam Achievement - Cutscene 2
+            Steamworks.SteamUserStats.SetAchievement("REWIND_CUTSCENE");
+            Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+        }
 
         // return to start of second timeline
         GameManager.Instance.SaveData.CurrLevel = "Tut0";
@@ -41,9 +47,12 @@ public class ExitCutscene : MonoBehaviour
 
     public void ToCredits()
     {
-        // Steam Achievement - Cutscene 3
-        Steamworks.SteamUserStats.SetAchievement("END_CUTSCENE");
-        Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+        if (SteamManager.Initialized)
+        {
+            // Steam Achievement - Cutscene 3
+            Steamworks.SteamUserStats.SetAchievement("END_CUTSCENE");
+            Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+        }
 
         // load to end credits
         _transitionHandler.LoadScene("EndCredits");
