@@ -54,8 +54,14 @@ public class AudioManager : MonoBehaviour
     #region Music
     private AudioClip _startMusic;
 
-    private AudioClip _levelMusic1;
-    private AudioClip _levelMusic2;
+    private AudioClip _forestMusic1;
+    private AudioClip _forestMusic2;
+    private AudioClip _mountainMusic1;
+    private AudioClip _mountainMusic2;
+    private AudioClip _swampMusic1;
+    private AudioClip _swampMusic2;
+    private AudioClip _fireMusic1;
+    private AudioClip _fireMusic2;
 
     private AudioClip _plainsAmbient;
     private AudioClip _mountainsAmbient;
@@ -66,14 +72,21 @@ public class AudioManager : MonoBehaviour
     private AudioClip _beachAmbient;
     private AudioClip _fireAmbient;
 
-    private AudioClip _creditsMusic;
+    private AudioClip _creditsMusic1;
+    private AudioClip _creditsMusic2;
 
     private void LoadMusic()
     {
         _startMusic = Resources.Load<AudioClip>("Music/StartTrack");
 
-        _levelMusic1 = Resources.Load<AudioClip>("Music/LevelTrack1");
-        _levelMusic2 = Resources.Load<AudioClip>("Music/LevelTrack2");
+        _forestMusic1 = Resources.Load<AudioClip>("Music/ForestMusic");
+        _forestMusic2 = Resources.Load<AudioClip>("Music/ForestMusicDrums");
+        _mountainMusic1 = Resources.Load<AudioClip>("Music/MountainMusic");
+        _mountainMusic2 = Resources.Load<AudioClip>("Music/MountainMusicDrums");
+        _swampMusic1 = Resources.Load<AudioClip>("Music/SwampMusic");
+        _swampMusic2 = Resources.Load<AudioClip>("Music/SwampMusicDrums");
+        _fireMusic1 = Resources.Load<AudioClip>("Music/FireMusic");
+        _fireMusic2 = Resources.Load<AudioClip>("Music/FireMusicDrums");
 
         _plainsAmbient = Resources.Load<AudioClip>("Music/PlainsAmbient");
         _mountainsAmbient = Resources.Load<AudioClip>("Music/MountainAmbient");
@@ -84,7 +97,8 @@ public class AudioManager : MonoBehaviour
         _beachAmbient = Resources.Load<AudioClip>("Music/BeachAmbient");
         _fireAmbient = Resources.Load<AudioClip>("Music/FireAmbient");
 
-        _creditsMusic = Resources.Load<AudioClip>("Music/CreditsTrack");
+        _creditsMusic1 = Resources.Load<AudioClip>("Music/CreditsMusic");
+        _creditsMusic2 = Resources.Load<AudioClip>("Music/CreditsMusicDrums");
 
         // the only clip this audio source plays
         _levelFireSource.clip = _fireAmbient;
@@ -111,14 +125,24 @@ public class AudioManager : MonoBehaviour
         QueueTrack(_startMusic);
     }
 
-    public void QueueLevelMusic1()
+    public void QueueForestMusic(bool drums)
     {
-        QueueTrack(_levelMusic1);
+        QueueTrack(drums ? _forestMusic2 : _forestMusic1);
     }
 
-    public void QueueLevelMusic2()
+    public void QueueMountainMusic(bool drums)
     {
-        QueueTrack(_levelMusic2);
+        QueueTrack(drums ? _mountainMusic2 : _mountainMusic1);
+    }
+
+    public void QueueSwampMusic(bool drums)
+    {
+        QueueTrack(drums ? _swampMusic2 : _swampMusic1);
+    }
+
+    public void QueueFireMusic(bool drums)
+    {
+        QueueTrack(drums ? _fireMusic2 : _fireMusic1);
     }
 
     public void QueuePlainsAmbient()
@@ -161,9 +185,9 @@ public class AudioManager : MonoBehaviour
         QueueTrack(_fireAmbient);
     }
 
-    public void QueueCreditsMusic()
+    public void QueueCreditsMusic(bool drums)
     {
-        QueueTrack(_creditsMusic);
+        QueueTrack(drums ? _creditsMusic2 : _creditsMusic1);
     }
 
     private const float VOLUME_CHANGE_RATE = 1.25f;  // rate at which volume fades & increases back when switching track

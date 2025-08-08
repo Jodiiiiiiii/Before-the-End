@@ -90,6 +90,10 @@ public class PlayerControls : MonoBehaviour
         _actions.actionMaps[0].FindAction("FadePanels").started += FadePanels;
         _actions.actionMaps[0].FindAction("FadePanels").canceled += FadePanels;
 
+        // quick reset/exit
+        _actions.actionMaps[0].FindAction("QuickRestart").started += QuickReset;
+        _actions.actionMaps[0].FindAction("QuickExit").started += QuickExit;
+
         _actions.actionMaps[0].Enable();
     }
 
@@ -126,6 +130,10 @@ public class PlayerControls : MonoBehaviour
         // remove fading panels binding
         _actions.actionMaps[0].FindAction("FadePanels").started -= FadePanels;
         _actions.actionMaps[0].FindAction("FadePanels").canceled -= FadePanels;
+
+        // remove quick reset/exit bindings
+        _actions.actionMaps[0].FindAction("QuickRestart").started -= QuickReset;
+        _actions.actionMaps[0].FindAction("QuickExit").started -= QuickExit;
 
         // disable player actions altogether
         _actions.actionMaps[0].Disable();
@@ -910,5 +918,24 @@ public class PlayerControls : MonoBehaviour
         // laod scene
         _transitionHandler.LoadScene(_levelSelectSceneName);
     }
+
+    private void QuickReset(InputAction.CallbackContext context)
+    {
+        // don't do it again if already loading new scene
+        if (SceneTransitionHandler.IsTransitioningOut)
+            return;
+
+        _transitionHandler.ReloadCurrentScene();
+    }
+
+    public void QuickExit(InputAction.CallbackContext context)
+    {
+        // don't do it again if already loading new scene
+        if (SceneTransitionHandler.IsTransitioningOut)
+            return;
+
+        // determination of timeline handled within SceneTransitionHandler
+        _transitionHandler.LoadScene("LevelSelect");
+    }
     #endregion
-}
+    }
