@@ -188,6 +188,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickRestart"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fddb406-5719-46b0-9e20-d1ab8b82096a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuickExit"",
+                    ""type"": ""Button"",
+                    ""id"": ""e29f3db4-f425-455c-9f63-d2188af7db14"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -573,6 +591,50 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Help"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9910b48e-9366-4484-b395-990c3715aaa5"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""QuickRestart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""408e8a2e-74d6-475a-968c-40cb7a39e2a9"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""QuickRestart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e67f2508-b17c-4371-b36d-b4e02c420ed5"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""QuickExit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef94245a-89c4-4c99-aeae-ed8d4cb83857"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""QuickExit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1178,6 +1240,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_FadePanels = m_Player.FindAction("FadePanels", throwIfNotFound: true);
         m_Player_Help = m_Player.FindAction("Help", throwIfNotFound: true);
+        m_Player_QuickRestart = m_Player.FindAction("QuickRestart", throwIfNotFound: true);
+        m_Player_QuickExit = m_Player.FindAction("QuickExit", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1275,6 +1339,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_FadePanels;
     private readonly InputAction m_Player_Help;
+    private readonly InputAction m_Player_QuickRestart;
+    private readonly InputAction m_Player_QuickExit;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1297,6 +1363,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @FadePanels => m_Wrapper.m_Player_FadePanels;
         public InputAction @Help => m_Wrapper.m_Player_Help;
+        public InputAction @QuickRestart => m_Wrapper.m_Player_QuickRestart;
+        public InputAction @QuickExit => m_Wrapper.m_Player_QuickExit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1360,6 +1428,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Help.started += instance.OnHelp;
             @Help.performed += instance.OnHelp;
             @Help.canceled += instance.OnHelp;
+            @QuickRestart.started += instance.OnQuickRestart;
+            @QuickRestart.performed += instance.OnQuickRestart;
+            @QuickRestart.canceled += instance.OnQuickRestart;
+            @QuickExit.started += instance.OnQuickExit;
+            @QuickExit.performed += instance.OnQuickExit;
+            @QuickExit.canceled += instance.OnQuickExit;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1418,6 +1492,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Help.started -= instance.OnHelp;
             @Help.performed -= instance.OnHelp;
             @Help.canceled -= instance.OnHelp;
+            @QuickRestart.started -= instance.OnQuickRestart;
+            @QuickRestart.performed -= instance.OnQuickRestart;
+            @QuickRestart.canceled -= instance.OnQuickRestart;
+            @QuickExit.started -= instance.OnQuickExit;
+            @QuickExit.performed -= instance.OnQuickExit;
+            @QuickExit.canceled -= instance.OnQuickExit;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1618,6 +1698,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnFadePanels(InputAction.CallbackContext context);
         void OnHelp(InputAction.CallbackContext context);
+        void OnQuickRestart(InputAction.CallbackContext context);
+        void OnQuickExit(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

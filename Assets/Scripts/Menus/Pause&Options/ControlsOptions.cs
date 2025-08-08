@@ -72,6 +72,9 @@ public class ControlsOptions : MonoBehaviour
         _displayTexts[controlToReset].text =
         //        _actionReferences[controlToReset].action.GetBindingDisplayString(0, InputBinding.DisplayStringOptions.DontIncludeInteractions);
             InputSystem.actions.FindAction(actionToReset).GetBindingDisplayString(0, InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        // update string if empty default binding
+        if (_displayTexts[controlToReset].text == "")
+            _displayTexts[controlToReset].text = "--";
 
         // update alt binding text
         _altDisplayTexts[controlToReset].text =
@@ -82,8 +85,9 @@ public class ControlsOptions : MonoBehaviour
             _altDisplayTexts[controlToReset].text = "--";
 
         // check for duplicate bindings
-        DuplicateBindingCheck(controlToReset, false);
-        if (_altDisplayTexts[controlToReset].text != "--") // only check alt if default is NOT empty
+        if (_displayTexts[controlToReset].text != "--")     // only check if default is NOT empty (prevent unncessary computation)
+            DuplicateBindingCheck(controlToReset, false);
+        if (_altDisplayTexts[controlToReset].text != "--")  // only check alt if default is NOT empty
             DuplicateBindingCheck(controlToReset, true);
     }
 
