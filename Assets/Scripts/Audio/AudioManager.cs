@@ -97,8 +97,8 @@ public class AudioManager : MonoBehaviour
         _beachAmbient = Resources.Load<AudioClip>("Music/BeachAmbient");
         _fireAmbient = Resources.Load<AudioClip>("Music/FireAmbient");
 
-        _creditsMusic1 = Resources.Load<AudioClip>("Music/CreditsTrack");
-        _creditsMusic2 = Resources.Load<AudioClip>("Music/CreditsTrackDrums");
+        _creditsMusic1 = Resources.Load<AudioClip>("Music/CreditsMusic");
+        _creditsMusic2 = Resources.Load<AudioClip>("Music/CreditsMusicDrums");
 
         // the only clip this audio source plays
         _levelFireSource.clip = _fireAmbient;
