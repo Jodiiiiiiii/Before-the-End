@@ -23,21 +23,21 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -2500
+        value: -2950
         inSlope: 3.763984
-        outSlope: 3.763984
-        tangentMode: 0
+        outSlope: 99.964554
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.22857144
       - serializedVersion: 3
-        time: 61
-        value: 7000
-        inSlope: 178.77765
-        outSlope: 178.77765
-        tangentMode: 0
+        time: 94.03333
+        value: 6450
+        inSlope: 99.964554
+        outSlope: 0
+        tangentMode: 69
         weightedMode: 0
-        inWeight: 0.16428575
+        inWeight: 0.33333334
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -70,7 +70,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 67
+    m_StopTime: 99.98333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -92,21 +92,21 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -2500
+        value: -2950
         inSlope: 3.763984
-        outSlope: 3.763984
-        tangentMode: 0
+        outSlope: 99.964554
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.22857144
       - serializedVersion: 3
-        time: 61
-        value: 7000
-        inSlope: 178.77765
-        outSlope: 178.77765
-        tangentMode: 0
+        time: 94.03333
+        value: 6450
+        inSlope: 99.964554
+        outSlope: 0
+        tangentMode: 69
         weightedMode: 0
-        inWeight: 0.16428575
+        inWeight: 0.33333334
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -127,14 +127,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 60.5
+  - time: 94.53333
     functionName: CutMusic
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 67
+  - time: 99.98333
     functionName: TransitionOut
     data: 
     objectReferenceParameter: {fileID: 0}
