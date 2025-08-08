@@ -43,6 +43,15 @@ public class SceneTransitionHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// Reloads currently active scene.
+    /// Useful for quickly reloading a level to its original state.
+    /// </summary>
+    public void ReloadCurrentScene()
+    {
+        LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>
     /// Handles waiting until animation completes before actually transitioning scenes
     /// </summary>
     private IEnumerator DoTransition(string sceneName)
