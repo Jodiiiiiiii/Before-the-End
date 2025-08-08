@@ -13,7 +13,7 @@ public class HourglassCounter : MonoBehaviour
     [SerializeField, Tooltip("Color to indicate all levels complete.")]
     private Color _completionistColor;
 
-    private void Awake()
+    private void Start()
     {
         // only track newer saved level identifiers (ignoring old format if they persist in save data)
         int count = 0;
