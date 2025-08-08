@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
                 // ensure default values are loaded/read on start NO MATTER WHAT
                 // important for editor since the actual json data is never read in a level scene which interferes with playerPref initialization
                 _instance.InitializeSaveData();
+
+                // ensure achievements will work
+                Steamworks.SteamUserStats.RequestCurrentStats();
             }
             // return new/existing instance
             return _instance;
