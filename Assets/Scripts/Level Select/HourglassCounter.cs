@@ -28,13 +28,6 @@ public class HourglassCounter : MonoBehaviour
 
         // text color swap at 100% completion of game
         if (count >= 70)
-        {
             _counterText.color = _completionistColor;
-
-            // Steam Achievement - Completionist
-            Steamworks.SteamUserStats.SetAchievement("COMPLETIONIST");
-            Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
-        }
     }
-
 }

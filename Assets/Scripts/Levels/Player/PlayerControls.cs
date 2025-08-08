@@ -915,6 +915,23 @@ public class PlayerControls : MonoBehaviour
         // mark level as complete for progression
         GameManager.Instance.LevelComplete();
 
+        // determine total levels beaten so far
+        int count = 0;
+        foreach (string str in GameManager.Instance.SaveData.LevelsComplete)
+        {
+            char[] arr = str.ToCharArray();
+            if (arr.Length > 1 && (arr[0] == '1' || arr[0] == '2') && arr[1] == '-')
+                count++;
+        }
+        if (count >= 70)
+        {
+            // Steam Achievement - Completionist
+            Steamworks.SteamUserStats.SetAchievement("COMPLETIONIST");
+            Steamworks.SteamUserStats.StoreStats(); // ensure popup comes up right away
+
+            // trying it here instead of in HourglassCounter due to potential issues with granting achievements in start
+        }
+
         // laod scene
         _transitionHandler.LoadScene(_levelSelectSceneName);
     }
